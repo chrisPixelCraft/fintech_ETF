@@ -1,0 +1,14 @@
+{
+  "metrics.json": "e19a3d392952f9f62f8c7e288c6610687319f29bf15f47b7b850cd3ce26c97bb",
+  "equity.csv": "b1d2a362f1b748d463622a3a90e0f76c434248ca5b9b3dbdcce8b04676fabc95",
+  "config.json": "6c1c41a37cec2c4e2c41c6f4804fc88c3d28dad73fd0eec2e7e91118166f2aa0",
+  "trades.csv": "762e56ad4b1b48c36abf89436c039e0004e57b7d05c14b30aeaf48e533e1c5c0",
+  "warnings.csv": "35cf50283e9f0ee4fd21c62bfa57e2e3fda87c328e8a053a623128450445e9cd",
+  "plan_audit.csv": "1d06a8924e601552c1e1c73dd60f77ccd28648dcd4d672491f69dbbfdd31341f",
+  "orders.csv": "4e3a564a6ea84d539756c04a255d2a1874ce8551211828aed7ff537f2d3976ba",
+  "holdings.csv": "1cee40608df2f9a268f071c9b253e1bd9495082e9ca47bc1c0b1df98ed3d8cef",
+  "compliance_daily.csv": "55d80cb27f3b4b1841e3d89e70df3bb01392be45993be56f238534c70c3eb177",
+  "independent_audit.json": "64c80cd058f48f99f21243419b58f328fb11466165b14d797b343395024b9f93",
+  "rejected_trades.csv": "fe62804b4477c2dd633d04eb804d6d65b13e9f75fcb4d7521ee736a9c8048335",
+  "snapshots.csv": "fd2b635ad4e0731d2ce6146be23fafe43033708adb5fba5bc6d791e6167a7f8c"
+}

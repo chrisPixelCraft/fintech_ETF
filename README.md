@@ -19,6 +19,8 @@ v2 與 v1 使用官方事後股票池，0050 是同期間 ETF 基準。下表採
 
 一個月持有期另完成 88 次回放：月度目標候選 `x0454` 全期報酬為 **283.44%**，未勝過 `x0352`。官方事後池的 20 個重新建倉窗口，兩者分別通過 18 個與 15 個，不能宣稱任意起點都逐日合格。逐月報酬、10/26–11/27 歷史類比與 2010–2024 共 180 月的資料缺口見[月度比較報告](reports/monthly_horizon_report.md)；本輪維持 `x0352` 研究入口與正式提交阻擋。
 
+最新單月擴搜新增 **72 組參數、665 次回放**。7 組通過全部 11 個訓練窗口，選出的固定候選 `mx0010` 訓練窗報酬中位數 **6.69%**、最差 **-17.99%**。它在兩池各通過 19/20 個冷啟動窗口，但兩池的全期診斷及 2026-07 窗口未通過研究門檻，因此**不替換 `x0352`**。參數差異、逐月比較與失敗原因見[單月擴搜報告](reports/monthly_expansion_report.md)；結果不代表每月最佳或官方合規認證。
+
 ## 安裝與驗證
 
 使用 Python 3.10：
@@ -47,6 +49,7 @@ python v2_double_check_structural.py --track official_ex_post --output outputs/m
 | 第四輪績效、年度比較與限制 | [結構搜尋結果](reports/v2_double_check_structural_report.md) |
 | 2010–2024 年逐年報酬可行性 | [年度查核報告](reports/x0352_2010_2024_report.md) |
 | 一個月持有期、逐月報酬與缺口 | [月度比較報告](reports/monthly_horizon_report.md) |
+| 最新 72 組單月參數搜尋與採用判定 | [單月擴搜報告](reports/monthly_expansion_report.md)／[獨立稽核](outputs/monthly_expansion_20260923/audit.json) |
 | 月策略的文獻與有限比較設計 | [研究依據](docs/monthly_strategy_research.md)／[實驗規格](docs/monthly_strategy_protocol.md) |
 | 官方規則逐條核對及阻斷項 | [規則表](docs/v2_double_check_rules.md) |
 | 81 組局部網格及停損規格 | [結構搜尋規格](docs/v2_double_check_structural_protocol.md) |
