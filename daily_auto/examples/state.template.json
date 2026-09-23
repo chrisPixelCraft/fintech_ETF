@@ -1,0 +1,54 @@
+{
+  "state_version": "1.0",
+  "data_mode": "TEMPLATE",
+  "team_id": "REPLACE_WITH_REAL_TEAM_ID",
+  "as_of": null,
+  "known_at": null,
+  "cash": null,
+  "nav": null,
+  "dividend_receivable": "0",
+  "holdings": [],
+  "closes": [],
+  "calendar": {
+    "trade_date": null,
+    "previous_session": null,
+    "sessions": [],
+    "is_trading_day": null,
+    "known_at": null,
+    "authority": "twse",
+    "source_url": null,
+    "sha256": null
+  },
+  "whitelist": {
+    "tickers": [],
+    "effective_from": null,
+    "known_at": null,
+    "authority": "organizer",
+    "source_url": null,
+    "sha256": null
+  },
+  "ledger_provenance": {
+    "origin": "UNKNOWN",
+    "reconciled": false,
+    "known_at": null,
+    "authority": "organizer",
+    "source_url": null,
+    "sha256": null
+  },
+  "corporate_actions": {
+    "trade_date": null,
+    "status": "UNKNOWN",
+    "known_at": null,
+    "authority": "twse",
+    "source_url": null,
+    "sha256": null
+  },
+  "active_share": {
+    "status": "UNKNOWN",
+    "method": null,
+    "method_confirmation": null,
+    "reference_list": null,
+    "etfs": [],
+    "previous_results": []
+  }
+}

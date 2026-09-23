@@ -1,0 +1,1560 @@
+{
+  "state_version": "1.0",
+  "data_mode": "HISTORICAL_REPLAY",
+  "team_id": "RESEARCH_ONLY",
+  "as_of": "2026-09-21",
+  "known_at": "2026-09-22T14:53:39+08:00",
+  "cash": "1000000000",
+  "nav": "1000000000",
+  "dividend_receivable": "0",
+  "holdings": [],
+  "closes": [
+    {
+      "ticker": "2330",
+      "close": "2480.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2883",
+      "close": "40.45000076293945",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2454",
+      "close": "5010.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "3443",
+      "close": "7615.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2308",
+      "close": "1875.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "3653",
+      "close": "5790.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2317",
+      "close": "250.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2395",
+      "close": "706.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "3711",
+      "close": "663.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2301",
+      "close": "288.5",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2881",
+      "close": "154.5",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "6446",
+      "close": "1150.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2383",
+      "close": "4895.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "4958",
+      "close": "470.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2303",
+      "close": "157.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2603",
+      "close": "242.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2882",
+      "close": "113.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "5880",
+      "close": "27.200000762939453",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "3037",
+      "close": "1020.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "1216",
+      "close": "74.69999694824219",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2891",
+      "close": "70.4000015258789",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "3045",
+      "close": "124.5",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "1303",
+      "close": "239.5",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2368",
+      "close": "1045.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2345",
+      "close": "1840.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "3665",
+      "close": "2300.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2382",
+      "close": "344.5",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "4904",
+      "close": "106.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2408",
+      "close": "516.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "3481",
+      "close": "50.400001525878906",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "7769",
+      "close": "6000.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2379",
+      "close": "740.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2412",
+      "close": "144.5",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "1301",
+      "close": "65.19999694824219",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2327",
+      "close": "557.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "1326",
+      "close": "67.80000305175781",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "6669",
+      "close": "2150.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "3189",
+      "close": "827.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "3017",
+      "close": "3415.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "3034",
+      "close": "548.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2885",
+      "close": "70.4000015258789",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2207",
+      "close": "523.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2887",
+      "close": "43.79999923706055",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2002",
+      "close": "18.64999961853028",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2360",
+      "close": "2375.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2801",
+      "close": "28.450000762939453",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2886",
+      "close": "51.09999847412109",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2449",
+      "close": "301.5",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2059",
+      "close": "12800.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "1590",
+      "close": "1240.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "6505",
+      "close": "88.5",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "3661",
+      "close": "3665.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2884",
+      "close": "46.20000076293945",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "6770",
+      "close": "72.7",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2880",
+      "close": "46.650001525878906",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "3036",
+      "close": "206.5",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2357",
+      "close": "946.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2615",
+      "close": "117.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2890",
+      "close": "45.70000076293945",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2618",
+      "close": "41.95000076293945",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "8046",
+      "close": "1060.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2912",
+      "close": "215.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2344",
+      "close": "174.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "4938",
+      "close": "90.8000030517578",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "3231",
+      "close": "186.5",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2376",
+      "close": "368.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2892",
+      "close": "39.75",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "5876",
+      "close": "49.25",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "3008",
+      "close": "6400.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "1519",
+      "close": "718.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2356",
+      "close": "61.79999923706055",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "6415",
+      "close": "427.5",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2404",
+      "close": "1130.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "6919",
+      "close": "83.1",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "6515",
+      "close": "5795.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2324",
+      "close": "37.59999847412109",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "3533",
+      "close": "1590.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2347",
+      "close": "89.80000305175781",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2313",
+      "close": "222.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "1504",
+      "close": "69.0999984741211",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2337",
+      "close": "120.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "7750",
+      "close": "1960.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "5871",
+      "close": "110.5",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "1402",
+      "close": "27.850000381469727",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "3044",
+      "close": "524.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "1605",
+      "close": "37.1",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "3702",
+      "close": "114.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2610",
+      "close": "20.25",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "1101",
+      "close": "24.14999961853028",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "6789",
+      "close": "458.5",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2409",
+      "close": "33.349998474121094",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "1802",
+      "close": "60.1",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "6239",
+      "close": "292.5",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "8210",
+      "close": "900.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2609",
+      "close": "61.09999847412109",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2451",
+      "close": "286.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2834",
+      "close": "18.350000381469727",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2812",
+      "close": "19.200000762939453",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "6139",
+      "close": "718.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "2377",
+      "close": "153.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "5274",
+      "close": "19820.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "3491",
+      "close": "1520.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "6223",
+      "close": "5495.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "6121",
+      "close": "373.5",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "6488",
+      "close": "931.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "6548",
+      "close": "73.3",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "8299",
+      "close": "2150.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "1785",
+      "close": "97.4",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "6274",
+      "close": "1435.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "3363",
+      "close": "661.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "5347",
+      "close": "172.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "7828",
+      "close": "2040.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "3293",
+      "close": "724.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "4979",
+      "close": "618.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "8069",
+      "close": "144.5",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "6182",
+      "close": "115.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "3529",
+      "close": "2830.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "3163",
+      "close": "667.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "3081",
+      "close": "2875.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "3211",
+      "close": "387.5",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "3260",
+      "close": "389.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "4966",
+      "close": "567.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "3105",
+      "close": "490.5",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "4991",
+      "close": "498.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "5289",
+      "close": "1295.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "5903",
+      "close": "185.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "5536",
+      "close": "865.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "1815",
+      "close": "121.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "5483",
+      "close": "186.5",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "3680",
+      "close": "548.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "6147",
+      "close": "224.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "8415",
+      "close": "35.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "7734",
+      "close": "2585.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "6290",
+      "close": "281.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "6187",
+      "close": "1235.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "7751",
+      "close": "1445.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "3264",
+      "close": "284.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "6023",
+      "close": "87.9",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "3324",
+      "close": "1520.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "4772",
+      "close": "244.5",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "6510",
+      "close": "3485.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "8932",
+      "close": "94.9",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "8358",
+      "close": "491.5",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "6584",
+      "close": "560.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "3374",
+      "close": "443.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "3227",
+      "close": "184.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "3131",
+      "close": "2465.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "4123",
+      "close": "30.75",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "4749",
+      "close": "735.0",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    },
+    {
+      "ticker": "3718",
+      "close": "67.1",
+      "as_of": "2026-09-21",
+      "known_at": "2026-09-22T14:53:39+08:00",
+      "authority": "other",
+      "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+      "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+    }
+  ],
+  "calendar": {
+    "trade_date": "2026-09-22",
+    "previous_session": "2026-09-21",
+    "sessions": [
+      "2026-09-21"
+    ],
+    "is_trading_day": false,
+    "known_at": "2026-09-22T14:53:39+08:00",
+    "authority": "other",
+    "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/daily.csv",
+    "sha256": "a32676fd30cda9ec825ce6c98155c2cd447d4d9e84b5e0bb4fa87aaa031740ec"
+  },
+  "whitelist": {
+    "tickers": [
+      "2330",
+      "2883",
+      "2454",
+      "3443",
+      "2308",
+      "3653",
+      "2317",
+      "2395",
+      "3711",
+      "2301",
+      "2881",
+      "6446",
+      "2383",
+      "4958",
+      "2303",
+      "2603",
+      "2882",
+      "5880",
+      "3037",
+      "1216",
+      "2891",
+      "3045",
+      "1303",
+      "2368",
+      "2345",
+      "3665",
+      "2382",
+      "4904",
+      "2408",
+      "3481",
+      "7769",
+      "2379",
+      "2412",
+      "1301",
+      "2327",
+      "1326",
+      "6669",
+      "3189",
+      "3017",
+      "3034",
+      "2885",
+      "2207",
+      "2887",
+      "2002",
+      "2360",
+      "2801",
+      "2886",
+      "2449",
+      "2059",
+      "1590",
+      "6505",
+      "3661",
+      "2884",
+      "6770",
+      "2880",
+      "3036",
+      "2357",
+      "2615",
+      "2890",
+      "2618",
+      "8046",
+      "2912",
+      "2344",
+      "4938",
+      "3231",
+      "2376",
+      "2892",
+      "5876",
+      "3008",
+      "1519",
+      "2356",
+      "6415",
+      "2404",
+      "6919",
+      "6515",
+      "2324",
+      "3533",
+      "2347",
+      "2313",
+      "1504",
+      "2337",
+      "7750",
+      "5871",
+      "1402",
+      "3044",
+      "1605",
+      "3702",
+      "2610",
+      "1101",
+      "6789",
+      "2409",
+      "1802",
+      "6239",
+      "8210",
+      "2609",
+      "2451",
+      "2834",
+      "2812",
+      "6139",
+      "2377",
+      "5274",
+      "3491",
+      "6223",
+      "6121",
+      "6488",
+      "6548",
+      "8299",
+      "1785",
+      "6274",
+      "3363",
+      "5347",
+      "7828",
+      "3293",
+      "4979",
+      "8069",
+      "6182",
+      "3529",
+      "3163",
+      "3081",
+      "3211",
+      "3260",
+      "4966",
+      "3105",
+      "4991",
+      "5289",
+      "5903",
+      "5536",
+      "1815",
+      "5483",
+      "3680",
+      "6147",
+      "8415",
+      "7734",
+      "6290",
+      "6187",
+      "7751",
+      "3264",
+      "6023",
+      "3324",
+      "4772",
+      "6510",
+      "8932",
+      "8358",
+      "6584",
+      "3374",
+      "3227",
+      "3131",
+      "4123",
+      "4749",
+      "3718"
+    ],
+    "effective_from": "2026-07-31",
+    "known_at": "2026-09-22T14:53:39+08:00",
+    "authority": "other",
+    "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/daily_auto/reference/official_reference.json",
+    "sha256": "0009ee5d68b74ee24da9556f5f3ebd32b23adff85eb5bd7d871250ab3d8a8b13"
+  },
+  "ledger_provenance": {
+    "origin": "research_initial_capital",
+    "reconciled": false,
+    "note": "NTD1bn is a research initial-capital assumption, not an organizer settlement ledger.",
+    "known_at": "2026-09-22T14:53:39+08:00",
+    "authority": "other",
+    "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/outputs/full_tuned_v2/official_ex_post/final/full_tuned_v2/config.json",
+    "sha256": "2c7d4a61dd3c39660ce0e2d23f05175b9eda80655e45f155f52ee1a24402f538"
+  },
+  "corporate_actions": {
+    "trade_date": "2026-09-22",
+    "status": "UNKNOWN",
+    "note": "Local historical action file is not a dated official no-action confirmation for the proposed trade date.",
+    "known_at": "2026-09-22T14:53:39+08:00",
+    "authority": "other",
+    "source_url": "file:///Users/chrishsieh/Documents/dev/fintech_ETF/data/tuning_2nd/official_universe/processed/new_company_actions.csv",
+    "sha256": "a3af2513c471f60a804b18bf7957ac3eb6a43f54d6fb2254038e6ed4c11a4487"
+  },
+  "active_share": {
+    "status": "UNKNOWN",
+    "method": null,
+    "method_confirmation": null,
+    "reference_list": null,
+    "etfs": [],
+    "previous_results": []
+  }
+}

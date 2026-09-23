@@ -1,0 +1,700 @@
+<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>v3 弱市選股實驗</title><style>body{margin:auto;max-width:1200px;padding:32px;font:16px/1.7 -apple-system,BlinkMacSystemFont,"Noto Sans TC",sans-serif;color:#182333;background:#f7f9fc}h1,h2{line-height:1.3;color:#142d4e}h2{margin-top:48px}table{border-collapse:collapse;display:block;overflow-x:auto;background:white;margin:24px 0}td,th{padding:9px 13px;border-bottom:1px solid #dce3ec;white-space:nowrap;text-align:right}td:first-child,th:first-child{text-align:left}th{background:#e9eff6}img{width:100%;height:auto;background:white}a{color:#155b9b}code{background:#e8edf4;padding:2px 5px}</style><body><h1>v3｜弱市選股實驗結果</h1>
+<p>核心結果：歷史池 B／C／D 都沒有增加逆勢正報酬月份，仍與 A 一樣只有 1／6 個弱月賺錢。部分版本較少跌，不能因此宣稱已解決「弱市找到逆勢上漲公司」的問題。</p>
+<p>本輪完成 A／B／C／D 四組固定策略，兩個股票池分開回放，沒有事後挑每月冠軍或自動切換策略。期間為 2025-01-02 至 2026-09-21，共 417 個完整交易日、本金 10 億元。全部金額績效扣除凍結費稅，主表採含應收股息的 economic NAV。</p>
+<p>A 凍結目前公開 <code>v2_A_best.py</code> 的 p052／p049，並逐筆重現。上一輪 deep A 的 a0036／a0139 並非本輪 A 對照。B 在事前弱市改用低 Beta／低波動排名，C 用前期回歸模型計算的殘差動能，D 等權融合其百分位；正常市場回到原 A 分數。</p>
+<p>「少跌」與「逆勢正報酬」分開判斷。0050 下跌月份是月末才能知道的評估標籤，不能用於決策；交易端只使用前日 0050 校正價格低於 EMA60 且 20 個市場交易日報酬負值的訊號。所有設定在正式回放前凍結，本輪不調參。</p>
+<p>缺少可驗證的 Active Share 歷史 ETF 持倉，正式提交仍 UNKNOWN／BLOCK_SUBMISSION。歷史池是重建時點假設，正式名單事後池另含成分股前視；兩者都是已見開發歷史，不是未見樣本外驗證。</p>
+<p><a href="../docs/AI_CUP_Trading_Agent_v3.md">原始規格</a> · <a href="../docs/v3_protocol.md">凍結實驗規格</a> · <a href="../config/v3_weak_market.json">完整設定</a> · <a href="../docs/v3_methodology_review.md">方法與文獻檢查</a></p>
+<h2>歷史股票池</h2>
+<p>符合預先定義開發目標：B、C、D。仍維持 HOLD，沒有自動升級為正式交易。</p>
+<p>這個開發門檻要求弱月平均改善、勝月與正報酬月數不減少、全期回撤不增加及零已量測硬違規；它屬「少跌」篩查，不要求正報酬月數增加。是否真正增加逆勢賺錢月份，必須另讀下表。</p>
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>費後報酬</th>
+<th>最大回撤</th>
+<th>硬違規日</th>
+<th>費稅百萬</th>
+<th>雙向換手</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A 原策略</td>
+<td>192.21%</td>
+<td>23.67%</td>
+<td>0</td>
+<td>111.82</td>
+<td>25.15×</td>
+</tr>
+<tr>
+<td>B 低 Beta／波動</td>
+<td>166.57%</td>
+<td>21.08%</td>
+<td>0</td>
+<td>109.41</td>
+<td>24.65×</td>
+</tr>
+<tr>
+<td>C 殘差動能</td>
+<td>171.34%</td>
+<td>22.30%</td>
+<td>0</td>
+<td>100.01</td>
+<td>23.80×</td>
+</tr>
+<tr>
+<td>D 等權融合</td>
+<td>150.54%</td>
+<td>20.43%</td>
+<td>0</td>
+<td>105.03</td>
+<td>24.42×</td>
+</tr>
+<tr>
+<td>v1 同口徑</td>
+<td>173.54%</td>
+<td>19.53%</td>
+<td>9</td>
+<td>152.18</td>
+<td>34.20×</td>
+</tr>
+<tr>
+<td>0050 費後買持</td>
+<td>121.28%</td>
+<td>24.59%</td>
+<td>不適用</td>
+<td>1.28</td>
+<td>0.90×</td>
+</tr>
+</tbody>
+</table>
+<p>本輪依比賽情境採有均價時全額撮合，市場容量不作資格門檻。此軌 B 最大單筆股數為當日成交量的 5037.40%；這是實盤容量限制，不能把此模擬解讀為 10 億元可按相同价格實際成交。</p>
+<p>本軌共有 6 個弱月。下表每個平均值均以這些月份等權計算；勝月是相對同口徑費後 0050 買持帳本，正報酬月要求策略自身報酬大於 0。兩者不能互換。</p>
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>弱月均報酬</th>
+<th>弱月超額0050</th>
+<th>弱月相對A</th>
+<th>勝0050月數</th>
+<th>正報酬月數</th>
+<th>強月相對A</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A 原策略</td>
+<td>-5.75%</td>
+<td>-0.37</td>
+<td>+0.00</td>
+<td>4/6</td>
+<td>1/6</td>
+<td>+0.00</td>
+</tr>
+<tr>
+<td>B 低 Beta／波動</td>
+<td>-4.63%</td>
+<td>+0.74</td>
+<td>+1.11</td>
+<td>4/6</td>
+<td>1/6</td>
+<td>-1.24</td>
+</tr>
+<tr>
+<td>C 殘差動能</td>
+<td>-5.69%</td>
+<td>-0.32</td>
+<td>+0.06</td>
+<td>4/6</td>
+<td>1/6</td>
+<td>-0.58</td>
+</tr>
+<tr>
+<td>D 等權融合</td>
+<td>-4.71%</td>
+<td>+0.66</td>
+<td>+1.03</td>
+<td>5/6</td>
+<td>1/6</td>
+<td>-1.68</td>
+</tr>
+<tr>
+<td>v1 同口徑</td>
+<td>-3.96%</td>
+<td>+1.42</td>
+<td>+1.79</td>
+<td>4/6</td>
+<td>1/6</td>
+<td>-1.40</td>
+</tr>
+<tr>
+<td>0050 費後買持</td>
+<td>-5.37%</td>
+<td>+0.00</td>
+<td>+0.37</td>
+<td>0/6</td>
+<td>0/6</td>
+<td>-2.54</td>
+</tr>
+</tbody>
+</table>
+<p>差值單位為百分點。完整 CSV 另列相對 0050 工具總報酬的超額，避免現金預算使基準曝險不足而混淆比較。強月是工具月報酬非負；9 月只計至 21 日。</p>
+<p><img alt="弱月報酬與超額" src="v3_weak_market_assets/historical_pit/weak_months.png" /></p>
+<p><img alt="淨值與回撤" src="v3_weak_market_assets/historical_pit/nav_drawdown.png" /></p>
+<p><img alt="全部月份報酬與月內回撤" src="v3_weak_market_assets/historical_pit/monthly_return_mdd.png" /></p>
+<table>
+<thead>
+<tr>
+<th>弱月</th>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>0050</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2025-02</td>
+<td>-3.67%</td>
+<td>-4.14%</td>
+<td>-3.67%</td>
+<td>-3.90%</td>
+<td>-3.91%</td>
+</tr>
+<tr>
+<td>2025-03</td>
+<td>-8.68%</td>
+<td>-4.98%</td>
+<td>-6.73%</td>
+<td>-4.67%</td>
+<td>-9.12%</td>
+</tr>
+<tr>
+<td>2025-04</td>
+<td>-5.09%</td>
+<td>-1.13%</td>
+<td>-4.81%</td>
+<td>-1.76%</td>
+<td>-2.11%</td>
+</tr>
+<tr>
+<td>2025-11</td>
+<td>0.20%</td>
+<td>2.29%</td>
+<td>0.58%</td>
+<td>1.75%</td>
+<td>-3.38%</td>
+</tr>
+<tr>
+<td>2026-03</td>
+<td>-2.67%</td>
+<td>-4.02%</td>
+<td>-4.05%</td>
+<td>-4.56%</td>
+<td>-9.94%</td>
+</tr>
+<tr>
+<td>2026-07</td>
+<td>-14.58%</td>
+<td>-15.81%</td>
+<td>-15.47%</td>
+<td>-15.14%</td>
+<td>-3.78%</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>弱月</th>
+<th>事前弱市交易日</th>
+<th>當月交易日</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2025-02</td>
+<td>1</td>
+<td>19</td>
+</tr>
+<tr>
+<td>2025-03</td>
+<td>21</td>
+<td>21</td>
+</tr>
+<tr>
+<td>2025-04</td>
+<td>20</td>
+<td>20</td>
+</tr>
+<tr>
+<td>2025-11</td>
+<td>0</td>
+<td>20</td>
+</tr>
+<tr>
+<td>2026-03</td>
+<td>0</td>
+<td>22</td>
+</tr>
+<tr>
+<td>2026-07</td>
+<td>4</td>
+<td>22</td>
+</tr>
+</tbody>
+</table>
+<p>上表按訊號的下一個交易日歸屬月份，沒有把月末訊號算成當月已執行。2026-03 雖是事後弱月，當月沒有任何交易日由弱市排名驅動；2026-07 只有 4 日。這顯示本輪的事前狀態與事後弱月並不重合，不能把弱月失利全歸因於個股排名。</p>
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>弱月連乘</th>
+<th>弱月平均月內MDD</th>
+<th>完整強月相對A</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A 原策略</td>
+<td>-30.44%</td>
+<td>10.61%</td>
+<td>+0.00</td>
+</tr>
+<tr>
+<td>B 低 Beta／波動</td>
+<td>-25.57%</td>
+<td>9.03%</td>
+<td>-1.16</td>
+</tr>
+<tr>
+<td>C 殘差動能</td>
+<td>-30.22%</td>
+<td>10.41%</td>
+<td>-0.63</td>
+</tr>
+<tr>
+<td>D 等權融合</td>
+<td>-25.83%</td>
+<td>8.91%</td>
+<td>-1.78</td>
+</tr>
+<tr>
+<td>v1 同口徑</td>
+<td>-21.71%</td>
+<td>8.71%</td>
+<td>-1.30</td>
+</tr>
+<tr>
+<td>0050 費後買持</td>
+<td>-28.42%</td>
+<td>9.73%</td>
+<td>-2.92</td>
+</tr>
+</tbody>
+</table>
+<p>完整強月欄排除 2026-09 部分月份，差值仍為每月平均百分點。弱月連乘是事後挑出不連續月份的條件統計，不能當作可交易淨值曲線；所有交易始終使用各版本完整連續帳本。</p>
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>弱市決策日</th>
+<th>排名介入日</th>
+<th>候選順序改變</th>
+<th>有效可進場不足20日</th>
+<th>缺因子買單</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>51</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>B</td>
+<td>51</td>
+<td>51</td>
+<td>50</td>
+<td>16</td>
+<td>0</td>
+</tr>
+<tr>
+<td>C</td>
+<td>51</td>
+<td>51</td>
+<td>50</td>
+<td>16</td>
+<td>0</td>
+</tr>
+<tr>
+<td>D</td>
+<td>51</td>
+<td>51</td>
+<td>50</td>
+<td>16</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>介入日僅計能在回測期間內執行的訊號。有效可進場不足 20 並不等於違規：策略可能保留既有持股，或因共同最少持股／現金限制使用因子無效股票。這些缺因子買單已明列，不冒稱全部由完整弱市訊號產生。</p>
+<p>原 A 的趨勢進場與退出條件完全保留。低 Beta 與正殘差只是不同排名，不能保證絕對上漲；候選仍可能被趨勢門檻擋住。正常日各組分數一致，但先前弱市持倉與交易成本會延續，因此正常市場的 NAV 不必相同。</p>
+<p><a href="../outputs/v3_weak_market/historical_pit/comparison.csv">總比較</a> · <a href="../outputs/v3_weak_market/historical_pit/monthly_comparison.csv">月表</a> · <a href="../outputs/v3_weak_market/historical_pit/audit.json">稽核</a> · <a href="../outputs/v3_weak_market/historical_pit/market_state.csv">市場狀態</a></p>
+<h2>正式名單事後情境</h2>
+<p>此名單於 2026 年才公布，套回 2025 年包含成分股前視，不能視為當時可部署策略。此軌 A 普通換股上限為 0，排名干預只能透過補位與規則修正等渠道影響實際持倉。</p>
+<p>符合預先定義開發目標：B。仍維持 HOLD，沒有自動升級為正式交易。</p>
+<p>這個開發門檻要求弱月平均改善、勝月與正報酬月數不減少、全期回撤不增加及零已量測硬違規；它屬「少跌」篩查，不要求正報酬月數增加。是否真正增加逆勢賺錢月份，必須另讀下表。</p>
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>費後報酬</th>
+<th>最大回撤</th>
+<th>硬違規日</th>
+<th>費稅百萬</th>
+<th>雙向換手</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A 原策略</td>
+<td>277.51%</td>
+<td>25.36%</td>
+<td>0</td>
+<td>141.09</td>
+<td>24.77×</td>
+</tr>
+<tr>
+<td>B 低 Beta／波動</td>
+<td>295.80%</td>
+<td>16.11%</td>
+<td>0</td>
+<td>168.37</td>
+<td>28.52×</td>
+</tr>
+<tr>
+<td>C 殘差動能</td>
+<td>288.52%</td>
+<td>25.84%</td>
+<td>0</td>
+<td>140.08</td>
+<td>25.01×</td>
+</tr>
+<tr>
+<td>D 等權融合</td>
+<td>232.45%</td>
+<td>18.08%</td>
+<td>0</td>
+<td>147.17</td>
+<td>27.89×</td>
+</tr>
+<tr>
+<td>v1 同口徑</td>
+<td>248.15%</td>
+<td>21.80%</td>
+<td>7</td>
+<td>195.35</td>
+<td>36.07×</td>
+</tr>
+<tr>
+<td>0050 費後買持</td>
+<td>121.28%</td>
+<td>24.59%</td>
+<td>不適用</td>
+<td>1.28</td>
+<td>0.90×</td>
+</tr>
+</tbody>
+</table>
+<p>本輪依比賽情境採有均價時全額撮合，市場容量不作資格門檻。此軌 D 最大單筆股數為當日成交量的 6109.23%；這是實盤容量限制，不能把此模擬解讀為 10 億元可按相同价格實際成交。</p>
+<p>本軌共有 6 個弱月。下表每個平均值均以這些月份等權計算；勝月是相對同口徑費後 0050 買持帳本，正報酬月要求策略自身報酬大於 0。兩者不能互換。</p>
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>弱月均報酬</th>
+<th>弱月超額0050</th>
+<th>弱月相對A</th>
+<th>勝0050月數</th>
+<th>正報酬月數</th>
+<th>強月相對A</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A 原策略</td>
+<td>-6.01%</td>
+<td>-0.64</td>
+<td>+0.00</td>
+<td>4/6</td>
+<td>1/6</td>
+<td>+0.00</td>
+</tr>
+<tr>
+<td>B 低 Beta／波動</td>
+<td>-3.92%</td>
+<td>+1.45</td>
+<td>+2.09</td>
+<td>4/6</td>
+<td>1/6</td>
+<td>-0.75</td>
+</tr>
+<tr>
+<td>C 殘差動能</td>
+<td>-5.80%</td>
+<td>-0.43</td>
+<td>+0.21</td>
+<td>4/6</td>
+<td>1/6</td>
+<td>+0.06</td>
+</tr>
+<tr>
+<td>D 等權融合</td>
+<td>-4.38%</td>
+<td>+0.99</td>
+<td>+1.63</td>
+<td>4/6</td>
+<td>0/6</td>
+<td>-1.84</td>
+</tr>
+<tr>
+<td>v1 同口徑</td>
+<td>-4.70%</td>
+<td>+0.67</td>
+<td>+1.31</td>
+<td>4/6</td>
+<td>0/6</td>
+<td>-1.29</td>
+</tr>
+<tr>
+<td>0050 費後買持</td>
+<td>-5.37%</td>
+<td>+0.00</td>
+<td>+0.64</td>
+<td>0/6</td>
+<td>0/6</td>
+<td>-4.56</td>
+</tr>
+</tbody>
+</table>
+<p>差值單位為百分點。完整 CSV 另列相對 0050 工具總報酬的超額，避免現金預算使基準曝險不足而混淆比較。強月是工具月報酬非負；9 月只計至 21 日。</p>
+<p><img alt="弱月報酬與超額" src="v3_weak_market_assets/official_ex_post/weak_months.png" /></p>
+<p><img alt="淨值與回撤" src="v3_weak_market_assets/official_ex_post/nav_drawdown.png" /></p>
+<p><img alt="全部月份報酬與月內回撤" src="v3_weak_market_assets/official_ex_post/monthly_return_mdd.png" /></p>
+<table>
+<thead>
+<tr>
+<th>弱月</th>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>0050</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2025-02</td>
+<td>-3.53%</td>
+<td>-3.30%</td>
+<td>-3.27%</td>
+<td>-2.65%</td>
+<td>-3.91%</td>
+</tr>
+<tr>
+<td>2025-03</td>
+<td>-8.77%</td>
+<td>-3.96%</td>
+<td>-8.41%</td>
+<td>-5.63%</td>
+<td>-9.12%</td>
+</tr>
+<tr>
+<td>2025-04</td>
+<td>-6.48%</td>
+<td>-4.29%</td>
+<td>-5.83%</td>
+<td>-4.29%</td>
+<td>-2.11%</td>
+</tr>
+<tr>
+<td>2025-11</td>
+<td>1.13%</td>
+<td>1.20%</td>
+<td>1.08%</td>
+<td>-0.17%</td>
+<td>-3.38%</td>
+</tr>
+<tr>
+<td>2026-03</td>
+<td>-5.48%</td>
+<td>-1.90%</td>
+<td>-3.85%</td>
+<td>-5.29%</td>
+<td>-9.94%</td>
+</tr>
+<tr>
+<td>2026-07</td>
+<td>-12.93%</td>
+<td>-11.28%</td>
+<td>-14.51%</td>
+<td>-8.23%</td>
+<td>-3.78%</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>弱月</th>
+<th>事前弱市交易日</th>
+<th>當月交易日</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2025-02</td>
+<td>1</td>
+<td>19</td>
+</tr>
+<tr>
+<td>2025-03</td>
+<td>21</td>
+<td>21</td>
+</tr>
+<tr>
+<td>2025-04</td>
+<td>20</td>
+<td>20</td>
+</tr>
+<tr>
+<td>2025-11</td>
+<td>0</td>
+<td>20</td>
+</tr>
+<tr>
+<td>2026-03</td>
+<td>0</td>
+<td>22</td>
+</tr>
+<tr>
+<td>2026-07</td>
+<td>4</td>
+<td>22</td>
+</tr>
+</tbody>
+</table>
+<p>上表按訊號的下一個交易日歸屬月份，沒有把月末訊號算成當月已執行。2026-03 雖是事後弱月，當月沒有任何交易日由弱市排名驅動；2026-07 只有 4 日。這顯示本輪的事前狀態與事後弱月並不重合，不能把弱月失利全歸因於個股排名。</p>
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>弱月連乘</th>
+<th>弱月平均月內MDD</th>
+<th>完整強月相對A</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A 原策略</td>
+<td>-31.50%</td>
+<td>11.69%</td>
+<td>+0.00</td>
+</tr>
+<tr>
+<td>B 低 Beta／波動</td>
+<td>-21.71%</td>
+<td>9.09%</td>
+<td>-0.96</td>
+</tr>
+<tr>
+<td>C 殘差動能</td>
+<td>-30.69%</td>
+<td>12.06%</td>
+<td>-0.09</td>
+</tr>
+<tr>
+<td>D 等權融合</td>
+<td>-23.71%</td>
+<td>9.16%</td>
+<td>-2.17</td>
+</tr>
+<tr>
+<td>v1 同口徑</td>
+<td>-25.43%</td>
+<td>10.65%</td>
+<td>-1.40</td>
+</tr>
+<tr>
+<td>0050 費後買持</td>
+<td>-28.42%</td>
+<td>9.73%</td>
+<td>-5.20</td>
+</tr>
+</tbody>
+</table>
+<p>完整強月欄排除 2026-09 部分月份，差值仍為每月平均百分點。弱月連乘是事後挑出不連續月份的條件統計，不能當作可交易淨值曲線；所有交易始終使用各版本完整連續帳本。</p>
+<table>
+<thead>
+<tr>
+<th>版本</th>
+<th>弱市決策日</th>
+<th>排名介入日</th>
+<th>候選順序改變</th>
+<th>有效可進場不足20日</th>
+<th>缺因子買單</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A</td>
+<td>51</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>B</td>
+<td>51</td>
+<td>51</td>
+<td>46</td>
+<td>19</td>
+<td>0</td>
+</tr>
+<tr>
+<td>C</td>
+<td>51</td>
+<td>51</td>
+<td>47</td>
+<td>19</td>
+<td>0</td>
+</tr>
+<tr>
+<td>D</td>
+<td>51</td>
+<td>51</td>
+<td>47</td>
+<td>19</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>介入日僅計能在回測期間內執行的訊號。有效可進場不足 20 並不等於違規：策略可能保留既有持股，或因共同最少持股／現金限制使用因子無效股票。這些缺因子買單已明列，不冒稱全部由完整弱市訊號產生。</p>
+<p>原 A 的趨勢進場與退出條件完全保留。低 Beta 與正殘差只是不同排名，不能保證絕對上漲；候選仍可能被趨勢門檻擋住。正常日各組分數一致，但先前弱市持倉與交易成本會延續，因此正常市場的 NAV 不必相同。</p>
+<p><a href="../outputs/v3_weak_market/official_ex_post/comparison.csv">總比較</a> · <a href="../outputs/v3_weak_market/official_ex_post/monthly_comparison.csv">月表</a> · <a href="../outputs/v3_weak_market/official_ex_post/audit.json">稽核</a> · <a href="../outputs/v3_weak_market/official_ex_post/market_state.csv">市場狀態</a></p>
+<h2>設定與驗證邊界</h2>
+<p>Beta 與波動率使用 60 筆有效配對日報酬；含截距 OLS 使用當日之前 120 筆有效配對資料，逐日一步預測殘差取最近 20 筆的標準化總和。窗口跨缺漏時可長於相同數量的市場交易日；起訖與觀測數保存在 features.csv。0050 停牌日不補零報酬，未知市場狀態整日回 A。</p>
+<p>B／C／D 共用因子完整交集，百分位同分取平均。無效股分數為 0，保留原進出場資格；完整交集少於 20 檔則整日回 A。A 的持股／現金／權重、均價成交、費用及規則修正全部共用，沒有為弱市績效放寬。缺設定拒絕執行，缺認證資料則保持正式阻擋。</p>
+<p>獨立稽核核對來源、A 精確重播、原條件保留、弱市排名、帳務與月表。截斷資料重播只證明固定設定的時間一致性，不證明這些設計在 2025 年初已被選定。完整 scope 與截斷日期以各軌 audit.json 為準。</p>
+<p>弱月樣本少，且本段歷史已多次用於研究。本輪沒有充分調整 B／C／D 的配套參數，因此只能評價這組預先固定的實作，不能判定所有低風險或殘差動能方法有效或無效。若目標未達成，保留負面證據，不事後修改成功標準。</p>
+<p>下一個可採用判斷需要固定版本的新期間資料與完整合規證據。正式提交策略必須在該期間之前指定；本輪不啟用自動選策略。</p>
+<p><a href="v3_weak_market_assets/monthly_comparison.csv">完整月表</a> · <a href="v3_weak_market_assets/weak_month_summary.csv">弱月比較</a> · <a href="v3_weak_market_assets/conditioned_periods.csv">分組統計</a> · <a href="v3_weak_market_assets/intervention_detail.csv">介入明細</a> · <a href="../scripts/run_v3_study.py">執行程式</a></p>
+<p>重現命令：<code>python3 scripts/run_v3_study.py --output outputs/v3_weak_market_reproduction</code>。程式拒絕覆寫非空結果；稽核後才可生成報告。</p></body></html>

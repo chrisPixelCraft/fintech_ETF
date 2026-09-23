@@ -1,0 +1,9 @@
+model,executed_signal_days,weak_decision_days,applied_days,unknown_days,changed_eligible_top20_days,applied_days_with_fewer_than_20_valid_entries,weak_invalid_factor_buy_orders,baseline_fallback_weak_days,track
+A,417,51,0,10,0,0,0,0,historical_pit
+B,417,51,51,10,50,16,0,0,historical_pit
+C,417,51,51,10,50,16,0,0,historical_pit
+D,417,51,51,10,50,16,0,0,historical_pit
+A,417,51,0,10,0,0,0,0,official_ex_post
+B,417,51,51,10,46,19,0,0,official_ex_post
+C,417,51,51,10,47,19,0,0,official_ex_post
+D,417,51,51,10,47,19,0,0,official_ex_post

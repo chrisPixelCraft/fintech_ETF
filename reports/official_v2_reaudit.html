@@ -1,0 +1,652 @@
+<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>v2 A 官方文件複核與回測</title><style>body{margin:0;background:#f4f6fa;color:#142638;font:17px/1.75 system-ui,-apple-system,"Noto Sans TC",sans-serif}main{max-width:1080px;margin:0 auto;padding:42px 24px 70px}h1{font-size:34px;line-height:1.3}h2{margin-top:44px;border-top:2px solid #d9e3ec;padding-top:24px}h3{margin-top:28px}a{color:#086b84}p{max-width:960px}strong{color:#083e50}.table-wrap{overflow-x:auto;background:white;border-radius:12px;border:1px solid #dce4ec;margin:20px 0}table{border-collapse:collapse;min-width:700px;width:100%;font-size:15px}th,td{text-align:left;padding:11px 13px;border-bottom:1px solid #e9edf3}th{background:#e7f0f3;white-space:nowrap}tr:nth-child(even){background:#f8fafc}img{max-width:100%;height:auto;border-radius:10px;margin:12px 0}code{font-size:.88em;background:#e9eef3;padding:2px 4px;border-radius:3px}pre{overflow:auto;padding:18px;background:#e9eef3}summary{cursor:pointer;font-weight:700}details{margin:18px 0;padding:14px;background:#eaf1f5;border-radius:10px}@media(max-width:650px){main{padding:24px 14px}h1{font-size:28px}}</style><main><h1>v2 A｜官方文件完整複核與回測</h1>
+<p><strong>十份官方文件已逐一核對；固定 A 與公式相容版均已完整重跑。正式提交仍為 BLOCK，不能把本報告當成已通過比賽所有規則的成績。</strong></p>
+<p>期間為 2025-01-02 至 2026-09-21，共 417 個完整交易日，初始本金 10 億元。1 月 1 日休市；9 月 22 日執行時尚未收盤，因此不用當日不完整行情。歷史池 A 固定 p052，官方事後池固定 p049；本輪沒有再選參數，v3 不再使用。</p>
+<p>先看三件事：原策略績效可以重現；D-Plan 股數推導需要修正；Active Share 及正式結算接入仍缺證據。詳細操作已整理為 <a href="../daily_auto/README.md">每日單頁入口</a>。</p>
+<h2>結論先看</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>項目</th>
+<th>結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原 A 重播</td>
+<td>兩軌的 NAV、持股、成交、委託均與凍結結果完全相同</td>
+</tr>
+<tr>
+<td>公式相容版</td>
+<td>只處理權重序列化與零股異動，不改動能參數</td>
+</tr>
+<tr>
+<td>帳務與時序</td>
+<td>兩軌獨立稽核、實體截斷重播通過</td>
+</tr>
+<tr>
+<td>正式送件</td>
+<td>尚未放行：AS、公司事件細則及平台帳本／收件仍需接通</td>
+</tr>
+<tr>
+<td>v3</td>
+<td>退出现行流程；原程式與結果保留</td>
+</tr>
+</tbody>
+</table></div>
+<h2>這次改正什麼</h2>
+<p>官方要求先從目標權重算出整張目標股數，再減掉前日實際庫存。舊程式先決定股數、再反算位於取整邊界的權重，浮點序列化可能少算一張；配股後若有零股，整張目標減現有庫存也無法變成千股倍數。</p>
+<p><code>A_dplan_guard</code> 將權重放在同一整張區間內，再精確回算股數。含零股的既有股票先續抱，不對該股下無法符合字面公式的委託；其他股票繼續運作。這是保守的相容性假設，主辦方尚未提供零股和除權日待執行委託的完整細則。</p>
+<p>指南和 schema 要求公式一致，反例註解卻說部分不一致僅警示，因此以下只能量化「不符合字面公式」，不能把每列都算成主辦方拒件或一般違規。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>股票池</th>
+<th>版本</th>
+<th>計畫列數</th>
+<th>Decimal 不符</th>
+<th>float 不符</th>
+<th>涉及零股列</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>歷史池</td>
+<td>原 A 固定版</td>
+<td>1568</td>
+<td>766</td>
+<td>298</td>
+<td>222</td>
+</tr>
+<tr>
+<td>歷史池</td>
+<td>A 公式相容版</td>
+<td>1461</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>官方事後池</td>
+<td>原 A 固定版</td>
+<td>1609</td>
+<td>693</td>
+<td>187</td>
+<td>117</td>
+</tr>
+<tr>
+<td>官方事後池</td>
+<td>A 公式相容版</td>
+<td>1501</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table></div>
+<p>Decimal 按序列化後十進位數字嚴格回算；float 則模擬一般浮點向下取整。兩者差異證明邊界編碼不穩定，官方伺服器數值實作尚未公布；不能挑其中一個數字當作已知拒件數。</p>
+<p>列數包含研究終點後尚未執行的最後計畫；不是主辦方警告次數。舊版凍結檔案未覆寫，修正版本另存，以便核對變動。</p>
+<h2>績效比較</h2>
+<p><strong>本輪主表改用比賽帳面 NAV。</strong> 股息先列應收，到模擬期末才入現金；economic NAV 在除息時就加應收，另列回撤供核對。兩者最終報酬一致，途中曲線與月報酬可能不同。</p>
+<h3>歷史股票池</h3>
+<p>使用重建的 2024 年底股票池；部分股票不在 2026 年官方名單，因此此軌不符合正式比賽白名單。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>版本</th>
+<th>總報酬</th>
+<th>NAV 最大回撤</th>
+<th>含應收回撤</th>
+<th>交易日</th>
+<th>成交筆數</th>
+<th>雙向換手</th>
+<th>量測硬超限日</th>
+<th>計畫不可行日</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原 A 固定版</td>
+<td>192.21%</td>
+<td>23.70%</td>
+<td>23.67%</td>
+<td>415/417</td>
+<td>1566</td>
+<td>25.15×</td>
+<td>0</td>
+<td>2</td>
+</tr>
+<tr>
+<td>A 公式相容版</td>
+<td>177.78%</td>
+<td>23.70%</td>
+<td>23.67%</td>
+<td>394/417</td>
+<td>1452</td>
+<td>25.76×</td>
+<td>0</td>
+<td>22</td>
+</tr>
+<tr>
+<td>v1 同口徑</td>
+<td>173.54%</td>
+<td>19.55%</td>
+<td>19.53%</td>
+<td>393/417</td>
+<td>4340</td>
+<td>34.20×</td>
+<td>9</td>
+<td>19</td>
+</tr>
+<tr>
+<td>0050 費後買持</td>
+<td>121.28%</td>
+<td>25.79%</td>
+<td>24.59%</td>
+<td>1/417</td>
+<td>1</td>
+<td>0.90×</td>
+<td>不適用¹</td>
+<td>5</td>
+</tr>
+</tbody>
+</table></div>
+<p><img alt="歷史股票池淨值與回撤" src="official_v2_reaudit_assets/historical_pit_nav.png" /></p>
+<p><img alt="歷史股票池每月比較" src="official_v2_reaudit_assets/historical_pit_monthly.png" /></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>版本</th>
+<th>持股檔數</th>
+<th>現金比範圍</th>
+<th>累計費稅／百萬元</th>
+<th>期末股息入帳／百萬元</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原 A 固定版</td>
+<td>20–30</td>
+<td>1.14%–20.87%</td>
+<td>111.82</td>
+<td>67.55</td>
+</tr>
+<tr>
+<td>A 公式相容版</td>
+<td>20–30</td>
+<td>0.95%–20.67%</td>
+<td>115.26</td>
+<td>77.15</td>
+</tr>
+</tbody>
+</table></div>
+<details>
+<summary>展開 21 個月明細：報酬 / 月內最大回撤</summary>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>月份</th>
+<th>原 A 固定版</th>
+<th>A 公式相容版</th>
+<th>v1 同口徑</th>
+<th>0050 費後買持</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2025-01</td>
+<td>-0.19% / 5.70%</td>
+<td>-0.19% / 5.70%</td>
+<td>0.31% / 5.57%</td>
+<td>3.21% / 4.56%</td>
+</tr>
+<tr>
+<td>2025-02</td>
+<td>-3.67% / 4.21%</td>
+<td>-3.67% / 4.21%</td>
+<td>-2.42% / 3.44%</td>
+<td>-3.95% / 3.95%</td>
+</tr>
+<tr>
+<td>2025-03</td>
+<td>-8.69% / 8.69%</td>
+<td>-8.69% / 8.69%</td>
+<td>-7.17% / 7.17%</td>
+<td>-9.24% / 9.24%</td>
+</tr>
+<tr>
+<td>2025-04</td>
+<td>-5.09% / 14.28%</td>
+<td>-5.09% / 14.28%</td>
+<td>-3.38% / 11.71%</td>
+<td>-2.14% / 15.23%</td>
+</tr>
+<tr>
+<td>2025-05</td>
+<td>5.48% / 1.84%</td>
+<td>5.48% / 1.84%</td>
+<td>4.27% / 1.39%</td>
+<td>5.87% / 2.22%</td>
+</tr>
+<tr>
+<td>2025-06</td>
+<td>7.46% / 2.74%</td>
+<td>7.46% / 2.74%</td>
+<td>6.56% / 1.79%</td>
+<td>6.81% / 1.92%</td>
+</tr>
+<tr>
+<td>2025-07</td>
+<td>7.94% / 2.92%</td>
+<td>8.21% / 2.92%</td>
+<td>8.47% / 2.76%</td>
+<td>5.94% / 1.78%</td>
+</tr>
+<tr>
+<td>2025-08</td>
+<td>16.95% / 6.80%</td>
+<td>14.40% / 7.53%</td>
+<td>12.76% / 6.31%</td>
+<td>1.67% / 2.81%</td>
+</tr>
+<tr>
+<td>2025-09</td>
+<td>1.98% / 4.99%</td>
+<td>2.92% / 4.78%</td>
+<td>2.02% / 4.41%</td>
+<td>9.17% / 1.88%</td>
+</tr>
+<tr>
+<td>2025-10</td>
+<td>15.69% / 2.89%</td>
+<td>16.54% / 2.42%</td>
+<td>13.39% / 2.01%</td>
+<td>11.01% / 1.49%</td>
+</tr>
+<tr>
+<td>2025-11</td>
+<td>0.21% / 7.81%</td>
+<td>2.00% / 7.02%</td>
+<td>0.84% / 6.91%</td>
+<td>-3.43% / 7.42%</td>
+</tr>
+<tr>
+<td>2025-12</td>
+<td>5.04% / 4.26%</td>
+<td>4.19% / 5.53%</td>
+<td>3.51% / 3.97%</td>
+<td>4.80% / 3.10%</td>
+</tr>
+<tr>
+<td>2026-01</td>
+<td>12.17% / 1.68%</td>
+<td>10.35% / 2.32%</td>
+<td>9.24% / 3.20%</td>
+<td>9.87% / 2.01%</td>
+</tr>
+<tr>
+<td>2026-02</td>
+<td>10.18% / 5.53%</td>
+<td>7.34% / 6.21%</td>
+<td>7.07% / 4.87%</td>
+<td>10.97% / 1.41%</td>
+</tr>
+<tr>
+<td>2026-03</td>
+<td>-2.70% / 9.08%</td>
+<td>-1.97% / 9.34%</td>
+<td>-4.56% / 10.51%</td>
+<td>-10.18% / 10.18%</td>
+</tr>
+<tr>
+<td>2026-04</td>
+<td>43.20% / 1.61%</td>
+<td>45.01% / 3.81%</td>
+<td>40.63% / 2.34%</td>
+<td>23.37% / 2.54%</td>
+</tr>
+<tr>
+<td>2026-05</td>
+<td>16.56% / 9.71%</td>
+<td>13.52% / 10.80%</td>
+<td>10.94% / 9.39%</td>
+<td>15.55% / 5.05%</td>
+</tr>
+<tr>
+<td>2026-06</td>
+<td>-0.96% / 10.27%</td>
+<td>1.62% / 10.91%</td>
+<td>1.35% / 10.88%</td>
+<td>2.17% / 6.91%</td>
+</tr>
+<tr>
+<td>2026-07</td>
+<td>-15.48% / 20.45%</td>
+<td>-16.00% / 19.20%</td>
+<td>-8.35% / 13.62%</td>
+<td>-4.38% / 13.82%</td>
+</tr>
+<tr>
+<td>2026-08</td>
+<td>12.82% / 0.57%</td>
+<td>16.12% / 1.50%</td>
+<td>15.88% / 1.02%</td>
+<td>3.14% / 3.21%</td>
+</tr>
+<tr>
+<td>2026-09＊</td>
+<td>4.10% / 2.62%</td>
+<td>-1.61% / 8.06%</td>
+<td>1.32% / 5.62%</td>
+<td>6.93% / 3.17%</td>
+</tr>
+</tbody>
+</table></div>
+</details>
+<h3>官方名單事後情境</h3>
+<p><strong>此軌把 2026 年公布的 150 檔名單套回 2025 年，含成分股前視偏誤。</strong> 它可以檢查指定名單的模擬路徑，不能解讀成當年可事前部署的報酬。</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>版本</th>
+<th>總報酬</th>
+<th>NAV 最大回撤</th>
+<th>含應收回撤</th>
+<th>交易日</th>
+<th>成交筆數</th>
+<th>雙向換手</th>
+<th>量測硬超限日</th>
+<th>計畫不可行日</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原 A 固定版</td>
+<td>277.51%</td>
+<td>25.39%</td>
+<td>25.36%</td>
+<td>359/417</td>
+<td>1606</td>
+<td>24.77×</td>
+<td>0</td>
+<td>49</td>
+</tr>
+<tr>
+<td>A 公式相容版</td>
+<td>300.59%</td>
+<td>25.39%</td>
+<td>25.36%</td>
+<td>365/417</td>
+<td>1501</td>
+<td>23.93×</td>
+<td>0</td>
+<td>38</td>
+</tr>
+<tr>
+<td>v1 同口徑</td>
+<td>248.15%</td>
+<td>21.81%</td>
+<td>21.80%</td>
+<td>405/417</td>
+<td>4776</td>
+<td>36.07×</td>
+<td>7</td>
+<td>11</td>
+</tr>
+<tr>
+<td>0050 費後買持</td>
+<td>121.28%</td>
+<td>25.79%</td>
+<td>24.59%</td>
+<td>1/417</td>
+<td>1</td>
+<td>0.90×</td>
+<td>不適用¹</td>
+<td>5</td>
+</tr>
+</tbody>
+</table></div>
+<p><img alt="官方名單事後情境淨值與回撤" src="official_v2_reaudit_assets/official_ex_post_nav.png" /></p>
+<p><img alt="官方名單事後情境每月比較" src="official_v2_reaudit_assets/official_ex_post_monthly.png" /></p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>版本</th>
+<th>持股檔數</th>
+<th>現金比範圍</th>
+<th>累計費稅／百萬元</th>
+<th>期末股息入帳／百萬元</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>原 A 固定版</td>
+<td>20–30</td>
+<td>1.19%–23.05%</td>
+<td>141.09</td>
+<td>83.18</td>
+</tr>
+<tr>
+<td>A 公式相容版</td>
+<td>20–30</td>
+<td>1.19%–23.05%</td>
+<td>131.87</td>
+<td>105.01</td>
+</tr>
+</tbody>
+</table></div>
+<details>
+<summary>展開 21 個月明細：報酬 / 月內最大回撤</summary>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>月份</th>
+<th>原 A 固定版</th>
+<th>A 公式相容版</th>
+<th>v1 同口徑</th>
+<th>0050 費後買持</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2025-01</td>
+<td>2.59% / 4.77%</td>
+<td>2.59% / 4.77%</td>
+<td>3.10% / 5.01%</td>
+<td>3.21% / 4.56%</td>
+</tr>
+<tr>
+<td>2025-02</td>
+<td>-3.54% / 3.54%</td>
+<td>-3.54% / 3.54%</td>
+<td>-3.47% / 5.49%</td>
+<td>-3.95% / 3.95%</td>
+</tr>
+<tr>
+<td>2025-03</td>
+<td>-8.78% / 8.80%</td>
+<td>-8.78% / 8.80%</td>
+<td>-8.40% / 8.40%</td>
+<td>-9.24% / 9.24%</td>
+</tr>
+<tr>
+<td>2025-04</td>
+<td>-6.49% / 16.94%</td>
+<td>-6.49% / 16.94%</td>
+<td>-5.04% / 13.23%</td>
+<td>-2.14% / 15.23%</td>
+</tr>
+<tr>
+<td>2025-05</td>
+<td>4.23% / 1.60%</td>
+<td>4.23% / 1.60%</td>
+<td>5.65% / 1.51%</td>
+<td>5.87% / 2.22%</td>
+</tr>
+<tr>
+<td>2025-06</td>
+<td>11.30% / 1.55%</td>
+<td>11.30% / 1.55%</td>
+<td>8.10% / 1.41%</td>
+<td>6.81% / 1.92%</td>
+</tr>
+<tr>
+<td>2025-07</td>
+<td>10.77% / 2.33%</td>
+<td>10.08% / 2.33%</td>
+<td>11.37% / 3.07%</td>
+<td>5.94% / 1.78%</td>
+</tr>
+<tr>
+<td>2025-08</td>
+<td>22.49% / 8.24%</td>
+<td>23.25% / 7.55%</td>
+<td>19.52% / 7.06%</td>
+<td>1.67% / 2.81%</td>
+</tr>
+<tr>
+<td>2025-09</td>
+<td>1.60% / 6.18%</td>
+<td>-0.58% / 5.54%</td>
+<td>0.46% / 5.23%</td>
+<td>9.17% / 1.88%</td>
+</tr>
+<tr>
+<td>2025-10</td>
+<td>20.51% / 4.94%</td>
+<td>18.71% / 3.73%</td>
+<td>20.44% / 3.41%</td>
+<td>11.01% / 1.49%</td>
+</tr>
+<tr>
+<td>2025-11</td>
+<td>1.14% / 9.97%</td>
+<td>-0.54% / 9.07%</td>
+<td>-0.31% / 8.17%</td>
+<td>-3.43% / 7.42%</td>
+</tr>
+<tr>
+<td>2025-12</td>
+<td>10.78% / 3.95%</td>
+<td>5.43% / 5.09%</td>
+<td>3.72% / 5.55%</td>
+<td>4.80% / 3.10%</td>
+</tr>
+<tr>
+<td>2026-01</td>
+<td>25.15% / 3.26%</td>
+<td>18.04% / 2.66%</td>
+<td>21.45% / 1.30%</td>
+<td>9.87% / 2.01%</td>
+</tr>
+<tr>
+<td>2026-02</td>
+<td>7.74% / 7.93%</td>
+<td>14.81% / 5.74%</td>
+<td>11.19% / 6.26%</td>
+<td>10.97% / 1.41%</td>
+</tr>
+<tr>
+<td>2026-03</td>
+<td>-5.65% / 14.04%</td>
+<td>0.60% / 12.27%</td>
+<td>-0.73% / 11.47%</td>
+<td>-10.18% / 10.18%</td>
+</tr>
+<tr>
+<td>2026-04</td>
+<td>38.96% / 3.67%</td>
+<td>41.94% / 3.23%</td>
+<td>38.49% / 3.42%</td>
+<td>23.37% / 2.54%</td>
+</tr>
+<tr>
+<td>2026-05</td>
+<td>15.91% / 7.49%</td>
+<td>19.47% / 8.35%</td>
+<td>10.82% / 9.24%</td>
+<td>15.55% / 5.05%</td>
+</tr>
+<tr>
+<td>2026-06</td>
+<td>0.72% / 8.56%</td>
+<td>5.83% / 8.07%</td>
+<td>2.93% / 9.83%</td>
+<td>2.17% / 6.91%</td>
+</tr>
+<tr>
+<td>2026-07</td>
+<td>-14.02% / 17.90%</td>
+<td>-7.68% / 12.81%</td>
+<td>-11.42% / 18.08%</td>
+<td>-4.38% / 13.82%</td>
+</tr>
+<tr>
+<td>2026-08</td>
+<td>13.98% / 1.52%</td>
+<td>2.75% / 1.90%</td>
+<td>9.56% / 1.19%</td>
+<td>3.14% / 3.21%</td>
+</tr>
+<tr>
+<td>2026-09＊</td>
+<td>2.37% / 5.64%</td>
+<td>4.97% / 2.43%</td>
+<td>2.88% / 3.68%</td>
+<td>6.93% / 3.17%</td>
+</tr>
+</tbody>
+</table></div>
+</details>
+<p>「計畫不可行日」是前日規劃器明確以 INFEASIBLE 開頭、在該日未能產生調整的天數。組合可能因續抱仍未超限，但不代表每日運行順暢；此數與正式漏繳／警告不同，也不含所有名稱為 WAIT 的等待狀態。</p>
+<p>¹ 0050 是單一 ETF 比較基準，不套用競賽 20–30 檔及股票白名單。它使用凍結的一次買入、費用與價格預算緩衝，因此不是 100% 滿倉的 0050 官方總報酬指數。</p>
+<p>＊2026 年 9 月只到 9/21，且將整段模擬累積股息一次入帳。這會提高最後月份帳面報酬，不代表 9 月突然產生相同幅度的選股優勢。月內 MDD 以「前月末 NAV＋當月每日 NAV」計算。</p>
+<p>v1 的硬性超限使它不具合規候選資格。本報告沒有模擬違規日交易回退、三次警告淘汰或 Active Share 失格，因此長期 shadow NAV 不能當作這些情況下的正式排名結果。</p>
+<h2>能與不能證明的事</h2>
+<p>相容版歷史報酬較原 A 低，官方事後池則較高；這說明零股處理會改變持倉路徑，不能當成一次修正就普遍提升績效。兩軌零量測硬超限只涵蓋各自股票池、檔數、現金及主被動權重限制；尚未包含完整官方 AS 與送件歷史。</p>
+<p>前日完整訊號決定固定股數，下一交易日才用官方成交均價記帳；獨立截斷回放檢查未讀取未來行情。這不能消除先前用整段歷史挑參數的開發偏誤，也不能消除官方股票池事後選取的偏誤。</p>
+<p>原 A 並不是最早構想的低換手版本：歷史參數允許零分差替換，4H 只驗覆蓋，現金／權重修正仍可能頻繁加减碼。不要把「保留股不全面重配」寫成「幾乎不交易」。</p>
+<p>另有公司事件語意未能認證：歷史池相容版在 2025-07-21 計畫出清玉山金 1,146,000 股，翌日先配股 1% 再按固定委託賣出，仍留下 11,460 股。前日公式可以通過，但除權日是否調整待執行委託、SELL_ALL 如何認定，文件未說明。本輪保留事件與餘額，不宣稱所有 D-Plan 語意已符合。</p>
+<p>官方假設全額均價成交，因此本輪不因成交量容量刪單。超過日量的模擬成交只能另作實盤限制，不影響本次競賽假設；缺均價仍不能憑空補成交。</p>
+<h2>正式比賽仍缺什麼</h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>缺項</th>
+<th>目前處理</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>30 檔 ETF 的歷史／每日前十大權重</td>
+<td>UNKNOWN；沒有用現在持股回填過去</td>
+</tr>
+<tr>
+<td>AS 聯集、正規化與日期細節</td>
+<td>等待可驗證的官方口徑；不能僅憑程式算出數字就認證</td>
+</tr>
+<tr>
+<td>零股與除權日委託細則</td>
+<td>本輪採凍結零股名稱、固定待執行股數的明示假設</td>
+</tr>
+<tr>
+<td>官方帳本與平台回執</td>
+<td>尚未接通；禁止將本機產檔標成已送件</td>
+</tr>
+<tr>
+<td>真正未見期間</td>
+<td>未提供；所有本輪歷史已參與研究開發</td>
+</tr>
+</tbody>
+</table></div>
+<h2>官方文件與每日操作</h2>
+<p>已讀完 10 份檔案，包括 5 份 PDF、官方 DOCX 模板、D-Plan 指南、schema 與正反 JSON 範例。原文、頁碼、衝突及不適用假設見 <a href="../docs/official_docs_rule_audit.md">逐檔稽核</a>。ETF 名單只列基金代碼，沒有持股權重。</p>
+<p>證交所亦說明主動式 ETF 每日揭露持股，但這不等於本機已取得完整的歷史時間版本；<a href="https://www.twse.com.tw/zh/ETFortune/hotetf/8a8216d697fc438f0198cfce647b0359">TWSE 說明</a> 與 <a href="https://www.nomurafunds.com.tw/ETFWEB/pcf">野村每日 PCF</a> 僅是後續資料接入的第一手來源。</p>
+<p><a href="../daily_auto/README.md">每日入口</a> · <a href="../daily_auto/competition_guide.md">比賽須知</a> · <a href="../daily_auto/daily_checklist.md">操作清單</a> · <a href="../daily_auto/automation.md">自動化範圍</a></p>
+<h2>重現與證據</h2>
+<pre><code class="language-bash">python3 scripts/run_official_v2.py --output outputs/official_v2_reproduction
+python3 scripts/audit_official_v2.py --output outputs/official_v2_reproduction/historical_pit
+python3 scripts/audit_official_v2.py --output outputs/official_v2_reproduction/official_ex_post
+</code></pre>
+<p>執行器拒絕覆寫已有結果；獨立稽核綁定程式、資料、設定和完整輸出雜湊。原 <code>v2_A_best.py</code> 不變，公式相容版由 <code>src/official_v2_review.py</code> 的隔離介面執行。</p>
+<p><a href="../outputs/official_v2_reaudit/historical_pit/audit.json">歷史池稽核</a> · <a href="../outputs/official_v2_reaudit/official_ex_post/audit.json">官方事後池稽核</a> · <a href="../docs/official_v2_protocol.md">事前研究規格</a></p>
+<p><a href="official_v2_reaudit_assets/comparison.csv">比較總表</a> · <a href="official_v2_reaudit_assets/monthly.csv">全部月表</a></p></main></html>

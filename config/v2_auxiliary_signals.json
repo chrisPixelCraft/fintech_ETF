@@ -1,0 +1,164 @@
+{
+  "schema_version": "1.0",
+  "status": "FROZEN_BEFORE_V2_RESULTS",
+  "frozen_at": "2026-09-21T23:42:01+08:00",
+  "decision_timezone": "Asia/Taipei",
+  "decision_cutoff": "08:55",
+  "neutral_component": 0.5,
+  "score_column": "score",
+  "base_score_column": "base_score",
+  "sector_id_column": "sector_id",
+  "sector_score_column": "sector_score",
+  "c_score_adjustment": 0.08,
+  "technology_sector_ids": [
+    "24",
+    "25",
+    "26",
+    "27",
+    "28",
+    "29",
+    "30",
+    "31"
+  ],
+  "semiconductor_sector_ids": [
+    "24"
+  ],
+  "overnight_instruments": {
+    "NASDAQ": {
+      "source_symbol": "^IXIC",
+      "kind": "us_equity",
+      "scale_return": 0.015,
+      "direction": 1.0,
+      "max_age_hours": 96,
+      "weights": {
+        "all": 0.20
+      }
+    },
+    "SOX": {
+      "source_symbol": "^SOX",
+      "kind": "us_equity",
+      "scale_return": 0.020,
+      "direction": 1.0,
+      "max_age_hours": 96,
+      "weights": {
+        "technology": 0.20,
+        "semiconductor": 0.05
+      }
+    },
+    "NVDA": {
+      "source_symbol": "NVDA",
+      "kind": "us_equity",
+      "scale_return": 0.030,
+      "direction": 1.0,
+      "max_age_hours": 96,
+      "weights": {
+        "technology": 0.10
+      }
+    },
+    "TSM_ADR": {
+      "source_symbol": "TSM",
+      "kind": "us_equity",
+      "scale_return": 0.025,
+      "direction": 1.0,
+      "max_age_hours": 96,
+      "weights": {
+        "technology": 0.15,
+        "semiconductor": 0.05
+      }
+    },
+    "USD_TWD": {
+      "source_symbol": "TWD=X",
+      "kind": "fx_daily",
+      "scale_return": 0.006,
+      "direction": -1.0,
+      "max_age_hours": 72,
+      "weights": {
+        "all": 0.10
+      }
+    },
+    "TAIWAN_FUTURES_NIGHT": {
+      "source_symbol": null,
+      "kind": "taifex_night",
+      "scale_return": 0.015,
+      "direction": 1.0,
+      "max_age_hours": 24,
+      "weights": {
+        "all": 0.20
+      }
+    }
+  },
+  "regime_thresholds": {
+    "event_fraction": 0.10,
+    "panic_return20": -0.05,
+    "rebound_return1": 0.02,
+    "high_volatility_ratio": 1.50,
+    "high_overnight_abs": 0.80,
+    "bull_return20": 0.03,
+    "bull_trend_fraction": 0.60,
+    "bull_max_volatility_ratio": 1.40
+  },
+  "regime_weights": {
+    "BULL_TREND": {
+      "price": 0.30,
+      "sector": 0.20,
+      "overnight": 0.20,
+      "earnings": 0.10,
+      "institutional": 0.10,
+      "risk": 0.10
+    },
+    "RANGE": {
+      "price": 0.25,
+      "sector": 0.15,
+      "overnight": 0.10,
+      "earnings": 0.15,
+      "institutional": 0.15,
+      "risk": 0.20
+    },
+    "HIGH_VOL": {
+      "price": 0.15,
+      "sector": 0.10,
+      "overnight": 0.10,
+      "earnings": 0.10,
+      "institutional": 0.10,
+      "risk": 0.45
+    },
+    "PANIC_REBOUND": {
+      "price": 0.20,
+      "sector": 0.15,
+      "overnight": 0.20,
+      "earnings": 0.05,
+      "institutional": 0.05,
+      "risk": 0.35
+    },
+    "EVENT": {
+      "price": 0.15,
+      "sector": 0.10,
+      "overnight": 0.10,
+      "earnings": 0.30,
+      "institutional": 0.10,
+      "risk": 0.25
+    }
+  },
+  "risk_transform": {
+    "volatility_low": 0.75,
+    "volatility_high": 2.00,
+    "one_day_chase_return": 0.07,
+    "volatility_weight": 0.75,
+    "chase_weight": 0.25
+  },
+  "pit_max_age_days": {
+    "earnings": 140,
+    "institutional": 10
+  },
+  "research_boundary": {
+    "c_changes": "ranking_only",
+    "d_changes": "fixed_regime_weighted_ranking_only",
+    "missing_signal": "neutral_without_weight_renormalization",
+    "sector_gate_owned_elsewhere": true,
+    "parameters_tuned_on_v2_results": false,
+    "literature_checks": [
+      "https://www.alphaxiv.org/abs/2009.04824",
+      "https://www.davidhbailey.com/dhbpapers/backtest-prob.pdf"
+    ]
+  }
+}

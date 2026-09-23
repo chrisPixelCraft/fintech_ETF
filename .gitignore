@@ -1,0 +1,76 @@
+# macOS and editor temporary files
+.DS_Store
+._*
+.AppleDouble/
+*~
+*.swp
+*.swo
+.idea/
+
+# Python environments, caches and build artifacts
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+.cache/
+.coverage
+.coverage.*
+htmlcov/
+.ipynb_checkpoints/
+build/
+dist/
+*.egg-info/
+
+# Optional JavaScript tooling and presentation scratch files
+node_modules/
+.chart-data-*/
+
+# Local credentials; sanitized templates may be versioned
+.env
+.env.*
+!.env.example
+!.env.sample
+!.env.template
+.secrets/
+secrets/
+credentials.json
+credentials.local.json
+token.json
+tokens.json
+*.pem
+*.key
+id_rsa
+id_ed25519
+
+# Logs and mutable local databases
+*.log
+*.pid
+*.sqlite
+*.sqlite3
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite3-wal
+*.sqlite3-shm
+
+# Downloaded market data stays local; small reference lists may be tracked.
+# Frozen datasets needed for reproduction must be selected explicitly later.
+/data/*
+!/data/reference/
+
+# Large experiment runs, repeated input snapshots and scratch work
+# Keep source, config, tests, docs, research, official_docs and reports eligible.
+/outputs/
+/tmp/
+
+# Daily account state, runtime journals, generated orders and raw responses
+/daily_auto/inbox/
+/daily_auto/private/
+/daily_auto/runtime/
+/daily_auto/runs/
+/daily_auto/evidence/raw/

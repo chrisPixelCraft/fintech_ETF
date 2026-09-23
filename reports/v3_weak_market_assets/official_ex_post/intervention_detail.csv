@@ -1,0 +1,5 @@
+model,executed_signal_days,weak_decision_days,applied_days,unknown_days,changed_eligible_top20_days,applied_days_with_fewer_than_20_valid_entries,weak_invalid_factor_buy_orders,baseline_fallback_weak_days
+A,417,51,0,10,0,0,0,0
+B,417,51,51,10,46,19,0,0
+C,417,51,51,10,47,19,0,0
+D,417,51,51,10,47,19,0,0
