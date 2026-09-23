@@ -1,0 +1,13 @@
+episode_id,kind,start,end,split,session_count,prior_session_date
+monthly_2010-01-04,monthly,2010-01-04,2010-02-04,development,24,2009-12-31
+monthly_2010-11-01,monthly,2010-11-01,2010-12-02,development,24,2010-10-29
+monthly_2011-08-01,monthly,2011-08-01,2011-09-01,development,24,2011-07-29
+monthly_2012-06-01,monthly,2012-06-01,2012-07-04,development,24,2012-05-31
+monthly_2013-04-01,monthly,2013-04-01,2013-05-07,development,24,2013-03-29
+monthly_2014-01-02,monthly,2014-01-02,2014-02-12,development,24,2013-12-31
+monthly_2014-11-03,monthly,2014-11-03,2014-12-04,development,24,2014-10-31
+monthly_2015-08-03,monthly,2015-08-03,2015-09-03,development,24,2015-07-31
+monthly_2016-06-01,monthly,2016-06-01,2016-07-06,development,24,2016-05-31
+monthly_2017-04-05,monthly,2017-04-05,2017-05-09,development,24,2017-03-31
+monthly_2018-01-02,monthly,2018-01-02,2018-02-02,development,24,2017-12-29
+monthly_2018-11-01,monthly,2018-11-01,2018-12-04,development,24,2018-10-31

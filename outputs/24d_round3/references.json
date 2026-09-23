@@ -1,0 +1,50 @@
+[
+  {
+    "candidate_id": "x0352_daily_baseline",
+    "params": {
+      "target_count": 20,
+      "replacement_margin": 0.2,
+      "max_replacements_per_day": 0,
+      "volatility_spike_ratio": 2.0,
+      "one_day_chase_return": 0.04,
+      "volume_low": 0.8,
+      "volume_high": 2.5,
+      "four_hour_mode": "coverage_only",
+      "return_short": 10,
+      "return_long": 30,
+      "ema_fast": 10,
+      "ema_slow": 30,
+      "macd_fast": 8,
+      "macd_slow": 21,
+      "macd_signal": 5,
+      "momentum_weight": 0.55,
+      "long_return_fraction": 0.2,
+      "cash_guard_ratio": 0.12
+    },
+    "source": "v3_tuning"
+  },
+  {
+    "candidate_id": "tune_6eadb512258f",
+    "params": {
+      "target_count": 28,
+      "replacement_margin": 0.0,
+      "max_replacements_per_day": 1,
+      "volatility_spike_ratio": 2.5,
+      "one_day_chase_return": 0.055,
+      "volume_low": 0.5,
+      "volume_high": 2.0,
+      "four_hour_mode": "coverage_only",
+      "return_short": 3,
+      "return_long": 30,
+      "ema_fast": 5,
+      "ema_slow": 15,
+      "macd_fast": 8,
+      "macd_slow": 21,
+      "macd_signal": 5,
+      "momentum_weight": 0.55,
+      "long_return_fraction": 0.2,
+      "cash_guard_ratio": 0.12
+    },
+    "source": "v3_tuning"
+  }
+]

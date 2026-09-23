@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "groups": 293,
+  "attempts": 5531,
+  "holdout_ledgers_rebuilt": 0,
+  "development_episodes": 107,
+  "validation_episodes": 47,
+  "holdout_episodes": 23,
+  "candidate_count": 247,
+  "decision": "NO_ELIGIBLE_CANDIDATE",
+  "formal_status": "BLOCK_SUBMISSION",
+  "result_manifest_sha256": "a12d0485e6027400e3e054f5a51c8b79d935cd762a44f81504a145ab04852d42",
+  "verifier_sha256": "4b87c364606da62a578a7c9da718f7ad96df6438a8bb744f562d077cc4bb9d0b"
+}
+{
+  "status": "PASS",
+  "mode": "verify",
+  "files": {
+    "reports/24d_tuning.md": "233f1bb3df16af7c92445dde9e254e7275b707c65c1616130abc0ccf3bdcefa3",
+    "reports/24d_tuning_comparison.csv": "7fecaff65fee60c3c9f19c4d9378f759d72101948eaed740a8b698302d7ec624",
+    "reports/24d_tuning_cold_start.csv": "a03534ef975491fad355a15764e010ada4732f55cf82647fb2273d998a22dffe"
+  }
+}

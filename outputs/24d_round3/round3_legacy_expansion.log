@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "candidate_count": 328,
+  "groups": 372,
+  "attempts": 2313,
+  "holdout_ledgers_rebuilt": 0,
+  "development_episodes": 107,
+  "validation_episodes": 47,
+  "decision": "NO_ELIGIBLE_CANDIDATE",
+  "formal_status": "BLOCK_SUBMISSION",
+  "result_manifest_sha256": "da61fe90981ea0ea05b5dfddec351f875dd97b9c0afb9653e54c925f52417777",
+  "verifier_sha256": "e91abb2538b21cf892f3ba44cb4e6598d0422530e16d37b713767e107d0640bb"
+}
+{
+  "status": "PASS",
+  "mode": "verify",
+  "files": {
+    "reports/24d_expansion.md": "d139047a8c3fefd885ff00b62bf8506e0b42dc0426974a5ba6ba7f95fb653a8d",
+    "reports/24d_expansion_comparison.csv": "596dae15733f543655e9de65c54f1d44dcbc9896c0c66331e952c06b7104842b",
+    "reports/24d_expansion_common.csv": "7ba49f6c5052ad50ce52cbecf22f5df03ccc4906f2d13797008dc0da0ead8031"
+  }
+}

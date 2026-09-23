@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "mode": "verify",
+  "files": {
+    "reports/24d_round3.md": "2315ede551b8c8cea9a8a152d72752a867425e60d356609afd153b540186716d",
+    "reports/24d_round3_comparison.csv": "3061ab70a1a6e4f01bf2275229aff254d1785574902830e459e78db3c0d04461",
+    "reports/24d_round3_common.csv": "2f5dbf2ba99758418e8502aebd9d8cca93a4ca4e913c39058b204ab0939ed2f8",
+    "reports/24d_round3_strata.csv": "a39f1e5a8a41db6404025d6e6eb33d069d0aac4c6a2a3ddc912be786b74e5a78"
+  }
+}

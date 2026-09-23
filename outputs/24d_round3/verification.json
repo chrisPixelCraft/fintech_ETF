@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "candidate_count": 512,
+  "groups": 556,
+  "attempts": 2497,
+  "holdout_ledgers_rebuilt": 69,
+  "development_episodes": 107,
+  "validation_episodes": 47,
+  "decision": "NO_ELIGIBLE_CANDIDATE",
+  "formal_status": "BLOCK_SUBMISSION",
+  "result_manifest_sha256": "cf1eca6c6e3f72dccc990de837ff48baf4fb89be781c22d8d2ba34e13f225e41",
+  "verifier_sha256": "b4118bd65d65566a1c643a08c193757be2b1f9ce7d2c1371d2c94a8fdeeaf6df"
+}

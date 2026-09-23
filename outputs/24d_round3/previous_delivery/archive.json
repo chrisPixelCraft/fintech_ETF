@@ -1,0 +1,12 @@
+{
+  "source_commit": "a7e9411761961e1a504147025993379e43e5fe9b",
+  "files": {
+    "README.md": "9673e13bfd962d3026ad5e0a03d687660b72e8cdce5d07902751714597c63049",
+    "docs/README.md": "965cd5b4344c41cfda3534c06c5aa3abc22df3e190adc4ec527481110f495598",
+    "config/best_v2_release.json": "cf0baa6f5d3a0f0d03dca75d1761f8d720b73077b9ea2676bff7f2b55e91b97d",
+    "outputs/best_v2/audit.json": "975e898aeb66e49338457821ea6db4055ef7b0f46df74cddbac1e2c9faeb1666",
+    "outputs/24d/delivery_manifest.json": "34c01577a382162e7926b551f09fe0fec94bf140345edfe18ea7b00a72d33707",
+    "outputs/24d_tuning/delivery_manifest.json": "5d5917993c2c6a434ce495cefac28a82198cf9bf61a90413ad6eb366f7580a73",
+    "outputs/24d_expansion/delivery_manifest.json": "2b1822d69123826e94dff8d9526ab1cd9335930f099eaa65f0ba759996d9a357"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "created_at": "2026-09-23T18:05:58.581057+00:00",
+  "bottleneck_top12": [
+    "tune_2d6196e4c155",
+    "tune_44bd0c5919db",
+    "tune_853925c9f651",
+    "tune_a9f387c68cd1",
+    "tune_f767f31b5b7b",
+    "tune_f9cb9a8b399a",
+    "tune_06e0ae30a047",
+    "tune_088e819ecd3f",
+    "tune_16c1b260f97b",
+    "tune_3482f19843ce",
+    "tune_51d6be4f2792",
+    "tune_5dda2b818717"
+  ],
+  "screen_top6": [
+    "tune_853925c9f651",
+    "tune_44bd0c5919db",
+    "tune_f767f31b5b7b",
+    "tune_f9cb9a8b399a",
+    "tune_3482f19843ce",
+    "tune_06e0ae30a047"
+  ]
+}
