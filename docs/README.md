@@ -1,42 +1,26 @@
 # 文件導覽
 
-目前的策略入口與績效以[專案 README](../README.md)為準；研究結果集中在 `reports/`，這裡保留規則、資料說明及實驗規格。
+目前只保留 `x0352` 固定策略與相關比較。操作看[專案 README](../README.md)，數字看[比較報告](../reports/comparison.md)。
 
-## 先看這些
-
-| 要查什麼 | 文件 |
+| 內容 | 文件 |
 |---|---|
-| 規則與阻斷項 | [現行規則表](v2_double_check_rules.md) |
-| 既有回測資料 | [2025 至今資料稽核](data_audit_2025_to_now.md) |
-| 每日操作 | [daily_auto 說明](../daily_auto/README.md) |
-| 單月策略結果 | [單月擴搜報告](../reports/monthly_expansion_report.md) |
-| 月度研究依據 | [研究與來源](monthly_strategy_research.md) |
+| 規則與阻斷項 | [規則說明](rules.md) |
+| 資料與偏誤 | [資料說明](data.md) |
 | 主辦方原文 | [official_docs](../official_docs/) |
+| 保留內容與來源 | [發行清單](../config/best_v2_release.json) |
 
-規則表說明本地可檢查的範圍與仍缺的官方證據；研究回測通過不等於正式合規。
+## 整理與恢復
 
-## 重現實驗時再看
+整理前版本為 [`d613b75`](https://github.com/chrisPixelCraft/fintech_ETF/tree/d613b75)。舊入口、研究設計與歷次報告可從該版本取得。Git 不包含當時被忽略的全部實驗明細。
 
-這些規格記錄各輪當時的搜尋範圍與判定方法，已綁定實驗來源雜湊。它們不是多個可任意切換的正式策略，也不應合併後回填成舊實驗的原始輸入。
+本機舊輸出、未完成月度搜尋及 Yahoo 日線研究另封存在專案同層 `fintech_ETF_archive_best_v2_20260923/`，其中 `cleanup_manifest.json` 記錄原路徑、檔案數與位元組。封存不屬於目前可執行版本，也不會推送至 Git。
 
-| 實驗 | 凍結規格 |
-|---|---|
-| 原 full tuned v2 | [原始搜尋](official_deep_protocol.md) |
-| Double-check 第一輪 | [搜尋與驗證](v2_double_check_protocol.md) |
-| Double-check 第二輪 | [局部擴搜](v2_double_check_expansion_protocol.md) |
-| Double-check 第三輪 | [局部細搜](v2_double_check_refinement_protocol.md) |
-| Double-check 第四輪 | [結構搜尋](v2_double_check_structural_protocol.md) |
-| 月度比較 | [量測規格](monthly_strategy_protocol.md) |
-| 單月參數擴搜 | [搜尋規格](monthly_expansion_protocol.md)／[建倉診斷](monthly_expansion_design.md) |
+更早的歷史研究仍可由版本 `dfd5f84` 與既有同層 `fintech_ETF_research_archive_20260923/cleanup_manifest.json` 追溯。這些封存都不是新的績效證據。
 
-## 已移除的舊說明
+## 驗證範圍
 
-下列文件已退出目前文件集。需要追溯時，可讀取整理前固定版本；它們的舊入口、測試數或規則文字不作現行依據。
+保留兩池 `x0352` 全期完整帳本，以及 `x0352`、`x0454`、`mx0010` 共 132 個月度比較帳本，包含未合格窗口。v1 與 0050 留存設定、淨值與指標供年度比較，未聲稱重建其全部交易。
 
-| 舊文件 | 現在看哪裡 | 歷史全文 |
-|---|---|---|
-| 舊版發行說明 | [專案 README](../README.md) | [Git 版本](https://github.com/chrisPixelCraft/fintech_ETF/blob/f4334ff27d4f3929e0ac2b83ed72c5973082d3c0/docs/fintune_v2_release.md) |
-| 第二輪規劃器筆記 | [現行規則表](v2_double_check_rules.md) | [Git 版本](https://github.com/chrisPixelCraft/fintech_ETF/blob/f4334ff27d4f3929e0ac2b83ed72c5973082d3c0/docs/compliance_planner_2nd.md) |
-| 舊官方規則摘要 | [現行規則表](v2_double_check_rules.md) | [Git 版本](https://github.com/chrisPixelCraft/fintech_ETF/blob/f4334ff27d4f3929e0ac2b83ed72c5973082d3c0/docs/official_docs_rule_audit.md) |
+新驗證器重算保留帳本與比較數字；舊搜尋的完整性及排名只屬歷史紀錄。發行清單保存整理前來源路徑及雜湊，不改寫舊實驗成新的驗證結果。
 
-更早的整理前程式版本為 [`dfd5f84`](https://github.com/chrisPixelCraft/fintech_ETF/tree/dfd5f84)。當時排除的大型實驗明細另存於專案同層 `fintech_ETF_research_archive_20260923/`，清單為 `cleanup_manifest.json`；Git 歷史不包含完整的 810 次逐筆帳本。`verify_fintune_v2.py` 檢查目前留存的精簡版證據，不代表重驗全部封存試驗。
+`src/` 中部分名稱源自舊研究，但仍是固定策略的共用依賴。原搜尋 runner 需要的四個共用函式已抽至 `src/replay_context.py`，函式內容保持一致；僅保留一個公開策略入口。

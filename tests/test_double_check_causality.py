@@ -137,7 +137,7 @@ def synthetic_panel():
 
 class CausalReplayTests(unittest.TestCase):
     def test_truncation_cannot_silently_remove_fixed_universe_member(self):
-        cfg = json.loads((ROOT/'outputs/full_tuned_v2/official_ex_post/final/full_tuned_v2/config.json').read_text())
+        cfg = json.loads((ROOT/'outputs/best_v2/official_ex_post/config.json').read_text())
         daily, universe, bars, dates = synthetic_panel()
         daily = daily[~(daily.symbol.eq('1031.TW') & daily.date.le(dates[226]))]
         with self.assertRaisesRegex(ValueError, '1031.TW'):
@@ -147,7 +147,7 @@ class CausalReplayTests(unittest.TestCase):
     def test_fixed_incumbent_parameters_survive_rebuilt_prefix_and_future_shock(self):
         # This pre-existing immutable incumbent provides actual search parameters;
         # use verify_selected_config explicitly on the eventual winner too.
-        cfg = json.loads((ROOT/'outputs/full_tuned_v2/official_ex_post/final/full_tuned_v2/config.json').read_text())
+        cfg = json.loads((ROOT/'outputs/best_v2/official_ex_post/config.json').read_text())
         daily, universe, bars, dates = synthetic_panel()
         result = verify_selected_config(cfg, daily, universe, bars,
                                         start=dates[215], cutoff=dates[226], end=dates[-1])

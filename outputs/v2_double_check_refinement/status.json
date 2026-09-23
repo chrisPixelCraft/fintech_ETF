@@ -1,7 +1,0 @@
-{
-  "status": "TRUSTED_RESEARCH_ONLY_BLOCK_SUBMISSION",
-  "submission_status": "BLOCK_SUBMISSION",
-  "completed": 160,
-  "expected": 160,
-  "audit_sha256": "1d5aa2fd5598f33eae2f0f1f977fd3245fb3674ba151efd6be312f86444098bb"
-}

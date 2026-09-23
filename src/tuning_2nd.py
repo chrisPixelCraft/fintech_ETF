@@ -9,7 +9,7 @@ import copy
 import inspect
 import numpy as np
 import pandas as pd
-from scripts import run_v2_tuning as old
+from src import replay_context as old
 from src.backtest import aggregate_four_hour
 from src.tuning_features import FeatureCache, IsolatedEngine
 from src.tuning_signals import TuningSignals
