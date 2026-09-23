@@ -1,0 +1,262 @@
+{
+  "winner_boundaries": {
+    "target_count": {
+      "value": 20,
+      "boundary": true,
+      "searched_values": [
+        20,
+        22,
+        25,
+        28,
+        30
+      ]
+    },
+    "replacement_margin": {
+      "value": 0.2,
+      "boundary": false,
+      "searched_values": [
+        0.0,
+        0.025,
+        0.05,
+        0.1,
+        0.2,
+        0.3,
+        0.4
+      ]
+    },
+    "max_replacements_per_day": {
+      "value": 0,
+      "boundary": true,
+      "searched_values": [
+        0,
+        1,
+        2,
+        4,
+        6,
+        8,
+        12
+      ]
+    },
+    "volatility_spike_ratio": {
+      "value": 2.0,
+      "boundary": false,
+      "searched_values": [
+        1.5,
+        2.0,
+        2.5,
+        3.0,
+        4.0,
+        5.0
+      ]
+    },
+    "one_day_chase_return": {
+      "value": 0.04,
+      "boundary": false,
+      "searched_values": [
+        0.03,
+        0.04,
+        0.055,
+        0.07,
+        0.085,
+        0.095
+      ]
+    },
+    "volume_low": {
+      "value": 0.8,
+      "boundary": false,
+      "searched_values": [
+        0.2,
+        0.3,
+        0.5,
+        0.8,
+        1.0
+      ]
+    },
+    "volume_high": {
+      "value": 3.0,
+      "boundary": false,
+      "searched_values": [
+        2.0,
+        3.0,
+        5.0,
+        8.0,
+        10.0
+      ]
+    },
+    "return_pair": {
+      "value": [
+        10,
+        30
+      ],
+      "boundary": false,
+      "searched_values": [
+        [
+          5,
+          20
+        ],
+        [
+          10,
+          30
+        ],
+        [
+          15,
+          40
+        ],
+        [
+          20,
+          50
+        ],
+        [
+          30,
+          90
+        ],
+        [
+          40,
+          120
+        ],
+        [
+          50,
+          160
+        ]
+      ]
+    },
+    "ema_pair": {
+      "value": [
+        10,
+        30
+      ],
+      "boundary": false,
+      "searched_values": [
+        [
+          5,
+          20
+        ],
+        [
+          10,
+          30
+        ],
+        [
+          15,
+          40
+        ],
+        [
+          20,
+          50
+        ],
+        [
+          30,
+          90
+        ],
+        [
+          50,
+          150
+        ],
+        [
+          60,
+          180
+        ]
+      ]
+    },
+    "macd_tuple": {
+      "value": [
+        8,
+        21,
+        5
+      ],
+      "boundary": false,
+      "searched_values": [
+        [
+          6,
+          13,
+          4
+        ],
+        [
+          8,
+          21,
+          5
+        ],
+        [
+          12,
+          26,
+          9
+        ],
+        [
+          16,
+          35,
+          9
+        ],
+        [
+          19,
+          39,
+          9
+        ],
+        [
+          24,
+          52,
+          12
+        ],
+        [
+          30,
+          65,
+          15
+        ]
+      ]
+    },
+    "momentum_weight": {
+      "value": 0.55,
+      "boundary": true,
+      "searched_values": [
+        0.55,
+        0.65,
+        0.75,
+        0.85,
+        0.95
+      ]
+    },
+    "long_return_fraction": {
+      "value": 0.19999999999999998,
+      "boundary": false,
+      "searched_values": [
+        0.15,
+        0.2,
+        0.35,
+        0.4666666666666667,
+        0.5,
+        0.7,
+        0.85,
+        0.9
+      ]
+    },
+    "cash_guard_ratio": {
+      "value": 0.12,
+      "boundary": false,
+      "searched_values": [
+        0.08,
+        0.1,
+        0.12,
+        0.14,
+        0.16,
+        0.18
+      ]
+    },
+    "four_hour_mode": {
+      "value": "coverage_only",
+      "boundary": true,
+      "searched_values": [
+        "strict",
+        "coverage_only"
+      ]
+    }
+  },
+  "total_unique_candidates": 836,
+  "eligible_by_track": {
+    "historical_pit": 115,
+    "official_ex_post": 4
+  },
+  "fully_exhaustive_global": false,
+  "raw_global_combinations": 36303120000,
+  "global_fraction": 2.3028323736362054e-08,
+  "raw_local_combinations": 128,
+  "local_coverage_rows": 128,
+  "search_seed": 2026092301
+}

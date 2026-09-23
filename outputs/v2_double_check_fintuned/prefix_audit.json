@@ -1,0 +1,32 @@
+{
+  "official_ex_post": {
+    "status": "PASS",
+    "compared_rows": 126956,
+    "prefix_feature_rows": 95135,
+    "start": "2025-01-01",
+    "cutoff": "2026-08-31",
+    "end": "2026-09-21",
+    "pre_cutoff_fills": 1578,
+    "universe_symbols": 150,
+    "universe_unchanged": true,
+    "hyperparameters_unchanged": true,
+    "official_compliance": "UNKNOWN_BLOCK_SUBMISSION",
+    "candidate_id": "d0034",
+    "config_sha256": "1dff2c9918a5fdf3cf9c76454fb4448aaffcc23a3793e0cf42d3654a00d47c71"
+  },
+  "historical_pit": {
+    "status": "PASS",
+    "compared_rows": 128698,
+    "prefix_feature_rows": 97398,
+    "start": "2025-01-01",
+    "cutoff": "2026-08-31",
+    "end": "2026-09-21",
+    "pre_cutoff_fills": 1696,
+    "universe_symbols": 150,
+    "universe_unchanged": true,
+    "hyperparameters_unchanged": true,
+    "official_compliance": "UNKNOWN_BLOCK_SUBMISSION",
+    "candidate_id": "d0034",
+    "config_sha256": "a58d3d4addeb5d73a9d970529c730791a65f3902f7a55e96974ffefbd9604f92"
+  }
+}
