@@ -1,0 +1,79 @@
+[
+  {
+    "episode_id": "development_2010",
+    "exact": {
+      "compliance_daily": true,
+      "equity": true,
+      "holdings": true,
+      "orders": true,
+      "snapshots": true,
+      "trades": true
+    }
+  },
+  {
+    "episode_id": "development_2018",
+    "exact": {
+      "compliance_daily": true,
+      "equity": true,
+      "holdings": true,
+      "orders": true,
+      "snapshots": true,
+      "trades": true
+    }
+  },
+  {
+    "episode_id": "validation_2020",
+    "exact": {
+      "compliance_daily": true,
+      "equity": true,
+      "holdings": true,
+      "orders": true,
+      "snapshots": true,
+      "trades": true
+    }
+  },
+  {
+    "episode_id": "holdout_2023",
+    "exact": {
+      "compliance_daily": true,
+      "equity": true,
+      "holdings": true,
+      "orders": true,
+      "snapshots": true,
+      "trades": true
+    }
+  },
+  {
+    "episode_id": "seasonal_2025",
+    "exact": {
+      "compliance_daily": true,
+      "equity": true,
+      "holdings": true,
+      "orders": true,
+      "snapshots": true,
+      "trades": true
+    }
+  },
+  {
+    "episode_id": "recent_latest",
+    "exact": {
+      "compliance_daily": true,
+      "equity": true,
+      "holdings": true,
+      "orders": true,
+      "snapshots": true,
+      "trades": true
+    }
+  },
+  {
+    "episode_id": "rolling_latest_minus5",
+    "exact": {
+      "compliance_daily": true,
+      "equity": true,
+      "holdings": true,
+      "orders": true,
+      "snapshots": true,
+      "trades": true
+    }
+  }
+]

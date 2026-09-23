@@ -2,6 +2,31 @@
 
 研究目標是每次從 **10 億元、零持股出發的 24 交易日報酬**。固定 v2 的 **309.16%** 是另一套資料與成交口徑下的長期回測，不能代替短賽期證據。正式使用維持 **`BLOCK_READY`／`BLOCK_SUBMISSION`**。
 
+## V4 Stage 1：成交與帳本驗證
+
+本階段只重現凍結 V3，不建立或調整 V4 策略。新增 TWSE／TPEx 官方成交金額÷成交股數資料管線，與 Open proxy 配對回放；另以官方前日收盤價定股數與估值，檢查完整官方價格路徑。所有結果仍為研究證據，正式提交維持 `BLOCK_SUBMISSION`。
+
+21 次回放已完成，三軌各完成 5/7 個窗口；量測合規通過數依序為 Open **3/7**、官方均價對照 **1/7**、完整官方價格路徑 **3/7**。帳務驗證通過不代表策略合規；未宣告 V4 winner。
+
+[執行比較報告](reports/v4_execution_comparison.md)列出預先指定的 7 個 24 日窗口、全部失敗、逐筆價差及成交假設影響。這是涵蓋不同時期的有限診斷，並非完整歷史驗證；近期重疊窗口不是獨立樣本。官方資料缺漏不以 Open／Close 補值，缺證據時維持 `BLOCK_CANONICAL_V4`。
+
+| 內容 | 連結 |
+|---|---|
+| 範圍與設定 | [Stage 1 設定](config/v4_study.json)／[主規格](docs/v4_master_spec.md)／[驗證規格](docs/v4_execution_validation_spec.md) |
+| 結果與來源 | [配對結果](outputs/v4/stage1/results.csv)／[來源與雜湊](outputs/v4/stage1/manifest.json)／[Open 重現](outputs/v4/stage1/open_reproduction.json) |
+| 官方價格 | [正規化快取](outputs/v4/execution_data.csv)／[下載紀錄](outputs/v4/execution_data.manifest.json) |
+
+使用既有 Yahoo 快照與官方快取重現，輸出必須選新的 V4 目錄：
+
+```bash
+python scripts/v4_run_baseline.py --output outputs/v4/stage1_replay
+python scripts/v4_verify.py --output outputs/v4/stage1_replay
+python scripts/v4_report.py --output outputs/v4/stage1_replay
+python -m unittest discover -s tests -p 'test_v4_*.py' -q
+```
+
+官方快取可用 `python scripts/v4_build_execution_data.py --dates outputs/v4/execution_requested_dates.csv` 重建；交易所原始回應以壓縮檔保留。策略、委託與成交資料分開處理，因果測試確認 t 日與未來資料不改寫已提交委託；獨立稽核重算費稅、持股、現金與 NAV。
+
 ## 最新 v3 分層搜尋
 
 依 [v3_tuning.md](docs/v3_tuning.md)新增 **512 組不重複參數**：256 組均勻抽樣、256 組分層搜尋。分層涵蓋 5 種目標持股數 × 4 種每日換股數，全部留在原規格範圍。排除前兩輪 575 組，三輪合計 **1,087 組**；並非窮舉全部可能參數。

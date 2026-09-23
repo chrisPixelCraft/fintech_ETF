@@ -1,0 +1,71 @@
+{
+  "study_id": "v4_stage1_execution_comparison",
+  "stage": 1,
+  "strategy_config": "configs/competition_24d_final.json",
+  "daily": "data/yahoo_daily/v3_20260923/nominal_daily.parquet",
+  "calendar": "data/yahoo_daily/v3_20260923/calendar_v2.json",
+  "universe": "data/reference/universe_competition_20260731.csv",
+  "execution_data": "outputs/v4/execution_data.csv",
+  "episode_length": 24,
+  "initial_cash": 1000000000,
+  "execution_modes": [
+    "open_proxy",
+    "official_average",
+    "official_average_official_close"
+  ],
+  "anchors": [
+    {
+      "id": "development_2010",
+      "start": "2010-01-01",
+      "split": "development"
+    },
+    {
+      "id": "development_2018",
+      "start": "2018-01-01",
+      "split": "development"
+    },
+    {
+      "id": "validation_2020",
+      "start": "2020-03-02",
+      "split": "validation"
+    },
+    {
+      "id": "holdout_2023",
+      "start": "2023-01-01",
+      "split": "historical_holdout"
+    },
+    {
+      "id": "seasonal_2025",
+      "start": "2025-10-20",
+      "split": "seasonal_diagnostic"
+    },
+    {
+      "id": "recent_latest",
+      "latest_offset": 0,
+      "split": "recent_diagnostic"
+    },
+    {
+      "id": "rolling_latest_minus5",
+      "latest_offset": 5,
+      "split": "rolling_diagnostic"
+    }
+  ],
+  "question": "How sensitive is the frozen V3 baseline to Open versus official value/volume fills?",
+  "scientific_variable": "execution price",
+  "fixed_variables": [
+    "V3 signal and parameters",
+    "24 sessions",
+    "NT$1B zero-holdings reset",
+    "costs",
+    "competition constraints",
+    "corporate-action policy"
+  ],
+  "tuning": "NONE",
+  "window_selection": "Predeclared diagnostic sample before inspecting returns; not exhaustive historical validation",
+  "rolling_windows_independent": false,
+  "universe_interpretation": "2026_FIXED_COMPETITION_UNIVERSE_RETROSPECTIVE_STRESS_NOT_POINT_IN_TIME",
+  "decision_rule": "Measure paired execution sensitivity only; no strategy winner or tuning",
+  "stop_condition": "Stop trusting results on accounting, causality, provenance, or data failure; retain failed attempts",
+  "submission_status": "BLOCK_SUBMISSION",
+  "canonical_close_diagnostic": "Third track uses official prior closes for sizing and marking after frozen signal construction; bundled price-basis diagnostic, not isolated fill effect"
+}
