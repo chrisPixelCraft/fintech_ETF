@@ -15,6 +15,8 @@ v2 與 v1 使用官方事後股票池，0050 是同期間 ETF 基準。下表採
 
 年度數字依據[第四輪獲選月度帳本](outputs/v2_double_check_structural/monthly.csv)及[舊版對照月度帳本](outputs/full_tuned_v2/monthly.csv)之 `ending_economic_nav` 計算：2025 年末相對初始本金 10 億元，2026 年 9 月 21 日相對 2025 年末。完整期間的帳面報酬分別為 v2 **309.16%**、v1 **248.15%**、0050 **121.28%**；績效與限制見[第四輪結果](reports/v2_double_check_structural_report.md)。
 
+2010–2024 年無法用相同參數與逐日規則算出完整年度報酬；逐年缺口見[2010–2024 年度查核](reports/x0352_2010_2024_report.md)。
+
 ## 安裝與驗證
 
 使用 Python 3.10：
@@ -41,6 +43,7 @@ python v2_double_check_structural.py --track official_ex_post --output outputs/m
 | 內容 | 連結 |
 |---|---|
 | 第四輪績效、年度比較與限制 | [結構搜尋結果](reports/v2_double_check_structural_report.md) |
+| 2010–2024 年逐年報酬可行性 | [年度查核報告](reports/x0352_2010_2024_report.md) |
 | 官方規則逐條核對及阻斷項 | [規則表](docs/v2_double_check_rules.md) |
 | 81 組局部網格及停損規格 | [結構搜尋規格](docs/v2_double_check_structural_protocol.md) |
 | 獨立驗證與最終帳本 | [結構搜尋稽核](outputs/v2_double_check_structural/audit.json) |
