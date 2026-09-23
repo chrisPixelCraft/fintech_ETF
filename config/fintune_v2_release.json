@@ -5,7 +5,7 @@
   "files": {
     ".gitattributes": "d49deb6564903aee20fcd6ec3433a3aa29302ee22e654de2ec0583b4e7f2305c",
     ".gitignore": "d8c34137334fc392a4673b2d0d8f4780bb492cf9288424dda8396e7a09adc6c1",
-    "README.md": "de0cb3fe407852405458752cc0268f2e1f7d4dac5b6fe5bc525bb2ea23589210",
+    "README.md": "9a79d8c06714a55c19165a233371233c0adc1ee709d4f5d7d5088f1bf5817ebb",
     "config/official_deep_study.json": "3f406ba8f086b5323de602bf5f3877e129c9837bf2465f50e9e388cee274ed97",
     "config/strategy_v2.json": "373f9ba804fa9638441699ccb016ebc785b1b2b9579e5cf88d4cb5c67e22f3f0",
     "config/tuning_2nd_study.json": "982575fb3ed0d1e58e58722439554c6719bec1c0bb7984472f823ab05ad87f49",

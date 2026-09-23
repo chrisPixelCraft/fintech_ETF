@@ -1,0 +1,26 @@
+{
+  "baseline": "x0352",
+  "candidate_id": "x0454",
+  "params": {
+    "target_count": 20,
+    "replacement_margin": 0.2,
+    "max_replacements_per_day": 1,
+    "volatility_spike_ratio": 2.0,
+    "one_day_chase_return": 0.04,
+    "volume_low": 0.8,
+    "volume_high": 2.5,
+    "four_hour_mode": "coverage_only",
+    "return_short": 10,
+    "return_long": 30,
+    "ema_fast": 10,
+    "ema_slow": 30,
+    "macd_fast": 8,
+    "macd_slow": 21,
+    "macd_signal": 5,
+    "momentum_weight": 0.65,
+    "long_return_fraction": 0.1,
+    "cash_guard_ratio": 0.12
+  },
+  "scope": "EX_POST_ELIGIBILITY_AND_DEVELOPMENT_NOT_UNSEEN_TEST",
+  "submission_status": "BLOCK_SUBMISSION"
+}
