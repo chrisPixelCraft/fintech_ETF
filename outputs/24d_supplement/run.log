@@ -1,0 +1,5 @@
+{"event": "group_complete", "phase": "replacement_development", "candidate_id": "diagnostic_replacement_2"}
+{"event": "group_complete", "phase": "replacement_validation", "candidate_id": "diagnostic_replacement_2"}
+{"event": "group_complete", "phase": "rolling_2026", "candidate_id": "x0352_daily_baseline"}
+{"event": "group_complete", "phase": "rolling_2025", "candidate_id": "x0352_daily_baseline"}
+{"event": "group_complete", "phase": "walk_forward_2025", "candidate_id": "x0352_daily_baseline"}

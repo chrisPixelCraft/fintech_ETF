@@ -1,0 +1,26 @@
+{
+  "status": "PASS_OFFLINE_ARTIFACT_VERIFICATION",
+  "groups": 83,
+  "audited_attempts": 9418,
+  "primary_monthly_episodes": 180,
+  "candidates": 28,
+  "rebuilt_groups": [
+    "holdout/x0352_daily_baseline"
+  ],
+  "source_accuracy_verified": false,
+  "active_share_status": "ACTIVE_SHARE_NOT_VERIFIED",
+  "ready_status": "BLOCK_READY",
+  "submission_status": "BLOCK_SUBMISSION",
+  "verification_runtime_differences": {},
+  "supplement": {
+    "status": "PASS_SUPPLEMENT_INDEPENDENT_VERIFICATION",
+    "groups": 5,
+    "audited_attempts": 561,
+    "enriched_attempts": 9979,
+    "monthly_windows_per_candidate": 200,
+    "rolling_windows_per_candidate": 4060,
+    "adoption_allowed": false
+  },
+  "fixed_set_diagnostics": null,
+  "verification_scope": "artifact consistency, declared chronology, complete denominators; no vendor accuracy certification"
+}

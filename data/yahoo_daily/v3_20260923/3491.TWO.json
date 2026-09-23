@@ -1,0 +1,35 @@
+{
+  "symbol": "3491.TWO",
+  "request": {
+    "start": "2009-01-01",
+    "end": "2026-09-24",
+    "interval": "1d",
+    "auto_adjust": false,
+    "back_adjust": false,
+    "actions": true,
+    "repair": true,
+    "keepna": true,
+    "rounding": false,
+    "prepost": false,
+    "timeout": 30,
+    "raise_errors": true
+  },
+  "errors": [],
+  "status": "DOWNLOADED",
+  "file": "3491.TWO.parquet",
+  "sha256": "a7dbc567a04e70fd2f9a52f6360f58a8bd15772c089f8d9b9e6618f87500263b",
+  "fetch_utc": "2026-09-23T14:54:59.309761+00:00",
+  "completed_utc": "2026-09-23T14:55:00.153374+00:00",
+  "rows": 4338,
+  "columns": [
+    "Open",
+    "High",
+    "Low",
+    "Close",
+    "Adj Close",
+    "Volume",
+    "Dividends",
+    "Stock Splits",
+    "Repaired?"
+  ]
+}

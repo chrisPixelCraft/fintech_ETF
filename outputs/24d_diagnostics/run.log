@@ -1,0 +1,58 @@
+{"event": "group_complete", "phase": "remaining_monthly_001", "candidate_id": "coarse_004_return_short_15"}
+{"event": "group_complete", "phase": "remaining_monthly_001", "candidate_id": "coarse_001_target_count_25"}
+{"event": "group_complete", "phase": "remaining_monthly_001", "candidate_id": "coarse_003_return_short_5"}
+{"event": "group_complete", "phase": "remaining_monthly_001", "candidate_id": "coarse_002_target_count_30"}
+{"event": "group_complete", "phase": "remaining_monthly_001", "candidate_id": "coarse_005_return_long_20"}
+{"event": "group_complete", "phase": "remaining_monthly_001", "candidate_id": "coarse_007_ema_fast_8"}
+{"event": "group_complete", "phase": "remaining_monthly_001", "candidate_id": "coarse_006_return_long_50"}
+{"event": "group_complete", "phase": "remaining_monthly_001", "candidate_id": "coarse_008_ema_fast_15"}
+{"event": "group_complete", "phase": "remaining_monthly_001", "candidate_id": "coarse_009_ema_slow_20"}
+{"event": "group_complete", "phase": "remaining_monthly_001", "candidate_id": "coarse_011_macd_fast_6"}
+{"event": "group_complete", "phase": "remaining_monthly_001", "candidate_id": "coarse_010_ema_slow_50"}
+{"event": "group_complete", "phase": "remaining_monthly_001", "candidate_id": "coarse_012_macd_fast_10"}
+{"event": "group_complete", "phase": "remaining_monthly_001", "candidate_id": "coarse_013_macd_signal_3"}
+{"event": "group_complete", "phase": "remaining_monthly_001", "candidate_id": "coarse_014_macd_signal_7"}
+{"event": "group_complete", "phase": "remaining_monthly_001", "candidate_id": "coarse_015_momentum_weight_0p45"}
+{"event": "group_complete", "phase": "remaining_monthly_001", "candidate_id": "coarse_016_momentum_weight_0p65"}
+{"event": "group_complete", "phase": "remaining_monthly_001", "candidate_id": "coarse_017_long_return_fraction_0p1"}
+{"event": "group_complete", "phase": "remaining_monthly_001", "candidate_id": "coarse_018_long_return_fraction_0p3"}
+{"event": "group_complete", "phase": "remaining_monthly_001", "candidate_id": "coarse_019_volume_low_0p6"}
+{"event": "group_complete", "phase": "remaining_monthly_001", "candidate_id": "coarse_020_volume_high_3p0"}
+{"event": "group_complete", "phase": "remaining_monthly_001", "candidate_id": "coarse_021_volatility_spike_ratio_1p5"}
+{"event": "group_complete", "phase": "remaining_monthly_001", "candidate_id": "coarse_022_volatility_spike_ratio_2p5"}
+{"event": "group_complete", "phase": "remaining_monthly_001", "candidate_id": "coarse_023_one_day_chase_return_0p03"}
+{"event": "group_complete", "phase": "remaining_monthly_001", "candidate_id": "coarse_024_one_day_chase_return_0p05"}
+{"event": "group_complete", "phase": "remaining_monthly_001", "candidate_id": "coarse_025_max_replacements_per_day_1"}
+{"event": "group_complete", "phase": "remaining_monthly_001", "candidate_id": "coarse_026_cash_guard_ratio_0p1"}
+{"event": "group_complete", "phase": "remaining_monthly_001", "candidate_id": "coarse_027_cash_guard_ratio_0p14"}
+{"event": "group_complete", "phase": "remaining_monthly_002", "candidate_id": "diagnostic_replacement_2"}
+{"event": "continuous_complete", "candidate_id": "coarse_001_target_count_25"}
+{"event": "continuous_complete", "candidate_id": "coarse_003_return_short_5"}
+{"event": "continuous_complete", "candidate_id": "coarse_004_return_short_15"}
+{"event": "continuous_complete", "candidate_id": "coarse_005_return_long_20"}
+{"event": "continuous_complete", "candidate_id": "coarse_002_target_count_30"}
+{"event": "continuous_complete", "candidate_id": "x0352_daily_baseline"}
+{"event": "continuous_complete", "candidate_id": "coarse_006_return_long_50"}
+{"event": "continuous_complete", "candidate_id": "coarse_010_ema_slow_50"}
+{"event": "continuous_complete", "candidate_id": "coarse_008_ema_fast_15"}
+{"event": "continuous_complete", "candidate_id": "coarse_011_macd_fast_6"}
+{"event": "continuous_complete", "candidate_id": "coarse_009_ema_slow_20"}
+{"event": "continuous_complete", "candidate_id": "coarse_013_macd_signal_3"}
+{"event": "continuous_complete", "candidate_id": "coarse_014_macd_signal_7"}
+{"event": "continuous_complete", "candidate_id": "coarse_016_momentum_weight_0p65"}
+{"event": "continuous_complete", "candidate_id": "coarse_017_long_return_fraction_0p1"}
+{"event": "continuous_complete", "candidate_id": "coarse_018_long_return_fraction_0p3"}
+{"event": "continuous_complete", "candidate_id": "coarse_012_macd_fast_10"}
+{"event": "continuous_complete", "candidate_id": "coarse_015_momentum_weight_0p45"}
+{"event": "continuous_complete", "candidate_id": "coarse_021_volatility_spike_ratio_1p5"}
+{"event": "continuous_complete", "candidate_id": "coarse_019_volume_low_0p6"}
+{"event": "continuous_complete", "candidate_id": "coarse_022_volatility_spike_ratio_2p5"}
+{"event": "continuous_complete", "candidate_id": "coarse_024_one_day_chase_return_0p05"}
+{"event": "continuous_complete", "candidate_id": "coarse_023_one_day_chase_return_0p03"}
+{"event": "continuous_complete", "candidate_id": "coarse_025_max_replacements_per_day_1"}
+{"event": "continuous_complete", "candidate_id": "coarse_007_ema_fast_8"}
+{"event": "continuous_complete", "candidate_id": "coarse_026_cash_guard_ratio_0p1"}
+{"event": "continuous_complete", "candidate_id": "coarse_027_cash_guard_ratio_0p14"}
+{"event": "continuous_complete", "candidate_id": "simple_momentum_reference"}
+{"event": "continuous_complete", "candidate_id": "diagnostic_replacement_2"}
+{"event": "continuous_complete", "candidate_id": "coarse_020_volume_high_3p0"}

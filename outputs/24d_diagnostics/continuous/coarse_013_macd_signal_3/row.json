@@ -1,0 +1,21 @@
+{
+  "candidate_id": "coarse_013_macd_signal_3",
+  "source": "PRE_FREEZE_SEARCHED_PARAMETER_SET",
+  "requested_start": "2010-01-04",
+  "requested_end": "2026-09-23",
+  "requested_sessions": 4083,
+  "observed_sessions": 1113,
+  "observed_start": "2010-01-04",
+  "observed_end": "2014-07-09",
+  "complete_period": false,
+  "disqualified": true,
+  "measured_pass": false,
+  "long_horizon_return": null,
+  "forensic_partial_return": 0.18077150609113235,
+  "final_economic_nav": 1180771506.0911324,
+  "simulated_warning_days": 3,
+  "analysis_status": "POST_FREEZE_DIAGNOSTIC_NEVER_SELECTION_INPUT",
+  "execution_model": "DAILY_OPEN_RESEARCH_PROXY",
+  "source_group": "/home/bararesearch/Documents/dev/fintech_ETF/outputs/24d_diagnostics/continuous/coarse_013_macd_signal_3",
+  "return_interpretation": "DISQUALIFIED_PARTIAL_NOT_LONG_HORIZON_RETURN"
+}

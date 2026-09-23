@@ -1,0 +1,22 @@
+{
+  "completed_at": "2026-09-23T15:58:11.873482+00:00",
+  "registry": {
+    "status": "PASS_EPISODE_REGISTRY",
+    "episodes": 3860,
+    "monthly_episodes": 180,
+    "purged": 72
+  },
+  "selection": {
+    "status": "PASS_DECLARED_SELECTION_PROVENANCE",
+    "prior_2025_2026_baseline_selection_confound": true,
+    "historical_point_in_time_claim": false,
+    "candidates_evaluated": 28
+  },
+  "group_audits": "EVERY_ATTEMPT_RECONSTRUCTED_BEFORE_SAVE",
+  "source_accuracy_verified": false,
+  "active_share_status": "ACTIVE_SHARE_NOT_VERIFIED",
+  "ready_status": "BLOCK_READY",
+  "rolling_windows_independent": false,
+  "groups": 83,
+  "audited_attempts": 9418
+}

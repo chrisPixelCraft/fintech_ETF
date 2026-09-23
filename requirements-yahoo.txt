@@ -1,0 +1,3 @@
+# Preserve audited stack: uv pip install --python .venv/bin/python -c requirements.txt -r requirements-yahoo.txt
+yfinance==0.2.66
+pyarrow==17.0.0

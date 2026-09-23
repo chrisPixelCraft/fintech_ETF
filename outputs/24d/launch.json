@@ -1,0 +1,15 @@
+{
+  "pid": 370675,
+  "command": [
+    "/home/bararesearch/Documents/dev/fintech_ETF/.venv/bin/python",
+    "-u",
+    "scripts/run_24d.py",
+    "all",
+    "--workers",
+    "4",
+    "--cache",
+    "data/yahoo_daily/v3_20260923"
+  ],
+  "started_utc": "2026-09-23T15:18:22.654920+00:00",
+  "log": "outputs/24d/run.log"
+}

@@ -8,7 +8,7 @@
   "files": {
     ".gitattributes": "d49deb6564903aee20fcd6ec3433a3aa29302ee22e654de2ec0583b4e7f2305c",
     ".gitignore": "d8c34137334fc392a4673b2d0d8f4780bb492cf9288424dda8396e7a09adc6c1",
-    "README.md": "219e76eb9990c99515440676f44f5edf459e435f408ae9ace65adb903ad0953b",
+    "README.md": "a0c46faa7a10e2e7d5e8e1a0beccfe98f5a5f0b6ade4b2504c7b86ec88146085",
     "best_v2.py": "3d9b2eddaa058664330d9da5848a085517b69e69c0d9211b2a71804757454de8",
     "config/strategy_v2.json": "373f9ba804fa9638441699ccb016ebc785b1b2b9579e5cf88d4cb5c67e22f3f0",
     "config/v2_auxiliary_signals.json": "172f0d372c3c5f3ada14b31a9baf5aa4af64dd3d3b13d72c0c0c5967163c49eb",
@@ -42,7 +42,7 @@
     "data/v2_auxiliary/manifest.json": "8ade6ea3ea9628ed618c9fd75796091486abb248f7b7437a830bc35b466502c5",
     "data/v2_auxiliary/overnight_daily.csv": "cb133f00debae63038defe81dab18bcdf2362040dcb428efae275cdcb70e11e9",
     "data/v2_auxiliary/source_status.json": "d5feed3ab418f71b128cb7b175e18fbf3aa62cf494574eab4632e99eeeee48ba",
-    "docs/README.md": "f8a7ba85f4c686c9e568341bf8f28dda47624e3aea1883b588479d506f814287",
+    "docs/README.md": "afb0cce39443bfbfac33b41d7bd2887dc96bb798b845669ef76baafd7816ec3f",
     "docs/data.md": "e9458a0205efb16217b210f0923dc5a2bf4964b800c33660b737345016b96c30",
     "docs/rules.md": "6ec98ba3be4378039bacaa7f638a0ebf75a97de2de8e39650d33d37c6f3a898f",
     "official_docs/AI CUP 2026玉山人工智慧公開挑戰賽_比賽辦法.pdf": "55a26bb7408eedba7f3c395ca84c5d3d3d471532c5f3c01dfa2166336a983cf7",
@@ -8862,6 +8862,17 @@
         "setup_context"
       ],
       "validation": "Identical function ASTs; src/tuning_2nd.py import redirected"
+    },
+    "documentation_update": {
+      "previous_audit": "outputs/24d/v2_before_documentation_update/audit.json",
+      "previous_audit_sha256": "d5f0d35979de7a9d170bc1aed860d9383ef3c50aaf7ab20967b229fe75c8436a",
+      "previous_manifest": "outputs/24d/v2_before_documentation_update/best_v2_release.json",
+      "previous_manifest_sha256": "8644d6668c8cae31f386d345b3ab5aae67e886f97167832dafc7d5da9498b60c",
+      "reason": "Document the separate v3 24-session study; v2 strategy, inputs and ledgers unchanged",
+      "updated_files": [
+        "README.md",
+        "docs/README.md"
+      ]
     }
   }
 }

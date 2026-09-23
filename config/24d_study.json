@@ -1,0 +1,139 @@
+{
+  "study_id": "competition_24d_v3",
+  "authoritative_spec": "docs/v3_spec.md",
+  "episode_length": 24,
+  "monthly_start_year": 2010,
+  "monthly_end_year": 2024,
+  "seasonal_end_year": 2025,
+  "splits": {
+    "development": [
+      "2010-01-01",
+      "2019-12-31"
+    ],
+    "validation": [
+      "2020-01-01",
+      "2022-12-31"
+    ],
+    "holdout": [
+      "2023-01-01",
+      "2024-12-31"
+    ]
+  },
+  "required_measured_pass_rate": 1.0,
+  "max_workers": 4,
+  "validation_shortlist": 3,
+  "local_refinement_limit": 6,
+  "refinement_requires_development_pass_rate": 1.0,
+  "failed_episode_penalty_return": -1.0,
+  "ranking": [
+    "compliance_pass_rate DESC",
+    "valid_episode_rate DESC",
+    "median_24d_return DESC",
+    "p25_24d_return DESC",
+    "median_mdd ASC",
+    "mean_24d_return DESC",
+    "median_turnover ASC",
+    "candidate_id ASC"
+  ],
+  "coarse_neighbors": {
+    "target_count": [
+      25,
+      30
+    ],
+    "return_short": [
+      5,
+      15
+    ],
+    "return_long": [
+      20,
+      50
+    ],
+    "ema_fast": [
+      8,
+      15
+    ],
+    "ema_slow": [
+      20,
+      50
+    ],
+    "macd_fast": [
+      6,
+      10
+    ],
+    "macd_signal": [
+      3,
+      7
+    ],
+    "momentum_weight": [
+      0.45,
+      0.65
+    ],
+    "long_return_fraction": [
+      0.1,
+      0.3
+    ],
+    "volume_low": [
+      0.6
+    ],
+    "volume_high": [
+      3.0
+    ],
+    "volatility_spike_ratio": [
+      1.5,
+      2.5
+    ],
+    "one_day_chase_return": [
+      0.03,
+      0.05
+    ],
+    "max_replacements_per_day": [
+      1
+    ],
+    "cash_guard_ratio": [
+      0.1,
+      0.14
+    ]
+  },
+  "execution": "DAILY_OPEN_RESEARCH_PROXY",
+  "formal_status": "BLOCK_READY",
+  "rolling_windows_independent": false,
+  "walk_forward_family": "PREDECLARED_COARSE_ONLY",
+  "walk_forward_first_test_year": 2015,
+  "walk_forward_last_test_year": 2024,
+  "baseline_id": "x0352_daily_baseline",
+  "data_quality_policy": "CAUSAL_SEVERE_DISCONTINUITY_RESET_ORIGINAL_WARMUP",
+  "search_stop": "One predeclared coarse family; at most six development-only local candidates; no holdout-dependent revision",
+  "refinement_rule": "Top three development candidates with 100% measured pass; for each nonbaseline one-factor parent, midpoint and half-step extrapolation from baseline, validated bounds; deduplicate; stop at six.",
+  "recent_stress": "POST_FREEZE_2025_TO_LATEST_COMPLETE_24_SESSION_MONTHLY_START",
+  "sanity_reference": "SIMPLE_MOMENTUM_SCORE_ONLY_SAME_FILTERS_PLANNER_COSTS",
+  "question": "Can a bounded fixed x0352 neighborhood improve robust 24-session outcomes under identical measured competition rules?",
+  "hypothesis": "Nearby daily signal/allocation parameters improve median and lower-tail episode returns without reducing measured feasibility.",
+  "controlled_variables": [
+    "official fixed 150-stock universe",
+    "2009 warmup",
+    "24 sessions and NT$1B reset",
+    "prior-close fixed quantities",
+    "daily OPEN proxy",
+    "fees and lot constraints",
+    "causal quality segment policy",
+    "chronological episode boundaries"
+  ],
+  "adoption_rule": "100% measured pass in both development and validation; rank validation lexicographically; official readiness remains blocked on unavailable evidence.",
+  "stop_condition": "Stop on any engineering/audit failure; otherwise one coarse family and at most six local candidates, then freeze before holdout.",
+  "artifact_policy": {
+    "stored_ledger_tables": [
+      "equity",
+      "trades",
+      "orders",
+      "holdings",
+      "compliance_daily",
+      "rejected_trades",
+      "warnings",
+      "snapshots",
+      "plan_audit"
+    ],
+    "signals": "Not saved; deterministically recomputable from frozen raw data, feature source and candidate configuration hashes.",
+    "compression": "zstd",
+    "rolling_shards": "calendar_year"
+  }
+}
