@@ -1,54 +1,51 @@
-# Fintune v2
+# best_finetuned_double_check_v2
 
-唯一日常策略入口是 **fintune_v2.py**，固定使用 full tuned v2 的 `f0019` 參數。它直接呼叫原本已稽核的實作，不重新選參、不人工改排名。
+目前的研究版本是 [`v2_double_check_fintuned.py`](v2_double_check_fintuned.py)，固定使用候選 `d0034`。它在 2025-01-02 至 2026-09-21 的兩個回測股票池通過**已量測**的逐日交易限制；Active Share、官方帳本與平台收件仍缺可核對的證據，正式 `plan` 因此維持 `BLOCK_SUBMISSION`，不產生可提交的 D-Plan。
 
-**可執行研究回測與本機產單；正式提交尚未接通。** 302.35% 是使用全期結果選參後的開發績效，不能當未見資料績效。「最佳」只指既有搜尋與已量測門檻下的獲選配置。
+## 年度績效比較
 
-## 安裝與執行
+三個策略使用相同的官方事後股票池與期間。下表採股利歸屬後淨值計算各年的區間報酬，避免回測帳本的期末股利入帳方式把 2025 年股利算入 2026 年。2026 年只有截至 9 月 21 日的資料，並非全年或年化報酬。
+
+| 期間 | best_finetuned_double_check_v2 | v1 | 0050 |
+|---|---:|---:|---:|
+| 2025 年 | 79.11% | 66.36% | 33.46% |
+| 2026 年截至 9 月 21 日 | 115.79% | 109.28% | 65.81% |
+
+`best_finetuned_double_check_v2` 是本版 `v2_double_check_fintuned` 的展示名稱，使用獲選參數 `d0034`。v1 與 0050 僅供研究對照：v1 有已量測違規，0050 不符合競賽的個股白名單與持股檔數要求。整段資料已用於開發，且 2026 年公布的股票池用於 2025 年有成分股前視偏誤；表中數字不是未見資料績效，也不能證明正式合規或未來可成交報酬。
+
+年度數字依據獲稽核的 [新版月度帳本](outputs/v2_double_check_fintuned/monthly.csv)及[舊版對照月度帳本](outputs/full_tuned_v2/monthly.csv)之 `ending_economic_nav` 計算：2025 年末相對初始本金 10 億元，2026 年 9 月 21 日相對 2025 年末。完整期間的帳面報酬分別為 v2 **286.50%**、v1 **248.15%**、0050 **121.28%**；績效與限制見[完整結果](reports/v2_double_check_fintuned_report.md)。
+
+## 安裝與驗證
 
 使用 Python 3.10：
 
 ```bash
-python3 -m venv .venv
+python3.10 -m venv .venv
 source .venv/bin/activate
 python -m pip install -r requirements.txt
-python scripts/verify_fintune_v2.py
-python fintune_v2.py --show-config
-python -m unittest discover -s tests -v
+python scripts/verify_double_check_release.py
+python v2_double_check_fintuned.py --verify-release
+python v2_double_check_fintuned.py --show-config
 ```
 
-重播固定策略，輸出目錄必須尚未存在：
+重播固定參數，輸出目錄須尚未存在：
 
 ```bash
-python fintune_v2.py --track official_ex_post --output outputs/my_fintune_v2
-python fintune_v2.py --track historical_pit --output outputs/my_historical_sensitivity
+python v2_double_check_fintuned.py --track official_ex_post --output outputs/my_double_check_replay
 ```
 
-日常產單：
+正式入口 `python v2_double_check_fintuned.py plan` 目前會回傳阻擋狀態。`research-plan` 只產生標明 `NEVER_SUBMIT` 的研究草稿，不能當正式提交成功。
 
-```bash
-python fintune_v2.py plan --help
-```
+## 文件與證據
 
-完整輸入與操作順序見 [每日流程](daily_auto/full_tuned_workflow.md)。缺少真實官方帳本、AS 或成功回執時維持 `BLOCK_SUBMISSION`；研究示範不會冒充正式送件。
-
-## 只看這些結果
-
-| 內容 | 入口 |
+| 內容 | 連結 |
 |---|---|
-| 績效與比較 | [最終報告](reports/full_tuned_v2_report.html) |
-| 偏誤與可信度 | [可信度稽核](reports/full_tuned_v2_credibility_audit.html) |
-| 策略簡報 | [PowerPoint](reports/full_tuned_v2_deck/full_tuned_v2_strategy.pptx) |
-| 每日工作 | [daily_auto](daily_auto/README.md) |
-| 比賽原文 | [official_docs](official_docs/) |
-| 保留檔案說明 | [版本整理](docs/fintune_v2_release.md) |
+| 新版績效、圖表與限制 | [完整結果](reports/v2_double_check_fintuned_report.md) |
+| 官方規則逐條核對及阻斷項 | [規則表](docs/v2_double_check_rules.md) |
+| 搜尋範圍及實驗口徑 | [實驗規格](docs/v2_double_check_protocol.md) |
+| 獨立驗證與最終帳本 | [新版稽核](outputs/v2_double_check_fintuned/audit.json) |
+| 每日操作狀態 | [daily_auto 說明](daily_auto/README.md) |
+| 主辦方原始文件 | [official_docs](official_docs/) |
+| 舊版 `f0019` 報告 | [原 full tuned v2 報告](reports/full_tuned_v2_report.md) |
 
-最終比較仍保留 v1、0050 作對照，但不保留它們的獨立操作入口。正式事後池 v2 報酬 302.35%、回撤 25.95%；歷史重建池報酬 163.94%、回撤 20.10%。兩池都參與過開發，沒有未見驗證。
-
-## 檔案範圍
-
-`data/` 只保留固定回放需要的凍結資料及來源摘要；`outputs/` 只保留本輪最終帳本、比較、選參摘要與稽核。新產生的資料、交易包及回測目錄仍由 `.gitignore` 排除。此版本會將必要的凍結檔明確納入 Git，下載後不依賴本機舊實驗資料夾。
-
-部分共用模組仍使用 `tuning_2nd`、`a_deep` 等舊名稱，因為它們是目前策略或獨立稽核的依賴。不要依名稱再次刪除，也不要任意修改雜湊綁定的原始程式。
-
-整理前的完整程式、文件與報告已推送至提交 `dfd5f84`：**original v1+ v2 + 調參**。大型歷史明細未上傳 Git，已移出專案封存；恢復完整舊輪次研究需另取封存資料，日常固定策略不需要它們。
+本輪完成 836 組不同參數、兩個股票池共 1,672 次回放；只有宣告的 128 組局部網格完整窮舉。獲選版本在已量測門檻下零超限、零警告、零未成交與零成交價格保護超界。完整離散全域與連續參數沒有窮舉；正式使用仍須先補齊[規則表](docs/v2_double_check_rules.md)所列官方證據。
