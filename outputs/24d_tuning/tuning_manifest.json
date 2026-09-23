@@ -1,0 +1,45 @@
+{
+  "created_at": "2026-09-23T16:38:17.541368+00:00",
+  "guard": {
+    "parent_guard": "d1b8e8c39ec6b52c6e00596dc1f9a29b5f8dd9f11938c3f4c2b1625f8aa4a50b",
+    "implementation": {
+      "scripts/tune_24d.py": "c41047726de73ed879587d1b54db526e0ece0c56c059b75b7d3b8491d2456d6a",
+      "docs/v3_tuning.md": "b1d267bc0d7588d3744bfe13ba21926447ad399183f02ea8e59d414c7742186c",
+      "scripts/supplement_24d.py": "819bf4d6c0902dca84f35836ac501829d5bd715d617e40629f1d3221c023b6a5"
+    }
+  },
+  "protocol": {
+    "question": "Can broader bounded daily parameters improve 24-session median and tails while satisfying every measured daily constraint?",
+    "hypothesis": "Signal speed and diversification can improve robustness without increasing measured violations.",
+    "alternative": "Execution/data/portfolio feasibility dominates; larger signal searches cannot certify this strategy.",
+    "screen": "12 equally spaced chronological monthly development episodes, endpoints included; identical for all candidates. No shuffled time splits.",
+    "promotion": "Require 100% screen measured pass AND completeness for adoption. Ineligible configurations may seed explicitly diagnostic searches; they cannot be adopted.",
+    "phase_A": "All 20 structural pairs; top 5 screen diagnostic regions retained.",
+    "phase_B": "All valid return pairs plus all EMA and MACD tuples one family at a time around best structural region; other 4 regions receive 6 deterministic paired speed probes.",
+    "phase_C": "All 19 meaningful replacement/margin combinations around B leader.",
+    "phase_D": "All 42 score mixture combinations around C leader.",
+    "phase_E": "One-factor sweep of all 25 declared risk/filter values around D leader; interactions probed by global search.",
+    "phase_F": "Top 5 unique screened staged regions: full 2x2x2 Cartesian neighborhood of short return, long return and momentum. One bounded round; no further round absent validation improvement.",
+    "global": "48 unique seeded random draws from exact spec lists, seed 24092026.",
+    "shortlist": "Up to 12: union of staged/local/global diagnostic leaders and highest-ranked screening candidates; full development then identical full validation. Include all screen-eligible candidates up to budget; disclose partial coverage.",
+    "ranking": [
+      "compliance_pass_rate DESC",
+      "valid_episode_rate DESC",
+      "median_24d_return DESC",
+      "p25_24d_return DESC",
+      "p10_24d_return DESC",
+      "median_mdd ASC",
+      "mean_24d_return DESC",
+      "median_turnover ASC",
+      "baseline_distance ASC",
+      "candidate_id ASC"
+    ],
+    "stability": "For the eligible validation leader, momentum +/-0.05 within bounds; full development and validation only. Both neighbors must pass and remain within 0.2 percentage point median/P25. Otherwise reject as fragile.",
+    "adoption": "100% measured pass AND completeness in FULL development and validation, validation median and P25 not worse than baseline; stable neighborhood required. Unknown official evidence always BLOCK_SUBMISSION.",
+    "freeze": "If none eligible, freeze NO_ELIGIBLE_CANDIDATE with unchanged baseline reference. Do not fabricate a winner.",
+    "post_freeze": "Baseline and frozen diagnostic method leaders on holdout/recent/seasonal; baseline/reference on last 126 available rolling starts. These are descriptive, never selection inputs.",
+    "prior_exposure": "2023-2024 and recent were already inspected in previous research. Isolated from this new search, not pristine unseen holdout. Baseline itself has earlier recent-period selection exposure.",
+    "stop": "One bounded A-F/global study; no validation improvement or no eligible candidate stops refinement. Engineering/audit error stops execution.",
+    "failure_metrics": "Return statistics conditional on complete measured-pass episodes; show all attempt counts, failures, completeness and compliance separately. Never use penalty scores as realized returns."
+  }
+}

@@ -33,7 +33,7 @@
   ],
   "annual_validation": "SAVED_EQUITY_RETURNS_ONLY_BASELINE_LEDGERS_NOT_REAUDITED",
   "candidate_id": "x0352",
-  "manifest_sha256": "a8b50b68a1f72b5bf5e65a2069354b793c58afc2104d1504da2f9088d8cb5f5d",
+  "manifest_sha256": "bd3eb4d37ce09bc54ed18601d2ca9a7d50e278ec110c2fbb4d17c41968beb6fc",
   "monthly": [
     {
       "active_cap_breach_days": 0,

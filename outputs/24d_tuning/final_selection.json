@@ -1,0 +1,35 @@
+{
+  "status": "NO_ELIGIBLE_CANDIDATE",
+  "formal_status": "BLOCK_SUBMISSION",
+  "candidate_id": null,
+  "reference_id": "x0352_daily_baseline",
+  "diagnostic_method_leaders": {
+    "staged": "x0352_daily_baseline",
+    "local": "tune_21a3cc0abdbc",
+    "global": "tune_d5f4e7219e82"
+  },
+  "candidate_count": 247,
+  "training_period": [
+    "2010-01-01",
+    "2018-12-31"
+  ],
+  "validation_period": [
+    "2019-01-01",
+    "2022-12-31"
+  ],
+  "objective": "24D measured-feasible median / P25 / P10 / MDD / mean / turnover",
+  "code_commit": "22217d22f154c8542ca50c86c3164c469b4a57c8",
+  "implementation_sha256": {
+    "scripts/tune_24d.py": "c41047726de73ed879587d1b54db526e0ece0c56c059b75b7d3b8491d2456d6a",
+    "docs/v3_tuning.md": "b1d267bc0d7588d3744bfe13ba21926447ad399183f02ea8e59d414c7742186c",
+    "scripts/supplement_24d.py": "819bf4d6c0902dca84f35836ac501829d5bd715d617e40629f1d3221c023b6a5"
+  },
+  "selection_input_sha256": {
+    "development.csv": "5ea956bbc2e2e60211104ba0a6409d37453d71a0f3fb0d72279b462e76c1a411",
+    "validation.csv": "7be0308fc458d4de9505443f7032e47a4dd52ad120341d506d51a5c7d84f4d27",
+    "stability.json": "0ed633f0697e3c72cf1f20fd19183057703107059bce1c08d59b9254e0585e1c"
+  },
+  "prior_holdout_exposure": true,
+  "stop_reason": "NO_ELIGIBLE_CANDIDATE",
+  "frozen_at": "2026-09-23T17:05:33.294443+00:00"
+}

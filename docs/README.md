@@ -4,6 +4,8 @@
 
 | 內容 | 文件 |
 |---|---|
+| 本輪調參規格 | [24 日調參](v3_tuning.md) |
+| 本輪調參結果 | [比較報告](../reports/24d_tuning.md) |
 | v3 研究規格 | [24 日規格](v3_spec.md) |
 | 逐日規則與未知項 | [完整規則](v2_double_check_rules.md) |
 | v3 研究結果 | [24 日摘要](../reports/24d_strategy_summary.md) |
@@ -27,7 +29,7 @@
 
 新驗證器重算保留帳本與比較數字；舊搜尋的完整性及排名只屬歷史紀錄。發行清單保存整理前來源路徑及雜湊，不改寫舊實驗成新的驗證結果。
 
-`src/` 中部分名稱源自舊研究，但仍是固定策略的共用依賴。原搜尋 runner 需要的四個共用函式已抽至 `src/replay_context.py`，函式內容保持一致。v2 入口為 `best_v2.py`；v3 研究入口為 `scripts/run_24d.py`。
+`src/` 中部分名稱源自舊研究，但仍是固定策略的共用依賴。原搜尋 runner 需要的四個共用函式已抽至 `src/replay_context.py`，函式內容保持一致。v2 入口為 `best_v2.py`；v3 原研究入口為 `scripts/run_24d.py`；本輪擴充調參入口為 `scripts/tune_24d.py`。
 
 ## v3 驗證範圍
 

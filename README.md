@@ -1,61 +1,61 @@
 # ETF 策略研究
 
-v3 研究的是每次從 **10 億元現金、零持股出發的 24 交易日報酬**。固定 v2 的 **309.16%** 是另一套資料與成交口徑下的長期回測，不能代替短賽期證據。正式使用維持 **`BLOCK_READY`／`BLOCK_SUBMISSION`**。
+研究目標是每次從 **10 億元、零持股出發的 24 交易日報酬**。固定 v2 的 **309.16%** 是另一套資料與成交口徑下的長期回測，不能代替短賽期證據。正式使用維持 **`BLOCK_READY`／`BLOCK_SUBMISSION`**。
 
-## v3：24 交易日研究
+## 最新 v3 調參
 
-依 [v3 規格](docs/v3_spec.md)與[逐日規則](docs/v2_double_check_rules.md)，從 `x0352_daily_baseline` 做有限鄰域搜尋。先驗證基準，僅使用開發與驗證窗口選參，再凍結設定並評估保留資料。
+已依 [v3_tuning.md](docs/v3_tuning.md)完成 A–F 分階段搜尋、局部 Cartesian 網格及有界隨機搜尋，共 **247 組不重複參數**。先重現基準的 154 個開發／驗證窗口，再用相同 12 個開發期月份篩選，入圍者重跑完整開發與驗證期。
 
-本輪 28 組參數沒有候選達到開發與驗證窗口 **100% 已量測通過**的採用門檻，結論為 `NO_ELIGIBLE_CANDIDATE`。凍結的基準僅作診斷參考，不能直接提交比賽。
+結果為 **`NO_ELIGIBLE_CANDIDATE`**。以下是相同 **2019–2022 驗證窗口**上的診斷比較；搜尋代表沒有通過全部已量測限制，不能稱作可提交的 winner。
 
-| 基準用途 | 年份 | 已量測通過／全部 | 通過窗口報酬中位數 |
-|---|---|---:|---:|
-| 開發 | 2010–2019 | 78/119 | 1.92% |
-| 驗證選參 | 2020–2022 | 24/35 | 3.40% |
-| 凍結後評估 | 2023–2024 | 18/23 | 5.94% |
+| 策略 | Median 24D | P25 | P10 | 完整窗口 | 已量測通過／全部 |
+|---|---:|---:|---:|---:|---:|
+| x0352 baseline | 3.08% | -0.23% | -5.71% | 91.49% | 34/47 |
+| staged 診斷代表 | 3.08% | -0.23% | -5.71% | 91.49% | 34/47 |
+| local 診斷代表 | 3.46% | -0.71% | -3.94% | 91.49% | 35/47 |
+| global 診斷代表 | 3.58% | -0.89% | -3.37% | 100.00% | 36/47 |
 
-報酬欄僅描述通過且完整的窗口，不能忽略其餘失敗。另有 3 個跨切分邊界窗口，僅作診斷。切分採規格第 1 節；第 19 節的另一組建議切分只作補充描述，不重新選參。
-
-2010–2024 保留 180 個月初窗口，加上 2025–2026 年 8 月的 20 個近期窗口，共 200 個。滾動測試延伸至 2026 年 8 月，另有 16 個歷年 10–11 月類比。窗口會重疊，不能當作獨立樣本。近期 2025–2026 資料僅作凍結後壓力測試。每日替換 2 檔與延伸窗口的補充測試在主選參凍結後加入，結果不回流選參。
+報酬只描述完整且通過的窗口，各策略通過樣本可能不同；失敗窗口保留在分母。完整跑完不等於逐日合規，不能把条件式高報酬當作可實現績效。採用門檻要求完整開發與驗證期皆為 **100% 已量測通過**；本輪沒有合格替代者，因此 canonical 設定保留基準原位元組。
 
 | 內容 | 連結 |
 |---|---|
-| 結論與比較 | [研究摘要](reports/24d_strategy_summary.md) |
-| 基準與搜尋 | [日線基準](reports/24d_x0352_baseline.md)／[參數搜尋](reports/24d_parameter_search.md) |
-| 驗證與近期市場 | [驗證結果](reports/24d_validation.md)／[近期結果](reports/24d_recent_regime.md) |
-| 保留資料與季節類比 | [凍結後結果](reports/24d_holdout.md)／[10–11 月類比](reports/24d_oct_nov_analogs.md) |
-| 失敗與使用限制 | [失敗分析](reports/24d_failure_analysis.md)／[凍結候選](reports/24d_final_candidate.md) |
-| 設定與證據 | [最終設定](configs/competition_24d_final.json)／[設定解讀](configs/competition_24d_final_metadata.json)／[稽核](outputs/24d/audit.json)／[輸出雜湊](outputs/24d/run_manifest.json) |
+| 本輪結果 | [精簡報告](reports/24d_tuning.md)／[各期比較 CSV](reports/24d_tuning_comparison.csv)／[冷啟動明細](reports/24d_tuning_cold_start.csv) |
+| 搜尋與凍結 | [搜尋設定](config/24d_tuning_study.json)／[凍結紀錄](outputs/24d_tuning/final_selection.json)／[本輪參數](outputs/24d_tuning/competition_24d_candidate.json) |
+| 可核對證據 | [驗證結果](outputs/24d_tuning/verification.json)／[輸出 SHA256](outputs/24d_tuning/result_manifest.json)／[逐日規則](docs/v2_double_check_rules.md) |
+| 既有參考設定 | [canonical 設定](configs/competition_24d_final.json)／[舊設定解讀](configs/competition_24d_final_metadata.json) |
 
-研究採 Yahoo 日線，D−1 決策、次日開盤價近似成交，納入雙邊手續費 0.1425% 與賣出稅 0.3%。每日檢查持股數、權重、現金、整張與禁止超賣／當沖；失敗窗口保留在分母，未完成窗口不填造 24 日報酬。採用候選須通過全部已量測門檻，不能只挑高報酬窗口。
+本輪切分為開發 **2010–2018**、驗證 **2019–2022**、凍結後歷史評估 **2023–2024**；跨邊界窗口不混入選參。2025–2026/09、近期六個完整月份、滾動窗口及 2010–2025 的 10–11 月類比只作凍結後檢查。資料截止 **2026-09-23**，9 月月初尚不足完整 24 日。
 
-本研究標記為 `COMPETITION_UNIVERSE_STRESS_TEST`：2026 白名單回套歷史，存在存活與成分前視偏誤；原 x0352 參數也曾由 2025–2026 資料選出，因此 2023–2024 僅對**本輪搜尋**保留，並非整個策略家族從未接觸後期資訊的前瞻證據。
+2023–2024 與近期結果已在上一輪看過，只能說本輪搜尋沒有使用它們，不能宣稱首次未見 holdout。原基準亦有後期選參暴露；2026 白名單回套歷史有存活與成分前視偏誤。滾動窗口會重疊，不視為獨立樣本。
 
-Active Share 仍為 `ACTIVE_SHARE_NOT_VERIFIED`；官方結算、公司行動、最新公告與收件證據仍缺。開盤價模擬沒有市場衝擊模型，部分委託超過當日成交量。Yahoo 修訂與拆股資料完整性亦未獲官方核對。這些限制都不能由內部稽核通過取代。
+交易採 Yahoo 日線、D−1 決策、次日開盤價近似成交，納入雙邊手續費 0.1425% 與賣出稅 0.3%。逐日持股、權重、現金與委託檢查沿用凍結帳本。Active Share、官方結算、公司行動、最新公告與收件證據仍缺；開盤價不是官方日成交均價，且未建模 10 億元委託的市場衝擊，因此不能保證所有官方規則已通過。
 
 ## 重現與驗證
 
-Python 3.10：
+Python 3.10；安裝 `requirements.txt` 與 `requirements-yahoo.txt` 後：
 
 ```bash
-python3.10 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements.txt -r requirements-yahoo.txt
-python scripts/verify_24d.py
-python scripts/report_24d.py --verify
+python scripts/verify_24d_tuning.py --rebuild
+python scripts/report_24d_tuning.py --verify
 python -m unittest discover -s tests -q
 ```
 
-使用凍結的 Yahoo 快照另建輸出重算；以下指令依序執行：
+使用凍結快照另建輸出重算，執行中可用相同指令接續已完成的組別：
 
 ```bash
-python scripts/run_24d.py all --workers 4 --cache data/yahoo_daily/v3_20260923 --output outputs/24d_replay
-python scripts/supplement_24d.py --workers 2 --main outputs/24d_replay --output outputs/24d_replay_supplement
-python scripts/complete_24d_diagnostics.py --workers 2 --main outputs/24d_replay --supplement outputs/24d_replay_supplement --output outputs/24d_replay_diagnostics
+python scripts/tune_24d.py --workers 4 --output outputs/24d_tuning_replay
 ```
 
-完整重算已保存的帳本可執行 `python scripts/verify_24d.py --rebuild`。原始 Parquet 與獨立的名目股數換算檔分開保存；[日曆修訂](data/yahoo_daily/v3_20260923/calendar_v2.json)補回 0050 缺資料但股票市場仍交易的日期。`repair=True` 可能由 yfinance 內部使用更細頻資料修復；策略本身只使用日線，沒有 4H 依賴。
+每組保存逐日帳本、設定與輸入／輸出雜湊；來源或設定改變時拒絕沿用舊結果。原始 Parquet 與名目股數換算檔分開保存。[日曆修訂](data/yahoo_daily/v3_20260923/calendar_v2.json)補回 0050 缺資料但股票市場仍交易的日期。`repair=True` 可能由 yfinance 內部使用更細頻資料修復；策略本身只使用日線，沒有 4H 依賴。
 
+## 上一輪 v3
+
+上一輪 [v3_spec.md](docs/v3_spec.md)採 2010–2019／2020–2022 切分，28 組搜尋也沒有合格候選。原始結果保留於[研究摘要](reports/24d_strategy_summary.md)、[參數搜尋](reports/24d_parameter_search.md)、[失敗分析](reports/24d_failure_analysis.md)及[凍結候選](reports/24d_final_candidate.md)，不可與本輪混稱同一切分。
+
+```bash
+python scripts/verify_24d.py
+python scripts/report_24d.py --verify
+```
 ## 固定 v2 長期參考
 
 [`best_v2.py`](best_v2.py) 保留原 `x0352`，期間為 2025-01-02–2026-09-21。年度欄採股利歸屬後的經濟淨值；2026 年並非全年或年化報酬。
