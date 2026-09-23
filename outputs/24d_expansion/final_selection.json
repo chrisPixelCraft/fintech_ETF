@@ -1,0 +1,30 @@
+{
+  "status": "NO_ELIGIBLE_CANDIDATE",
+  "formal_status": "BLOCK_SUBMISSION",
+  "candidate_id": null,
+  "diagnostic_leader_id": "tune_6eadb512258f",
+  "prior_leader_id": "tune_d5f4e7219e82",
+  "candidate_count": 328,
+  "previous_candidate_count": 247,
+  "prior_holdout_exposure": true,
+  "training_period": [
+    "2010-01-01",
+    "2018-12-31"
+  ],
+  "validation_period": [
+    "2019-01-01",
+    "2022-12-31"
+  ],
+  "stop_reason": "NO_ELIGIBLE_CANDIDATE",
+  "code_commit": "fe440eb3a7409f754bddd247029e25438761292d",
+  "objective": "100% measured feasibility first; then median24D, P25, P10, lower MDD, mean, lower turnover",
+  "selection_input_sha256": {
+    "development.csv": "60918b1f17780ecec111c53a1d79bb70534d862eadf0427c741006f88ff4d3d8",
+    "validation.csv": "20218fd6f329652733ed625fa61e38be5580139d0cbf2587b885f95dc1c28f7a",
+    "shortlists.json": "1b27654a222074bdcc6af24bd088a6676f13e55f59e57a3ae215a0c0f8764aff",
+    "candidates.json": "e120dd283c9ebb3986113bdaffe52eaf65892e2e893ebc46add6df57a04a3b16",
+    "references.json": "251d790d7163fa14e3ee5d984736b220f1be4ed88bfc279a94a11534c1c35de1",
+    "stability.json": "cfda59d23198b6edc90c7fd7bb706e3dd86437fac96c6614186a55f16a9c857a"
+  },
+  "frozen_at": "2026-09-23T17:40:14.381211+00:00"
+}

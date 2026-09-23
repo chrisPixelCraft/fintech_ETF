@@ -1,0 +1,22 @@
+{
+  "input_sha256": "38a22bbfabbce8f9a47e57ca88b89143d3193c777d86c6531dde12c49c7e28d0",
+  "completed_at": "2026-09-23T17:33:08.430915+00:00",
+  "candidate_id": "tune_9797b0e49540",
+  "phase": "bottleneck",
+  "episodes": 1,
+  "artifact_sha256": {
+    "metrics.csv": "a0f652fa6a45a93e5cfd2f27a260d8559f35958c0bf0d853a5b446786351b3bb",
+    "audit.csv": "db528220d0cb8998b06f0de135ac91355578a52d98fb60db171288c3be78c386",
+    "serialized_audit.csv": "db528220d0cb8998b06f0de135ac91355578a52d98fb60db171288c3be78c386",
+    "config.json": "fb4866ceafb542d9d21ba9e4ced566bb962531675e40f6e5a4d50e8ce8d78892",
+    "equity.parquet": "4038ba374b6febbb2954f9944e0b4909d8f55cd3f55787dfebc31efd47c6b6de",
+    "trades.parquet": "ca9217c2b88231fdec63ad967671ccec7756bdb0d4e580d69ab9a10836aaf2c8",
+    "orders.parquet": "9ecfaf297b196243d5143ba36152ec23f8c9fa07b156b2ff808d3c8bb5bd1d63",
+    "holdings.parquet": "fb4cdd35e9f5f024c9a98ea1f18f63fc153634382f8333d1edf0f6c59ba9f66b",
+    "compliance_daily.parquet": "571a3a414217cf685492a15db86389ba710dc24648fbb40a90cbb7be6a5c7820",
+    "rejected_trades.parquet": "264cda21cd759a39589981c0040d2948e13ed81cc40358c296ad93276fa8c4fc",
+    "warnings.parquet": "9f14f14c4bad4a4b86b805aec1d44057f9252e1e16a2ad9f73a924af1650f1cf",
+    "snapshots.parquet": "4809da7fec4b33db5e84872eee4ebe666d1e533552504bf902aa6c3913836fbc",
+    "plan_audit.parquet": "f1f071e3f025f6f7ec9ddcedab582fd6eb0034295b6e5e341a8965457e05fc2b"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "test_count": 168,
+  "command": ".venv/bin/python -m unittest discover -s tests -q",
+  "log_sha256": "d72018a773caa989f701d186d87268fd1e174a36bf57c88f7fc1a30f9f04546f",
+  "tests_sha256": {
+    "tests/test_24d_expansion_verifier.py": "7a5869abf9ac48e5377cc11f2d21fc673e5ac1f84b388097ddc578889993ec13",
+    "tests/test_24d_study.py": "e3b990680f38c2115627d991553401956658b07fd85212d3e22ca4eda862dedd",
+    "tests/test_24d_supplement.py": "250cb4cabbe4db34bb4f84668c679eec5710ce8f33ff17b0bf7e81af71b5895d",
+    "tests/test_24d_tuning.py": "177740d23e70237b93642311417137a72d6a294e55ac8b8e0077967fd5245931",
+    "tests/test_audit_24d.py": "ef99d426cae27809f25272083235e55ba0666a1e204eecbc9ba9e504d0c73577",
+    "tests/test_backtest_v2.py": "fe7a093dc59b749042d5acdb1912c3de2ca465f6618b0664e6f25d8f94622f7c",
+    "tests/test_best_v2_release.py": "2dbc5c83b7dc89be046371590cfee4224e7a6e52f4acd39ab76a754cf7feae2c",
+    "tests/test_complete_24d_diagnostics.py": "627cb0dba9366c907d3cd458700807e1c220b06d033f8548cf25e0390a5a81fb",
+    "tests/test_compliance_planner.py": "c75631cb8a93eafd41a2286939537e0c36ab5fb6b687ed4fde4945148dba07f0",
+    "tests/test_double_check.py": "57273b42cb2654e504d364cd66d94b76b46d3a0d61aca4e5e469b213e6f0c830",
+    "tests/test_double_check_causality.py": "8bf5214ed66b7d555fa8abce920656dfe1c3ffb1f67fc68360c5bc9da611339c",
+    "tests/test_official_deep_tuning.py": "a364864b3138754fd63261e9646468d6ead65b8c7ecd5517d8b37a29ac30e841",
+    "tests/test_report_24d.py": "8d2b9c1811c733473ca5399d22fc727b2a28deda91b0093b3af03e78664da464",
+    "tests/test_strategy_24d.py": "0ac29f39ce890af462a40994987f1b7651f089f4a312c45c8715f22ff6c5b1d9",
+    "tests/test_tuning_features.py": "5225ae96d8b02bebe21679b4e4b4436129672157a489683769f7bdf172ca59a3",
+    "tests/test_verify_24d.py": "eedf071d6338cbb9ca0ebc321de197de225589157df428dd01000390e1dc6b2c",
+    "tests/test_yahoo_daily.py": "e6d3dce777f8d6072f34418e8feb48dc66d89aaa0e4b7d77cfbf101d614b10bf"
+  },
+  "new_verifier_sha256": "e91abb2538b21cf892f3ba44cb4e6598d0422530e16d37b713767e107d0640bb"
+}

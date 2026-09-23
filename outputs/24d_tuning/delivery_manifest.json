@@ -3,20 +3,20 @@
   "result_manifest_sha256": "a12d0485e6027400e3e054f5a51c8b79d935cd762a44f81504a145ab04852d42",
   "previous_delivery_commit": "22217d22f154c8542ca50c86c3164c469b4a57c8",
   "files": {
-    "README.md": "4a75e6022db80bec88fadd9fbf1f6efcfa24bcfb3bb222844351b38170e212ee",
+    "README.md": "9673e13bfd962d3026ad5e0a03d687660b72e8cdce5d07902751714597c63049",
     "config/24d_tuning_study.json": "a025876390470864897ca364c269fae08d0f7cf2f2ba20da072f0972626f2ca3",
-    "config/best_v2_release.json": "bd3eb4d37ce09bc54ed18601d2ca9a7d50e278ec110c2fbb4d17c41968beb6fc",
+    "config/best_v2_release.json": "cf0baa6f5d3a0f0d03dca75d1761f8d720b73077b9ea2676bff7f2b55e91b97d",
     "configs/competition_24d_final.json": "a2e79e53e27e9cd09ffd476174f9f68fd6e4599fa1739afc925ab08709f7016c",
     "configs/competition_24d_final_metadata.json": "d722e1f7421839e12ec083d71e4acdb7407aeaa4e5d0f85bf349b050655f87ee",
-    "docs/README.md": "7fdfe2cafcffcef6d4eae70b1a619a3d39a86b58c61d2b47f9f1fd950dfdf313",
+    "docs/README.md": "965cd5b4344c41cfda3534c06c5aa3abc22df3e190adc4ec527481110f495598",
     "docs/v3_tuning.md": "b1d267bc0d7588d3744bfe13ba21926447ad399183f02ea8e59d414c7742186c",
-    "outputs/24d/delivery_manifest.json": "4c417caf8cdc94e0f1cbb9923f7eddd2d6aba0e6eaf8c005ed96d16f1b813439",
+    "outputs/24d/delivery_manifest.json": "34c01577a382162e7926b551f09fe0fec94bf140345edfe18ea7b00a72d33707",
     "outputs/24d_tuning/report_verification.json": "62286cd4f2ddd66b016c17b7f9143c099cece34b7e170c9a74991412b610bd5b",
     "outputs/24d_tuning/result_manifest.json": "a12d0485e6027400e3e054f5a51c8b79d935cd762a44f81504a145ab04852d42",
     "outputs/24d_tuning/run.log": "528c73a53ce576d631c27d55301e343b0eb6019701cd9f2ea41a383bf6614cd3",
     "outputs/24d_tuning/test_verification.json": "0104a51dca46668c057e7a1e1060444078f86301070f535abdf5203d34ba799a",
     "outputs/24d_tuning/verification.json": "19e5ad8ec30b7fc88c34e0ce371ba559bd6e3c93bc6a9f78e8fad8de47153534",
-    "outputs/best_v2/audit.json": "785a4fd9f01967a523dded62bfc59db0d5719a994db26c8d2a50652e447cfd23",
+    "outputs/best_v2/audit.json": "975e898aeb66e49338457821ea6db4055ef7b0f46df74cddbac1e2c9faeb1666",
     "reports/24d_tuning.md": "233f1bb3df16af7c92445dde9e254e7275b707c65c1616130abc0ccf3bdcefa3",
     "reports/24d_tuning_cold_start.csv": "a03534ef975491fad355a15764e010ada4732f55cf82647fb2273d998a22dffe",
     "reports/24d_tuning_comparison.csv": "7fecaff65fee60c3c9f19c4d9378f759d72101948eaed740a8b698302d7ec624",
@@ -25,5 +25,18 @@
     "scripts/verify_24d_tuning.py": "4b87c364606da62a578a7c9da718f7ad96df6438a8bb744f562d077cc4bb9d0b",
     "tests/test_24d_tuning.py": "177740d23e70237b93642311417137a72d6a294e55ac8b8e0077967fd5245931"
   },
-  "scope": "Completed bounded research and documentation; no eligible replacement and no official submission certification."
+  "scope": "Completed bounded research and documentation; no eligible replacement and no official submission certification.",
+  "v3_expansion_documentation_update": {
+    "previous_delivery_sha256": "1ffd35f6ff75037986419994974c1b73a5576402009fe48b52902864e3a4eb70",
+    "source_commit": "fe440eb3a7409f754bddd247029e25438761292d",
+    "archive": "outputs/24d_expansion/previous_delivery",
+    "changed_files": [
+      "README.md",
+      "config/best_v2_release.json",
+      "docs/README.md",
+      "outputs/24d/delivery_manifest.json",
+      "outputs/best_v2/audit.json"
+    ],
+    "numerical_artifacts_unchanged": true
+  }
 }

@@ -1,0 +1,181 @@
+{
+  "strategy_id": "tune_cd716e6332fe",
+  "start": "2025-01-01",
+  "end": "2026-09-21",
+  "initial_cash": 1000000000,
+  "target_count": 30,
+  "min_count": 20,
+  "max_count": 30,
+  "cash_target": 0,
+  "cash_rebalance_lower": 0,
+  "cash_rebalance_upper": 0.25,
+  "max_weight": 0.1,
+  "tsmc_max_weight": 0.25,
+  "commission": 0.001425,
+  "sell_tax": 0.003,
+  "slippage_bps": 0,
+  "lot_size": 1000,
+  "warmup_sessions": 200,
+  "replacement_margin": 0.05,
+  "max_replacements_per_day": 4,
+  "volatility_spike_ratio": 4.0,
+  "one_day_chase_return": 0.1,
+  "volume_low": 0.8,
+  "volume_high": 8.0,
+  "execution": "open_proxy",
+  "use_4h": false,
+  "dividend_cash_policy": "end_of_period",
+  "score_weights": {
+    "return20": 0.52,
+    "return50": 0.13,
+    "volume": 0.14,
+    "macd": 0.07,
+    "trend": 0.07,
+    "long_trend": 0.07
+  },
+  "research_shadow": true,
+  "allocation_mode": "local",
+  "price_buffer": 1.1,
+  "sector_policy": {
+    "mode": "daily_previous_close",
+    "weights": [
+      0.5333333333333333,
+      0.4666666666666667
+    ],
+    "top_fraction": 0.5,
+    "ema": [
+      20,
+      50
+    ],
+    "fallback": "rank_to_25_then_weak_to_20",
+    "missing_taxonomy": "NEUTRAL_BASELINE_WITH_UNKNOWN"
+  },
+  "study_policy": {
+    "parameter_search": true,
+    "historical_period_is_development": true,
+    "official_live_submission": "BLOCK_IF_UNKNOWN",
+    "selection_scope": "EX_POST_DEVELOPMENT",
+    "selection": "ZERO_MEASURED_HARD_THEN_BOOK_NAV_RETURN_THEN_MDD",
+    "primary_track": "official_ex_post",
+    "historical_track": "SAME_PARAMETERS_SENSITIVITY"
+  },
+  "price_lower_buffer": 0.9,
+  "cash_guard_ratio": 0.18,
+  "cash_guard_headroom": 0.02,
+  "four_hour_mode": "disabled",
+  "tuning_candidate_id": "x0352_daily_baseline",
+  "tuning_params": {
+    "target_count": 30,
+    "replacement_margin": 0.05,
+    "max_replacements_per_day": 4,
+    "volatility_spike_ratio": 4.0,
+    "one_day_chase_return": 0.1,
+    "volume_low": 0.8,
+    "volume_high": 8.0,
+    "four_hour_mode": "coverage_only",
+    "return_short": 7,
+    "return_long": 50,
+    "ema_fast": 5,
+    "ema_slow": 20,
+    "macd_fast": 16,
+    "macd_slow": 35,
+    "macd_signal": 9,
+    "momentum_weight": 0.65,
+    "long_return_fraction": 0.2
+  },
+  "deep_feature_params": {
+    "target_count": 30,
+    "replacement_margin": 0.05,
+    "max_replacements_per_day": 4,
+    "volatility_spike_ratio": 4.0,
+    "one_day_chase_return": 0.1,
+    "volume_low": 0.8,
+    "volume_high": 8.0,
+    "four_hour_mode": "coverage_only",
+    "return_short": 7,
+    "return_long": 50,
+    "ema_fast": 5,
+    "ema_slow": 20,
+    "macd_fast": 16,
+    "macd_slow": 35,
+    "macd_signal": 9,
+    "momentum_weight": 0.65,
+    "long_return_fraction": 0.2
+  },
+  "feature_presets": {
+    "returns": "base",
+    "ema": "base",
+    "macd": "base"
+  },
+  "universe_mode": "official_ex_post",
+  "ex_post_fixed_universe": true,
+  "match_4h_coverage": false,
+  "feature_spec": {
+    "presets": {
+      "returns": "explicit_numeric",
+      "ema": "explicit_numeric",
+      "macd": "explicit_numeric"
+    },
+    "return_lookbacks": [
+      7,
+      50
+    ],
+    "ema_spans": [
+      5,
+      20
+    ],
+    "macd_spans": [
+      16,
+      35,
+      9
+    ],
+    "long_ema_spans": [
+      100,
+      200
+    ],
+    "four_hour_mode": "disabled",
+    "four_hour_ema": 20,
+    "four_hour_macd": [
+      12,
+      26,
+      9
+    ],
+    "four_hour_ready_bars": 50,
+    "warmup_sessions": 200
+  },
+  "full_tuning_params": {
+    "target_count": 30,
+    "replacement_margin": 0.05,
+    "max_replacements_per_day": 4,
+    "volatility_spike_ratio": 4.0,
+    "one_day_chase_return": 0.1,
+    "volume_low": 0.8,
+    "volume_high": 8.0,
+    "four_hour_mode": "coverage_only",
+    "return_short": 7,
+    "return_long": 50,
+    "ema_fast": 5,
+    "ema_slow": 20,
+    "macd_fast": 16,
+    "macd_slow": 35,
+    "macd_signal": 9,
+    "momentum_weight": 0.65,
+    "long_return_fraction": 0.2,
+    "cash_guard_ratio": 0.18
+  },
+  "official_review_policy": {
+    "odd_holdings": "HOLD_UNTIL_OFFICIAL_FORMULA_CLARIFIED",
+    "weight_serialization": "INTERIOR_SAME_LOT_BIN",
+    "active_share": "UNKNOWN_BLOCK_SUBMISSION",
+    "penalty_simulation": "WHOLE_DAY_ROLLBACK_ONE_WARNING_THREE_DISQUALIFY",
+    "fallback": "EXPAND_ELIGIBLE_BUY_POOL_THEN_REVALIDATE_HOLD",
+    "rollback_corporate_actions": "RETAIN_ENTITLEMENTS_MARK_CURRENT_CLOSE_RESEARCH_ASSUMPTION",
+    "terminal_dividend": "PERFORMANCE_CREDIT_SEPARATE_FROM_DAILY_CASH_COMPLIANCE",
+    "price_envelope": "ZERO_OBSERVED_BOUND_BREACHES_RESEARCH_ELIGIBILITY_NOT_OFFICIAL_RULE",
+    "cap_cause": "OWN_BUY_OR_TRANSACTION_CREATED_VERSUS_NO_TRADE_CURRENT_MARK_COUNTERFACTUAL",
+    "selection_cap_policy": "ZERO_RAW_CAP_BREACHES_EVEN_WITHIN_OFFICIAL_PASSIVE_GRACE"
+  },
+  "execution_assumption": "DAILY_OPEN_RESEARCH_PROXY",
+  "universe_interpretation": "COMPETITION_UNIVERSE_STRESS_TEST",
+  "candidate_id": "tune_cd716e6332fe"
+}
