@@ -37,9 +37,9 @@ flowchart LR
 
 這些檢查不替代主辦方語意驗證器。若日後取得官方 `verify_dplan.py`，應再加一道官方驗證，不因本機通過而省略。
 
-`python3 -m daily_auto.replay --output daily_auto/runs/my_replay` 可驗證從歷史計畫到 JSON 的完整本機流程。它不接受手動選股、不使用虛構新聞、不捏造 LLM 用量；正式交易還需要下節列出的資料與平台接入。
+[固定 v2 研究示範](examples/full_tuned_demo_verified_2026-09-21/README.md) 可驗證原始行情到 D-Plan 的本機流程。正式交易仍需要下節列出的資料與平台接入。
 
-目前每日入口改用 [固定策略流程](full_tuned_workflow.md)；上述 replay 保留作舊版歷史示範。即使回執驗證層已寫好，也尚未取得真實平台成功回執。多次提交的主辦最終生效版本仍需官方結算契約，不能只靠本地回執清單推定。
+目前每日入口是 [固定策略流程](full_tuned_workflow.md)，使用 `fintune_v2.py plan`。即使回執驗證層已寫好，也尚未取得真實平台成功回執。多次提交的主辦最終生效版本仍需官方結算契約，不能只靠本地回執清單推定。
 
 ## 還需要接通
 

@@ -1,3 +1,7 @@
-numpy>=1.24
-pandas>=2.0
-matplotlib>=3.7
+# Tested with Python 3.10; fixed versions preserve the audited calculation stack.
+numpy==1.24.4
+pandas==2.0.3
+scipy==1.10.1
+matplotlib==3.7.5
+jsonschema==4.20.0
+Markdown==3.5.1

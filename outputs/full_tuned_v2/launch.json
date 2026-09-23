@@ -1,0 +1,11 @@
+{
+  "pid": 5250,
+  "command": [
+    "/usr/local/bin/python3",
+    "-u",
+    "scripts/run_official_deep.py",
+    "--workers",
+    "6"
+  ],
+  "log": "outputs/full_tuned_v2/run.log"
+}

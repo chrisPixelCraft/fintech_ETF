@@ -1,0 +1,2 @@
+date,signal_date,symbol,trade_symbol,shares,price,notional,fee,tax,slippage_cost,volume_participation,execution_volume
+2025-01-02,2024-12-31,0050.TW,0050.TW,4637000,194.10746138962753,900076298.4637029,1282608.7253107766,0.0,0.0,0.327320804741881,14166530.0

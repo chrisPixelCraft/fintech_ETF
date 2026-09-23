@@ -1,0 +1,18 @@
+{
+  "official_ex_post": {
+    "status": "PASS",
+    "cutoff": "2026-06-30",
+    "sessions": 359,
+    "trades": 1490,
+    "economic_nav_max_error": 0.0,
+    "scope": "TEMPORAL_INVARIANCE_NOT_UNSEEN_OOS; terminal receivable settlement excluded from book comparison"
+  },
+  "historical_pit": {
+    "status": "PASS",
+    "cutoff": "2025-12-31",
+    "sessions": 243,
+    "trades": 1122,
+    "economic_nav_max_error": 0.0,
+    "scope": "TEMPORAL_INVARIANCE_NOT_UNSEEN_OOS; terminal receivable settlement excluded from book comparison"
+  }
+}

@@ -65,7 +65,7 @@
 
 8% 的三個原候選也是零 measured hard breaches；16% 則在 A、B 各出現 1 日。事前規則指定「12% 全數為零即採 12%」，因此沒有用回測收益在 8%、12%、16% 之間追高。
 
-這次修正解開了原 pilot 的檔數與權重死鎖，但不可行日仍多，換手也不低。不可行計畫會留下具名原因，不會被改寫為合規成功；它和官方警告次數不是同一概念。完整數值與帳務重算見 [`audit.json`](../outputs/tuning_report_2nd_try/pilot_repaired/audit.json) 及 [`trial_summary.csv`](../outputs/tuning_report_2nd_try/pilot_repaired/trial_summary.csv)。
+這次修正解開了原 pilot 的檔數與權重死鎖，但不可行日仍多，換手也不低。不可行計畫會留下具名原因，不會被改寫為合規成功；它和官方警告次數不是同一概念。完整數值與帳務重算見 [`audit.json`](https://github.com/chrisPixelCraft/fintech_ETF/tree/dfd5f84) 及 [`trial_summary.csv`](https://github.com/chrisPixelCraft/fintech_ETF/tree/dfd5f84)。
 
 獨立驗證的 17 項規劃器測試全數通過，全套測試為 109 項通過。範圍包含 production 混合單與 closed-form oracle 對照、完整價格角落枚舉、逐列帳務、預付金額篡改拒絕、同股交易與超賣拒絕，以及未來價格擾動與實體 prefix。12 組 repaired pilot 也全部通過帳務稽核，8 個混合單交易日的最大帳本誤差為 NTD 0.000001907。
 
@@ -74,3 +74,5 @@
 壓力檢查只覆蓋事前宣告的 0.9–1.1 價格範圍。若實際市場超出範圍、停牌導致未成交、公司行動留下零股，或沒有任何整張委託能同時滿足限制，規劃器會回傳 `INFEASIBLE_*` 或保留殘股，不宣稱無條件保證。
 
 目前證據只支持研究帳本與已量測規則。它不驗證市場容量、漲跌停排隊、歷史 ETF 持股、Active Share 或官方最終裁定。
+
+舊 pilot 明細位於本機封存資料，Git 歷史保留當時程式。上方歷史連結只提供版本脈絡，不代表 Git 含有被排除的逐筆輸出；本輪結果以 full_tuned_v2 為準。

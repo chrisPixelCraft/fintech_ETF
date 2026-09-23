@@ -1,0 +1,30 @@
+{
+  "inputs": [
+    {
+      "path": "data/v2_auxiliary/raw/finmind_IXIC.json",
+      "sha256": "72fb60386a39aedbc9b533767c0abb43c9b666c31706941b186ae1794cc2c04a"
+    },
+    {
+      "path": "data/v2_auxiliary/raw/finmind_SOX.json",
+      "sha256": "bb1dfe9d9647a8ea17a233c3087d15fb5a75e192558e336b6d2eefc5e2b14459"
+    },
+    {
+      "path": "data/v2_auxiliary/raw/finmind_NVDA.json",
+      "sha256": "587a84ad91a1a36629721b16279db205b538215f349305334958531a65585f4b"
+    },
+    {
+      "path": "data/v2_auxiliary/raw/finmind_TSM.json",
+      "sha256": "45b3faf52fcc2c7ce23fa9432b344fcfb42138d05f8db4633324c1f0ca0eba48"
+    },
+    {
+      "path": "data/v2_auxiliary/raw/TaiwanExchangeRate_USD.json",
+      "sha256": "3ccd09ac85b0b18f4e6605271527af690fb84d1b6c09502520e2e2f5fcaa0a12"
+    },
+    {
+      "path": "data/v2_auxiliary/raw/TaiwanFuturesDaily_TX.json",
+      "sha256": "32ae1f1355e0f8744b442ee7d65940a9a3c027107d198fcd6df0bb9ff80085ba"
+    }
+  ],
+  "availability_is_assumed": true,
+  "disclaimer": "No original historical publication-vintage archive; completed market sessions joined causally."
+}

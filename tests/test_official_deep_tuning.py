@@ -9,7 +9,7 @@ import json
 class ReplanningContract(unittest.TestCase):
     def setUp(self):
         root=Path(__file__).resolve().parents[1]
-        self.cfg=json.loads((root/'outputs/official_v2_reaudit/official_ex_post/final/A_dplan_guard/config.json').read_text())
+        self.cfg=json.loads((root/'tests/fixtures/official_guard.json').read_text())
         self.rows=pd.DataFrame([dict(date='2026-09-21',symbol=str(2000+i),close=10.,score=1-i/100,
             entry_ok=True,exit=False) for i in range(30)])
         self.holdings={str(2000+i):4_000_000. for i in range(20)}

@@ -1,9 +1,0 @@
-track,model,candidate_id,target_count,replacement_margin,max_replacements_per_day,volatility_spike_ratio,one_day_chase_return,volume_low,volume_high,four_hour_mode,return_short,return_long,ema_fast,ema_slow,macd_fast,macd_slow,macd_signal,momentum_weight,long_return_fraction
-historical_pit,return_winner,a0036,20,0.0,4,3.0,0.095,0.5,3.0,coverage_only,20,50,30,90,12,26,9,0.75,0.15
-historical_pit,risk_controlled,a0016,20,0.0,4,3.0,0.03,0.5,3.0,coverage_only,20,50,30,90,12,26,9,0.75,0.4666666666666666
-historical_pit,strict_winner,a0139,20,0.1,1,2.5,0.04,0.5,3.0,strict,20,50,50,150,24,52,12,0.95,0.35
-historical_pit,incumbent,a0000,20,0.0,4,3.0,0.095,0.5,3.0,coverage_only,20,50,30,90,12,26,9,0.75,0.4666666666666666
-official_ex_post,return_winner,r0050,20,0.05,1,2.5,0.07,0.3,5.0,strict,10,30,5,20,12,26,9,0.65,0.35
-official_ex_post,risk_controlled,r0050,20,0.05,1,2.5,0.07,0.3,5.0,strict,10,30,5,20,12,26,9,0.65,0.35
-official_ex_post,strict_winner,r0050,20,0.05,1,2.5,0.07,0.3,5.0,strict,10,30,5,20,12,26,9,0.65,0.35
-official_ex_post,incumbent,a0001,20,0.2,0,2.0,0.04,0.8,3.0,coverage_only,10,30,10,30,8,21,5,0.75,0.19999999999999998

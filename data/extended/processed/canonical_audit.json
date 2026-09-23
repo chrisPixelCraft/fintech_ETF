@@ -1,0 +1,371 @@
+{
+  "trust": "CANDIDATE_PENDING_INDEPENDENT_VERIFICATION",
+  "start": "2024-01-01",
+  "end": "2026-09-21",
+  "daily_rows": 99661,
+  "hourly_rows": 356632,
+  "universe_rows": 150,
+  "market_sessions_by_year": {
+    "2024": 242,
+    "2025": 243,
+    "2026": 174
+  },
+  "backtest_sessions": 417,
+  "marketwide_zero_volume_dates": [],
+  "official_price_rows_reused": 15150,
+  "old_canonical_sha256": "cfa94e27a1f1feb743160efde03a5c228c5d86d01c4e5018068e5d02ebf141da",
+  "2812_paid_rights_price_factor": {
+    "factor": 1.0017161971612798,
+    "dates": "2024-01-02 through2025-10-27",
+    "calibration_date": "2024-12-31",
+    "official_close": 18.75,
+    "raw_provider_close": 18.71787643359947,
+    "shares_and_volume_unchanged": true,
+    "limitation": "Constant adjustment factor inferred from dated official close and256matching intraday opens; full monthly source download blocked by TWSE Anti-DDoS."
+  },
+  "removed_nontrading_bars": [
+    {
+      "table": "daily",
+      "closed_market_bars": 149,
+      "5371_suspended_or_stale": 8,
+      "0050_suspended": 5,
+      "4772_pre_regular_listing": 173,
+      "documented_capital_event_halts": 28
+    },
+    {
+      "table": "hourly",
+      "closed_market_bars": 0,
+      "5371_suspended_or_stale": 0,
+      "0050_suspended": 0,
+      "4772_pre_regular_listing": 0,
+      "documented_capital_event_halts": 0
+    }
+  ],
+  "closed_market_next_open": {
+    "2024-07-24": "2024-07-26",
+    "2024-07-25": "2024-07-26",
+    "2026-07-10": "2026-07-13"
+  },
+  "action_count": 505,
+  "unverified_twse_action_decomposition": [
+    {
+      "date": "2026-08-11",
+      "symbol": "5880.TW",
+      "dividend": 0.8,
+      "split": 1.025,
+      "prior_close": 26.1,
+      "reference_price": 24.68
+    },
+    {
+      "date": "2026-08-13",
+      "symbol": "2880.TW",
+      "dividend": 1.35,
+      "split": 1.01,
+      "prior_close": 43.2,
+      "reference_price": 41.43
+    },
+    {
+      "date": "2026-08-18",
+      "symbol": "2885.TW",
+      "dividend": 0.0,
+      "split": 1.04,
+      "prior_close": 68.3,
+      "reference_price": 65.67
+    },
+    {
+      "date": "2026-09-02",
+      "symbol": "6669.TW",
+      "dividend": 0.0,
+      "split": 2.9827947,
+      "prior_close": 7800.0,
+      "reference_price": 2614.99
+    }
+  ],
+  "20250801_gap_recovery": {
+    "official_tpex_rows": 49,
+    "finmind_rows": 100,
+    "reason": "Yahoo dailyOHLCV are all-null for nearly allstocks onthis actualtradingday; never interpreted as closure.",
+    "finmind_access": "Documented public individualstock endpoint,100requests below300/hour unauthenticated limit; no loginorfees.",
+    "volume_basis": "FinMind Trading_Volume includes blocktrades; not assumed equal to Yahoo regularsession volume."
+  },
+  "minimum_daily_universe_coverage": 147,
+  "capital_events_rescheduled_to_tradable_resume": [
+    {
+      "symbol": "3481.TW",
+      "halt_start": "2024-08-15",
+      "resume": "2024-08-26",
+      "split": 0.88,
+      "cash_per_old_share": 1.2,
+      "type": "capital_reduction_refund",
+      "source": "https://www.taifex.com.tw/file/taifex/CHINESE/11/attach/3481_20240826.pdf"
+    },
+    {
+      "symbol": "2371.TW",
+      "halt_start": "2025-06-12",
+      "resume": "2025-06-23",
+      "split": 0.95,
+      "cash_per_old_share": 0.5,
+      "type": "capital_reduction_refund",
+      "source": "https://www.taifex.com.tw/file/taifex/CHINESE/11/attach/2371_20250623.pdf"
+    },
+    {
+      "symbol": "2327.TW",
+      "halt_start": "2025-08-14",
+      "resume": "2025-08-25",
+      "split": 4.0,
+      "cash_per_old_share": 0.0,
+      "type": "face_value_split",
+      "source": "https://www.taifex.com.tw/file/taifex/CHINESE/11/attach/2327_20250825.pdf"
+    },
+    {
+      "symbol": "5904.TWO",
+      "halt_start": "2026-07-30",
+      "resume": "2026-08-10",
+      "split": 10.0,
+      "cash_per_old_share": 0.0,
+      "type": "face_value_split",
+      "source": "https://www.taifex.com.tw/file/taifex/CHINESE/11/attach/5904_20260810.pdf"
+    }
+  ],
+  "zero_volume_source_audit_counts": {
+    "REPAIRED_POSITIVE_TRADING_VOLUME": 156,
+    "REMOVE_DOCUMENTED_MULTI_DAY_HALT": 28,
+    "RETAINED_CORROBORATED_NO_TRADING": 15
+  },
+  "rescheduled_actions": [
+    {
+      "date": "2024-07-26",
+      "symbol": "1503.TW",
+      "dividend": 3.0,
+      "split": 1.0,
+      "subscription_shares": 0.0,
+      "scheduled_date": "2024-07-24",
+      "effective_date": "2024-07-26",
+      "prior_close": 291.5,
+      "reference_price": 288.5,
+      "source": "data/extended/raw/actions/twse_2024.json",
+      "reference_residual_if_no_subscription": 0.0,
+      "cash_entitlement_type": "cash_dividend"
+    },
+    {
+      "date": "2024-07-26",
+      "symbol": "1519.TW",
+      "dividend": 6.0,
+      "split": 1.1,
+      "subscription_shares": 0.0,
+      "scheduled_date": "2024-07-25",
+      "effective_date": "2024-07-26",
+      "prior_close": 940.0,
+      "reference_price": 849.09,
+      "source": "data/extended/raw/actions/detail_1519_20240725.json",
+      "reference_residual_if_no_subscription": 0.0009090909089763954,
+      "cash_entitlement_type": "cash_dividend"
+    },
+    {
+      "date": "2024-07-26",
+      "symbol": "2002.TW",
+      "dividend": 0.35,
+      "split": 1.0,
+      "subscription_shares": 0.0,
+      "scheduled_date": "2024-07-25",
+      "effective_date": "2024-07-26",
+      "prior_close": 23.15,
+      "reference_price": 22.8,
+      "source": "data/extended/raw/actions/twse_2024.json",
+      "reference_residual_if_no_subscription": -3.552713678800501e-15,
+      "cash_entitlement_type": "cash_dividend"
+    },
+    {
+      "date": "2024-07-26",
+      "symbol": "2884.TW",
+      "dividend": 1.2,
+      "split": 1.02,
+      "subscription_shares": 0.0,
+      "scheduled_date": "2024-07-25",
+      "effective_date": "2024-07-26",
+      "prior_close": 29.8,
+      "reference_price": 28.03,
+      "source": "data/extended/raw/actions/detail_2884_20240725.json",
+      "reference_residual_if_no_subscription": 0.009215686274508528,
+      "cash_entitlement_type": "cash_dividend"
+    },
+    {
+      "date": "2024-07-26",
+      "symbol": "3702.TW",
+      "dividend": 3.5,
+      "split": 1.0,
+      "subscription_shares": 0.0,
+      "scheduled_date": "2024-07-25",
+      "effective_date": "2024-07-26",
+      "prior_close": 92.8,
+      "reference_price": 89.3,
+      "source": "data/extended/raw/actions/twse_2024.json",
+      "reference_residual_if_no_subscription": 0.0,
+      "cash_entitlement_type": "cash_dividend"
+    },
+    {
+      "date": "2024-07-26",
+      "symbol": "3293.TWO",
+      "dividend": 35.0,
+      "split": 2.0,
+      "subscription_shares": 0.0,
+      "scheduled_date": "2024-07-24",
+      "effective_date": "2024-07-26",
+      "prior_close": 1465.0,
+      "reference_price": 715.0,
+      "source": "data/extended/raw/actions/tpex_2024.json",
+      "reference_residual_if_no_subscription": 0.0,
+      "cash_entitlement_type": "cash_dividend"
+    },
+    {
+      "date": "2024-07-26",
+      "symbol": "4743.TWO",
+      "dividend": 0.0,
+      "split": 1.04996750064,
+      "subscription_shares": 0.0,
+      "scheduled_date": "2024-07-25",
+      "effective_date": "2024-07-26",
+      "prior_close": 185.0,
+      "reference_price": 176.2,
+      "source": "data/extended/raw/actions/tpex_2024.json",
+      "reference_residual_if_no_subscription": -0.004070233379025012,
+      "cash_entitlement_type": "share_event"
+    },
+    {
+      "date": "2024-07-26",
+      "symbol": "5483.TWO",
+      "dividend": 5.3,
+      "split": 1.0,
+      "subscription_shares": 0.0,
+      "scheduled_date": "2024-07-25",
+      "effective_date": "2024-07-26",
+      "prior_close": 215.5,
+      "reference_price": 210.2,
+      "source": "data/extended/raw/actions/tpex_2024.json",
+      "reference_residual_if_no_subscription": 0.0,
+      "cash_entitlement_type": "cash_dividend"
+    },
+    {
+      "date": "2024-07-26",
+      "symbol": "8069.TWO",
+      "dividend": 4.48964444,
+      "split": 1.0,
+      "subscription_shares": 0.0,
+      "scheduled_date": "2024-07-25",
+      "effective_date": "2024-07-26",
+      "prior_close": 254.5,
+      "reference_price": 250.01,
+      "source": "data/extended/raw/actions/tpex_2024.json",
+      "reference_residual_if_no_subscription": 0.00035556000000269705,
+      "cash_entitlement_type": "cash_dividend"
+    },
+    {
+      "date": "2026-07-13",
+      "symbol": "2610.TW",
+      "dividend": 0.814457,
+      "split": 1.0,
+      "subscription_shares": 0.0,
+      "scheduled_date": "2026-07-10",
+      "effective_date": "2026-07-13",
+      "prior_close": 21.4,
+      "reference_price": 20.58,
+      "source": "data/extended/raw/actions/twse_2026.json",
+      "reference_residual_if_no_subscription": 0.0055429999999994095,
+      "cash_entitlement_type": "cash_dividend"
+    },
+    {
+      "date": "2026-07-13",
+      "symbol": "2891.TW",
+      "dividend": 2.500239,
+      "split": 1.0,
+      "subscription_shares": 0.0,
+      "scheduled_date": "2026-07-10",
+      "effective_date": "2026-07-13",
+      "prior_close": 69.9,
+      "reference_price": 67.39,
+      "source": "data/extended/raw/actions/twse_2026.json",
+      "reference_residual_if_no_subscription": 0.009761000000011677,
+      "cash_entitlement_type": "cash_dividend"
+    },
+    {
+      "date": "2026-07-13",
+      "symbol": "3034.TW",
+      "dividend": 23.0,
+      "split": 1.0,
+      "subscription_shares": 0.0,
+      "scheduled_date": "2026-07-10",
+      "effective_date": "2026-07-13",
+      "prior_close": 542.0,
+      "reference_price": 519.0,
+      "source": "data/extended/raw/actions/twse_2026.json",
+      "reference_residual_if_no_subscription": 0.0,
+      "cash_entitlement_type": "cash_dividend"
+    }
+  ],
+  "missing_initial_4h_warmup": [
+    {
+      "symbol": "2888.TW",
+      "complete_4h_bars_by_20241231": 0
+    },
+    {
+      "symbol": "5371.TWO",
+      "complete_4h_bars_by_20241231": 0
+    },
+    {
+      "symbol": "6589.TWO",
+      "complete_4h_bars_by_20241231": 0
+    }
+  ],
+  "cash_dividend_basis": "Cash dividend OR explicitly classified capital-reduction refund per PRE-action old share; add q_before*dividend, then multiply shares by split. No double split multiplier on cash.",
+  "known_limitations": [
+    "Reconstructed historical universe and present provider history are not archived point-in-time data.",
+    "2888 hourly history unavailable today; retained universe member and official daily quotes, but 4H-coverage entry cannot occur.",
+    "6589 hourly history starts its 2025-07-21 transfer; no fabricated earlier intraday quotes.",
+    "5371 hourly history unavailable before 2026-07-17; successor3718 is mapped1:1 only from2026-09-03.",
+    "2888 merger creates0.672 common2887 plus0.175 preferred2887I: not spliced; engine must reject any position crossing merger without full entitlement support.",
+    "Cash pay dates unavailable; ex-date receivable is distinct from cash; fixedv1 model pays accumulated dividends at terminaldate. Cash subscriptions not exercised.",
+    "Official quote coverage partial; next-open model, not complete official VWAP."
+  ],
+  "sha256": {
+    "daily_canonical.csv": "48c8d52c0b55d8dd3e5473232ec1e6162be9779ce9ef77f7a40d5ef2474eb3cf",
+    "hourly_canonical.csv": "9fe09b27f6aff2ed994faaf5b0299e07eec4962e0335dedb910a386aaabad0e3",
+    "universe_20241231.csv": "abb4063385b919ef26a9d40fa8727b216e045a48f15759db525f5f728f7a1c5a",
+    "official_corporate_actions.csv": "1cd7725ae24f87ca5666ae42b84363d251ea87b3105045c9d2160030f3311946"
+  },
+  "numeric_validation": {
+    "unique_daily_and_hourly_keys": true,
+    "finite_positive_ohlc_and_split": true,
+    "high_low_consistency": true,
+    "nonnegative_volume": true,
+    "finmind_neighbor_comparisons": 200,
+    "finmind_neighbor_max_relative_close_error": 8.043036414662198e-08,
+    "aug1_hourly_open_comparisons": 150,
+    "aug1_max_relative_open_error": 6.276893638190728e-08,
+    "20241231_official_close_comparisons": 150,
+    "20241231_max_relative_close_error": 7.667926815724257e-08,
+    "no_duplicate_effective_events": true,
+    "no_marketwide_zero_volume_date": true,
+    "minimum_daily_universe_coverage": 147,
+    "all_zero_quotes_crosschecked": 199,
+    "false_zero_quotes_repaired": 156,
+    "documented_multiday_halt_stubs_removed": 28,
+    "independently_corroborated_zero_quotes_retained": 15,
+    "no_zero_daily_positive_hourly_contradictions": true
+  },
+  "calendar_count_explanation": "417 evaluation sessions=243 in2025+174 in2026. Earlier416 candidate used2330 provider availability and omitted actual2025-08-01; whole-crosssection source recovery restores this genuine session.",
+  "daily_warmup_under_200": [
+    {
+      "symbol": "4772.TWO",
+      "observed_days": 69
+    }
+  ],
+  "capital_event_primary_sources_metadata": "tmp/pdfs/split_source_metadata.json",
+  "rejected_prior_candidate": {
+    "daily_sha256": "1b0dd692f61800cee128ed278951b56939503976dcd62d04c78c5012ff2c3607",
+    "status": "FAILED_DO_NOT_USE",
+    "reason": "Falsezero-volumequotes andcapital events at haltstart, missingcashrefunds",
+    "outputs": "outputs/failed_extension_quotes_and_capital_events"
+  },
+  "script_sha256": "99c6df6976fed5c66f0fdd5cc9eae5b79887e6821e455f295fcc2ea80ae5b04e",
+  "frozen_for_run": true
+}

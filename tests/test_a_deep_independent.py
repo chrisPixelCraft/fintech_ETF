@@ -46,7 +46,7 @@ def market(count=27, sessions=265):
 
 
 def old_config(track='historical_pit'):
-    return json.loads((ROOT/f'outputs/tuning_report_2nd_try/{track}/final/A/config.json').read_text())
+    return json.loads((ROOT/f'tests/fixtures/anchor_{track}.json').read_text())
 
 
 def trial_config(ctx, **changes):
@@ -204,7 +204,7 @@ class DeepIndependentTests(unittest.TestCase):
         self.assertEqual(effective_key(p),effective_key(near))
         p.update(max_replacements_per_day=0,replacement_margin=0.)
         self.assertEqual(effective_key(p),effective_key({**p,'replacement_margin':.4}))
-        study=json.loads((ROOT/'config/a_deep_study.json').read_text())
+        study=json.loads((ROOT/'tests/fixtures/a_deep_study.json').read_text())
         self.assertEqual(len(study['candidates']),len({effective_key(t['params']) for t in study['candidates']}))
 
     def test_auditor_detects_numeric_metadata_execution_and_mode_mismatch(self):
@@ -220,7 +220,7 @@ class DeepIndependentTests(unittest.TestCase):
 
     def test_adaptive_candidate_membership_matches_independent_seed_reconstruction(self):
         from scripts.run_a_deep_tuning import refinement
-        study=json.loads((ROOT/'config/a_deep_study.json').read_text())
+        study=json.loads((ROOT/'tests/fixtures/a_deep_study.json').read_text())
         rows=[]
         for i,trial in enumerate(study['candidates']):
             rows.append(dict(**trial['params'],candidate_id=trial['candidate_id'],status='COMPLETE',

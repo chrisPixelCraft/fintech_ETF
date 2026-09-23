@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 class RuleBoundaryTests(unittest.TestCase):
     def setUp(self):
-        self.config = json.loads((ROOT / 'config/strategy_v1.json').read_text())
+        self.config = json.loads((ROOT / 'tests/fixtures/strategy_v1.json').read_text())
 
     def portfolio(self, count=20, cash=150_000_000., special=None):
         """Construct exact NAV=1e9, independently of the production allocator."""

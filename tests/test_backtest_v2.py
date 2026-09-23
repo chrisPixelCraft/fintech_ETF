@@ -14,7 +14,7 @@ from scripts.audit_v2_study import audit_model
 
 
 def settings(**kwargs):
-    c = json.loads((Path(__file__).resolve().parents[1] / 'config/strategy_v1.json').read_text())
+    c = json.loads((Path(__file__).resolve().parents[1] / 'tests/fixtures/strategy_v1.json').read_text())
     c.update(start='2025-01-02', end='2025-01-08', initial_cash=10_000_000.,
              target_count=10, min_count=8, max_count=12, max_weight=.2,
              cash_target=0., use_4h=False, research_shadow=True)

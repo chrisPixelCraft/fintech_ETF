@@ -1,0 +1,1374 @@
+[
+  {
+    "symbol": "1605.TW",
+    "interval": "1d",
+    "rows": 660,
+    "first_date": "2024-01-02T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1718845200": {
+          "amount": 1.092646,
+          "date": 1718845200
+        },
+        "1748998800": {
+          "amount": 0.5,
+          "date": 1748998800
+        },
+        "1781139600": {
+          "amount": 0.5,
+          "date": 1781139600
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/1605.TW_1d.json"
+  },
+  {
+    "symbol": "1605.TW",
+    "interval": "60m",
+    "rows": 2401,
+    "first_date": "2024-10-01T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1748998800": {
+          "amount": 0.5,
+          "date": 1748998800
+        },
+        "1781139600": {
+          "amount": 0.5,
+          "date": 1781139600
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/1605.TW_60m.json"
+  },
+  {
+    "symbol": "1802.TW",
+    "interval": "1d",
+    "rows": 660,
+    "first_date": "2024-01-02T09:00:00+08:00",
+    "events": {},
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/1802.TW_1d.json"
+  },
+  {
+    "symbol": "1802.TW",
+    "interval": "60m",
+    "rows": 2401,
+    "first_date": "2024-10-01T09:00:00+08:00",
+    "events": {},
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/1802.TW_60m.json"
+  },
+  {
+    "symbol": "1815.TWO",
+    "interval": "1d",
+    "rows": 660,
+    "first_date": "2024-01-02T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1788915600": {
+          "amount": 0.500017,
+          "date": 1788915600
+        }
+      },
+      "splits": {
+        "1788915600": {
+          "date": 1788915600,
+          "numerator": 1050.0017,
+          "denominator": 1000.0,
+          "splitRatio": "1050.0017:1000"
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/1815.TWO_1d.json"
+  },
+  {
+    "symbol": "1815.TWO",
+    "interval": "60m",
+    "rows": 2401,
+    "first_date": "2024-10-01T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1788915600": {
+          "amount": 0.500017,
+          "date": 1788915600
+        }
+      },
+      "splits": {
+        "1788915600": {
+          "date": 1788915600,
+          "numerator": 1050.0017,
+          "denominator": 1000.0,
+          "splitRatio": "1050.0017:1000"
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/1815.TWO_60m.json"
+  },
+  {
+    "symbol": "2313.TW",
+    "interval": "1d",
+    "rows": 660,
+    "first_date": "2024-01-02T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1717376400": {
+          "amount": 1.491362,
+          "date": 1717376400
+        },
+        "1748912400": {
+          "amount": 2.386179,
+          "date": 1748912400
+        },
+        "1780362000": {
+          "amount": 2.783876,
+          "date": 1780362000
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/2313.TW_1d.json"
+  },
+  {
+    "symbol": "2313.TW",
+    "interval": "60m",
+    "rows": 2401,
+    "first_date": "2024-10-01T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1748912400": {
+          "amount": 2.386179,
+          "date": 1748912400
+        },
+        "1780362000": {
+          "amount": 2.783876,
+          "date": 1780362000
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/2313.TW_60m.json"
+  },
+  {
+    "symbol": "2337.TW",
+    "interval": "1d",
+    "rows": 660,
+    "first_date": "2024-01-02T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1719190800": {
+          "amount": 0.5,
+          "date": 1719190800
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/2337.TW_1d.json"
+  },
+  {
+    "symbol": "2337.TW",
+    "interval": "60m",
+    "rows": 2401,
+    "first_date": "2024-10-01T09:00:00+08:00",
+    "events": {},
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/2337.TW_60m.json"
+  },
+  {
+    "symbol": "2344.TW",
+    "interval": "1d",
+    "rows": 660,
+    "first_date": "2024-01-02T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1774573200": {
+          "amount": 0.5,
+          "date": 1774573200
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/2344.TW_1d.json"
+  },
+  {
+    "symbol": "2344.TW",
+    "interval": "60m",
+    "rows": 2401,
+    "first_date": "2024-10-01T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1774573200": {
+          "amount": 0.5,
+          "date": 1774573200
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/2344.TW_60m.json"
+  },
+  {
+    "symbol": "2404.TW",
+    "interval": "1d",
+    "rows": 660,
+    "first_date": "2024-01-02T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1720746000": {
+          "amount": 21.0,
+          "date": 1720746000
+        },
+        "1752714000": {
+          "amount": 28.0,
+          "date": 1752714000
+        },
+        "1784163600": {
+          "amount": 40.0,
+          "date": 1784163600
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/2404.TW_1d.json"
+  },
+  {
+    "symbol": "2404.TW",
+    "interval": "60m",
+    "rows": 2401,
+    "first_date": "2024-10-01T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1752714000": {
+          "amount": 28.0,
+          "date": 1752714000
+        },
+        "1784163600": {
+          "amount": 40.0,
+          "date": 1784163600
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/2404.TW_60m.json"
+  },
+  {
+    "symbol": "2408.TW",
+    "interval": "1d",
+    "rows": 660,
+    "first_date": "2024-01-02T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1783386000": {
+          "amount": 1.347149,
+          "date": 1783386000
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/2408.TW_1d.json"
+  },
+  {
+    "symbol": "2408.TW",
+    "interval": "60m",
+    "rows": 2401,
+    "first_date": "2024-10-01T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1783386000": {
+          "amount": 1.347149,
+          "date": 1783386000
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/2408.TW_60m.json"
+  },
+  {
+    "symbol": "2451.TW",
+    "interval": "1d",
+    "rows": 660,
+    "first_date": "2024-01-02T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1720400400": {
+          "amount": 4.990625,
+          "date": 1720400400
+        },
+        "1751936400": {
+          "amount": 6.087933,
+          "date": 1751936400
+        },
+        "1782349200": {
+          "amount": 11.782383,
+          "date": 1782349200
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/2451.TW_1d.json"
+  },
+  {
+    "symbol": "3163.TWO",
+    "interval": "1d",
+    "rows": 660,
+    "first_date": "2024-01-02T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1719450000": {
+          "amount": 3.06383,
+          "date": 1719450000
+        },
+        "1750726800": {
+          "amount": 2.553191,
+          "date": 1750726800
+        },
+        "1785200400": {
+          "amount": 1.75,
+          "date": 1785200400
+        }
+      },
+      "splits": {
+        "1785200400": {
+          "date": 1785200400,
+          "numerator": 1175.0,
+          "denominator": 1000.0,
+          "splitRatio": "1175:1000"
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/3163.TWO_1d.json"
+  },
+  {
+    "symbol": "2451.TW",
+    "interval": "60m",
+    "rows": 2401,
+    "first_date": "2024-10-01T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1751936400": {
+          "amount": 6.087933,
+          "date": 1751936400
+        },
+        "1782349200": {
+          "amount": 11.782383,
+          "date": 1782349200
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/2451.TW_60m.json"
+  },
+  {
+    "symbol": "3189.TW",
+    "interval": "1d",
+    "rows": 660,
+    "first_date": "2024-01-02T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1720054800": {
+          "amount": 0.966875,
+          "date": 1720054800
+        },
+        "1751504400": {
+          "amount": 0.966937,
+          "date": 1751504400
+        },
+        "1782954000": {
+          "amount": 1.517564,
+          "date": 1782954000
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/3189.TW_1d.json"
+  },
+  {
+    "symbol": "3163.TWO",
+    "interval": "60m",
+    "rows": 2401,
+    "first_date": "2024-10-01T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1750726800": {
+          "amount": 2.553191,
+          "date": 1750726800
+        },
+        "1785200400": {
+          "amount": 1.75,
+          "date": 1785200400
+        }
+      },
+      "splits": {
+        "1785200400": {
+          "date": 1785200400,
+          "numerator": 1175.0,
+          "denominator": 1000.0,
+          "splitRatio": "1175:1000"
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/3163.TWO_60m.json"
+  },
+  {
+    "symbol": "3491.TWO",
+    "interval": "1d",
+    "rows": 660,
+    "first_date": "2024-01-02T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1721610000": {
+          "amount": 3.351011,
+          "date": 1721610000
+        },
+        "1753059600": {
+          "amount": 6.488543,
+          "date": 1753059600
+        },
+        "1784768400": {
+          "amount": 6.8,
+          "date": 1784768400
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/3491.TWO_1d.json"
+  },
+  {
+    "symbol": "3189.TW",
+    "interval": "60m",
+    "rows": 2401,
+    "first_date": "2024-10-01T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1751504400": {
+          "amount": 0.966937,
+          "date": 1751504400
+        },
+        "1782954000": {
+          "amount": 1.517564,
+          "date": 1782954000
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/3189.TW_60m.json"
+  },
+  {
+    "symbol": "4749.TWO",
+    "interval": "1d",
+    "rows": 660,
+    "first_date": "2024-01-02T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1722992400": {
+          "amount": 2.785005,
+          "date": 1722992400
+        },
+        "1752714000": {
+          "amount": 5.969201,
+          "date": 1752714000
+        },
+        "1781139600": {
+          "amount": 8.0,
+          "date": 1781139600
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/4749.TWO_1d.json"
+  },
+  {
+    "symbol": "3491.TWO",
+    "interval": "60m",
+    "rows": 2401,
+    "first_date": "2024-10-01T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1753059600": {
+          "amount": 6.488543,
+          "date": 1753059600
+        },
+        "1784768400": {
+          "amount": 6.8,
+          "date": 1784768400
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/3491.TWO_60m.json"
+  },
+  {
+    "symbol": "4749.TWO",
+    "interval": "60m",
+    "rows": 2401,
+    "first_date": "2024-10-01T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1752714000": {
+          "amount": 5.969201,
+          "date": 1752714000
+        },
+        "1781139600": {
+          "amount": 8.0,
+          "date": 1781139600
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/4749.TWO_60m.json"
+  },
+  {
+    "symbol": "4991.TWO",
+    "interval": "1d",
+    "rows": 660,
+    "first_date": "2024-01-02T09:00:00+08:00",
+    "events": {},
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/4991.TWO_1d.json"
+  },
+  {
+    "symbol": "5289.TWO",
+    "interval": "1d",
+    "rows": 660,
+    "first_date": "2024-01-02T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1721005200": {
+          "amount": 9.805128,
+          "date": 1721005200
+        },
+        "1756342800": {
+          "amount": 9.194065,
+          "date": 1756342800
+        },
+        "1787792400": {
+          "amount": 16.834915,
+          "date": 1787792400
+        }
+      },
+      "splits": {
+        "1721005200": {
+          "date": 1721005200,
+          "numerator": 1020.0,
+          "denominator": 1000.0,
+          "splitRatio": "1020:1000"
+        },
+        "1756342800": {
+          "date": 1756342800,
+          "numerator": 1019.9516,
+          "denominator": 1000.0,
+          "splitRatio": "1019.9516:1000"
+        },
+        "1787792400": {
+          "date": 1787792400,
+          "numerator": 1019.923,
+          "denominator": 1000.0,
+          "splitRatio": "1019.923:1000"
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/5289.TWO_1d.json"
+  },
+  {
+    "symbol": "4991.TWO",
+    "interval": "60m",
+    "rows": 2401,
+    "first_date": "2024-10-01T09:00:00+08:00",
+    "events": {},
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/4991.TWO_60m.json"
+  },
+  {
+    "symbol": "6139.TW",
+    "interval": "1d",
+    "rows": 660,
+    "first_date": "2024-01-02T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1725325200": {
+          "amount": 8.982076,
+          "date": 1725325200
+        },
+        "1756947600": {
+          "amount": 13.885191,
+          "date": 1756947600
+        },
+        "1788310800": {
+          "amount": 22.996187,
+          "date": 1788310800
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/6139.TW_1d.json"
+  },
+  {
+    "symbol": "5289.TWO",
+    "interval": "60m",
+    "rows": 2401,
+    "first_date": "2024-10-01T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1756342800": {
+          "amount": 9.194065,
+          "date": 1756342800
+        },
+        "1787792400": {
+          "amount": 16.834915,
+          "date": 1787792400
+        }
+      },
+      "splits": {
+        "1756342800": {
+          "date": 1756342800,
+          "numerator": 1019.9516,
+          "denominator": 1000.0,
+          "splitRatio": "1019.9516:1000"
+        },
+        "1787792400": {
+          "date": 1787792400,
+          "numerator": 1019.923,
+          "denominator": 1000.0,
+          "splitRatio": "1019.923:1000"
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/5289.TWO_60m.json"
+  },
+  {
+    "symbol": "6139.TW",
+    "interval": "60m",
+    "rows": 2401,
+    "first_date": "2024-10-01T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1756947600": {
+          "amount": 13.885191,
+          "date": 1756947600
+        },
+        "1788310800": {
+          "amount": 22.996187,
+          "date": 1788310800
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/6139.TW_60m.json"
+  },
+  {
+    "symbol": "6182.TWO",
+    "interval": "1d",
+    "rows": 660,
+    "first_date": "2024-01-02T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1721696400": {
+          "amount": 0.6414,
+          "date": 1721696400
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/6182.TWO_1d.json"
+  },
+  {
+    "symbol": "6239.TW",
+    "interval": "1d",
+    "rows": 660,
+    "first_date": "2024-01-02T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1722474000": {
+          "amount": 7.0,
+          "date": 1722474000
+        },
+        "1753923600": {
+          "amount": 7.0,
+          "date": 1753923600
+        },
+        "1785373200": {
+          "amount": 4.5,
+          "date": 1785373200
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/6239.TW_1d.json"
+  },
+  {
+    "symbol": "6182.TWO",
+    "interval": "60m",
+    "rows": 2401,
+    "first_date": "2024-10-01T09:00:00+08:00",
+    "events": {},
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/6182.TWO_60m.json"
+  },
+  {
+    "symbol": "6239.TW",
+    "interval": "60m",
+    "rows": 2401,
+    "first_date": "2024-10-01T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1753923600": {
+          "amount": 7.0,
+          "date": 1753923600
+        },
+        "1785373200": {
+          "amount": 4.5,
+          "date": 1785373200
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/6239.TW_60m.json"
+  },
+  {
+    "symbol": "6290.TWO",
+    "interval": "1d",
+    "rows": 660,
+    "first_date": "2024-01-02T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1721955600": {
+          "amount": 2.973209,
+          "date": 1721955600
+        },
+        "1753318800": {
+          "amount": 4.998366,
+          "date": 1753318800
+        },
+        "1784768400": {
+          "amount": 6.192344,
+          "date": 1784768400
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/6290.TWO_1d.json"
+  },
+  {
+    "symbol": "6515.TW",
+    "interval": "1d",
+    "rows": 660,
+    "first_date": "2024-01-02T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1721610000": {
+          "amount": 11.0,
+          "date": 1721610000
+        },
+        "1751850000": {
+          "amount": 24.99968,
+          "date": 1751850000
+        },
+        "1784250000": {
+          "amount": 49.43752,
+          "date": 1784250000
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/6515.TW_1d.json"
+  },
+  {
+    "symbol": "6290.TWO",
+    "interval": "60m",
+    "rows": 2401,
+    "first_date": "2024-10-01T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1753318800": {
+          "amount": 4.998366,
+          "date": 1753318800
+        },
+        "1784768400": {
+          "amount": 6.192344,
+          "date": 1784768400
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/6290.TWO_60m.json"
+  },
+  {
+    "symbol": "6515.TW",
+    "interval": "60m",
+    "rows": 2401,
+    "first_date": "2024-10-01T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1751850000": {
+          "amount": 24.99968,
+          "date": 1751850000
+        },
+        "1784250000": {
+          "amount": 49.43752,
+          "date": 1784250000
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/6515.TW_60m.json"
+  },
+  {
+    "symbol": "6584.TWO",
+    "interval": "1d",
+    "rows": 660,
+    "first_date": "2024-01-02T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1724720400": {
+          "amount": 1.000152,
+          "date": 1724720400
+        },
+        "1757466000": {
+          "amount": 1.501003,
+          "date": 1757466000
+        },
+        "1788829200": {
+          "amount": 2.440707,
+          "date": 1788829200
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/6584.TWO_1d.json"
+  },
+  {
+    "symbol": "6584.TWO",
+    "interval": "60m",
+    "rows": 2401,
+    "first_date": "2024-10-01T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1757466000": {
+          "amount": 1.501003,
+          "date": 1757466000
+        },
+        "1788829200": {
+          "amount": 2.440707,
+          "date": 1788829200
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/6584.TWO_60m.json"
+  },
+  {
+    "symbol": "6770.TW",
+    "interval": "1d",
+    "rows": 660,
+    "first_date": "2024-01-02T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1787792400": {
+          "amount": 0.23,
+          "date": 1787792400
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/6770.TW_1d.json"
+  },
+  {
+    "symbol": "6789.TW",
+    "interval": "1d",
+    "rows": 660,
+    "first_date": "2024-01-02T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1719882000": {
+          "amount": 0.999066,
+          "date": 1719882000
+        },
+        "1750986000": {
+          "amount": 2.997016,
+          "date": 1750986000
+        },
+        "1782435600": {
+          "amount": 3.0,
+          "date": 1782435600
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/6789.TW_1d.json"
+  },
+  {
+    "symbol": "6770.TW",
+    "interval": "60m",
+    "rows": 2401,
+    "first_date": "2024-10-01T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1787792400": {
+          "amount": 0.23,
+          "date": 1787792400
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/6770.TW_60m.json"
+  },
+  {
+    "symbol": "6919.TW",
+    "interval": "1d",
+    "rows": 660,
+    "first_date": "2024-01-02T09:00:00+08:00",
+    "events": {
+      "splits": {
+        "1752454800": {
+          "date": 1752454800,
+          "numerator": 10000.0,
+          "denominator": 1000.0,
+          "splitRatio": "10000:1000"
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/6919.TW_1d.json"
+  },
+  {
+    "symbol": "6789.TW",
+    "interval": "60m",
+    "rows": 2401,
+    "first_date": "2024-10-01T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1750986000": {
+          "amount": 2.997016,
+          "date": 1750986000
+        },
+        "1782435600": {
+          "amount": 3.0,
+          "date": 1782435600
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/6789.TW_60m.json"
+  },
+  {
+    "symbol": "6919.TW",
+    "interval": "60m",
+    "rows": 2396,
+    "first_date": "2024-10-04T09:00:00+08:00",
+    "events": {
+      "splits": {
+        "1752454800": {
+          "date": 1752454800,
+          "numerator": 10000.0,
+          "denominator": 1000.0,
+          "splitRatio": "10000:1000"
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/6919.TW_60m.json"
+  },
+  {
+    "symbol": "7734.TWO",
+    "interval": "1d",
+    "rows": 616,
+    "first_date": "2024-03-14T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1719363600": {
+          "amount": 11.735436,
+          "date": 1719363600
+        },
+        "1753750800": {
+          "amount": 21.716503,
+          "date": 1753750800
+        },
+        "1783299600": {
+          "amount": 19.850634,
+          "date": 1783299600
+        }
+      },
+      "splits": {
+        "1753750800": {
+          "date": 1753750800,
+          "numerator": 1256.5089,
+          "denominator": 1000.0,
+          "splitRatio": "1256.5089:1000"
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/7734.TWO_1d.json"
+  },
+  {
+    "symbol": "7750.TW",
+    "interval": "1d",
+    "rows": 552,
+    "first_date": "2024-06-18T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1743469200": {
+          "amount": 11.0,
+          "date": 1743469200
+        },
+        "1775005200": {
+          "amount": 16.0,
+          "date": 1775005200
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/7750.TW_1d.json"
+  },
+  {
+    "symbol": "7734.TWO",
+    "interval": "60m",
+    "rows": 2401,
+    "first_date": "2024-10-01T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1753750800": {
+          "amount": 21.716503,
+          "date": 1753750800
+        },
+        "1783299600": {
+          "amount": 19.850634,
+          "date": 1783299600
+        }
+      },
+      "splits": {
+        "1753750800": {
+          "date": 1753750800,
+          "numerator": 1256.5089,
+          "denominator": 1000.0,
+          "splitRatio": "1256.5089:1000"
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/7734.TWO_60m.json"
+  },
+  {
+    "symbol": "7750.TW",
+    "interval": "60m",
+    "rows": 1231,
+    "first_date": "2025-09-17T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1758070800": {
+          "amount": 11.0,
+          "date": 1743469200
+        },
+        "1775005200": {
+          "amount": 16.0,
+          "date": 1775005200
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/7750.TW_60m.json"
+  },
+  {
+    "symbol": "7751.TWO",
+    "interval": "1d",
+    "rows": 555,
+    "first_date": "2024-06-13T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1719968400": {
+          "amount": 6.0,
+          "date": 1719968400
+        },
+        "1750986000": {
+          "amount": 10.0,
+          "date": 1750986000
+        },
+        "1774918800": {
+          "amount": 18.0,
+          "date": 1774918800
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/7751.TWO_1d.json"
+  },
+  {
+    "symbol": "7769.TW",
+    "interval": "1d",
+    "rows": 461,
+    "first_date": "2024-11-01T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1753318800": {
+          "amount": 22.50376,
+          "date": 1753318800
+        },
+        "1785373200": {
+          "amount": 64.99025,
+          "date": 1785373200
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/7769.TW_1d.json"
+  },
+  {
+    "symbol": "7751.TWO",
+    "interval": "60m",
+    "rows": 2401,
+    "first_date": "2024-10-01T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1750986000": {
+          "amount": 10.0,
+          "date": 1750986000
+        },
+        "1774918800": {
+          "amount": 18.0,
+          "date": 1774918800
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/7751.TWO_60m.json"
+  },
+  {
+    "symbol": "7828.TWO",
+    "interval": "1d",
+    "rows": 339,
+    "first_date": "2025-05-08T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1753405200": {
+          "amount": 1.5,
+          "date": 1753405200
+        },
+        "1780534800": {
+          "amount": 4.529806,
+          "date": 1780534800
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/7828.TWO_1d.json"
+  },
+  {
+    "symbol": "7769.TW",
+    "interval": "60m",
+    "rows": 996,
+    "first_date": "2025-11-27T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1764205200": {
+          "amount": 22.50376,
+          "date": 1753318800
+        },
+        "1785373200": {
+          "amount": 64.99025,
+          "date": 1785373200
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/7769.TW_60m.json"
+  },
+  {
+    "symbol": "7828.TWO",
+    "interval": "60m",
+    "rows": 1696,
+    "first_date": "2025-05-08T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1753405200": {
+          "amount": 1.5,
+          "date": 1753405200
+        },
+        "1780534800": {
+          "amount": 4.529806,
+          "date": 1780534800
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/7828.TWO_60m.json"
+  },
+  {
+    "symbol": "8046.TW",
+    "interval": "1d",
+    "rows": 660,
+    "first_date": "2024-01-02T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1721091600": {
+          "amount": 5.5,
+          "date": 1721091600
+        },
+        "1751504400": {
+          "amount": 1.0,
+          "date": 1751504400
+        },
+        "1782349200": {
+          "amount": 2.0,
+          "date": 1782349200
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/8046.TW_1d.json"
+  },
+  {
+    "symbol": "8210.TW",
+    "interval": "1d",
+    "rows": 660,
+    "first_date": "2024-01-02T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1719277200": {
+          "amount": 4.999969,
+          "date": 1719277200
+        },
+        "1750899600": {
+          "amount": 7.494377,
+          "date": 1750899600
+        },
+        "1782349200": {
+          "amount": 14.0,
+          "date": 1782349200
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/8210.TW_1d.json"
+  },
+  {
+    "symbol": "8046.TW",
+    "interval": "60m",
+    "rows": 2401,
+    "first_date": "2024-10-01T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1751504400": {
+          "amount": 1.0,
+          "date": 1751504400
+        },
+        "1782349200": {
+          "amount": 2.0,
+          "date": 1782349200
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/8046.TW_60m.json"
+  },
+  {
+    "symbol": "8210.TW",
+    "interval": "60m",
+    "rows": 2401,
+    "first_date": "2024-10-01T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1750899600": {
+          "amount": 7.494377,
+          "date": 1750899600
+        },
+        "1782349200": {
+          "amount": 14.0,
+          "date": 1782349200
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/8210.TW_60m.json"
+  },
+  {
+    "symbol": "8358.TWO",
+    "interval": "1d",
+    "rows": 660,
+    "first_date": "2024-01-02T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1720486800": {
+          "amount": 1.5,
+          "date": 1720486800
+        },
+        "1753059600": {
+          "amount": 1.50101,
+          "date": 1753059600
+        },
+        "1784250000": {
+          "amount": 2.0,
+          "date": 1784250000
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/8358.TWO_1d.json"
+  },
+  {
+    "symbol": "8932.TWO",
+    "interval": "1d",
+    "rows": 660,
+    "first_date": "2024-01-02T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1730077200": {
+          "amount": 0.002799,
+          "date": 1730077200
+        },
+        "1757293200": {
+          "amount": 0.118251,
+          "date": 1757293200
+        },
+        "1787878800": {
+          "amount": 0.7207,
+          "date": 1787878800
+        }
+      },
+      "splits": {
+        "1724893200": {
+          "date": 1724893200,
+          "numerator": 2000.0,
+          "denominator": 1000.0,
+          "splitRatio": "2000:1000"
+        },
+        "1730077200": {
+          "date": 1730077200,
+          "numerator": 1013.05,
+          "denominator": 1000.0,
+          "splitRatio": "1013.05:1000"
+        },
+        "1757293200": {
+          "date": 1757293200,
+          "numerator": 1084.1412,
+          "denominator": 1000.0,
+          "splitRatio": "1084.1412:1000"
+        },
+        "1771981200": {
+          "date": 1771981200,
+          "numerator": 2000.0,
+          "denominator": 1000.0,
+          "splitRatio": "2000:1000"
+        },
+        "1787878800": {
+          "date": 1787878800,
+          "numerator": 1192.16,
+          "denominator": 1000.0,
+          "splitRatio": "1192.16:1000"
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/8932.TWO_1d.json"
+  },
+  {
+    "symbol": "8358.TWO",
+    "interval": "60m",
+    "rows": 2401,
+    "first_date": "2024-10-01T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1753059600": {
+          "amount": 1.50101,
+          "date": 1753059600
+        },
+        "1784250000": {
+          "amount": 2.0,
+          "date": 1784250000
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/8358.TWO_60m.json"
+  },
+  {
+    "symbol": "8932.TWO",
+    "interval": "60m",
+    "rows": 2401,
+    "first_date": "2024-10-01T09:00:00+08:00",
+    "events": {
+      "dividends": {
+        "1730077200": {
+          "amount": 0.002799,
+          "date": 1730077200
+        },
+        "1757293200": {
+          "amount": 0.118251,
+          "date": 1757293200
+        },
+        "1787878800": {
+          "amount": 0.7207,
+          "date": 1787878800
+        }
+      },
+      "splits": {
+        "1730077200": {
+          "date": 1730077200,
+          "numerator": 1013.05,
+          "denominator": 1000.0,
+          "splitRatio": "1013.05:1000"
+        },
+        "1757293200": {
+          "date": 1757293200,
+          "numerator": 1084.1412,
+          "denominator": 1000.0,
+          "splitRatio": "1084.1412:1000"
+        },
+        "1771981200": {
+          "date": 1771981200,
+          "numerator": 2000.0,
+          "denominator": 1000.0,
+          "splitRatio": "2000:1000"
+        },
+        "1787878800": {
+          "date": 1787878800,
+          "numerator": 1192.16,
+          "denominator": 1000.0,
+          "splitRatio": "1192.16:1000"
+        }
+      }
+    },
+    "source": "data/tuning_2nd/official_universe/raw/yahoo/8932.TWO_60m.json"
+  }
+]

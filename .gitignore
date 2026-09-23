@@ -59,12 +59,12 @@ id_ed25519
 *.sqlite3-shm
 
 # Downloaded market data stays local; small reference lists may be tracked.
-# Frozen datasets needed for reproduction must be selected explicitly later.
+# Required frozen release files are explicitly tracked; new downloads stay local.
 /data/*
 !/data/reference/
 
 # Large experiment runs, repeated input snapshots and scratch work
-# Keep source, config, tests, docs, research, official_docs and reports eligible.
+# The compact final evidence is explicitly tracked; new experiments stay local.
 /outputs/
 /tmp/
 

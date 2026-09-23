@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "native_series": 12,
+  "points": 258,
+  "max_rounding_error": 4.988967600150218e-09,
+  "source": "reports/full_tuned_v2_assets/presentation_data.json",
+  "rounding_policy": "Native chart workbook values rounded to 8 decimal places; source CSV unmodified"
+}

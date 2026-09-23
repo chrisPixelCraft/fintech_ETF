@@ -1,0 +1,71 @@
+{
+  "strategy_id": "0050",
+  "start": "2025-01-01",
+  "end": "2026-09-21",
+  "initial_cash": 1000000000,
+  "target_count": 1,
+  "min_count": 1,
+  "max_count": 1,
+  "cash_target": 0,
+  "cash_rebalance_lower": 0,
+  "cash_rebalance_upper": 0.25,
+  "max_weight": 1.0,
+  "tsmc_max_weight": 1.0,
+  "commission": 0.001425,
+  "sell_tax": 0.003,
+  "slippage_bps": 0,
+  "lot_size": 1000,
+  "warmup_sessions": 200,
+  "replacement_margin": 0.1,
+  "max_replacements_per_day": 0,
+  "volatility_spike_ratio": 2.0,
+  "one_day_chase_return": 0.07,
+  "volume_low": 0.5,
+  "volume_high": 3.0,
+  "execution": "vwap",
+  "use_4h": true,
+  "dividend_cash_policy": "end_of_period",
+  "score_weights": {
+    "return20": 0.4,
+    "return50": 0.35,
+    "volume": 0.1,
+    "macd": 0.05,
+    "trend": 0.05,
+    "long_trend": 0.05
+  },
+  "research_shadow": true,
+  "allocation_mode": "local",
+  "price_buffer": 1.1,
+  "sector_policy": {
+    "mode": "daily_previous_close",
+    "weights": [
+      0.5333333333333333,
+      0.4666666666666667
+    ],
+    "top_fraction": 0.5,
+    "ema": [
+      20,
+      50
+    ],
+    "fallback": "rank_to_25_then_weak_to_20",
+    "missing_taxonomy": "NEUTRAL_BASELINE_WITH_UNKNOWN"
+  },
+  "study_policy": {
+    "no_parameter_search": true,
+    "historical_period_is_development": true,
+    "comparison": [
+      "v1_matched",
+      "A",
+      "B",
+      "C",
+      "D",
+      "0050"
+    ],
+    "missing_signal": "neutral_with_explicit_UNKNOWN",
+    "selection": "No historical winner automatically deployed",
+    "official_live_submission": "BLOCK_IF_UNKNOWN"
+  },
+  "ex_post_fixed_universe": false,
+  "universe_mode": "historical_pit",
+  "price_lower_buffer": 0.9
+}

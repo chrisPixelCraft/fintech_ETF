@@ -7,7 +7,7 @@
 在專案根目錄執行：
 
 ```bash
-python3 v2_offcial_best_deep_tuning.py plan \
+python3 fintune_v2.py plan \
   --state daily_auto/inbox/state.json \
   --daily daily_auto/inbox/daily.csv \
   --hourly daily_auto/inbox/hourly.csv \

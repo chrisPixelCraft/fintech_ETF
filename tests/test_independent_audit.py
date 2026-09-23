@@ -17,7 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def frozen_config(**overrides):
-    config = json.loads((ROOT / "config/strategy_v1.json").read_text())
+    config = json.loads((ROOT / "tests/fixtures/strategy_v1.json").read_text())
     config.update(overrides)
     return config
 

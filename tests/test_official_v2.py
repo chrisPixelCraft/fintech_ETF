@@ -77,7 +77,7 @@ class OfficialFormulaTests(unittest.TestCase):
 class OddHoldPlannerTests(unittest.TestCase):
     def setUp(self):
         self.module=isolated_planner()
-        cfg=json.loads((ROOT/'outputs/tuning_report_2nd_try/historical_pit/final/A/config.json').read_text())
+        cfg=json.loads((ROOT/'tests/fixtures/anchor_historical_pit.json').read_text())
         self.config=cfg
         self.names=[str(1000+i)+'.TW' for i in range(35)]
         self.ranked=pd.DataFrame(dict(symbol=self.names,close=100.,score=np.arange(35)/35,entry_ok=True,exit=False))
