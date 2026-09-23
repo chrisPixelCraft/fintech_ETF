@@ -44,6 +44,8 @@ python v2_double_check_structural.py --track official_ex_post --output outputs/m
 
 ## 文件與證據
 
+完整文件分類見 [docs 導覽](docs/README.md)；舊版發行與規則筆記已改由固定 Git 版本保存。
+
 | 內容 | 連結 |
 |---|---|
 | 第四輪績效、年度比較與限制 | [結構搜尋結果](reports/v2_double_check_structural_report.md) |

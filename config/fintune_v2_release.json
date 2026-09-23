@@ -5,7 +5,7 @@
   "files": {
     ".gitattributes": "d49deb6564903aee20fcd6ec3433a3aa29302ee22e654de2ec0583b4e7f2305c",
     ".gitignore": "d8c34137334fc392a4673b2d0d8f4780bb492cf9288424dda8396e7a09adc6c1",
-    "README.md": "f2ab085624e70ec0afa1409634928caa8d57ce10d82510e7fac0ae1ffbcf873f",
+    "README.md": "3aefbc27a089a2e34d26d92644f2891bf8b28191f3d3d2d0d043c69e796423c2",
     "config/official_deep_study.json": "3f406ba8f086b5323de602bf5f3877e129c9837bf2465f50e9e388cee274ed97",
     "config/strategy_v2.json": "373f9ba804fa9638441699ccb016ebc785b1b2b9579e5cf88d4cb5c67e22f3f0",
     "config/tuning_2nd_study.json": "982575fb3ed0d1e58e58722439554c6719bec1c0bb7984472f823ab05ad87f49",
@@ -76,11 +76,8 @@
     "data/v2_auxiliary/manifest.json": "8ade6ea3ea9628ed618c9fd75796091486abb248f7b7437a830bc35b466502c5",
     "data/v2_auxiliary/overnight_daily.csv": "cb133f00debae63038defe81dab18bcdf2362040dcb428efae275cdcb70e11e9",
     "data/v2_auxiliary/source_status.json": "d5feed3ab418f71b128cb7b175e18fbf3aa62cf494574eab4632e99eeeee48ba",
-    "docs/compliance_planner_2nd.md": "712a3f7562670abc2a1657b92a9f76bb7fe92d8dcf32151347473c0ef391a92d",
     "docs/data_audit_2025_to_now.md": "1e45b8ccbfd924c65b847c79dc50221695d0f20297ffa8e0f20e4993f9408032",
-    "docs/fintune_v2_release.md": "365c139c809b61867856f7694e92b7168866ba0e9878b47965189ad1802e434b",
     "docs/official_deep_protocol.md": "49858bf6f5fa3076970e7f5e57d2a375ec53ee8831090c87b1055b04d4f61fc1",
-    "docs/official_docs_rule_audit.md": "1a36d4b6e6c552216cafe00144d9a0f5452d21bbecac1622d6a79543629cd784",
     "fintune_v2.py": "140146eae888f2842d2387e4b89f84010975e2add3ad2ae3593e76f5ffb16eae",
     "official_docs/AI CUP 2026玉山人工智慧公開挑戰賽_比賽辦法.pdf": "55a26bb7408eedba7f3c395ca84c5d3d3d471532c5f3c01dfa2166336a983cf7",
     "official_docs/D-Plan.schema.json": "b4703cbb2387065d3612d799018cac0b8671f49305bcb63fe3c518f8bc89b95f",
@@ -247,6 +244,7 @@
     "tests/test_tuning_2nd.py": "93723209a5e0130fbd3256459762fed9e19ffc8e1badc785529748c2bd681a57",
     "tests/test_tuning_credibility_audit.py": "6e385d6f61d825e313ba762a644dbdf1d56a61987acef2f3ed7c321862043ab3",
     "tests/test_tuning_features.py": "5225ae96d8b02bebe21679b4e4b4436129672157a489683769f7bdf172ca59a3",
-    "v2_offcial_best_deep_tuning.py": "23c022032a35a11b0e151b494c9dff08d316c4be714a38fde6dc13e3f12d0707"
+    "v2_offcial_best_deep_tuning.py": "23c022032a35a11b0e151b494c9dff08d316c4be714a38fde6dc13e3f12d0707",
+    "docs/README.md": "bc3032e500b2bd10ac9d71e83efe1b97261d4d173784a9227007c90a4a8603f2"
   }
 }
