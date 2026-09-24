@@ -86,3 +86,6 @@ nohup.out
 /daily_auto/runtime/
 /daily_auto/runs/
 /daily_auto/evidence/raw/
+
+# Agent worktrees
+.claude/worktrees/
