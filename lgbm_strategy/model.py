@@ -15,6 +15,14 @@ PARAMS = dict(objective='regression', boosting_type='gbdt', learning_rate=.005, 
               random_state=2026, verbosity=-1, force_col_wise=True,
               metric='None')          # only the Pearson metric below drives early stopping
 EARLY_STOPPING_ROUNDS = 300
+BASE_LEARNING_RATE = PARAMS['learning_rate']
+
+
+def stopping_schedule(learning_rate: float) -> tuple[int, int]:
+    """(tree cap, early-stopping patience): the JPX2 (3000, 300) at the base rate or above, scaled by
+    base / rate below it, so a smaller rate is not stopped before it can travel as far."""
+    scale = max(1., BASE_LEARNING_RATE / learning_rate)
+    return int(round(PARAMS['n_estimators'] * scale)), int(round(EARLY_STOPPING_ROUNDS * scale))
 
 
 def pearson(y_true: np.ndarray, y_pred: np.ndarray) -> float:
@@ -37,26 +45,40 @@ class FittedModel:
 
 
 def fit(train: pd.DataFrame, validation: pd.DataFrame, features: tuple[str, ...], label: str = 'label',
-        refit_on_all: bool = False) -> FittedModel:
+        refit_on_all: bool = False, learning_rate: float = BASE_LEARNING_RATE) -> FittedModel:
     """Fit on ``train``, early-stop on the validation Pearson correlation, keep the best iteration.
 
     ``refit_on_all``: afterwards refit ``best_iteration`` trees on train + validation, so the latest
     (validation) rows also train the model that predicts; the metadata keeps the early-stopping scores.
     """
-    regressor = lightgbm.LGBMRegressor(**PARAMS)
+    cap, patience = stopping_schedule(learning_rate)
+    params = dict(PARAMS, learning_rate=learning_rate, n_estimators=cap)
+    regressor = lightgbm.LGBMRegressor(**params)
     regressor.fit(train[list(features)], train[label], eval_X=(validation[list(features)],),
                   eval_y=(validation[label],), eval_metric=pearson_metric,
-                  callbacks=[lightgbm.early_stopping(EARLY_STOPPING_ROUNDS, verbose=False)])
-    best = int(regressor.best_iteration_ or PARAMS['n_estimators'])
+                  callbacks=[lightgbm.early_stopping(patience, verbose=False)])
+    best = int(regressor.best_iteration_ or cap)
     validation_prediction = predict_array(regressor, validation[list(features)])
     metadata = dict(best_iteration=best, validation_pearson=float(regressor.best_score_['valid_0']['pearson']),
                     train_pearson=pearson(train[label].to_numpy(), predict_array(regressor, train[list(features)])),
-                    prediction_std=float(np.std(validation_prediction)), refit_on_all=refit_on_all)
+                    prediction_std=float(np.std(validation_prediction)), refit_on_all=refit_on_all,
+                    learning_rate=learning_rate)
     if refit_on_all:
         both = pd.concat([train, validation])
-        regressor = lightgbm.LGBMRegressor(**dict(PARAMS, n_estimators=best))
+        regressor = lightgbm.LGBMRegressor(**dict(params, n_estimators=best))
         regressor.fit(both[list(features)], both[label])
         metadata['refit_rows'] = len(both)
+    return FittedModel(regressor, tuple(features), metadata)
+
+
+def fit_fixed(rows: pd.DataFrame, features: tuple[str, ...], n_trees: int, label: str = 'label',
+              learning_rate: float = BASE_LEARNING_RATE) -> FittedModel:
+    """Fit exactly ``n_trees`` trees on all ``rows`` (no validation split, no early stopping)."""
+    regressor = lightgbm.LGBMRegressor(**dict(PARAMS, learning_rate=learning_rate, n_estimators=n_trees))
+    regressor.fit(rows[list(features)], rows[label])
+    metadata = dict(best_iteration=n_trees, validation_pearson=None, fixed_trees=n_trees, refit_rows=len(rows),
+                    learning_rate=learning_rate,
+                    train_pearson=pearson(rows[label].to_numpy(), predict_array(regressor, rows[list(features)])))
     return FittedModel(regressor, tuple(features), metadata)
 
 

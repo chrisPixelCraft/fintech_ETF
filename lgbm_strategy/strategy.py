@@ -22,7 +22,7 @@ from lgbm_strategy.features import COLUMNS, FeatureConfig, build_features
 from lgbm_strategy.targets import TARGET_MODES
 
 STRATEGY_KEYS = {'horizon', 'lookback', 'refit_every', 'target_mode', 'min_observed_share', 'refit_on_all',
-                 'portfolio'}
+                 'fixed_trees', 'learning_rate', 'portfolio'}
 OVERLAP_SIZES = (25, 35)
 
 
@@ -34,11 +34,17 @@ class LightGBMStrategyConfig:
     target_mode: str = 'raw_return'    # lgbm_strategy.targets.TARGET_MODES
     min_observed_share: float = 1.     # FeatureConfig: observed share of returns needed for volatility_h
     refit_on_all: bool = False         # model.fit: refit best_iteration trees on train + validation
+    fixed_trees: int | None = None     # model.fit_fixed: this many trees on all rows, no validation split
+    learning_rate: float = model.BASE_LEARNING_RATE   # tree cap / patience follow model.stopping_schedule
     portfolio: portfolio.PortfolioConfig = field(default_factory=portfolio.PortfolioConfig)
 
     def __post_init__(self):
         if self.horizon < 1 or self.lookback < 1 or self.refit_every < 1:
             raise ValueError('horizon, lookback and refit_every must be positive')
+        if self.fixed_trees is not None and (self.fixed_trees < 1 or self.refit_on_all):
+            raise ValueError('fixed_trees must be positive and excludes refit_on_all')
+        if not 0 < self.learning_rate <= 1:
+            raise ValueError('learning_rate must be in (0, 1]')
         if self.target_mode not in TARGET_MODES:
             raise ValueError(f'Unknown target_mode {self.target_mode}')
         FeatureConfig(self.min_observed_share)
@@ -60,6 +66,8 @@ class LightGBMStrategyConfig:
                    target_mode=str(raw.get('target_mode', cls.target_mode)),
                    min_observed_share=float(raw.get('min_observed_share', cls.min_observed_share)),
                    refit_on_all=refit_on_all,
+                   fixed_trees=None if raw.get('fixed_trees') is None else int(raw['fixed_trees']),
+                   learning_rate=float(raw.get('learning_rate', cls.learning_rate)),
                    portfolio=portfolio.PortfolioConfig.from_dict(raw.get('portfolio', {})))
 
 
@@ -93,7 +101,10 @@ class LightGBMStrategy:
         entry = dict(date=str(state.date.date()), asof=str(view.date.date()))
         if self.fitted is None or state.day_index % c.refit_every == 0:
             data = build_training_set(view, c.horizon, c.lookback, c.target_mode, c.features)
-            self.fitted = model.fit(data.train, data.validation, COLUMNS, refit_on_all=c.refit_on_all)
+            self.fitted = model.fit(data.train, data.validation, COLUMNS, refit_on_all=c.refit_on_all,
+                                    learning_rate=c.learning_rate) if c.fixed_trees is None else \
+                model.fit_fixed(pd.concat([data.train, data.validation]), COLUMNS, c.fixed_trees,
+                                learning_rate=c.learning_rate)
             entry.update(refit=True, **data.audit, **self.fitted.metadata)
         scores = predict_scores(self.fitted, view, c.features)
         weights = portfolio.target_weights(scores, state.weights, state.sessions_remaining, self.rules, c.portfolio)

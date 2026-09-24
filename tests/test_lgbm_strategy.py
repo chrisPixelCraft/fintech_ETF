@@ -83,7 +83,7 @@ class LightGBMStrategyTest(unittest.TestCase):
 
     def test_config(self):
         with self.assertRaises(ValueError):
-            LightGBMStrategyConfig.from_dict(dict(horizon=10, learning_rate=.1))
+            LightGBMStrategyConfig.from_dict(dict(horizon=10, num_leaves=63))
         with self.assertRaises(ValueError):
             LightGBMStrategyConfig.from_dict(dict(refit_every=0))
         with self.assertRaises(ValueError):
@@ -122,6 +122,37 @@ class LightGBMStrategyTest(unittest.TestCase):
         strategy, weights = decide(self.market, strategy=LightGBMStrategy(c, RULES))
         self.assertEqual(len(weights), 25)
         self.assertTrue(strategy.log[0]['refit_on_all'])
+
+    def test_fixed_trees_train_on_all_rows(self):
+        c = LightGBMStrategyConfig.from_dict(dict(CONFIG, fixed_trees=40))
+        strategy, weights = decide(self.market, strategy=LightGBMStrategy(c, RULES))
+        entry = strategy.log[0]
+        self.assertEqual(strategy.fitted.regressor.booster_.num_trees(), 40)
+        self.assertEqual(entry['refit_rows'], entry['n_train_rows'] + entry['n_validation_rows'])
+        self.assertIsNone(entry['validation_pearson'])
+        self.assertEqual(len(weights), 25)
+        again, weights_again = decide(self.market, strategy=LightGBMStrategy(c, RULES))
+        self.assertEqual(weights, weights_again)
+        with self.assertRaises(ValueError):
+            LightGBMStrategyConfig.from_dict(dict(CONFIG, fixed_trees=40, refit_on_all=True))
+
+    def test_learning_rate_schedule_and_config(self):
+        self.assertEqual(model.stopping_schedule(.005), (3000, 300))            # JPX2 default unchanged
+        self.assertEqual(model.stopping_schedule(.05), (3000, 300))
+        self.assertEqual(model.stopping_schedule(.0005), (30000, 3000))
+        self.assertEqual(LightGBMStrategyConfig.from_dict(CONFIG).learning_rate, .005)
+        with self.assertRaises(ValueError):
+            LightGBMStrategyConfig.from_dict(dict(CONFIG, learning_rate=0))
+        from lgbm_strategy.dataset import build_training_set
+        from lgbm_strategy.features import COLUMNS
+        data = build_training_set(self.market.asof(self.market.calendar[340]), 10, 250, 'raw_return')
+        default, explicit = model.fit(data.train, data.validation, COLUMNS), \
+            model.fit(data.train, data.validation, COLUMNS, learning_rate=.005)
+        np.testing.assert_array_equal(model.predict(default, data.validation), model.predict(explicit, data.validation))
+        fast = model.fit(data.train, data.validation, COLUMNS, learning_rate=.05, refit_on_all=True)
+        self.assertEqual(fast.regressor.learning_rate, .05)                    # the refit keeps the rate
+        fixed = model.fit_fixed(data.train, COLUMNS, 30, learning_rate=.05)
+        self.assertEqual((fixed.regressor.learning_rate, fixed.regressor.booster_.num_trees()), (.05, 30))
 
     def test_pearson_metric(self):
         self.assertEqual(model.pearson_metric(np.array([1., 2, 3]), np.array([2., 4, 6])), ('pearson', 1., True))
