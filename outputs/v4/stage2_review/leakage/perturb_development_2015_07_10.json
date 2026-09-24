@@ -1,0 +1,10 @@
+{
+ "episode": "development_2015_07",
+ "t": "2015-07-16",
+ "results": {
+  "random_from_2015-07-16": true,
+  "shuffle_from_2015-07-16": true,
+  "drop_from_2015-07-16": true,
+  "random_from_2015-07-15": false
+ }
+}

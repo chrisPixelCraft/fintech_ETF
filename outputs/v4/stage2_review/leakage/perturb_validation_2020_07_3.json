@@ -1,0 +1,10 @@
+{
+ "episode": "validation_2020_07",
+ "t": "2020-07-06",
+ "results": {
+  "random_from_2020-07-06": true,
+  "shuffle_from_2020-07-06": true,
+  "drop_from_2020-07-06": true,
+  "random_from_2020-07-03": false
+ }
+}

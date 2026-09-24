@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/Users/chrishsieh/Documents/dev/fintech_ETF/scripts/v4_stage2_verify.py", line 297, in <module>
+    main()
+  File "/Users/chrishsieh/Documents/dev/fintech_ETF/scripts/v4_stage2_verify.py", line 293, in main
+    print(json.dumps(verify_directory(args.output, args.workers), indent=2, allow_nan=False))
+  File "/Users/chrishsieh/Documents/dev/fintech_ETF/scripts/v4_stage2_verify.py", line 212, in verify_directory
+    source = verify_execution_provenance(ROOT / study['execution_data'])
+  File "/Users/chrishsieh/Documents/dev/fintech_ETF/scripts/v4_verify.py", line 132, in verify_execution_provenance
+    content = raw_path.read_bytes()
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/pathlib.py", line 1126, in read_bytes
+    with self.open(mode='rb') as f:
+  File "/Library/Frameworks/Python.framework/Versions/3.10/lib/python3.10/pathlib.py", line 1119, in open
+    return self._accessor.open(self, mode, buffering, encoding, errors,
+FileNotFoundError: [Errno 2] No such file or directory: '/home/bararesearch/Documents/dev/fintech_ETF/outputs/v4/stage2_data/official_raw/TWSE_20091231.json.gz'
