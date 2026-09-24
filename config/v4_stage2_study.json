@@ -1,0 +1,319 @@
+{
+  "schema_version": 1,
+  "study_id": "v4_stage2_bounded_research",
+  "stage": 2,
+  "daily": "data/yahoo_daily/v3_20260923/nominal_daily.parquet",
+  "calendar": "data/yahoo_daily/v3_20260923/calendar_v2.json",
+  "universe": "data/reference/universe_competition_20260731.csv",
+  "execution_data": "outputs/v4/stage2_data/execution_data.csv",
+  "episode_registry": "outputs/v4/stage2_data/episodes.json",
+  "episode_length": 24,
+  "initial_cash": 1000000000,
+  "execution_mode": "official_average",
+  "sizing_price_mode": "official_close",
+  "anchors": [
+    {
+      "id": "development_2010_01",
+      "start": "2010-01-01",
+      "split": "development"
+    },
+    {
+      "id": "development_2010_07",
+      "start": "2010-07-01",
+      "split": "development"
+    },
+    {
+      "id": "development_2011_01",
+      "start": "2011-01-01",
+      "split": "development"
+    },
+    {
+      "id": "development_2011_07",
+      "start": "2011-07-01",
+      "split": "development"
+    },
+    {
+      "id": "development_2012_01",
+      "start": "2012-01-01",
+      "split": "development"
+    },
+    {
+      "id": "development_2012_07",
+      "start": "2012-07-01",
+      "split": "development"
+    },
+    {
+      "id": "development_2013_01",
+      "start": "2013-01-01",
+      "split": "development"
+    },
+    {
+      "id": "development_2013_07",
+      "start": "2013-07-01",
+      "split": "development"
+    },
+    {
+      "id": "development_2014_01",
+      "start": "2014-01-01",
+      "split": "development"
+    },
+    {
+      "id": "development_2014_07",
+      "start": "2014-07-01",
+      "split": "development"
+    },
+    {
+      "id": "development_2015_01",
+      "start": "2015-01-01",
+      "split": "development"
+    },
+    {
+      "id": "development_2015_07",
+      "start": "2015-07-01",
+      "split": "development"
+    },
+    {
+      "id": "development_2016_01",
+      "start": "2016-01-01",
+      "split": "development"
+    },
+    {
+      "id": "development_2016_07",
+      "start": "2016-07-01",
+      "split": "development"
+    },
+    {
+      "id": "development_2017_01",
+      "start": "2017-01-01",
+      "split": "development"
+    },
+    {
+      "id": "development_2017_07",
+      "start": "2017-07-01",
+      "split": "development"
+    },
+    {
+      "id": "development_2018_01",
+      "start": "2018-01-01",
+      "split": "development"
+    },
+    {
+      "id": "development_2018_07",
+      "start": "2018-07-01",
+      "split": "development"
+    },
+    {
+      "id": "validation_2019_01",
+      "start": "2019-01-01",
+      "split": "validation"
+    },
+    {
+      "id": "validation_2019_07",
+      "start": "2019-07-01",
+      "split": "validation"
+    },
+    {
+      "id": "validation_2020_01",
+      "start": "2020-01-01",
+      "split": "validation"
+    },
+    {
+      "id": "validation_2020_07",
+      "start": "2020-07-01",
+      "split": "validation"
+    },
+    {
+      "id": "validation_2021_01",
+      "start": "2021-01-01",
+      "split": "validation"
+    },
+    {
+      "id": "validation_2021_07",
+      "start": "2021-07-01",
+      "split": "validation"
+    },
+    {
+      "id": "validation_2022_01",
+      "start": "2022-01-01",
+      "split": "validation"
+    },
+    {
+      "id": "validation_2022_07",
+      "start": "2022-07-01",
+      "split": "validation"
+    },
+    {
+      "id": "historical_holdout_2023_01",
+      "start": "2023-01-01",
+      "split": "historical_holdout"
+    },
+    {
+      "id": "historical_holdout_2023_07",
+      "start": "2023-07-01",
+      "split": "historical_holdout"
+    },
+    {
+      "id": "historical_holdout_2024_01",
+      "start": "2024-01-01",
+      "split": "historical_holdout"
+    },
+    {
+      "id": "historical_holdout_2024_07",
+      "start": "2024-07-01",
+      "split": "historical_holdout"
+    },
+    {
+      "id": "seasonal_2010",
+      "start": "2010-10-20",
+      "split": "seasonal_diagnostic"
+    },
+    {
+      "id": "seasonal_2011",
+      "start": "2011-10-20",
+      "split": "seasonal_diagnostic"
+    },
+    {
+      "id": "seasonal_2012",
+      "start": "2012-10-20",
+      "split": "seasonal_diagnostic"
+    },
+    {
+      "id": "seasonal_2013",
+      "start": "2013-10-20",
+      "split": "seasonal_diagnostic"
+    },
+    {
+      "id": "seasonal_2014",
+      "start": "2014-10-20",
+      "split": "seasonal_diagnostic"
+    },
+    {
+      "id": "seasonal_2015",
+      "start": "2015-10-20",
+      "split": "seasonal_diagnostic"
+    },
+    {
+      "id": "seasonal_2016",
+      "start": "2016-10-20",
+      "split": "seasonal_diagnostic"
+    },
+    {
+      "id": "seasonal_2017",
+      "start": "2017-10-20",
+      "split": "seasonal_diagnostic"
+    },
+    {
+      "id": "seasonal_2018",
+      "start": "2018-10-20",
+      "split": "seasonal_diagnostic"
+    },
+    {
+      "id": "seasonal_2019",
+      "start": "2019-10-20",
+      "split": "seasonal_diagnostic"
+    },
+    {
+      "id": "seasonal_2020",
+      "start": "2020-10-20",
+      "split": "seasonal_diagnostic"
+    },
+    {
+      "id": "seasonal_2021",
+      "start": "2021-10-20",
+      "split": "seasonal_diagnostic"
+    },
+    {
+      "id": "seasonal_2022",
+      "start": "2022-10-20",
+      "split": "seasonal_diagnostic"
+    },
+    {
+      "id": "seasonal_2023",
+      "start": "2023-10-20",
+      "split": "seasonal_diagnostic"
+    },
+    {
+      "id": "seasonal_2024",
+      "start": "2024-10-20",
+      "split": "seasonal_diagnostic"
+    },
+    {
+      "id": "seasonal_2025",
+      "start": "2025-10-20",
+      "split": "seasonal_diagnostic"
+    },
+    {
+      "id": "recent_2025_01",
+      "start": "2025-01-01",
+      "split": "recent_diagnostic"
+    },
+    {
+      "id": "recent_2025_07",
+      "start": "2025-07-01",
+      "split": "recent_diagnostic"
+    },
+    {
+      "id": "recent_latest",
+      "latest_offset": 0,
+      "split": "recent_diagnostic"
+    },
+    {
+      "id": "rolling_latest_minus5",
+      "latest_offset": 5,
+      "split": "rolling_diagnostic"
+    },
+    {
+      "id": "rolling_latest_minus10",
+      "latest_offset": 10,
+      "split": "rolling_diagnostic"
+    }
+  ],
+  "selection_policy": "Development-only bounded search; validation comparison and one predeclared bounded refinement; freeze before holdout and diagnostics; never retune on holdout/recent/seasonal/rolling",
+  "selection_order": [
+    "canonical_data_availability",
+    "measured_feasibility",
+    "median_return",
+    "P25",
+    "P10",
+    "worst_and_MDD",
+    "mean_return",
+    "turnover_and_cost",
+    "simplicity"
+  ],
+  "stop_condition": "Stop trusting on unreliable execution, causality failure, accounting mismatch or audit failure; preserve all attempted failures",
+  "winner_policy": "NO_V4_WINNER unless predeclared feasibility, validation, robustness, and independent audit gates pass; alpha and submission status remain separate",
+  "window_selection": "Fixed calendar anchors before outcome inspection; no failure windows removed",
+  "historical_holdout_interpretation": "Previously viewed retrospective test, not newly unseen holdout",
+  "universe_interpretation": "2026_FIXED_COMPETITION_UNIVERSE_RETROSPECTIVE_STRESS_NOT_POINT_IN_TIME",
+  "calendar_interpretation": "Frozen observed-session proxy, not independently certified exchange calendar",
+  "overlapping_windows_independent": false,
+  "diagnostic_selection_allowed": false,
+  "submission_status": "BLOCK_SUBMISSION",
+  "question": "Do bounded V4 architecture changes improve executable 24-session return and lower-tail robustness versus frozen V3 under identical official execution?",
+  "hypothesis": "At least one simple V4 family can improve paired validation median without degrading lower-tail results or measured feasibility.",
+  "strongest_alternative": "Apparent improvements arise from window selection, retrospective universe, tuning variance, or greater search effort.",
+  "split_boundaries": {
+    "development": [
+      "2010-01-01",
+      "2018-12-31"
+    ],
+    "validation": [
+      "2019-01-01",
+      "2022-12-31"
+    ],
+    "historical_holdout": [
+      "2023-01-01",
+      "2024-12-31"
+    ]
+  },
+  "budget_policy": "Equal predeclared per-family trial budgets in separate search configs; no diagnostic tuning; DE sensitivity across three deterministic seeds.",
+  "winner_gates": [
+    "Complete canonical execution for all required selection and confirmation windows",
+    "100% measured feasibility on required windows",
+    "Independent causality accounting and provenance audits pass",
+    "Stable predeclared parameter neighborhoods",
+    "Heldout paired median and lower tail noninferior to V3",
+    "Active Share and submission contracts remain separate unresolved gates"
+  ],
+  "statistical_policy": "No independent-sample confidence intervals treating overlapping windows as independent"
+}
