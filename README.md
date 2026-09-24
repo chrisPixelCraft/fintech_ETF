@@ -137,6 +137,9 @@ PYTHONHASHSEED=0 .venv/bin/python -m research.run_experiment \
 
 # 比較兩次實驗
 .venv/bin/python -m research.compare research/runs/<run_A> research/runs/<run_B>
+
+# JPX #2 LightGBM 基準 vs 動能 vs AutoTS（smoke 6 窗口 → 全部 dev，可中斷續跑）
+PYTHONHASHSEED=0 .venv/bin/python -m research.lgbm_jpx2 --workers 10
 ```
 
 ### 4.3 結果在哪
@@ -245,6 +248,7 @@ git push
 ```text
 fintech_ETF/
 ├── autots_strategy/     ← AutoTS 策略：預測目標、AutoTS 包裝、打分、組合
+├── lgbm_strategy/       ← JPX #2 LightGBM 基準：特徵、訓練資料、模型、策略（組合層共用 autots_strategy）
 ├── competition/         ← 競賽核心，與策略無關：規則、資料截止、窗口、規劃、成交、帳本、回測
 ├── research/            ← 實驗入口、設定、基準策略、比較、實驗總表、調參（finetune.sh、tune.py）
 │   └── results/         ← 調參結果整理（summary.md 等，要 commit）

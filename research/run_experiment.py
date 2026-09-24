@@ -72,6 +72,12 @@ def build_strategy(config: dict, rules: CompetitionRules):
     if kind == 'autots':
         from autots_strategy.strategy import AutoTSStrategy, AutoTSStrategyConfig
         return AutoTSStrategy(AutoTSStrategyConfig.from_dict(params), rules)
+    if kind == 'lgbm':
+        from lgbm_strategy.strategy import LightGBMStrategy, LightGBMStrategyConfig
+        return LightGBMStrategy(LightGBMStrategyConfig.from_dict(params), rules)
+    if kind == 'lgbm':
+        from lgbm_strategy.strategy import LightGBMStrategy, LightGBMStrategyConfig
+        return LightGBMStrategy(LightGBMStrategyConfig.from_dict(params), rules)
     from research.baselines import BasketConfig, BasketStrategy, MomentumConfig, MomentumStrategy
     if kind == 'momentum':
         return MomentumStrategy(MomentumConfig.from_dict(params), rules)
