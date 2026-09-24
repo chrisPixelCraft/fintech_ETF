@@ -1,0 +1,9 @@
+{
+ "name": "baseline_largecap_basket",
+ "description": "Buy-and-hold equal-weight top-25 by trailing 60-session average traded value (causal large-cap / 0050-like proxy), bought on day 1.",
+ "strategy": "basket",
+ "params": {"n_holdings": 25, "window": 60, "invested": 0.88, "cap_scale": 0.9},
+ "execution": {"mode": "auto", "proxy": "hlc3"},
+ "planner": {"rebalance_band": 0.005},
+ "episodes": {"offsets": ["month_start"]}
+}

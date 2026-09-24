@@ -23,7 +23,7 @@ git checkout 2769f876ec4b9795ce5d8cc4e64b8274da58099c   # 需要舊證據時才�
 
 ## V5：冠軍策略啟發的四族研究（進行中）
 
-[規格](docs/v5_spec.md)在任何結果出現前預先宣告，依 [champion.md](docs/champion.md) 與 V4 失敗分析設計。修改門檻、切分或參數網格須另立版本並記錄理由。
+[規格](legacy/docs/v5_spec.md)在任何結果出現前預先宣告，依 [champion.md](legacy/docs/champion.md) 與 V4 失敗分析設計。修改門檻、切分或參數網格須另立版本並記錄理由。
 
 | 策略族 | 核心機制 | 組數 |
 |---|---|---:|
@@ -60,11 +60,11 @@ python -m unittest discover -s tests -p 'test_v5_*.py' -q
 
 21 次回放已完成，三軌各完成 5/7 個窗口；量測合規通過數依序為 Open **3/7**、官方均價對照 **1/7**、完整官方價格路徑 **3/7**。帳務驗證通過不代表策略合規；未宣告 V4 winner。
 
-[執行比較報告](reports/v4_execution_comparison.md)列出預先指定的 7 個 24 日窗口、全部失敗、逐筆價差及成交假設影響。這是涵蓋不同時期的有限診斷，並非完整歷史驗證；近期重疊窗口不是獨立樣本。官方資料缺漏不以 Open／Close 補值，缺證據時維持 `BLOCK_CANONICAL_V4`。
+[執行比較報告](legacy/reports/v4_execution_comparison.md)列出預先指定的 7 個 24 日窗口、全部失敗、逐筆價差及成交假設影響。這是涵蓋不同時期的有限診斷，並非完整歷史驗證；近期重疊窗口不是獨立樣本。官方資料缺漏不以 Open／Close 補值，缺證據時維持 `BLOCK_CANONICAL_V4`。
 
 | 內容 | 連結 |
 |---|---|
-| 範圍與設定 | [Stage 1 設定](config/v4_study.json)／[主規格](docs/v4_master_spec.md)／[驗證規格](docs/v4_execution_validation_spec.md) |
+| 範圍與設定 | [Stage 1 設定](legacy/config/v4_study.json)／[主規格](legacy/docs/v4_master_spec.md)／[驗證規格](legacy/docs/v4_execution_validation_spec.md) |
 | 結果與來源 | [配對結果](https://github.com/chrisPixelCraft/fintech_ETF/blob/2769f876ec4b9795ce5d8cc4e64b8274da58099c/outputs/v4/stage1/results.csv)／[來源與雜湊](https://github.com/chrisPixelCraft/fintech_ETF/blob/2769f876ec4b9795ce5d8cc4e64b8274da58099c/outputs/v4/stage1/manifest.json)／[Open 重現](https://github.com/chrisPixelCraft/fintech_ETF/blob/2769f876ec4b9795ce5d8cc4e64b8274da58099c/outputs/v4/stage1/open_reproduction.json) |
 | 官方價格 | [正規化快取](https://github.com/chrisPixelCraft/fintech_ETF/blob/2769f876ec4b9795ce5d8cc4e64b8274da58099c/outputs/v4/execution_data.csv)／[下載紀錄](https://github.com/chrisPixelCraft/fintech_ETF/blob/2769f876ec4b9795ce5d8cc4e64b8274da58099c/outputs/v4/execution_data.manifest.json) |
 
@@ -97,11 +97,11 @@ python -m unittest discover -s tests -p 'test_v4_*.py' -q
 
 | 內容 | 連結 |
 |---|---|
-| 最新結果 | [精簡報告](reports/24d_round4.md)／[比較 CSV](reports/24d_round4_summary.csv)／[窗口明細](https://github.com/chrisPixelCraft/fintech_ETF/blob/2769f876ec4b9795ce5d8cc4e64b8274da58099c/outputs/24d_round4/bottleneck.csv) |
-| 搜尋與凍結 | [搜尋設定](config/24d_round4_study.json)／[凍結紀錄](https://github.com/chrisPixelCraft/fintech_ETF/blob/2769f876ec4b9795ce5d8cc4e64b8274da58099c/outputs/24d_round4/final_selection.json)／[參數包](https://github.com/chrisPixelCraft/fintech_ETF/blob/2769f876ec4b9795ce5d8cc4e64b8274da58099c/outputs/24d_round4/competition_24d_candidate.json) |
-| 核對證據 | [獨立驗證](https://github.com/chrisPixelCraft/fintech_ETF/blob/2769f876ec4b9795ce5d8cc4e64b8274da58099c/outputs/24d_round4/verification.json)／[輸出 SHA256](https://github.com/chrisPixelCraft/fintech_ETF/blob/2769f876ec4b9795ce5d8cc4e64b8274da58099c/outputs/24d_round4/result_manifest.json)／[逐日規則](docs/v2_double_check_rules.md) |
-| 最近完整比較 | [第三輪報告](reports/24d_round3.md)／[第三輪比較表](reports/24d_round3_comparison.csv)；不是本輪新參數成績 |
-| 既有參考設定 | [canonical 設定](configs/competition_24d_final.json)／[舊設定解讀](configs/competition_24d_final_metadata.json) |
+| 最新結果 | [精簡報告](legacy/reports/24d_round4.md)／[比較 CSV](legacy/reports/24d_round4_summary.csv)／[窗口明細](https://github.com/chrisPixelCraft/fintech_ETF/blob/2769f876ec4b9795ce5d8cc4e64b8274da58099c/outputs/24d_round4/bottleneck.csv) |
+| 搜尋與凍結 | [搜尋設定](legacy/config/24d_round4_study.json)／[凍結紀錄](https://github.com/chrisPixelCraft/fintech_ETF/blob/2769f876ec4b9795ce5d8cc4e64b8274da58099c/outputs/24d_round4/final_selection.json)／[參數包](https://github.com/chrisPixelCraft/fintech_ETF/blob/2769f876ec4b9795ce5d8cc4e64b8274da58099c/outputs/24d_round4/competition_24d_candidate.json) |
+| 核對證據 | [獨立驗證](https://github.com/chrisPixelCraft/fintech_ETF/blob/2769f876ec4b9795ce5d8cc4e64b8274da58099c/outputs/24d_round4/verification.json)／[輸出 SHA256](https://github.com/chrisPixelCraft/fintech_ETF/blob/2769f876ec4b9795ce5d8cc4e64b8274da58099c/outputs/24d_round4/result_manifest.json)／[逐日規則](legacy/docs/v2_double_check_rules.md) |
+| 最近完整比較 | [第三輪報告](legacy/reports/24d_round3.md)／[第三輪比較表](legacy/reports/24d_round3_comparison.csv)；不是本輪新參數成績 |
+| 既有參考設定 | [canonical 設定](legacy/configs/competition_24d_final.json)／[舊設定解讀](legacy/configs/competition_24d_final_metadata.json) |
 
 資料快照截至 **2026-09-23**，開發2010–2018、驗證2019–2022邊界不變。既有驗證與後期結果已在前輪看過，不能再稱首次未見 holdout；基準參數來自後期研究，2026白名單回套歷史亦有前視及存活偏誤。
 
@@ -128,13 +128,13 @@ python scripts/verify_24d_round4.py --output outputs/24d_round4_replay --rebuild
 
 ## 既有 v3 研究
 
-第三輪512組的[分層搜尋報告](reports/24d_round3.md)及[分層明細](reports/24d_round3_strata.csv)完整保留。
+第三輪512組的[分層搜尋報告](legacy/reports/24d_round3.md)及[分層明細](legacy/reports/24d_round3_strata.csv)完整保留。
 
-第二輪328組的[追加搜尋報告](reports/24d_expansion.md)、[比較表](reports/24d_expansion_comparison.csv)與[共同窗口表](reports/24d_expansion_common.csv)完整保留。
+第二輪328組的[追加搜尋報告](legacy/reports/24d_expansion.md)、[比較表](legacy/reports/24d_expansion_comparison.csv)與[共同窗口表](legacy/reports/24d_expansion_common.csv)完整保留。
 
-第一輪 247 組的[分階段調參報告](reports/24d_tuning.md)、[比較表](reports/24d_tuning_comparison.csv)與[冷啟動明細](reports/24d_tuning_cold_start.csv)完整保留，採相同 2010–2018／2019–2022 切分。
+第一輪 247 組的[分階段調參報告](legacy/reports/24d_tuning.md)、[比較表](legacy/reports/24d_tuning_comparison.csv)與[冷啟動明細](legacy/reports/24d_tuning_cold_start.csv)完整保留，採相同 2010–2018／2019–2022 切分。
 
-更早的 [v3_spec.md](docs/v3_spec.md)研究採 2010–2019／2020–2022 切分，28 組搜尋也沒有合格候選；見[研究摘要](reports/24d_strategy_summary.md)、[參數搜尋](reports/24d_parameter_search.md)、[失敗分析](reports/24d_failure_analysis.md)及[凍結候選](reports/24d_final_candidate.md)。不可混稱同一切分。
+更早的 [v3_spec.md](legacy/docs/v3_spec.md)研究採 2010–2019／2020–2022 切分，28 組搜尋也沒有合格候選；見[研究摘要](legacy/reports/24d_strategy_summary.md)、[參數搜尋](legacy/reports/24d_parameter_search.md)、[失敗分析](legacy/reports/24d_failure_analysis.md)及[凍結候選](legacy/reports/24d_final_candidate.md)。不可混稱同一切分。
 
 ```bash
 python scripts/verify_24d_tuning.py --rebuild
@@ -145,7 +145,7 @@ python scripts/report_24d.py --verify
 
 ## 固定 v2 長期參考
 
-[`best_v2.py`](best_v2.py) 保留原 `x0352`，期間為 2025-01-02–2026-09-21。年度欄採股利歸屬後的經濟淨值；2026 年並非全年或年化報酬。
+[`best_v2.py`](legacy/best_v2.py) 保留原 `x0352`，期間為 2025-01-02–2026-09-21。年度欄採股利歸屬後的經濟淨值；2026 年並非全年或年化報酬。
 
 | 期間 | v2 `x0352` | v1 | 0050 |
 |---|---:|---:|---:|
@@ -153,11 +153,11 @@ python scripts/report_24d.py --verify
 | 2026 年至 9/21 | 128.65% | 109.28% | 65.81% |
 | 全期帳面報酬 | 309.16% | 248.15% | 121.28% |
 
-細節見 [v2 比較報告](reports/comparison.md)、[固定帳本](https://github.com/chrisPixelCraft/fintech_ETF/tree/2769f876ec4b9795ce5d8cc4e64b8274da58099c/outputs/best_v2/)與[發行清單](config/best_v2_release.json)。v2 仍依賴原始日內資料口徑，兩套研究的報酬不能直接拼接。發行驗證需要完整帳本，請在證據版本 `2769f876` 執行。
+細節見 [v2 比較報告](legacy/reports/comparison.md)、[固定帳本](https://github.com/chrisPixelCraft/fintech_ETF/tree/2769f876ec4b9795ce5d8cc4e64b8274da58099c/outputs/best_v2/)與[發行清單](legacy/config/best_v2_release.json)。v2 仍依賴原始日內資料口徑，兩套研究的報酬不能直接拼接。發行驗證需要完整帳本，請在證據版本 `2769f876` 執行。
 
 ```bash
 python best_v2.py --verify-release
 python best_v2.py --track official_ex_post --output outputs/my_v2_replay
 ```
 
-`best_v2.py plan` 與 `research-plan` 都維持阻擋，不輸出 D-Plan。官方原文與歷史封存方式見[文件導覽](docs/README.md)。
+`best_v2.py plan` 與 `research-plan` 都維持阻擋，不輸出 D-Plan。官方原文與歷史封存方式見[文件導覽](legacy/docs/README.md)。
