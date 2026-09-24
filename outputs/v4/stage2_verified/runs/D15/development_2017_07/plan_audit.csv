@@ -1,0 +1,26 @@
+date,original_reason,final_reason,attempts,replanning_triggered,orders,nominal_failures,hold_envelope_failures
+2017-06-30,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,22,,NOT_CERTIFIED
+2017-07-03,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,0,,NOT_CERTIFIED
+2017-07-04,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,0,,NOT_CERTIFIED
+2017-07-05,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,0,,NOT_CERTIFIED
+2017-07-06,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,2,,NOT_CERTIFIED
+2017-07-07,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,3,,NOT_CERTIFIED
+2017-07-10,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,3,,NOT_CERTIFIED
+2017-07-11,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,3,,NOT_CERTIFIED
+2017-07-12,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,3,,NOT_CERTIFIED
+2017-07-13,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,2,,NOT_CERTIFIED
+2017-07-14,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,1,,NOT_CERTIFIED
+2017-07-17,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,0,,NOT_CERTIFIED
+2017-07-18,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,2,,NOT_CERTIFIED
+2017-07-19,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,0,,NOT_CERTIFIED
+2017-07-20,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,1,,NOT_CERTIFIED
+2017-07-21,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,2,,NOT_CERTIFIED
+2017-07-24,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,3,,NOT_CERTIFIED
+2017-07-25,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,2,,NOT_CERTIFIED
+2017-07-26,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,0,,NOT_CERTIFIED
+2017-07-27,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,0,,NOT_CERTIFIED
+2017-07-28,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,2,,NOT_CERTIFIED
+2017-07-31,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,0,,NOT_CERTIFIED
+2017-08-01,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,3,,NOT_CERTIFIED
+2017-08-02,INFEASIBLE_V4:Odd-lot legacy holdings require separate corporate-action handling,INFEASIBLE_V4:Odd-lot legacy holdings require separate corporate-action handling,1,False,0,INFEASIBLE_V4:Odd-lot legacy holdings require separate corporate-action handling,NOT_CERTIFIED
+2017-08-03,TERMINAL_NO_PLAN,TERMINAL_NO_PLAN,1,False,0,,NOT_CERTIFIED

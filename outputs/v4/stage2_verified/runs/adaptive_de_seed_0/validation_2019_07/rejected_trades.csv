@@ -1,0 +1,2 @@
+date,signal_date,symbol,trade_symbol,shares,price,notional,fee,tax,slippage_cost,volume_participation,execution_volume,rejection
+2019-07-12,2019-07-11,3260.TWO,3260.TWO,-34000,52.21147983595313,1775190.3144224063,2529.646198051929,5325.570943267219,0.0,0.003878392324250937,8766519.0,OVERDUE_CAP:3260.TWO

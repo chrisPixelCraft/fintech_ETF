@@ -1,0 +1,23 @@
+signal_date,symbol,shares,signal_nav,sizing_price,reason,target_shares,target_weight,odd_entitlement
+2018-10-19,2002.TW,1699000,1000000000.0,24.3,D-1 estimated accounting; fill-day constraints require ledger audit,1699000.0,0.04129785,0.0
+2018-10-19,2301.TW,1196000,1000000000.0,34.5,D-1 estimated accounting; fill-day constraints require ledger audit,1196000.0,0.04127925,0.0
+2018-10-19,2383.TW,552000,1000000000.0,74.59999999999998,D-1 estimated accounting; fill-day constraints require ledger audit,552000.0,0.04121649999999999,0.0
+2018-10-19,2395.TW,201000,1000000000.0,204.5,D-1 estimated accounting; fill-day constraints require ledger audit,201000.0,0.04120675,0.0
+2018-10-19,2603.TW,3344000,1000000000.0,12.35,D-1 estimated accounting; fill-day constraints require ledger audit,3344000.0,0.041304575,0.0
+2018-10-19,2615.TW,2589000,1000000000.0,15.95,D-1 estimated accounting; fill-day constraints require ledger audit,2589000.0,0.041302525,0.0
+2018-10-19,2880.TW,2353000,1000000000.0,17.55,D-1 estimated accounting; fill-day constraints require ledger audit,2353000.0,0.041303925,0.0
+2018-10-19,2892.TW,2080000,1000000000.0,19.85,D-1 estimated accounting; fill-day constraints require ledger audit,2080000.0,0.041297925,0.0
+2018-10-19,3034.TW,295000,1000000000.0,139.5,D-1 estimated accounting; fill-day constraints require ledger audit,295000.0,0.04122225,0.0
+2018-10-19,3081.TWO,155000,1000000000.0,263.5,D-1 estimated accounting; fill-day constraints require ledger audit,155000.0,0.04097425,0.0
+2018-10-19,3293.TWO,296000,1000000000.0,139.0,D-1 estimated accounting; fill-day constraints require ledger audit,296000.0,0.0412135,0.0
+2018-10-19,3324.TWO,791000,1000000000.0,52.2,D-1 estimated accounting; fill-day constraints require ledger audit,791000.0,0.0413163,0.0
+2018-10-19,3665.TW,271000,1000000000.0,152.0,D-1 estimated accounting; fill-day constraints require ledger audit,271000.0,0.041268,0.0
+2018-10-19,4938.TW,717000,1000000000.0,57.5,D-1 estimated accounting; fill-day constraints require ledger audit,717000.0,0.04125625,0.0
+2018-10-19,4958.TW,586000,1000000000.0,70.4,D-1 estimated accounting; fill-day constraints require ledger audit,586000.0,0.0412896,0.0
+2018-10-19,4966.TWO,98000,1000000000.0,418.0,D-1 estimated accounting; fill-day constraints require ledger audit,98000.0,0.041173,0.0
+2018-10-19,5876.TW,1119000,1000000000.0,36.9,D-1 estimated accounting; fill-day constraints require ledger audit,1119000.0,0.04130955,0.0
+2018-10-19,5880.TW,2366000,1000000000.0,17.45,D-1 estimated accounting; fill-day constraints require ledger audit,2366000.0,0.041295425,0.0
+2018-10-19,6121.TWO,207000,1000000000.0,198.5,D-1 estimated accounting; fill-day constraints require ledger audit,207000.0,0.04118875,0.0
+2018-10-19,6139.TW,1458000,1000000000.0,28.3,D-1 estimated accounting; fill-day constraints require ledger audit,1458000.0,0.04127555,0.0
+2018-10-19,8415.TWO,1161000,1000000000.0,35.55,D-1 estimated accounting; fill-day constraints require ledger audit,1161000.0,0.041291325,0.0
+2018-10-19,8932.TWO,4130000,1000000000.0,10.0,D-1 estimated accounting; fill-day constraints require ledger audit,4130000.0,0.041305,0.0

@@ -3,15 +3,15 @@
   "result_manifest_sha256": "cf1eca6c6e3f72dccc990de837ff48baf4fb89be781c22d8d2ba34e13f225e41",
   "previous_delivery_commit": "a7e9411761961e1a504147025993379e43e5fe9b",
   "files": {
-    "README.md": "2384c5a7c77f43c2faf5491cf0995c84b5b5772262bd973c6bd05bd02ae508c7",
+    "README.md": "7e9661e524f9f1fdc69f767307520b9f651c3342f528a9bba7c79f45768cd1fe",
     "config/24d_round3_study.json": "964137e5b6291f42e208cb3409402331a7cc083bbc959dc0f8241047bedce04a",
-    "config/best_v2_release.json": "2069f42e19332db8dc0393cc63ca54b99db85fd6df70607a9cd2dd3717dcbbaf",
+    "config/best_v2_release.json": "7b6ea6e3599763cab49c0cb0b0dc486b66da744d5d9ce4457106f9524d8316e6",
     "configs/competition_24d_final.json": "a2e79e53e27e9cd09ffd476174f9f68fd6e4599fa1739afc925ab08709f7016c",
-    "docs/README.md": "16f5e0ee365be9ecd987d2331ee1db30c8974bfcdeba0082bc52e9b7995b494a",
+    "docs/README.md": "aad27a4215a1123361b7f34e52c154dcd20a75c21524f6ce4fb7a09599963c11",
     "docs/v2_double_check_rules.md": "91666dd82bc81a294c812b9dbf278e375364f8774f31e1dc83232f216bedb783",
     "docs/v3_tuning.md": "b1d267bc0d7588d3744bfe13ba21926447ad399183f02ea8e59d414c7742186c",
-    "outputs/24d/delivery_manifest.json": "b2d152c219f2e17aa093d228c8e5a533d0876cb0226712b21e2870ce9c7a0c0f",
-    "outputs/24d_expansion/delivery_manifest.json": "6cb3e56e0b368114271cb235ded6e09ef5e6a7473eccf386e713c40da553aaaf",
+    "outputs/24d/delivery_manifest.json": "0ea808639f4cc16a4870b377de6da5450ad9af0a6a26dc0cb29a14158db444d5",
+    "outputs/24d_expansion/delivery_manifest.json": "8713af0499d305613761eddb08404bbd3517fc0ede05a7bceea973f6e67ce6b1",
     "outputs/24d_round3/report_verification.json": "e9a0d674c1d703012b68dd676e177052329ecf56fa93fb158b634eaec5ea272b",
     "outputs/24d_round3/result_manifest.json": "cf1eca6c6e3f72dccc990de837ff48baf4fb89be781c22d8d2ba34e13f225e41",
     "outputs/24d_round3/round3_legacy_expansion.log": "a3dff17235d33642851b0fac626d4f99eb0c73db296bf601acc0781b534e84a8",
@@ -22,8 +22,8 @@
     "outputs/24d_round3/test_verification.json": "9d89aae4ae676de142a694716906e287b88ed4dc07d4c9a02edb7e97164325ab",
     "outputs/24d_round3/tests.log": "593c5ba4c276612b6e88899fb3dee49beca351601a8d6ff2a0dbba547c7bc10e",
     "outputs/24d_round3/verification.json": "7ee576b84147a70d3cd0a0f038ceb1a5efec47b6684321eb49049ee914ac2779",
-    "outputs/24d_tuning/delivery_manifest.json": "5a5b23dac995ee3092c59217e111bf1841711f9a107a5efaf2c90f15d9c1c5fb",
-    "outputs/best_v2/audit.json": "902c65aac6ad2100929cd06ea52a52a2f156e30878a25f61e277cf2360544c9e",
+    "outputs/24d_tuning/delivery_manifest.json": "d269e748d66792ecc575231faf59fc41de5c7c7ec0cbff2756248d57ef7053d6",
+    "outputs/best_v2/audit.json": "08ae42724421bfce37461275ae132731b4fdc4763f323f6361680fe3232c51ee",
     "reports/24d_round3.md": "2315ede551b8c8cea9a8a152d72752a867425e60d356609afd153b540186716d",
     "reports/24d_round3_common.csv": "2f5dbf2ba99758418e8502aebd9d8cca93a4ca4e913c39058b204ab0939ed2f8",
     "reports/24d_round3_comparison.csv": "3061ab70a1a6e4f01bf2275229aff254d1785574902830e459e78db3c0d04461",
@@ -33,5 +33,20 @@
     "scripts/verify_24d_round3.py": "b4118bd65d65566a1c643a08c193757be2b1f9ce7d2c1371d2c94a8fdeeaf6df",
     "tests/test_24d_round3.py": "25ba34e7e4dc5f01e821862dfb3fa017019df28ca46bf68c3550fda57c3e92ac"
   },
-  "scope": "Bounded additional research; prior numerical artifacts unchanged; no eligible replacement and no official certification."
+  "scope": "Bounded additional research; prior numerical artifacts unchanged; no eligible replacement and no official certification.",
+  "v3_round4_documentation_update": {
+    "previous_delivery_sha256": "6c1f613b9f8ec1150ad57585b24bb935e708afcac8a8e62b28865b94bd9215a0",
+    "source_commit": "19ec30003aa57c510b835ca8fc8b5cea07f637e8",
+    "archive": "outputs/24d_round4/previous_delivery",
+    "changed_files": [
+      "README.md",
+      "config/best_v2_release.json",
+      "docs/README.md",
+      "outputs/24d/delivery_manifest.json",
+      "outputs/24d_expansion/delivery_manifest.json",
+      "outputs/24d_tuning/delivery_manifest.json",
+      "outputs/best_v2/audit.json"
+    ],
+    "numerical_artifacts_unchanged": true
+  }
 }

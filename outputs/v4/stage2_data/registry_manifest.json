@@ -1,0 +1,23 @@
+{
+  "calendar_sha256": "706749bdeae4a5dd3e83727114ae79496ef0e848b06a5de14c39e3ae3e66d6a7",
+  "daily_sha256": "4fc1f7aced552f472020db2823e27fe74a7680be2104d4528787ab8ba109e6bb",
+  "diagnostics_policy": "AFTER_FREEZE_ONLY_NEVER_PARAMETER_SELECTION",
+  "episode_count": 51,
+  "episodes_sha256": "188feea6f8808ebe4cb0d5c895daef24af84719c3a6243a5592754be616bf9c8",
+  "requested_dates_sha256": "08156409ac89a6a26f026b8149a188f67c1a8631d5221da5641f2a7c889229fb",
+  "schema_version": 1,
+  "selection_policy": "Development-only bounded search; validation comparison and one predeclared bounded refinement; freeze before holdout and diagnostics; never retune on holdout/recent/seasonal/rolling",
+  "split_counts": {
+    "development": 18,
+    "historical_holdout": 4,
+    "recent_diagnostic": 3,
+    "rolling_diagnostic": 2,
+    "seasonal_diagnostic": 16,
+    "validation": 8
+  },
+  "status": "PREDECLARED_BEFORE_EXECUTION",
+  "study_path": "config/v4_stage2_study.json",
+  "study_sha256": "6fd549ae95d3b99733fa6a394d6fc08e5998a97e6cc551b685cfe8eafcec7976",
+  "unique_dates": 1235,
+  "universe_sha256": "42a29a23a139ed271c03bdce9799c9eb74808b43a4041417184c4d3ffc741166"
+}

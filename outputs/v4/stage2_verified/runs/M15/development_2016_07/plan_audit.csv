@@ -1,0 +1,26 @@
+date,original_reason,final_reason,attempts,replanning_triggered,orders,nominal_failures,hold_envelope_failures
+2016-06-30,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,22,,NOT_CERTIFIED
+2016-07-01,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,0,,NOT_CERTIFIED
+2016-07-04,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,0,,NOT_CERTIFIED
+2016-07-05,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,0,,NOT_CERTIFIED
+2016-07-06,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,0,,NOT_CERTIFIED
+2016-07-07,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,2,,NOT_CERTIFIED
+2016-07-11,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,2,,NOT_CERTIFIED
+2016-07-12,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,2,,NOT_CERTIFIED
+2016-07-13,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,2,,NOT_CERTIFIED
+2016-07-14,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,2,,NOT_CERTIFIED
+2016-07-15,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,2,,NOT_CERTIFIED
+2016-07-18,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,2,,NOT_CERTIFIED
+2016-07-19,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,2,,NOT_CERTIFIED
+2016-07-20,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,2,,NOT_CERTIFIED
+2016-07-21,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,2,,NOT_CERTIFIED
+2016-07-22,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,2,,NOT_CERTIFIED
+2016-07-25,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,2,,NOT_CERTIFIED
+2016-07-26,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,2,,NOT_CERTIFIED
+2016-07-27,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,0,,NOT_CERTIFIED
+2016-07-28,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,2,,NOT_CERTIFIED
+2016-07-29,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,2,,NOT_CERTIFIED
+2016-08-01,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,2,,NOT_CERTIFIED
+2016-08-02,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,2,,NOT_CERTIFIED
+2016-08-03,D-1 estimated accounting; fill-day constraints require ledger audit,D-1 estimated accounting; fill-day constraints require ledger audit,1,False,2,,NOT_CERTIFIED
+2016-08-04,TERMINAL_NO_PLAN,TERMINAL_NO_PLAN,1,False,0,,NOT_CERTIFIED

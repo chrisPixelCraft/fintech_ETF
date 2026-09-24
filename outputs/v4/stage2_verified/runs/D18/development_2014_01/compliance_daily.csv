@@ -1,0 +1,4 @@
+date,proposed_nav,proposed_cash,proposed_holdings,warning_reasons,warning_today,cumulative_warnings,rolled_back,rejected_fills,disqualified,active_caps,passive_caps,overdue_caps,settled_nav,settled_cash,settled_holdings,stale_count,active_share_status,submission_status
+2014-01-02,1000454921.3577014,83797721.35770142,22,ACTIVE_CAP:4966.TWO,True,1,True,22,False,4966.TWO,,,1000000000.0,1000000000.0,0,0,UNKNOWN,BLOCK_SUBMISSION
+2014-01-03,1000076740.8727938,85404140.8727938,22,ACTIVE_CAP:3017.TW;ACTIVE_CAP:5483.TWO,True,2,True,22,False,3017.TW;5483.TWO,,,1000000000.0,1000000000.0,0,0,UNKNOWN,BLOCK_SUBMISSION
+2014-01-06,993109965.0237013,87579215.02370131,22,ACTIVE_CAP:5483.TWO;ACTIVE_CAP:6274.TWO,True,3,True,22,True,5483.TWO;6274.TWO,,,1000000000.0,1000000000.0,0,0,UNKNOWN,BLOCK_SUBMISSION

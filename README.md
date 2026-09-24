@@ -27,56 +27,56 @@ python -m unittest discover -s tests -p 'test_v4_*.py' -q
 
 官方快取可用 `python scripts/v4_build_execution_data.py --dates outputs/v4/execution_requested_dates.csv` 重建；交易所原始回應以壓縮檔保留。策略、委託與成交資料分開處理，因果測試確認 t 日與未來資料不改寫已提交委託；獨立稽核重算費稅、持股、現金與 NAV。
 
-## 最新 v3 分層搜尋
+## 最新 v3 可行性搜尋
 
-依 [v3_tuning.md](docs/v3_tuning.md)新增 **512 組不重複參數**：256 組均勻抽樣、256 組分層搜尋。分層涵蓋 5 種目標持股數 × 4 種每日換股數，全部留在原規格範圍。排除前兩輪 575 組，三輪合計 **1,087 組**；並非窮舉全部可能參數。
+新增 **384 組不重複參數**，四輪合計 **1,471 組**。從前三輪各自的開發期代表出發，每個來源128組，只調整訊號期間、評分權重與換股參數，保持其餘設定與所有逐日門檻不變。
 
-結果仍為 **`NO_ELIGIBLE_CANDIDATE`**。154 個基準窗口已重現；512 組新增參數均在必要的開發期困難月份失敗，沒有合格替代者。另按預定診斷預算，12 組進入共同開發月份、6 組重跑完整開發與驗證期。所有帳務與合規門檻維持不變。
+結果仍為 **`NO_ELIGIBLE_CANDIDATE`**。154個基準窗口已重現；新增384組均未通過必要開發窗口 **2015-08-03 起的24個交易日**。依預先固定的提前停止條件，本輪不再替已失去入選資格的組合跑完整期間排名。
 
-以下比較相同 **2019–2022 驗證窗口**。代表由各輪開發資料決定，不是合格 winner。
+| 新參數來源 | 組數 | 完成24日 | 無原始超限 | 全項通過 |
+|---|---:|---:|---:|---:|
+| 第一輪代表鄰域 | 128 | 128 | 128 | 0 |
+| 第二輪代表鄰域 | 128 | 128 | 128 | 0 |
+| 第三輪代表鄰域 | 128 | 128 | 128 | 0 |
 
-| 策略 | Median 24D | P25 | P10 | 完整／全部 | 已量測通過／全部 |
-|---|---:|---:|---:|---:|---:|
-| 基準 | 3.08% | -0.23% | -5.71% | 43/47 | 34/47 |
-| 前輪開發代表 | 2.71% | -1.09% | -3.22% | 45/47 | 37/47 |
-| 本輪開發代表 | 2.05% | -0.47% | -3.82% | 46/47 | 37/47 |
+「無原始超限」不等於全項通過，仍可能被公司行動後的零股持倉檢查擋下。全部新組合的成交委託都是整張，零股持倉不能誤稱為零股委託；官方處理契約仍缺證據，不能刪除門檻換取通過。
 
-報酬只計完整且通過的窗口，各策略通過樣本可能不同；失敗保留在全部嘗試分母。報告另列三者「共同通過窗口」比較，但它也不能代表全部起始日期的表現。本輪驗證通過數最高為 **38/47**，仍未達完整開發及驗證期皆 **100% 通過**的採用要求；canonical 設定維持原基準。
-
-困難月份中，177 組沒有原始規則超限，但被零股持倉檢查擋下。全部成交委託都是整張；公司行動後的零股持倉，不等於送出零股委託。報告另列20種分層的失敗分布，不能只憑參數增加或單窗改善宣稱更好。
+新參數的完整開發期、驗證期、歷史評估與近期報酬均標記 **NOT_RUN**，沒有補出未執行的績效。這是完成可行性篩選，不是找到報酬最佳組合；也不代表全部可能參數均無解。原 canonical 設定不變。
 
 | 內容 | 連結 |
 |---|---|
-| 最新結果 | [精簡報告](reports/24d_round3.md)／[各期比較](reports/24d_round3_comparison.csv)／[共同窗口](reports/24d_round3_common.csv)／[分層明細](reports/24d_round3_strata.csv) |
-| 搜尋與凍結 | [搜尋設定](config/24d_round3_study.json)／[凍結紀錄](outputs/24d_round3/final_selection.json)／[參數包](outputs/24d_round3/competition_24d_candidate.json) |
-| 核對證據 | [獨立驗證](outputs/24d_round3/verification.json)／[輸出 SHA256](outputs/24d_round3/result_manifest.json)／[逐日規則](docs/v2_double_check_rules.md) |
+| 最新結果 | [精簡報告](reports/24d_round4.md)／[比較 CSV](reports/24d_round4_summary.csv)／[窗口明細](outputs/24d_round4/bottleneck.csv) |
+| 搜尋與凍結 | [搜尋設定](config/24d_round4_study.json)／[凍結紀錄](outputs/24d_round4/final_selection.json)／[參數包](outputs/24d_round4/competition_24d_candidate.json) |
+| 核對證據 | [獨立驗證](outputs/24d_round4/verification.json)／[輸出 SHA256](outputs/24d_round4/result_manifest.json)／[逐日規則](docs/v2_double_check_rules.md) |
+| 最近完整比較 | [第三輪報告](reports/24d_round3.md)／[第三輪比較表](reports/24d_round3_comparison.csv)；不是本輪新參數成績 |
 | 既有參考設定 | [canonical 設定](configs/competition_24d_final.json)／[舊設定解讀](configs/competition_24d_final_metadata.json) |
 
-開發期為 **2010–2018**，驗證期為 **2019–2022**，凍結後歷史評估為 **2023–2024**；跨邊界窗口排除。另檢查 2025–2026/09、近期 126 個完整滾動起點及 2010–2025 的 10–11 月類比。資料截止 **2026-09-23**，9 月月初尚不足完整 24 日。
+資料快照截至 **2026-09-23**，開發2010–2018、驗證2019–2022邊界不變。既有驗證與後期結果已在前輪看過，不能再稱首次未見 holdout；基準參數來自後期研究，2026白名單回套歷史亦有前視及存活偏誤。
 
-2023–2024 與近期結果已在前輪看過，只能說本輪搜尋未使用它們，不能稱首次未見 holdout。驗證期重複使用有適應性選擇偏誤，基準參數也來自後期研究，2026 白名單回套歷史有存活與成分前視偏誤，重疊滾動窗口也不是獨立樣本。
-
-交易採 Yahoo 日線、D−1 決策、次日開盤價近似成交，納入雙邊手續費 0.1425% 與賣出稅 0.3%。Active Share、官方結算、公司行動、最新公告與收件證據仍缺；開盤價不是官方日成交均價，且未建模 10 億元委託的市場衝擊。本地檢查不能代替官方合規認證。
+交易使用 Yahoo 日線、D−1 決策與次日開盤價近似成交，納入雙邊手續費0.1425%與賣出稅0.3%。Active Share、官方結算、公司行動及平台收件證據仍缺；未建模10億元委託的市場衝擊。本地帳本稽核不能代替官方合規認證。
 
 ## 重現與驗證
 
 Python 3.10；安裝 `requirements.txt` 與 `requirements-yahoo.txt` 後：
 
 ```bash
-python scripts/verify_24d_round3.py --rebuild
-python scripts/report_24d_round3.py --verify
+python scripts/verify_24d_round4.py --rebuild
+python scripts/report_24d_round4.py --verify
 python -m unittest discover -s tests -q
 ```
 
-使用凍結快照另建輸出重算；相同指令可接續已完成的組別：
+使用凍結快照另建輸出；相同指令可接續已完成組別：
 
 ```bash
-python scripts/expand_24d_round3.py --workers 4 --output outputs/24d_round3_replay
+python scripts/expand_24d_round4.py --workers 4 --output outputs/24d_round4_replay
+python scripts/verify_24d_round4.py --output outputs/24d_round4_replay --rebuild
 ```
 
-逐日帳本、設定及輸入／輸出皆保存雜湊；來源改變時拒絕沿用舊結果。原始 Parquet 與名目股數換算檔分開保存。[日曆修訂](data/yahoo_daily/v3_20260923/calendar_v2.json)補回 0050 缺資料但股票市場仍交易的日期。`repair=True` 可能由 yfinance 內部使用更細頻資料修復；策略本身只使用日線，沒有 4H 依賴。
+帳本、設定、程式及資料皆有雜湊；來源改變時拒絕沿用舊結果。原始 Parquet 與名目股數換算分開保存。[日曆修訂](data/yahoo_daily/v3_20260923/calendar_v2.json)補回0050缺價但市場仍交易的日期。`repair=True`可能由 yfinance 內部使用較細頻資料修復；策略本身只使用日線，沒有4H依賴。
 
 ## 既有 v3 研究
+
+第三輪512組的[分層搜尋報告](reports/24d_round3.md)及[分層明細](reports/24d_round3_strata.csv)完整保留。
 
 第二輪328組的[追加搜尋報告](reports/24d_expansion.md)、[比較表](reports/24d_expansion_comparison.csv)與[共同窗口表](reports/24d_expansion_common.csv)完整保留。
 

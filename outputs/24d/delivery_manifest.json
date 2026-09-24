@@ -3,12 +3,12 @@
   "run_manifest_sha256": "a2f4b07b9ce10497b43f276e436cabbf5c1d16b1a2e5230c1735d52b930b347f",
   "base_commit_before_work": "5a7ddda6bd9c345d432e7ab23f01fddfc2d6b993",
   "files": {
-    "README.md": "2384c5a7c77f43c2faf5491cf0995c84b5b5772262bd973c6bd05bd02ae508c7",
+    "README.md": "7e9661e524f9f1fdc69f767307520b9f651c3342f528a9bba7c79f45768cd1fe",
     "config/24d_study.json": "fdbefd3360197d31135d5a0dd21f1719b6d0aba374792a8df7c39b51bc9f8d30",
-    "config/best_v2_release.json": "2069f42e19332db8dc0393cc63ca54b99db85fd6df70607a9cd2dd3717dcbbaf",
+    "config/best_v2_release.json": "7b6ea6e3599763cab49c0cb0b0dc486b66da744d5d9ce4457106f9524d8316e6",
     "configs/competition_24d_final.json": "a2e79e53e27e9cd09ffd476174f9f68fd6e4599fa1739afc925ab08709f7016c",
     "configs/competition_24d_final_metadata.json": "d722e1f7421839e12ec083d71e4acdb7407aeaa4e5d0f85bf349b050655f87ee",
-    "docs/README.md": "16f5e0ee365be9ecd987d2331ee1db30c8974bfcdeba0082bc52e9b7995b494a",
+    "docs/README.md": "aad27a4215a1123361b7f34e52c154dcd20a75c21524f6ce4fb7a09599963c11",
     "docs/v2_double_check_rules.md": "91666dd82bc81a294c812b9dbf278e375364f8774f31e1dc83232f216bedb783",
     "docs/v3_spec.md": "c72375324c464fd69f9c0bdb7a1c5999a544f7df5e020060e4e5baf2a3379476",
     "outputs/24d/canonical_aliases.json": "e1c7595cdc50a95c99bb4c03f4d6d7fecbdf026e872a42f96dcdc9119fe25919",
@@ -33,7 +33,7 @@
     "outputs/24d_supplement/status.json": "8f92b9db10e6db0d5ddb451cae9b01836ccd979c6e23fa281ce22c14f580edfc",
     "outputs/24d_supplement/supplement_audit.json": "56149f472d9ac0b3c53a5291f51c1f727c862d033cd7acee2cbcc0fd3eb0976e",
     "outputs/24d_supplement/supplement_manifest.json": "0c6a034c8d3c14baeaf87fdb797134a82caaad2c5b0e8ffb8d37c75f37dc3ad1",
-    "outputs/best_v2/audit.json": "902c65aac6ad2100929cd06ea52a52a2f156e30878a25f61e277cf2360544c9e",
+    "outputs/best_v2/audit.json": "08ae42724421bfce37461275ae132731b4fdc4763f323f6361680fe3232c51ee",
     "reports/24d_failure_analysis.md": "fb81e3fa5e0ff38132cb6ac97f357c0ad40d3a4e66551474e1b05e9acf34954f",
     "reports/24d_final_candidate.md": "a220be9e4fc583f82a5a72f1c23ed14bb680550b166a65603ca57e39f3025258",
     "reports/24d_holdout.md": "ab32f73a49973d361b99e6f6945783dfe73fd079100f6b6a6ff23bf591c0c3ef",
@@ -91,6 +91,18 @@
     "previous_delivery_sha256": "34c01577a382162e7926b551f09fe0fec94bf140345edfe18ea7b00a72d33707",
     "source_commit": "a7e9411761961e1a504147025993379e43e5fe9b",
     "archive": "outputs/24d_round3/previous_delivery",
+    "changed_files": [
+      "README.md",
+      "config/best_v2_release.json",
+      "docs/README.md",
+      "outputs/best_v2/audit.json"
+    ],
+    "numerical_artifacts_unchanged": true
+  },
+  "v3_round4_documentation_update": {
+    "previous_delivery_sha256": "b2d152c219f2e17aa093d228c8e5a533d0876cb0226712b21e2870ce9c7a0c0f",
+    "source_commit": "19ec30003aa57c510b835ca8fc8b5cea07f637e8",
+    "archive": "outputs/24d_round4/previous_delivery",
     "changed_files": [
       "README.md",
       "config/best_v2_release.json",
