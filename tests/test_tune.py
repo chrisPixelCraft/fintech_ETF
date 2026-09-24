@@ -1,3 +1,4 @@
+import io
 import json
 import tempfile
 import unittest
@@ -106,6 +107,52 @@ class TuneResultFilesTest(unittest.TestCase):
             self.assertIn('**FAIL**', text)
             best = json.loads((folder / 'best_config.json').read_text())
             self.assertEqual(best['params'], tune.to_config(point, 'x')['params'])
+
+
+class TuneProgressTest(unittest.TestCase):
+    def test_progress_counts_executed_episodes_per_split(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            stream = io.StringIO()
+            progress = tune.Progress(total=10, done=2, path=Path(tmp) / 'progress.txt', stream=stream)
+            progress.start('2/4 confirm 1/3', 'abc', ['dev', 'validation'])
+            dev = progress.tracker('dev')
+            dev(3, 5)            # 3 already complete: reused, not counted
+            dev(4, 5)
+            dev(5, 5)
+            val = progress.tracker('validation')
+            val(0, 2)
+            val(1, 2)
+            self.assertEqual((progress.done, progress.executed), (5, 3))
+            line = progress.line()
+            for text in ('[2/4 confirm 1/3]', 'abc', 'train 5/5', 'val 1/2', '50%', '5/10', 'ETA'):
+                self.assertIn(text, line)
+            progress.draw(force=True)
+            self.assertIn('train 5/5', (Path(tmp) / 'progress.txt').read_text())
+
+    def test_baseline_episodes_are_not_counted(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            progress = tune.Progress(total=10, done=0, path=Path(tmp) / 'p.txt', stream=io.StringIO())
+            progress.start('0/4 baselines', 'momentum_20d', ['dev'])
+            update = progress.tracker('dev', counted=False)
+            update(0, 3)
+            update(3, 3)
+            self.assertEqual(progress.done, 0)
+
+    def test_resumed_search_counts_episodes_already_on_disk(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tuner = tune.Tuner('t', 'quick', 1, 1, runs_dir=Path(tmp) / 'runs', results_dir=Path(tmp) / 'results')
+            for run, n in (('abc__dev', 3), ('abc__validation', 1), ('baseline_momentum_20d__dev', 5)):
+                for i in range(n):
+                    folder = tuner.root / 'runs' / run / 'episodes' / f'e{i}'
+                    folder.mkdir(parents=True)
+                    (folder / 'summary.json').write_text('{}')
+            self.assertEqual(tuner.computed_episodes(), 4)   # baselines excluded
+
+    def test_plan_is_positive_and_ordered_by_profile(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            plans = {name: tune.Tuner('t_' + name, name, 1, 1, runs_dir=Path(tmp), results_dir=Path(tmp)).plan()
+                     for name in ('quick', 'normal', 'crazy')}
+            self.assertTrue(0 < plans['quick'] < plans['normal'] < plans['crazy'], plans)
 
 
 if __name__ == '__main__':

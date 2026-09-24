@@ -135,7 +135,9 @@ def completed(out: Path, episode_id: str) -> dict | None:
     return None
 
 
-def main(argv=None) -> dict:
+def main(argv=None, progress=None) -> dict:
+    """``progress(done, total)``, when given, is called once before any episode runs (done = already
+    complete) and again after every finished episode."""
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('--config', required=True)
     parser.add_argument('--split', required=True, choices=sorted(ep.SPLITS))
@@ -175,10 +177,16 @@ def main(argv=None) -> dict:
     todo = [e for e in chosen if summaries[e.episode_id] is None]
     print(f'{run_id}: {len(chosen)} episodes, {len(chosen) - len(todo)} already complete, running {len(todo)}',
           flush=True)
+    finished = len(chosen) - len(todo)
+    if progress:
+        progress(finished, len(chosen))
     if args.workers <= 1:
         for e in todo:
             summaries[e.episode_id] = run_one(config, e, out)
             print(f"  {e.episode_id} {summaries[e.episode_id]['status']}", flush=True)
+            finished += 1
+            if progress:
+                progress(finished, len(chosen))
     else:
         with ProcessPoolExecutor(max_workers=args.workers, initializer=_init_worker) as pool:
             futures = {pool.submit(run_one, config, e, out): e for e in todo}
@@ -187,6 +195,9 @@ def main(argv=None) -> dict:
                 summaries[e.episode_id] = future.result()
                 print(f"  {e.episode_id} {summaries[e.episode_id]['status']} "
                       f"{summaries[e.episode_id]['runtime_seconds']:.0f}s", flush=True)
+                finished += 1
+                if progress:
+                    progress(finished, len(chosen))
 
     done = [s for s in summaries.values() if s and s['status'] == 'COMPLETE']
     status = 'COMPLETE' if len(done) == len(chosen) else 'PARTIAL' if done else 'FAILED'
