@@ -1,4 +1,0 @@
-date,decision_date,cutoff_at,plan_reason,metadata,submission_status,official_whitelist_status,active_share_status
-2015-12-31,2016-01-04,2016-01-04 08:55:00+08:00,D-1 estimated accounting; fill-day constraints require ledger audit,{},BLOCK_SUBMISSION,UNKNOWN_HISTORICAL_RESEARCH_POOL,UNKNOWN_MISSING_HISTORICAL_ETF_HOLDINGS
-2016-01-04,2016-01-05,2016-01-05 08:55:00+08:00,D-1 estimated accounting; fill-day constraints require ledger audit,{},BLOCK_SUBMISSION,UNKNOWN_HISTORICAL_RESEARCH_POOL,UNKNOWN_MISSING_HISTORICAL_ETF_HOLDINGS
-2016-01-05,2016-01-06,2016-01-06 08:55:00+08:00,D-1 estimated accounting; fill-day constraints require ledger audit,{},BLOCK_SUBMISSION,UNKNOWN_HISTORICAL_RESEARCH_POOL,UNKNOWN_MISSING_HISTORICAL_ETF_HOLDINGS

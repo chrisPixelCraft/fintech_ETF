@@ -1,8 +1,0 @@
-{
-  "features_sha256": "8c4ad619465f370fb09746a4e4757616af311c21c6422edd43b77da71d059506",
-  "inputs": {
-    "data/yahoo_daily/v3_20260923/nominal_daily.parquet": "4fc1f7aced552f472020db2823e27fe74a7680be2104d4528787ab8ba109e6bb",
-    "src/strategy_24d.py": "67854dec7ae738d3e33f924dab5aafdb985f3224448fc263dc2ab8aad39712a4",
-    "src/v4_features.py": "3aa1f008d555374a0985ea7990653cfb8988260cd4612f544b3968c83524a0fb"
-  }
-}

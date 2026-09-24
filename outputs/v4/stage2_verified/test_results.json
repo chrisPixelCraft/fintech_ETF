@@ -1,8 +1,0 @@
-{
-  "status": "PASS",
-  "full_suite_tests": 265,
-  "seconds": 72.902,
-  "full_log_sha256": "96a9fc26b9c7a49af6b15ed9855a9ce42c8aee9d6e7e08ae0f0079a92fe9aaa8",
-  "report_tests_log": "----------------------------------------------------------------------\nRan 7 tests in 0.227s\n\nOK\n",
-  "scope": "Engineering validation, not performance evidence"
-}
