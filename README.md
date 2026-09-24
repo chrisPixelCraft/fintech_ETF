@@ -2,7 +2,48 @@
 
 研究目標是每次從 **10 億元、零持股出發的 24 交易日報酬**。固定 v2 的 **309.16%** 是另一套資料與成交口徑下的長期回測，不能代替短賽期證據。正式使用維持 **`BLOCK_READY`／`BLOCK_SUBMISSION`**。
 
-## V4 Stage 1：成交與帳本驗證
+## 目前狀態（2026-09-24）
+
+| 研究 | 結果 |
+|---|---|
+| V3 四輪 1,471 組 | `NO_ELIGIBLE_CANDIDATE` |
+| V4 Stage 2 | `NO_V4_WINNER`；策略層已移除，保留 Stage 1 官方均價模擬器與帳本 |
+| **V5** | **程式與測試完成；官方成交資料下載中，尚無任何 V5 績效** |
+
+## V5：冠軍策略啟發的四族研究（進行中）
+
+[規格](docs/v5_spec.md)在任何結果出現前預先宣告，依 [champion.md](docs/champion.md) 與 V4 失敗分析設計。修改門檻、切分或參數網格須另立版本並記錄理由。
+
+| 策略族 | 核心機制 | 組數 |
+|---|---|---:|
+| A `momentum` | R5／R10／R20／R60 排名混合，EMA20 趨勢濾網 | 12 |
+| B `ensemble` | AutoTS 式專家池，walk-forward 加權，L／P／U 區間與方向一致信心 | 11 |
+| C `rank` | ATA 式排名頻率，預測進入前五分之一的機率 | 11 |
+| E `direct` | 直接擬合近期投組效用的線性分數，L2 懲罰 | 11 |
+
+- **窗口**：每月第一個交易日起算 24 日；開發 2010–2018（108）、驗證 2019–2022（48）、回顧 holdout 2023–2024（24），另有 10/26 季節與 2025 後近期診斷，共 216 個窗口、4,070 個交易日。
+- **成交**：沿用 V4 Stage 1 模擬器，官方成交金額÷股數為成交價、官方前日收盤定股數。缺官方資料不以 Open／Close 補值。
+- **流程**：S1 各族選優 → S2 投組層消融（score-bounded、risk-aware、regime overlay）→ 驗證期對 `A0_V3` 配對比較 → 凍結 → holdout 只能否決、不能認證。
+- **已完成**：79 項單元測試通過，各訊號族通過未來資料破壞的位元一致因果測試。
+- **待完成**：TWSE／TPEx 官方日報共 8,140 份。資料不齊時 `v5_run.py` 以 `BLOCK_CANONICAL_V5` 拒絕執行。
+
+### 執行
+
+官方網站有限流，下載約需 3–4 小時；中斷後重跑相同指令會從斷點接續。
+
+```bash
+nohup python scripts/v5_data.py all > fetch.log 2>&1 &   # 下載並建官方成交資料
+python scripts/v5_data.py status                         # 兩市場 raw_present 接近 4,070 即完成
+python scripts/v5_run.py --stage scores                  # 只需日線，可與下載同時先算
+python scripts/v5_run.py --stage all && python scripts/v5_verify.py && python scripts/v5_report.py
+python -m unittest discover -s tests -p 'test_v5_*.py' -q
+```
+
+原始回應約 1GB，留在本機不推送。結果寫入 `outputs/v5/study/`，通過全部門檻才產生 `configs/v5_final.json`，否則為 `NO_V5_WINNER`；即使通過，正式提交仍維持 `BLOCK_SUBMISSION`。
+
+已知限制：2026-07-31 股票池回套至 2010 有存活偏誤，動能族受影響最大；387 筆未記錄減資造成的價格跳動影響所有策略；未建模 10 億元市場衝擊。
+
+## V4 Stage 1：成交與帳本驗證（V5 沿用）
 
 本階段只重現凍結 V3，不建立或調整 V4 策略。新增 TWSE／TPEx 官方成交金額÷成交股數資料管線，與 Open proxy 配對回放；另以官方前日收盤價定股數與估值，檢查完整官方價格路徑。所有結果仍為研究證據，正式提交維持 `BLOCK_SUBMISSION`。
 
