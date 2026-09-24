@@ -12,6 +12,7 @@ from competition.rules import load_rules
 from lgbm_strategy.dataset import build_training_set
 from lgbm_strategy.features import build_features
 from lgbm_strategy.strategy import LightGBMStrategy, LightGBMStrategyConfig, predict_scores
+from lgbm_strategy.targets import TARGET_MODES
 from tests.synthetic import synthetic_market
 from tests.test_causality import Recorder, corrupt_after
 
@@ -55,25 +56,34 @@ class LightGBMCausalityTest(unittest.TestCase):
         cls.cutoff = cls.market.calendar[340]            # D-1
         cls.day = cls.market.calendar[341]               # D
 
-    def decision(self, market):
+    def decision(self, market, target_mode='raw_return'):
         view = market.asof(self.cutoff)
-        strategy = LightGBMStrategy(LightGBMStrategyConfig.from_dict(CONFIG), RULES)
+        strategy = LightGBMStrategy(LightGBMStrategyConfig.from_dict(dict(CONFIG, target_mode=target_mode)), RULES)
         weights = strategy.decide(view, fresh_state(self.day))
-        return dict(features=build_features(view), training=build_training_set(view, 10, 250),
+        return dict(features=build_features(view), training=build_training_set(view, 10, 250, target_mode),
                     prediction=predict_scores(strategy.fitted, view), weights=weights)
 
     def test_future_modifications_change_nothing_at_d(self):
-        base = self.decision(self.market)
-        self.assertGreaterEqual(len(base['weights']), 20)
-        for how in ('multiply', 'shuffle', 'delete', 'replace'):
-            with self.subTest(how=how):
-                other = self.decision(modified(self.market, self.cutoff, how))
-                pd.testing.assert_frame_equal(base['features'], other['features'])
-                pd.testing.assert_frame_equal(base['training'].train, other['training'].train)
-                pd.testing.assert_frame_equal(base['training'].validation, other['training'].validation)
-                self.assertEqual(base['training'].audit, other['training'].audit)
-                pd.testing.assert_series_equal(base['prediction'], other['prediction'])
-                self.assertEqual(base['weights'], other['weights'])
+        for mode in TARGET_MODES:
+            base = self.decision(self.market, mode)
+            self.assertGreaterEqual(len(base['weights']), 20)
+            for how in ('multiply', 'shuffle', 'delete', 'replace'):
+                with self.subTest(target_mode=mode, how=how):
+                    self.assert_same(base, self.decision(modified(self.market, self.cutoff, how), mode))
+
+    def test_alpha_labels_differ_from_raw(self):
+        raw, alpha = self.decision(self.market)['training'], self.decision(self.market, 'relative_alpha')['training']
+        pd.testing.assert_frame_equal(raw.train.drop(columns='label'), alpha.train.drop(columns='label'))
+        self.assertFalse(np.allclose(raw.train.label, alpha.train.label))
+
+    def assert_same(self, base, other):
+        """Features, training rows (labels included), audit, predictions and weights are identical."""
+        pd.testing.assert_frame_equal(base['features'], other['features'])
+        pd.testing.assert_frame_equal(base['training'].train, other['training'].train)
+        pd.testing.assert_frame_equal(base['training'].validation, other['training'].validation)
+        self.assertEqual(base['training'].audit, other['training'].audit)
+        pd.testing.assert_series_equal(base['prediction'], other['prediction'])
+        self.assertEqual(base['weights'], other['weights'])
 
     def test_label_maturity(self):
         audit = self.decision(self.market)['training'].audit
@@ -84,17 +94,20 @@ class LightGBMCausalityTest(unittest.TestCase):
         episode = Episode('causality', 'dev', self.market.calendar[329], sessions)
         k = 4
 
-        def run(market):
-            strategy = Recorder(LightGBMStrategy(LightGBMStrategyConfig.from_dict(CONFIG), RULES))
+        def run(market, mode):
+            config = LightGBMStrategyConfig.from_dict(dict(CONFIG, target_mode=mode))
+            strategy = Recorder(LightGBMStrategy(config, RULES))
             return backtest.run_episode(market, episode, strategy, RULES), strategy.calls
 
-        base, base_calls = run(self.market)
-        bad, bad_calls = run(corrupt_after(self.market, sessions[k - 1]))
-        for i in range(k + 1):
-            self.assertLess(base_calls[i][0], base_calls[i][2])
-            self.assertEqual(base_calls[i][3], bad_calls[i][3], f'decision for day {i} changed')
-        self.assertFalse(np.allclose(base['ledger'].nav.iloc[k:], bad['ledger'].nav.iloc[k:]))
-        self.assertEqual(backtest.verify_episode(self.market, episode, base, RULES), [])
+        for mode in TARGET_MODES:
+            with self.subTest(target_mode=mode):
+                base, base_calls = run(self.market, mode)
+                bad, bad_calls = run(corrupt_after(self.market, sessions[k - 1]), mode)
+                for i in range(k + 1):
+                    self.assertLess(base_calls[i][0], base_calls[i][2])
+                    self.assertEqual(base_calls[i][3], bad_calls[i][3], f'decision for day {i} changed')
+                self.assertFalse(np.allclose(base['ledger'].nav.iloc[k:], bad['ledger'].nav.iloc[k:]))
+                self.assertEqual(backtest.verify_episode(self.market, episode, base, RULES), [])
 
 
 if __name__ == '__main__':

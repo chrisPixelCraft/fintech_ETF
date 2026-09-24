@@ -13,7 +13,7 @@ class DatasetTest(unittest.TestCase):
     def setUp(self):
         self.market = synthetic_market(n_days=360, n_symbols=21)
         self.view = self.market.asof(self.market.calendar[-1])
-        self.data = dataset.build_training_set(self.view, H, LOOKBACK)
+        self.data = dataset.build_training_set(self.view, H, LOOKBACK, 'raw_return')
 
     def test_labels_are_matured_by_the_cutoff(self):
         dates = self.view.close.index
@@ -54,10 +54,29 @@ class DatasetTest(unittest.TestCase):
         self.assertEqual(pd.Timestamp(self.data.audit['validation_end']), cal[-1 - H])
         self.assertEqual(pd.Timestamp(self.data.audit['train_start']), cal[-H - LOOKBACK])
 
+    def test_relative_alpha_rows_and_audit(self):
+        alpha = dataset.build_training_set(self.view, H, LOOKBACK, 'relative_alpha')
+        for key in ('train_start', 'validation_end', 'latest_label_end', 'n_rows', 'n_symbols'):
+            self.assertEqual(alpha.audit[key], self.data.audit[key])      # same rows, only the label differs
+        audit = alpha.audit
+        self.assertEqual((audit['target_mode'], self.data.audit['target_mode']), ('relative_alpha', 'raw_return'))
+        self.assertLess(audit['alpha_cross_section_mean_error'], 1e-12)
+        self.assertLess(abs(audit['alpha_target_mean']), 1e-12)
+        self.assertAlmostEqual(audit['raw_target_std'], self.data.audit['raw_target_std'])
+        raw = self.data.train.set_index(['date', 'symbol']).label
+        shifted = alpha.train.set_index(['date', 'symbol']).label
+        market = (raw - shifted).groupby(level='date')
+        self.assertLess(market.std().max(), 1e-12)                # one market return per origin date
+        self.assertGreater(market.mean().abs().max(), 0)
+
+    def test_unknown_target_mode_raises(self):
+        with self.assertRaises(ValueError):
+            dataset.build_training_set(self.view, H, LOOKBACK, 'excess')
+
     def test_insufficient_history_raises(self):
         view = self.market.asof(self.market.calendar[120])
         with self.assertRaises(dataset.InsufficientHistoryError):
-            dataset.build_training_set(view, H, LOOKBACK)
+            dataset.build_training_set(view, H, LOOKBACK, 'raw_return')
 
 
 if __name__ == '__main__':
