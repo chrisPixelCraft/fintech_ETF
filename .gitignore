@@ -66,11 +66,15 @@ id_ed25519
 # Experiment runs, official raw responses, ledgers and scratch work stay local.
 # Never `git add -f` anything under outputs/: summaries belong in reports/.
 # Full pre-cleanup evidence (V1–V4 runs, ledgers, raw caches) is kept at
-# commit 2769f876. Still tracked: the fixed v2 config that src/strategy_24d.py
-# loads, and each V3 round's candidates.json + development_ranking.csv that
-# the round-3/4/expansion tests rebuild candidate lineage from.
+# commit 2769f876. Legacy code (V2–V5) lives under legacy/ and writes to
+# legacy/outputs/. Still tracked there: the fixed v2 config that
+# legacy/src/strategy_24d.py loads, and each V3 round's candidates.json +
+# development_ranking.csv that the round-3/4/expansion tests rebuild
+# candidate lineage from. Tracked files stay tracked despite these rules.
 /outputs/
+/legacy/outputs/
 /tmp/
+/legacy/tmp/
 nohup.out
 
 # Claude Code per-machine settings
