@@ -26,6 +26,18 @@ class RunExperimentTest(unittest.TestCase):
         after = HOLDOUT_LOG.read_text() if HOLDOUT_LOG.exists() else None
         self.assertEqual(before, after)
 
+    def test_progress_callback_reports_every_episode(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            calls = []
+            args = ['--config', str(MOMENTUM), '--split', 'dev', '--episodes', '2', '--out', str(Path(tmp) / 'run'),
+                    '--registry', str(Path(tmp) / 'registry.csv')]
+            with contextlib.redirect_stdout(io.StringIO()):
+                run_experiment.main(args, progress=lambda done, total: calls.append((done, total)))
+                self.assertEqual(calls, [(0, 2), (1, 2), (2, 2)])
+                calls.clear()
+                run_experiment.main(args, progress=lambda done, total: calls.append((done, total)))
+            self.assertEqual(calls, [(2, 2)])   # resumed: nothing left to run
+
     def test_manifest_resume_registry_compare(self):
         with tempfile.TemporaryDirectory() as tmp:
             out, reg = Path(tmp) / 'run', Path(tmp) / 'registry.csv'

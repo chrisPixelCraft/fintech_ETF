@@ -39,6 +39,8 @@ import io
 import json
 import os
 import platform
+import shutil
+import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
@@ -47,6 +49,8 @@ import numpy as np
 import pandas as pd
 
 from autots_strategy.forecaster import DEFAULT_TEMPLATE
+from competition import episodes as ep
+from competition.data import load_calendar
 from competition.rules import load_rules
 from research import compare, run_experiment
 from research.run_experiment import ROOT
@@ -211,6 +215,79 @@ def score_runs(runs: list[Path], reference: dict) -> dict:
         disqualified=int(sum(bool(s.get('disqualified')) for s in done.values())))
 
 
+# ---------------------------------------------------------------- progress
+def duration(seconds: float) -> str:
+    minutes = int(seconds // 60)
+    return f'{minutes // 60}h{minutes % 60:02d}m' if minutes >= 60 else f'{minutes}m{int(seconds % 60):02d}s'
+
+
+class Progress:
+    """One live status line: stage, config, per-split episodes, overall bar and ETA.
+
+    The overall bar counts AutoTS episodes the search still has to compute
+    (episodes reused from an earlier stage are not counted); the three fast
+    baselines are shown but not counted. ETA uses this session's pace.
+    The same line is written to ``path`` so a second terminal can follow it.
+    """
+    LABELS = {'dev': 'train', 'validation': 'val', 'holdout': 'test'}
+
+    def __init__(self, total: int, done: int, path: Path, stream=None):
+        self.total, self.done, self.path = total, done, path
+        self.stream = stream or sys.stderr
+        self.tty = self.stream.isatty()
+        self.started, self.executed = time.time(), 0
+        self.stage, self.config, self.splits = '', '', {}
+        self.shown, self.last_plain, self.last_file = False, 0., 0.
+
+    def start(self, stage: str, config: str, splits):
+        self.stage, self.config = stage, config
+        self.splits = {split: [0, 0] for split in splits}
+        self.draw()
+
+    def tracker(self, split: str, counted: bool = True):
+        """Callback for run_experiment.main: (done, total) per finished episode."""
+        state = {'seen': None}
+
+        def update(done: int, total: int):
+            if counted and state['seen'] is not None and done > state['seen']:
+                self.done += done - state['seen']
+                self.executed += done - state['seen']
+            state['seen'] = done
+            self.splits[split] = [done, total]
+            self.draw()
+        return update
+
+    def line(self) -> str:
+        total = max(self.total, self.done, 1)
+        fraction = self.done / total
+        bar = '█' * int(fraction * 20) + '░' * (20 - int(fraction * 20))
+        splits = ' '.join(f'{self.LABELS.get(s, s)} {d}/{t}' for s, (d, t) in self.splits.items())
+        elapsed = time.time() - self.started
+        eta = (total - self.done) * elapsed / self.executed if self.executed else None
+        return (f'[{self.stage}] {self.config} | {splits} | {bar} {fraction:.0%} {self.done}/{total} | '
+                f'{duration(elapsed)}' + (f', ETA ~{duration(eta)}' if eta is not None else ''))
+
+    def draw(self, force: bool = False):
+        line, now_ = self.line(), time.time()
+        if self.tty:
+            width = shutil.get_terminal_size((160, 20)).columns - 1
+            self.stream.write('\r\x1b[2K' + line[:width])
+            self.stream.flush()
+            self.shown = True
+        elif force or now_ - self.last_plain >= 60:
+            self.stream.write(line + '\n')
+            self.stream.flush()
+            self.last_plain = now_
+        if force or now_ - self.last_file >= 5:
+            self.path.write_text(f'{time.strftime("%Y-%m-%d %H:%M:%S")} {line}\n')
+            self.last_file = now_
+
+    def clear(self):
+        if self.tty and self.shown:
+            self.stream.write('\r\x1b[2K')
+            self.stream.flush()
+
+
 # ---------------------------------------------------------------- driver
 def now() -> str:
     return datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')
@@ -240,6 +317,29 @@ class Tuner:
             raise SystemExit(f'{self.root} was started with profile={self.state["profile"]} '
                              f'seed={self.state["search_seed"]}; use a new --tag')
         self.elapsed_before = self.state.get('elapsed_seconds', 0.)
+        self.progress: Progress | None = None
+        self.stage = ''
+
+    def plan(self) -> int:
+        """Upper bound of AutoTS episodes this profile computes (seeds assumed to matter)."""
+        p, calendar, rules = self.p, load_calendar(), load_rules()
+        sizes = {s: len(ep.build_episodes(calendar, s, rules.episode_sessions)) for s in (*SELECT, TEST)}
+        count = lambda plan: sum(sizes[s] if n == 'all' else min(int(n), sizes[s]) for s, n in plan.items())
+        screen, confirm, test = count(p['screen']), count(p['confirm']), count({TEST: p['test']})
+        new_confirm = max(confirm - screen, 0)
+        per_leader = screen + new_confirm + (len(p['seeds']) - 1) * confirm
+        self.seed_saving = per_leader - screen   # removed from the plan when a seed changes nothing
+        insensitive = sum(g.get('sensitive') is False for g in self.state['seed_groups'].values())
+        return ((1 + p['n_random'] + p['n_local']) * screen + p['confirm_top'] * new_confirm
+                + p['seed_top'] * per_leader + p['final_top'] * test - insensitive * self.seed_saving)
+
+    def computed_episodes(self) -> int:
+        """AutoTS episodes already on disk (any status), so a resumed search starts its bar where it stopped."""
+        return sum(1 for run in (self.root / 'runs').glob('*') if not run.name.startswith('baseline_')
+                   for _ in run.glob('episodes/*/summary.json'))
+
+    def start_progress(self, stream=None):
+        self.progress = Progress(self.plan(), self.computed_episodes(), self.results / 'progress.txt', stream)
 
     def save(self):
         self.state['elapsed_seconds'] = self.elapsed_before + time.time() - self.started
@@ -247,9 +347,13 @@ class Tuner:
 
     def log(self, message: str):
         line = f'[{time.strftime("%Y-%m-%d %H:%M:%S")}] {message}'
+        if self.progress:
+            self.progress.clear()
         print(line, flush=True)
         with (self.results / 'log.txt').open('a') as handle:
             handle.write(line + '\n')
+        if self.progress and self.progress.config:
+            self.progress.draw()
 
     def stage_done(self, name: str):
         if name not in self.state['done']:
@@ -264,19 +368,22 @@ class Tuner:
             (self.root / 'configs' / f'{pid}.json').write_text(json.dumps(to_config(point, f'tune_{pid}'), indent=1))
         return pid
 
-    def run(self, config_path: Path, out: Path, split: str, episodes: str):
+    def run(self, config_path: Path, out: Path, split: str, episodes: str, counted: bool = True):
         argv = ['--config', str(config_path), '--split', split, '--episodes', str(episodes),
                 '--workers', str(self.workers), '--out', str(out), '--registry', str(self.root / 'registry.csv')]
         if split == TEST:
             argv.append('--i-understand-holdout')   # logged to research/holdout_access_log.jsonl
+        callback = self.progress.tracker(split, counted) if self.progress else None
         with contextlib.redirect_stdout(io.StringIO()):
-            run_experiment.main(argv)
+            run_experiment.main(argv, progress=callback)
 
     def run_point(self, pid: str, episodes: dict) -> dict:
         """Run one config on {split: episodes} and score the union of those episodes."""
         started = time.time()
         label = ' + '.join(f'{split}:{n}' for split, n in episodes.items())
         self.log(f'  {pid} {label} running ...')
+        if self.progress:
+            self.progress.start(self.stage, pid, episodes)
         runs = []
         for split, n in episodes.items():
             runs.append(self.root / 'runs' / f'{pid}__{split}')
@@ -291,7 +398,9 @@ class Tuner:
         for split in splits:
             for name, path in BASELINES.items():
                 out = self.root / 'runs' / f'baseline_{name}__{split}'
-                self.run(path, out, split, 'all')
+                if self.progress:
+                    self.progress.start('0/4 baselines' if split != TEST else '4/4 test baselines', name, [split])
+                self.run(path, out, split, 'all', counted=False)
                 if name == REFERENCE:
                     self.reference.update(episode_returns(out))
         self.log(f'  reference {REFERENCE}: {len(self.reference)} episodes')
@@ -307,7 +416,8 @@ class Tuner:
                     stage.append(self.add(point))
             self.save()
         self.log(f'stage 1a screen: {len(stage)} configs x {p["screen"]}')
-        for pid in stage:
+        for i, pid in enumerate(stage, 1):
+            self.stage = f'1/4 screen {i}/{len(stage)}'
             self.state['scores'][pid] = self.run_point(pid, p['screen'])
             self.save()
         local = self.state['stages'].setdefault('local', [])
@@ -319,7 +429,8 @@ class Tuner:
                     local.append(self.add(point))
             self.save()
         self.log(f'stage 1b local search around the leaders: {len(local)} configs')
-        for pid in local:
+        for i, pid in enumerate(local, 1):
+            self.stage = f'1/4 local {i}/{len(local)}'
             self.state['scores'][pid] = self.run_point(pid, p['screen'])
             self.save()
         self.stage_done('screen')
@@ -332,7 +443,8 @@ class Tuner:
         screened = self.state['stages']['screen'] + self.state['stages']['local']
         chosen = self.state['stages'].setdefault('confirm', self.top(screened, self.p['confirm_top']))
         self.log(f'stage 2 confirm: {len(chosen)} configs on {self.p["confirm"]}')
-        for pid in chosen:
+        for i, pid in enumerate(chosen, 1):
+            self.stage = f'2/4 confirm {i}/{len(chosen)}'
             self.state['scores'][f'{pid}@full'] = self.run_point(pid, self.p['confirm'])
             self.save()
         self.stage_done('confirm')
@@ -342,9 +454,10 @@ class Tuner:
         leaders = sorted(full, key=lambda x: full[x]['score'], reverse=True)[:self.p['seed_top']]
         leaders = [x for x in leaders if np.isfinite(full[x]['score'])]
         self.log(f'stage 3 seed robustness: {len(leaders)} leaders x seeds {self.p["seeds"]}')
-        for pid in leaders:
+        for i, pid in enumerate(leaders, 1):
             group = self.state['seed_groups'].setdefault(pid, dict(members=[pid], sensitive=None))
-            for seed in self.p['seeds']:
+            for j, seed in enumerate(self.p['seeds'], 1):
+                self.stage = f'3/4 seeds {i}/{len(leaders)} seed {j}/{len(self.p["seeds"])}'
                 variant = self.add(dict(self.state['points'][pid], seed=seed))
                 if variant not in group['members']:
                     group['members'].append(variant)
@@ -355,6 +468,8 @@ class Tuner:
                     group['sensitive'] = any(abs(a[k]['terminal_return'] - b[k]['terminal_return']) > 1e-12
                                              for k in set(a) & set(b))
                     self.log(f'  {pid}: seed {"changes" if group["sensitive"] else "does not change"} results')
+                    if not group['sensitive'] and self.progress:
+                        self.progress.total -= self.seed_saving
                     self.save()
                 if not group['sensitive']:
                     break
@@ -377,7 +492,8 @@ class Tuner:
         finalists = ranked[:self.p['final_top']]
         self.log(f'stage 4 test on {TEST} (score only, the pick {ranked[0]} is already fixed): {finalists}')
         self.baselines([TEST])
-        for pid in finalists:
+        for i, pid in enumerate(finalists, 1):
+            self.stage = f'4/4 test {i}/{len(finalists)}'
             self.state['scores'][f'{pid}@test'] = self.run_point(pid, {TEST: self.p['test']})
             self.save()
         self.stage_done('test')
@@ -496,12 +612,18 @@ def main(argv=None):
     tuner.log(f'profile {args.profile}: {1 + p["n_random"]} random + {p["n_local"]} local configs on {p["screen"]}, '
               f'top {p["confirm_top"]} on {p["confirm"]}, seeds {p["seeds"]} for top {p["seed_top"]}, '
               f'test {TEST}:{p["test"]}, {args.workers} workers -> {tuner.results}')
+    tuner.start_progress()
+    tuner.log(f'plan: about {tuner.progress.total} AutoTS episodes (upper bound), '
+              f'{tuner.progress.done} already computed; live progress: {tuner.results / "progress.txt"}')
     tuner.baselines(SELECT)
     tuner.screen()
     tuner.confirm()
     tuner.seeds()
     tuner.test()
     tuner.write_outputs()
+    tuner.progress.stage, tuner.progress.config = 'done', ''
+    tuner.progress.draw(force=True)
+    tuner.progress.clear()
     tuner.log(f'done: {tuner.results / "summary.md"}')
 
 
