@@ -43,8 +43,10 @@ def fit(train: pd.DataFrame, validation: pd.DataFrame, features: tuple[str, ...]
                   eval_y=(validation[label],), eval_metric=pearson_metric,
                   callbacks=[lightgbm.early_stopping(EARLY_STOPPING_ROUNDS, verbose=False)])
     best = int(regressor.best_iteration_ or PARAMS['n_estimators'])
+    validation_prediction = predict_array(regressor, validation[list(features)])
     metadata = dict(best_iteration=best, validation_pearson=float(regressor.best_score_['valid_0']['pearson']),
-                    train_pearson=pearson(train[label].to_numpy(), predict_array(regressor, train[list(features)])))
+                    train_pearson=pearson(train[label].to_numpy(), predict_array(regressor, train[list(features)])),
+                    prediction_std=float(np.std(validation_prediction)))
     return FittedModel(regressor, tuple(features), metadata)
 
 

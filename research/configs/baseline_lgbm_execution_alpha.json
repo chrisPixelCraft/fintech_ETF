@@ -1,12 +1,12 @@
 {
- "name": "baseline_lgbm_jpx2",
- "description": "JPX #2 clean transfer: OHLCV + 20/40/60 return, volatility, MA gap; one global LightGBM regression on the 10-session action-neutral forward return, 750 matured dates, refit every 5 sessions; predicted return as score; same portfolio layer as momentum_20d.",
+ "name": "baseline_lgbm_execution_alpha",
+ "description": "baseline_lgbm_jpx2 with one change: the target is the execution-aligned relative alpha, entered at the next session fill price and exited 10 sessions later at the fill price (backtest execution: official VWAP, else HLC3), minus the equal-weight universe mean.",
  "strategy": "lgbm",
  "params": {
   "horizon": 10,
   "lookback": 750,
   "refit_every": 5,
-  "target_mode": "raw_return",
+  "target_mode": "execution_alpha",
   "portfolio": {"n_holdings": 25, "keep_rank": 35, "weighting": "equal", "invested": 0.88, "cap_scale": 0.9,
                 "rebalance_threshold": 0.10, "freeze_last_days": 3}
  },

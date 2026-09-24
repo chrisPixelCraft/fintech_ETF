@@ -1,6 +1,6 @@
 {
- "name": "baseline_lgbm_jpx2",
- "description": "JPX #2 clean transfer: OHLCV + 20/40/60 return, volatility, MA gap; one global LightGBM regression on the 10-session action-neutral forward return, 750 matured dates, refit every 5 sessions; predicted return as score; same portfolio layer as momentum_20d.",
+ "name": "baseline_lgbm_raw",
+ "description": "Target-alignment control (= baseline_lgbm_jpx2): JPX #2 clean transfer: OHLCV + 20/40/60 return, volatility, MA gap; one global LightGBM regression on the 10-session action-neutral forward return, 750 matured dates, refit every 5 sessions; predicted return as score; same portfolio layer as momentum_20d.",
  "strategy": "lgbm",
  "params": {
   "horizon": 10,
