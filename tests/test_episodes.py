@@ -43,6 +43,11 @@ class EpisodeSplitTest(unittest.TestCase):
         self.assertTrue(all(e.start.day >= 15 for e in mid))
         self.assertEqual(len(month), 143)
 
+    def test_start_drops_earlier_episodes_only(self):
+        recent = ep.build_episodes(self.calendar, 'dev', offsets=ep.OFFSETS, start='2019-01-01')
+        self.assertEqual((recent[0].episode_id, recent[1].episode_id), ('dev_2019_01', 'dev_2019_01m'))
+        self.assertEqual(recent, [e for e in self.splits['dev'] if e.start >= pd.Timestamp('2019-01-01')])
+
     def test_select_is_even_and_deterministic(self):
         month = ep.build_episodes(self.calendar, 'dev')
         pick = ep.select(month, 6)

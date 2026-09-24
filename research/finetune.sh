@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # One-shot AutoTS tuning (research/tune.py). Parameters are chosen on
-# 2010-2024 (dev + validation); 2025-2026/09 (holdout) is scored once at the
-# end as the test and does not change the choice.
+# 2019-2024 (dev + validation, month-start and mid-month windows);
+# 2025-2026/09 (holdout) is scored once at the end as the test and does not
+# change the choice.
 #
 #   bash research/finetune.sh                          # crazy profile, 10 workers
 #   PROFILE=normal WORKERS=8 bash research/finetune.sh

@@ -60,7 +60,7 @@ def load_config(path) -> dict:
     backtest.ExecutionConfig(**config.get('execution', {}))
     PlannerPolicy(**config.get('planner', {}))
     episodes = config.get('episodes', {})
-    unknown = (set(episodes) - {'offsets'}) | (set(episodes.get('offsets', [])) - set(ep.OFFSETS))
+    unknown = (set(episodes) - {'offsets', 'start'}) | (set(episodes.get('offsets', [])) - set(ep.OFFSETS))
     if unknown:
         raise ValueError(f'Unknown episodes settings {sorted(unknown)}')
     return config
@@ -172,7 +172,9 @@ def main(argv=None, progress=None) -> dict:
     _init_worker()
     data_end = _MARKET.close.dropna(how='all').index[-1]
     offsets = tuple(config.get('episodes', {}).get('offsets', ['month_start']))
-    chosen = ep.select(ep.build_episodes(_MARKET.calendar, args.split, _RULES.episode_sessions, offsets, data_end), n)
+    first = config.get('episodes', {}).get('start')
+    chosen = ep.select(ep.build_episodes(_MARKET.calendar, args.split, _RULES.episode_sessions, offsets, data_end,
+                                         first), n)
     summaries = {e.episode_id: completed(out, e.episode_id) for e in chosen}
     todo = [e for e in chosen if summaries[e.episode_id] is None]
     print(f'{run_id}: {len(chosen)} episodes, {len(chosen) - len(todo)} already complete, running {len(todo)}',
@@ -204,7 +206,7 @@ def main(argv=None, progress=None) -> dict:
     runtimes = [s['runtime_seconds'] for s in done]
     manifest = dict(
         run_id=run_id, status=status, created_utc=previous['created_utc'] if previous else now(), updated_utc=now(),
-        split=args.split, episodes_arg=args.episodes, offsets=list(offsets), episode_ids=[e.episode_id for e in chosen],
+        split=args.split, episodes_arg=args.episodes, offsets=list(offsets), start=first, episode_ids=[e.episode_id for e in chosen],
         n_complete=len(done), n_failed=len(chosen) - len(done),
         failed=sorted(k for k, s in summaries.items() if not s or s['status'] != 'COMPLETE'),
         config_path=str(args.config), config_name=config['name'], config_hash=chash,
