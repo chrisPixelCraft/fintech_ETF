@@ -65,9 +65,10 @@ id_ed25519
 
 # Experiment runs, official raw responses, ledgers and scratch work stay local.
 # Never `git add -f` anything under outputs/: summaries belong in reports/.
-# Full pre-cleanup evidence (V1–V4 runs, ledgers, raw caches) is kept at git tag
-# evidence-20260924. The only tracked output is the fixed v2 config that
-# src/strategy_24d.py loads.
+# Full pre-cleanup evidence (V1–V4 runs, ledgers, raw caches) is kept at
+# commit 2769f876. Still tracked: the fixed v2 config that src/strategy_24d.py
+# loads, and each V3 round's candidates.json + development_ranking.csv that
+# the round-3/4/expansion tests rebuild candidate lineage from.
 /outputs/
 /tmp/
 nohup.out

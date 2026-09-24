@@ -12,7 +12,7 @@
 
 ## Clone 與歷史證據
 
-`outputs/` 已不再追蹤（只保留 `src/strategy_24d.py` 會讀的 `outputs/best_v2/official_ex_post/config.json`），研究執行結果一律留在本機，摘要放 `reports/`。V1–V4 的完整輸出、帳本與官方原始快取保留在提交 [`2769f876`](https://github.com/chrisPixelCraft/fintech_ETF/tree/2769f876ec4b9795ce5d8cc4e64b8274da58099c)，下方標示的 V4 Stage 1、第四輪與 v2 發行驗證指令都要在該版本執行。
+`outputs/` 已不再追蹤（只保留 `src/strategy_24d.py` 會讀的 v2 設定，以及 V3 測試重建候選譜系所需的三輪 `candidates.json`／`development_ranking.csv`），研究執行結果一律留在本機，摘要放 `reports/`。V1–V4 的完整輸出、帳本與官方原始快取保留在提交 [`2769f876`](https://github.com/chrisPixelCraft/fintech_ETF/tree/2769f876ec4b9795ce5d8cc4e64b8274da58099c)，下方標示的 V4 Stage 1、第四輪與 v2 發行驗證指令都要在該版本執行。
 
 Git 歷史仍含這些大檔，建議用部分 clone，只下載目前版本需要的檔案：
 
