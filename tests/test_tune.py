@@ -26,8 +26,9 @@ class TuneSpaceTest(unittest.TestCase):
         rebuilt = tune.to_config(tune.base_point(), base['name'])
         self.assertEqual(AutoTSStrategyConfig.from_dict(rebuilt['params']),
                          AutoTSStrategyConfig.from_dict(base['params']))
-        for key in ('execution', 'planner', 'episodes'):
+        for key in ('execution', 'planner'):
             self.assertEqual(rebuilt[key], base[key])
+        self.assertEqual(rebuilt['episodes'], tune.EPISODES)
 
     def test_sampling_is_deterministic_and_valid(self):
         draw = lambda: [tune.random_point(np.random.default_rng(7), .2) for _ in range(1)]
@@ -93,6 +94,10 @@ class TuneResultFilesTest(unittest.TestCase):
                                                    n_seeds=1)
             tuner.state['pick'] = pid
             tuner.state['done'] = ['screen', 'confirm', 'seeds', 'test']
+            tuner.reference = {   # one crash window (0050 -15%) and one calm window
+                'dev_a': dict(split='dev', start='2020-03-02', terminal_return=-.12, benchmark_0050_return=-.15),
+                'dev_b': dict(split='dev', start='2020-06-01', terminal_return=.03, benchmark_0050_return=.02)}
+            write_run(tuner.root / 'runs' / f'{pid}__dev', {'dev_a': -.08, 'dev_b': .04})
             tuner.save()
             tuner.write_outputs()
             folder = Path(tmp) / 'results' / 'tune_t'
@@ -105,6 +110,10 @@ class TuneResultFilesTest(unittest.TestCase):
             text = (folder / 'summary.md').read_text()
             self.assertIn(pid, text)
             self.assertIn('**FAIL**', text)
+            crashes = summary['best']['crashes']['select']
+            self.assertEqual([row['episode'] for row in crashes], ['dev_a'])
+            self.assertAlmostEqual(crashes[0]['config'] - crashes[0]['momentum'], .04)
+            self.assertIn('| dev_a | -15.00% | -12.00% | -8.00% | +4.00% |', text)
             best = json.loads((folder / 'best_config.json').read_text())
             self.assertEqual(best['params'], tune.to_config(point, 'x')['params'])
 
@@ -147,6 +156,14 @@ class TuneProgressTest(unittest.TestCase):
                     folder.mkdir(parents=True)
                     (folder / 'summary.json').write_text('{}')
             self.assertEqual(tuner.computed_episodes(), 4)   # baselines excluded
+
+    def test_resume_refuses_a_different_episode_window(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tuner = tune.Tuner('t', 'quick', 1, 1, runs_dir=Path(tmp), results_dir=Path(tmp))
+            tuner.state.pop('episodes')   # a search started before EPISODES existed
+            tuner.save()
+            with self.assertRaises(SystemExit):
+                tune.Tuner('t', 'quick', 1, 1, runs_dir=Path(tmp), results_dir=Path(tmp))
 
     def test_plan_is_positive_and_ordered_by_profile(self):
         with tempfile.TemporaryDirectory() as tmp:

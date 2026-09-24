@@ -37,12 +37,12 @@ class Episode:
 
 
 def build_episodes(calendar: pd.DatetimeIndex, split: str, length: int = 24,
-                   offsets: tuple[str, ...] = ('month_start',), data_end=None) -> list[Episode]:
+                   offsets: tuple[str, ...] = ('month_start',), data_end=None, start=None) -> list[Episode]:
     """Chronological episodes of one split.
 
     ``month_start`` anchors on the first session of each month, ``mid_month`` on
     the first session on/after the 15th. ``data_end`` truncates the calendar to
-    sessions that have data.
+    sessions that have data. ``start`` drops episodes that begin before it.
     """
     if split not in SPLITS:
         raise ValueError(f'Unknown split {split}')
@@ -50,6 +50,8 @@ def build_episodes(calendar: pd.DatetimeIndex, split: str, length: int = 24,
     if unknown:
         raise ValueError(f'Unknown offsets {sorted(unknown)}')
     lo, hi = map(pd.Timestamp, SPLITS[split])
+    if start is not None:
+        lo = max(lo, pd.Timestamp(start))
     if data_end is not None:
         calendar = calendar[calendar <= pd.Timestamp(data_end)]
     episodes = []

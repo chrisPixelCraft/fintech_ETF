@@ -2,9 +2,12 @@
 
     PYTHONHASHSEED=0 .venv/bin/python -m research.tune --profile crazy --workers 10
 
-Selection uses dev + validation (2010-2024). Holdout (2025-2026/09), the
-period closest to the competition, is scored once at the end as the test and
-never changes the pick.
+Selection uses dev + validation from 2019 (2019-2024). Holdout (2025-2026/09),
+the period closest to the competition, is scored once at the end as the test
+and never changes the pick. Every run (baselines, candidates, test) uses the
+same episodes: 24-session windows starting at month start and mid-month.
+The 150-stock list is today's large caps, so earlier years carry more
+look-ahead (survivor) bias; 2019 keeps the 2020 crash and the 2022 bear market.
 
   0  baselines   momentum / basket / no-signal AutoTS on every episode
   1  screen      baseline_autots + random configs, then 1-2 parameter mutations
@@ -61,17 +64,19 @@ BASELINES = {name: ROOT / f'research/configs/baselines/{name}.json'
              for name in ('momentum_20d', 'largecap_basket', 'autots_lastvalue_naive')}
 REFERENCE = 'momentum_20d'
 SEEDS_BASE = 2026
-SELECT = ('dev', 'validation')   # 143 + 35 monthly episodes
-TEST = 'holdout'                 # 20 monthly episodes, scored once
+SELECT = ('dev', 'validation')   # 70 + 70 episodes from 2019
+TEST = 'holdout'                 # 40 episodes, scored once
+EPISODES = dict(start='2019-01-01', offsets=['month_start', 'mid_month'])
+CRASH = -.10                     # 0050 episode return at or below this is a crash window (report only)
 
 ALL = {'dev': 'all', 'validation': 'all'}
-PROFILES = {   # screen: episodes per split (16 + 4 = 20 = two waves of 10 workers)
-    'quick': dict(screen={'dev': '3', 'validation': '1'}, confirm={'dev': '6', 'validation': '2'}, test='4',
+PROFILES = {   # screen: episodes per split (10 + 10 = 20 = two waves of 10 workers)
+    'quick': dict(screen={'dev': '2', 'validation': '2'}, confirm={'dev': '4', 'validation': '4'}, test='4',
                   n_random=3, n_local=2, leaders=2, confirm_top=2, seed_top=1, seeds=[1], final_top=1,
                   search_share=0.),
-    'normal': dict(screen={'dev': '16', 'validation': '4'}, confirm=ALL, test='all', n_random=24, n_local=16,
+    'normal': dict(screen={'dev': '10', 'validation': '10'}, confirm=ALL, test='all', n_random=24, n_local=16,
                    leaders=4, confirm_top=8, seed_top=3, seeds=[1, 7], final_top=2, search_share=.1),
-    'crazy': dict(screen={'dev': '16', 'validation': '4'}, confirm=ALL, test='all', n_random=50, n_local=30,
+    'crazy': dict(screen={'dev': '10', 'validation': '10'}, confirm=ALL, test='all', n_random=50, n_local=30,
                   leaders=5, confirm_top=16, seed_top=4, seeds=[1, 7, 42, 1234], final_top=3, search_share=.15),
 }
 
@@ -85,7 +90,7 @@ TEMPLATES = {   # subsets of the curated 7-model pool (see autots_strategy/forec
 SPACE = {
     'target': ['relative_log_price/ew', 'relative_log_price/0050', 'log_price/ew', 'log_return/ew'],
     'horizon': [3, 5, 10, 20],
-    'lookback': [120, 180, 240],     # data starts 2009-01: >247 rows cannot trade the 2010 dev episodes
+    'lookback': [120, 180, 240],
     'validation_windows': [3, 4, 6],
     'validation_step': [10, 24],
     'metric': ['rank_ic', 'topk_spread'],
@@ -145,7 +150,7 @@ def to_config(point: dict, name: str) -> dict:
                   vol_window=point['vol_window'])
     return dict(name=name, description='research.tune candidate: ' + json.dumps(point, sort_keys=True),
                 strategy='autots', params=params, execution=base['execution'], planner=base['planner'],
-                episodes=base['episodes'])
+                episodes=EPISODES)
 
 
 def point_id(point: dict) -> str:
@@ -311,11 +316,12 @@ class Tuner:
         self.started = time.time()
         self.state_path = self.root / 'state.json'
         self.state = json.loads(self.state_path.read_text()) if self.state_path.exists() else \
-            dict(profile=profile, search_seed=seed, points={}, stages={}, scores={}, seed_groups={},
-                 started_utc=now(), elapsed_seconds=0., done=[])
-        if self.state['profile'] != profile or self.state['search_seed'] != seed:
+            dict(profile=profile, search_seed=seed, episodes=EPISODES, points={}, stages={}, scores={},
+                 seed_groups={}, started_utc=now(), elapsed_seconds=0., done=[])
+        episodes = self.state.get('episodes', dict(offsets=['month_start']))   # before EPISODES existed
+        if self.state['profile'] != profile or self.state['search_seed'] != seed or episodes != EPISODES:
             raise SystemExit(f'{self.root} was started with profile={self.state["profile"]} '
-                             f'seed={self.state["search_seed"]}; use a new --tag')
+                             f'seed={self.state["search_seed"]} episodes={episodes}; use a new --tag')
         self.elapsed_before = self.state.get('elapsed_seconds', 0.)
         self.progress: Progress | None = None
         self.stage = ''
@@ -323,7 +329,8 @@ class Tuner:
     def plan(self) -> int:
         """Upper bound of AutoTS episodes this profile computes (seeds assumed to matter)."""
         p, calendar, rules = self.p, load_calendar(), load_rules()
-        sizes = {s: len(ep.build_episodes(calendar, s, rules.episode_sessions)) for s in (*SELECT, TEST)}
+        sizes = {s: len(ep.build_episodes(calendar, s, rules.episode_sessions, tuple(EPISODES['offsets']),
+                                          start=EPISODES['start'])) for s in (*SELECT, TEST)}
         count = lambda plan: sum(sizes[s] if n == 'all' else min(int(n), sizes[s]) for s, n in plan.items())
         screen, confirm, test = count(p['screen']), count(p['confirm']), count({TEST: p['test']})
         new_confirm = max(confirm - screen, 0)
@@ -396,7 +403,9 @@ class Tuner:
     def baselines(self, splits):
         self.log(f'stage 0 baselines on {", ".join(splits)}')
         for split in splits:
-            for name, path in BASELINES.items():
+            for name, source in BASELINES.items():
+                path = self.root / 'configs' / f'baseline_{name}.json'   # same episodes as the candidates
+                path.write_text(json.dumps(dict(json.loads(source.read_text()), episodes=EPISODES), indent=1))
                 out = self.root / 'runs' / f'baseline_{name}__{split}'
                 if self.progress:
                     self.progress.start('0/4 baselines' if split != TEST else '4/4 test baselines', name, [split])
@@ -508,6 +517,14 @@ class Tuner:
                     out.setdefault(name, {})[phase] = score_runs(runs, self.reference)
         return out
 
+    def crash_rows(self, pid: str, splits) -> list[dict]:
+        """Episodes ``pid`` ran in ``splits`` where 0050 fell by CRASH or more: 0050, momentum, ``pid`` returns."""
+        mine = episode_returns([self.root / 'runs' / f'{pid}__{s}' for s in splits])
+        return [dict(episode=k, benchmark=ref['benchmark_0050_return'], momentum=ref['terminal_return'],
+                     config=mine[k]['terminal_return'])
+                for k, ref in sorted(self.reference.items(), key=lambda kv: kv[1].get('start', kv[0]))
+                if k in mine and ref.get('split') in splits and ref.get('benchmark_0050_return', 0.) <= CRASH]
+
     def write_outputs(self):
         """Refresh the committed result files in research/results/tune_<tag>/."""
         st, p = self.state, self.p
@@ -529,7 +546,9 @@ class Tuner:
             test = st['scores'].get(f'{pick}@test', {})
             best.update(params=st['points'][pick], select=st['scores'][f'{pick}@full'],
                         seeds={k: v for k, v in st['seed_groups'][pick].items() if k != 'members'}, test=test,
-                        verdict=None if not test else 'PASS' if test['mean_excess'] >= 0 else 'FAIL')
+                        verdict=None if not test else 'PASS' if test['mean_excess'] >= 0 else 'FAIL',
+                        crashes=dict(select=self.crash_rows(pick, SELECT),
+                                     test=self.crash_rows(pick, (TEST,)) if test else []))
         stages = ['screen', 'confirm', 'seeds', 'test']
         status = 'COMPLETE' if 'test' in st['done'] else \
             f'RUNNING (done: {", ".join(st["done"]) or "none"})'
@@ -538,7 +557,9 @@ class Tuner:
                     started=st['started_utc'], updated=now(), elapsed_hours=round(st['elapsed_seconds'] / 3600, 2),
                     configs_tried=len(st['points']), git_commit=git['commit'][:8], git_dirty=git['dirty'],
                     python=platform.python_version(), machine=f'{platform.system()} {platform.machine()}',
-                    select='dev + validation (2010-2024)', test='holdout (2025-2026/09)',
+                    select=f'dev + validation from {EPISODES["start"]} (2019-2024)', test='holdout (2025-2026/09)',
+                    episodes=EPISODES, n_select=sum(s.get('split') in SELECT for s in self.reference.values()),
+                    n_test=sum(s.get('split') == TEST for s in self.reference.values()),
                     score=f'0.5*mean + 0.5*median of per-episode excess return over {REFERENCE}')
         (self.results / 'summary.json').write_text(json.dumps(
             dict(meta=meta, best=best, baselines=base), indent=1, default=float))
@@ -563,13 +584,14 @@ class Tuner:
                  f'- **時間**：{meta["started"]} 開始，更新於 {meta["updated"]}，累計 {meta["elapsed_hours"]} 小時',
                  f'- **環境**：profile `{meta["profile"]}`、{meta["workers"]} workers、commit `{meta["git_commit"]}`'
                  f'{"（有未提交修改）" if meta["git_dirty"] else ""}、Python {meta["python"]}、{meta["machine"]}',
-                 '- **資料**：挑參數用 2010–2024（dev 143 + validation 35 個窗口）；測試用 2025–2026/9（holdout 20 個窗口）',
+                 f'- **資料**：挑參數用 2019–2024（{meta["n_select"]} 個窗口）；測試用 2025–2026/9（{meta["n_test"] or "約 40"} 個窗口）；'
+                 '每月月初、月中各一個起點',
                  f'- **評分**：每個 24 日窗口對 {REFERENCE} 的超額報酬，平均和中位數各半；有窗口被取消資格就是 -inf',
                  f'- **試過的設定**：{meta["configs_tried"]} 組', '', '## 結論', '']
         if best:
             sel, seeds, test = best['select'], best['seeds'], best['test']
             lines += [f'- **最佳設定**：`{best["config"]}` → `research/results/tune_{meta["tag"]}/best_config.json`',
-                      f'- **2010–2024**：平均報酬 {pct(sel["mean_return"])}，對動能超額 {pct(sel["mean_excess"])}，'
+                      f'- **2019–2024**：平均報酬 {pct(sel["mean_return"])}，對動能超額 {pct(sel["mean_excess"])}，'
                       f'勝過動能 {sel["win_rate"]:.0%}（{sel["n"]} 個窗口）',
                       f'- **seed 穩定度**：{seeds.get("n_seeds", 1)} 個 seed，分數 {pct(seeds.get("seed_mean"))} ± '
                       f'{seeds.get("seed_std", 0):.2%}' + ('' if seeds.get('sensitive') else '（seed 不影響這組設定）')]
@@ -581,21 +603,43 @@ class Tuner:
                 lines.append('- **2025–2026 測試**：還沒跑')
         else:
             lines.append('- 還沒選出最佳設定（跑完 seed 階段後才會有）')
-        lines += ['', '## 簡單基準', '', '| 基準 | 2010–2024 平均報酬 | 2025–2026 平均報酬 |', '|---|---:|---:|']
+        lines += ['', '## 簡單基準', '', '| 基準 | 2019–2024 平均報酬 | 2025–2026 平均報酬 |', '|---|---:|---:|']
         for name, phases in base.items():
             lines.append(f'| {name} | {pct(phases.get("select", {}).get("mean_return"))} | '
                          f'{pct(phases.get("test", {}).get("mean_return"))} |')
         lines += ['', '## 2025–2026 測試（前幾名）', '', *table(phase('test')),
-                  '', '## 2010–2024 全部窗口排行', '', *table(phase('full')),
+                  '', '## 2019–2024 全部窗口排行', '', *table(phase('full')),
                   '', '## 粗篩排行（20 個窗口）', '', *table(phase('screen')),
-                  '', '## 最佳參數', '']
+                  '', f'## 大跌窗口表現（0050 跌 {-CRASH:.0%} 以上，只供觀察，不影響選擇）', '',
+                  *self.crash_md(best), '', '## 最佳參數', '']
         lines += ['```json', json.dumps(best['params'], indent=1, sort_keys=True), '```'] if best else ['（還沒有）']
         lines += ['', '## 注意', '',
-                  f'- 最佳設定是從 {meta["configs_tried"]} 組裡挑出來的，2010–2024 的分數偏樂觀；2025–2026 測試才是比較客觀的數字',
+                  f'- 最佳設定是從 {meta["configs_tried"]} 組裡挑出來的，2019–2024 的分數偏樂觀；2025–2026 測試才是比較客觀的數字',
                   '- 看完 2025–2026 測試後不要再回頭調參，否則這個分數就不再客觀',
                   '- 2024 以前的成交價是代理價（高低收平均），2024 之後才是官方成交均價',
-                  '- 150 檔名單回推到 2009，有存活偏誤：絕對報酬偏高，策略間比較影響較小', '']
+                  '- 150 檔是 2026 年的名單，回測有存活偏誤：絕對報酬偏高，策略間比較影響較小；'
+                  '從 2019 開始挑參數就是為了減少這個偏誤',
+                  '- 月初和月中起點的窗口有重疊，相鄰窗口不是獨立樣本', '']
         return '\n'.join(lines)
+
+    @staticmethod
+    def crash_md(best) -> list[str]:
+        if not best:
+            return ['（選出最佳設定後才有）']
+        out = []
+        for phase, label in (('select', '2019–2024'), ('test', '2025–2026 測試')):
+            rows = best['crashes'][phase]
+            if not rows:
+                out += [f'- {label}：' + ('跑過的窗口裡沒有大跌' if phase == 'select' or best['test'] else '還沒跑'), '']
+                continue
+            diff = [r['config'] - r['momentum'] for r in rows]
+            out += [f'**{label}**：{len(rows)} 個窗口，最佳設定平均 {pct(np.mean([r["config"] for r in rows]))}，'
+                    f'動能平均 {pct(np.mean([r["momentum"] for r in rows]))}，'
+                    f'跌得比動能少的窗口 {np.mean([d > 0 for d in diff]):.0%}', '',
+                    '| 窗口 | 0050 | 動能 | 最佳設定 | 差距 |', '|---|---:|---:|---:|---:|']
+            out += [f'| {r["episode"]} | {pct(r["benchmark"])} | {pct(r["momentum"])} | {pct(r["config"])} | '
+                    f'{pct(r["config"] - r["momentum"])} |' for r in rows] + ['']
+        return out
 
 
 def main(argv=None):
