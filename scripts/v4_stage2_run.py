@@ -79,7 +79,7 @@ def initialize(study_path, feature_path):
 def evaluate(task):
     candidate, episodes, output=task
     from src.v4_forecast import WalkForwardForecaster
-    from src.v4_stage2_episode import run_episode
+    from src.v4_stage2_episode import run_episode, normalize_episode_result
     from src.v4_baseline import run_episode as baseline
     forecaster=None
     if candidate['family']=='adaptive' or candidate.get('confidence'):
@@ -112,6 +112,7 @@ def evaluate(task):
             features=STATE['panel'].loc[STATE['panel'].date.isin(dates)]
             result=run_episode(STATE['daily'],STATE['universe'],config,episode['sessions'],execution,
                 features,candidate,forecaster)
+        result=normalize_episode_result(result)
         location.mkdir(parents=True)
         for name,table in result.items():
             if isinstance(table,pd.DataFrame): table.to_csv(location/(name+'.csv'),index=False)

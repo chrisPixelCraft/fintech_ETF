@@ -105,22 +105,96 @@ def neighborhood(selected, configs):
     return sorted(nearest)
 
 
-def component_effect(frame, treated, control):
-    a=frame.loc[frame.candidate.eq(treated)&frame.split.isin(CORE)].set_index('episode')
-    b=frame.loc[frame.candidate.eq(control)&frame.split.isin(CORE)].set_index('episode')
+def descriptive_pair(frame, treated, control, split=None):
+    allowed=frame.split.isin(CORE) if split is None else frame.split.eq(split)
+    a=frame.loc[frame.candidate.eq(treated)&allowed].set_index('episode')
+    b=frame.loc[frame.candidate.eq(control)&allowed].set_index('episode')
+    expected=sorted(set(a.index)|set(b.index))
     common=sorted(set(a.index)&set(b.index))
     if not common:
-        return 'No paired component evidence.'
+        return dict(median=None,p10=None,p25=None,pairs=0,attempted=len(expected),measured=0)
     x=pd.to_numeric(a.reindex(common).episode_return,errors='coerce')
     y=pd.to_numeric(b.reindex(common).episode_return,errors='coerce')
     valid=np.isfinite(x)&np.isfinite(y)
-    if not valid.all():
-        return f'{int(valid.sum())}/{len(common)} complete pairs; component benefit is not established.'
-    delta=x-y
-    feasible=(truth(a.reindex(common).measured_pass)&truth(b.reindex(common).measured_pass)).sum()
-    return (f'{treated} minus {control}: paired median {pct(delta.median())}, '
-            f'P10 {pct(delta.quantile(.1))}; {int(feasible)}/{len(common)} pairs pass measured constraints. '
-            'These are descriptive diagnostics, not additional selection trials.')
+    delta=(x-y)[valid]
+    feasible=(truth(a.reindex(common).measured_pass)&truth(b.reindex(common).measured_pass)&valid).sum()
+    return dict(median=float(delta.median()) if len(delta) else None,
+                p10=float(delta.quantile(.1)) if len(delta) else None,
+                p25=float(delta.quantile(.25)) if len(delta) else None,
+                pairs=int(valid.sum()),attempted=len(expected),measured=int(feasible))
+
+
+def describe_pair(value):
+    return (f'paired median {pct(value["median"])}, P25 {pct(value["p25"])}, P10 {pct(value["p10"])}; '
+            f'{value["pairs"]}/{value["attempted"]} complete pairs and '
+            f'{value["measured"]}/{value["attempted"]} jointly measured-PASS pairs')
+
+
+def component_effect(frame, treated, control):
+    result=descriptive_pair(frame,treated,control)
+    qualification=('Incomplete pairs are excluded from these descriptive differences but remain gate failures. '
+                   if result['pairs']<result['attempted'] else '')
+    return (f'{treated} minus {control}: '+describe_pair(result)+'. '+qualification+
+            'This matched ablation describes the tested windows; it does not establish universal causal benefit.')
+
+
+def family_effect(frame, candidate):
+    parts=[]
+    for split in ('validation','historical_holdout'):
+        d=descriptive_pair(frame,candidate,'A0_V3',split)
+        parts.append(f'{split}: '+describe_pair(d))
+    return '; '.join(parts)+'. Differences use complete matched returns, including measured failures; incomplete pairs cannot satisfy eligibility.'
+
+
+def rotation_summary(frame, configs):
+    mapping={c['id']:c['max_replacements'] for c in configs if c['family']=='momentum'}
+    dev=frame.loc[frame.candidate.isin(mapping)&frame.split.eq('development')].copy()
+    dev['rotation']=dev.candidate.map(mapping)
+    parts=[]
+    for r,group in dev.groupby('rotation'):
+        st=stats(group)
+        parts.append(f'{r} replacements: median {pct(st["median"])}, P10 {pct(st["p10"])}, '
+                     f'{st["complete"]}/{st["attempted"]} complete, {st["measured"]}/{st["attempted"]} measured PASS')
+    return ('Development candidate/window descriptions: '+'; '.join(parts)+'. '
+            'These groups mix other predeclared parameters and repeatedly use the same windows. '
+            'They characterize the sampled region, not an isolated rotation effect or a universal optimum.')
+
+
+def component_conclusions(frame, selected):
+    cfg=selected['adaptive']; parts=[]
+    for key,control in [('confidence','adaptive_no_confidence'),('regime','adaptive_no_regime'),('optimizer','adaptive_equal')]:
+        enabled=cfg.get(key) if key!='optimizer' else cfg.get(key)!='equal'
+        d=descriptive_pair(frame,'A6',control)
+        if not enabled:
+            parts.append(f'{key}: removal is a configured no-op; no value judgment is identifiable')
+        elif d['median'] is None:
+            parts.append(f'{key}: no complete paired return evidence')
+        else:
+            direction='negative' if d['median']<0 else ('positive' if d['median']>0 else 'zero')
+            parts.append(f'{key}: {direction} observed marginal median ({pct(d["median"])}; '
+                         f'{d["pairs"]}/{d["attempted"]} complete pairs)')
+    return '; '.join(parts)+'. A negative or zero observed effect does not prove global uselessness; failed/missing pairs further limit the claim.'
+
+
+def recent_summary(frame, selected):
+    parts=[]
+    for family,cfg in selected.items():
+        cid=cfg['id']; entries=[]; deltas={}
+        for split in ('validation','historical_holdout','recent_diagnostic'):
+            group=frame.loc[frame.candidate.eq(cid)&frame.split.eq(split)]
+            st=stats(group); d=descriptive_pair(frame,cid,'A0_V3',split); deltas[split]=d
+            entries.append(f'{split} median {pct(st["median"])} ({st["complete"]}/{st["attempted"]} complete), '
+                           f'paired versus V3 {pct(d["median"])} ({d["pairs"]}/{d["attempted"]})')
+        recent=deltas['recent_diagnostic']['median']
+        core=[deltas[k]['median'] for k in ('validation','historical_holdout')]
+        if recent is not None and recent>0 and any(x is not None and x<=0 for x in core):
+            flag='Recent gain fails to persist in at least one core split; recent-only sensitivity is plausible, not confirmed.'
+        elif recent is not None and recent>0 and all(x is not None and x>0 for x in core):
+            flag='Positive complete-pair medians occur beyond the recent split; feasibility/stability gates still apply.'
+        else:
+            flag='No positive recent-only advantage is established.'
+        parts.append(f'{family}: '+ '; '.join(entries)+'. '+flag)
+    return ' '.join(parts)+' These diagnostics never change parameters or candidate selection.'
 
 
 def stress_table(frame, selected, directory, manifest):
@@ -287,19 +361,22 @@ def generate(directory, reports, final_config):
     core=frame.loc[frame.candidate.isin(['A0_V3',*chosen_ids])&frame.split.isin(CORE)]
     final=f'# V4 final evidence\n\n**{decision}**. Submission remains **BLOCK_SUBMISSION**. '
     final+=('A final config was frozen after all gates passed.' if winner else 'No `configs/v4_final.json` is frozen. The evidence does not establish a stable executable V4 winner.')+'\n\n'
-    final+='## Comparison and scope\n\n'+table(core)+'\n\n'+caveat+'\n\n'
+    final+='## Validation and confirmation\n\n'
+    for split in ('validation','historical_holdout'):
+        final+=f'### {split}\n\n'+table(core.loc[core.split.eq(split)])+'\n\n'
+    final+=caveat+'\n\n'
     final+='## What the study establishes\n\n'
     answers=[
-      ('1. Open to official execution','Stage 1 measures execution sensitivity; see [execution comparison](v4_execution_comparison.md). Stage 2 uses official-average execution and official D-1 sizing consistently.'),
-      ('2. Momentum baseline',f'Frozen candidate `{selected["momentum"]["id"]}` has the split results in [Momentum](v4_momentum.md); its complete/canonical/measured counts are reported separately.'),
-      ('3. Adaptive improvement','The paired validation/confirmation table in [validation](v4_validation.md) determines whether an improvement survives complete paired evaluation. A positive mean alone is insufficient.'),
-      ('4. Direct improvement','Direct coefficients optimize development portfolio utility. [Direct](v4_direct.md) reports validation and confirmation; a portfolio-score result is not evidence of individual-return forecast accuracy.'),
+      ('1. Open to official execution','Stage 1 found four complete paired windows: mean official-minus-Open return was −0.304 percentage points, ranging from −5.648 to +2.380 points ([verified execution comparison](v4_execution_comparison.md)). This small fixed-V3 comparison measures execution sensitivity, not a strategy ranking. Stage 2 uses official-average execution and official D-1 sizing consistently.'),
+      ('2. Momentum baseline',f'Frozen research candidate `{selected["momentum"]["id"]}`. '+family_effect(frame,selected['momentum']['id'])),
+      ('3. Adaptive improvement',family_effect(frame,selected['adaptive']['id'])),
+      ('4. Direct improvement',family_effect(frame,selected['direct']['id'])+' Direct coefficients optimize development portfolio utility; this is not evidence of individual-return forecast accuracy.'),
       ('5. Confidence value','Compare frozen full Adaptive with `adaptive_no_confidence` in [ablations](v4_ablation.md). Interpret complete matched windows only; compliance failures prevent an executable superiority claim.'),
       ('6. Regime value','Compare full Adaptive with `adaptive_no_regime`, and B1 with B2. Regime is a predefined causal state rule; diagnostics never retune its thresholds.'),
-      ('7. Rotation region','The bounded development search covers 0–3 replacements and margins 0–0.20. It does not establish a universal optimum; see candidate counts and neighborhood gates.'),
+      ('7. Rotation region',rotation_summary(frame,configs)),
       ('8. Optimized versus equal weights','The Adaptive equal-weight removal and seeded DE sensitivity are in [ablations](v4_ablation.md). Fractional optimizer utility does not override lot-rounded ledger feasibility.'),
-      ('9. Components without value','No component is declared useless solely from one aggregate score. Matched ablations, completeness and the actual enabled treatment determine the supported conclusion.'),
-      ('10. Recent-only effects','Recent/seasonal/rolling tables are diagnostic and excluded from selection. Strong recent performance cannot rescue failed development/validation/confirmation gates.'),
+      ('9. Components without value',component_conclusions(frame,selected)),
+      ('10. Recent-only effects',recent_summary(frame,selected)),
       ('11. Lower tail','P25, P10, worst return and MDD appear above and per split. Paired median/P25/P10 must not deteriorate, with zero tolerance.'),
       ('12. Compliance failures','The failure counts below include all attempts, including incomplete and disqualified runs. Alpha description and measured/submission validity remain separate.'),
       ('13. Stable candidate',f'The decision is `{decision}`. Audit, all-core feasibility, paired confirmation and predefined neighborhood stability are conjunctive gates.'),

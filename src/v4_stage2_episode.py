@@ -56,6 +56,32 @@ class StrategyPlanner:
         return orders, reason, selected
 
 
+def normalize_episode_result(result):
+    """Separate full calendar coverage from an admissible 24-session outcome.
+
+    The sealed ledger can reach its third warning on session 24: all requested
+    observations exist, but disqualification still makes its return forensic.
+    Do not change accounting, prices, calendar coverage, or canonical-data flags.
+    This Stage-2 boundary is also applied to the unchanged V3 baseline.
+    """
+    normalized = dict(result)
+    metrics = dict(result['metrics'])
+    normalized['metrics'] = metrics
+    equity = result.get('equity', pd.DataFrame())
+    requested = int(metrics.get('requested_sessions', 24))
+    complete = bool(metrics.get('complete_period', False)
+                    and len(equity) == requested
+                    and not metrics.get('disqualified', False))
+    metrics['complete_episode'] = complete
+    if metrics.get('disqualified', False):
+        metrics['episode_return'] = None
+        metrics['forensic_partial_return'] = (float(equity.economic_nav.iloc[-1]
+            / float(result['config']['initial_cash']) - 1) if len(equity) else None)
+        metrics['status'] = 'FAILED'
+        metrics['alpha_status'] = 'DISQUALIFIED_FORENSIC_ONLY'
+    return normalized
+
+
 def run_episode(daily, universe, base_config, session_dates, execution_data,
                 features, strategy_config, forecaster=None):
     """Use canonical official fills and closes, preserving all failure episodes."""
@@ -74,4 +100,4 @@ def run_episode(daily, universe, base_config, session_dates, execution_data,
         execution_mode='official_average', features=panel, sizing_price_mode='official_close')
     result['predictions'] = pd.concat(planner.predictions, ignore_index=True) if planner.predictions else pd.DataFrame()
     result['strategy_config'] = copy.deepcopy(strategy_config)
-    return result
+    return normalize_episode_result(result)

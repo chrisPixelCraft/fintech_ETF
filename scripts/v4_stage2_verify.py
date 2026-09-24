@@ -109,6 +109,12 @@ def audit_episode_stage2(result, daily, universe, execution, episode=None, conte
         candidate['warnings']['issue'] = candidate['warnings'].issue.replace({
             'UNFILLED_MISSING_OFFICIAL_AVERAGE': 'UNFILLED_MISSING_OPEN_PROXY'})
     audit = reconstruct_episode(candidate, ctx, episode)
+    complete_episode = bool(audit.get('complete_period', False)
+                            and not audit.get('disqualified', False))
+    if 'complete_episode' in result['metrics']:
+        require(result['metrics']['complete_episode'] == complete_episode,
+                'Complete episode flag differs from independently audited terminal state')
+    audit['complete_episode'] = complete_episode
     audit.update(audit_predictions(result))
     audit['verification_scope'] = 'INDEPENDENT_ACCOUNTING_AND_DECLARED_TIMING_NOT_PLATFORM_CERTIFICATION'
     return audit

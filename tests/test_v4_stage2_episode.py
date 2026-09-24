@@ -32,6 +32,43 @@ class Stage2EpisodeTests(unittest.TestCase):
             cls.official if official is None else official, cls.features if features is None else features,
             cls.strategy if strategy is None else strategy, forecaster)
 
+    def test_third_warning_on_session_24_is_forensic_not_terminal_return(self):
+        from unittest.mock import patch
+        from src.v4_stage2_episode import StrategyPlanner, normalize_episode_result
+        dates = self.dates
+        class WarningPlanner(StrategyPlanner):
+            def __call__(self, ranked, holdings, cash, nav, cfg, *args):
+                observed = pd.Timestamp(ranked.date.iloc[0])
+                chosen = sorted(ranked.index)[:20]
+                if observed < dates[0]:
+                    orders = {name: 400000 for name in chosen}
+                elif dates[-4] <= observed < dates[-1]:
+                    orders = {name: 100000 for name in chosen}
+                else:
+                    orders = {}
+                reason = 'TEST_FIXED_ORDERS'
+                self.audit.append(dict(date=str(observed.date()), original_reason=reason,
+                    final_reason=reason, attempts=1, replanning_triggered=False,
+                    orders=len(orders), nominal_failures='', hold_envelope_failures='TEST'))
+                return orders, reason, chosen
+        daily = self.daily.copy()
+        daily[['open', 'high', 'low', 'close']] = 100.
+        official = official_fixture(daily)
+        with patch('src.v4_stage2_episode.StrategyPlanner', WarningPlanner):
+            result = self.replay(daily=daily, official=official, features=build_features(daily))
+        metrics = result['metrics']
+        self.assertEqual(metrics['observed_sessions'], 24, metrics)
+        self.assertEqual(metrics['simulated_warning_days'], 3)
+        self.assertTrue(metrics['complete_period'])
+        self.assertTrue(metrics['disqualified'])
+        self.assertFalse(metrics['complete_episode'])
+        self.assertIsNone(metrics['episode_return'])
+        self.assertAlmostEqual(metrics['forensic_partial_return'],
+            result['equity'].economic_nav.iloc[-1] / 1e9 - 1)
+        self.assertEqual(metrics['status'], 'FAILED')
+        self.assertEqual(metrics['alpha_status'], 'DISQUALIFIED_FORENSIC_ONLY')
+        self.assertEqual(normalize_episode_result(result)['metrics'], metrics)
+
     def test_exact_code_reuse_and_global_isolation(self):
         original = v4_ledger.run_ledger.__globals__['_score']
         clone = _bind(v4_ledger.run_ledger, _score=_identity_score)

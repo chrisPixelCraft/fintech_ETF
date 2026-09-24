@@ -96,3 +96,15 @@ class ReportGateTests(unittest.TestCase):
             (d/'execution_data.manifest.json').write_text(json.dumps(manifest))
             with self.assertRaisesRegex(ValueError,'exact execution-data manifest'):
                 generate_blocked(d,root/'reports',root/'final.json',d/'verification.json')
+
+    def test_partial_component_reports_numbers_without_passing_gate(self):
+        from scripts.v4_stage2_report import component_effect,descriptive_pair
+        f=pd.DataFrame([dict(candidate=c,split='validation',episode=e,episode_return=r,measured_pass=True)
+                       for c,e,r in [('X','a',.2),('X','b',None),('A0_V3','a',.1),('A0_V3','b',.1)]])
+        result=descriptive_pair(f,'X','A0_V3')
+        self.assertAlmostEqual(result['median'],.1)
+        self.assertEqual((result['pairs'],result['attempted']),(1,2))
+        text=component_effect(f,'X','A0_V3')
+        self.assertIn('10.000%',text)
+        self.assertIn('remain gate failures',text)
+        self.assertFalse(paired(f,'X','validation',['a','b'])['pass'])
