@@ -63,10 +63,17 @@ id_ed25519
 /data/*
 !/data/reference/
 
-# Large experiment runs, repeated input snapshots and scratch work
-# The compact final evidence is explicitly tracked; new experiments stay local.
+# Experiment runs, official raw responses, ledgers and scratch work stay local.
+# Never `git add -f` anything under outputs/: summaries belong in reports/.
+# Full pre-cleanup evidence (V1–V4 runs, ledgers, raw caches) is kept at git tag
+# evidence-20260924. The only tracked output is the fixed v2 config that
+# src/strategy_24d.py loads.
 /outputs/
 /tmp/
+nohup.out
+
+# Claude Code per-machine settings
+.claude/settings.local.json
 
 # Daily account state, runtime journals, generated orders and raw responses
 /daily_auto/inbox/

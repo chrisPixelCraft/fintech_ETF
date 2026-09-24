@@ -1,8 +1,0 @@
-{
-  "status": "PASS",
-  "files_checked": 28235,
-  "before_manifest_sha256": "1ab8bc63a195fc4aaa6f03739449108b04d1cd1e0c43c5d5e5ca25b2aacf9cd0",
-  "after_manifest_sha256": "1ab8bc63a195fc4aaa6f03739449108b04d1cd1e0c43c5d5e5ca25b2aacf9cd0",
-  "changed_files": [],
-  "scope": "Existing outputs/24d*, outputs/best_v2, reports/24d*, best_v2.py, src/strategy_24d.py, configs/competition_24d_final.json; compared against working tree at task start"
-}

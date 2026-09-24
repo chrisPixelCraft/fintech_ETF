@@ -21,6 +21,8 @@
 
 ## 整理與恢復
 
+2026-09-24 起 `outputs/` 不再追蹤；V1–V4 完整輸出、帳本與官方原始快取保留在提交 [`2769f876`](https://github.com/chrisPixelCraft/fintech_ETF/tree/2769f876ec4b9795ce5d8cc4e64b8274da58099c)。`reports/` 內指向 `outputs/` 的連結請在該版本查看。
+
 整理前版本為 [`d613b75`](https://github.com/chrisPixelCraft/fintech_ETF/tree/d613b75)。舊入口、研究設計與歷次報告可從該版本取得。Git 不包含當時被忽略的全部實驗明細。
 
 本機舊輸出、未完成月度搜尋及 Yahoo 日線研究另封存在專案同層 `fintech_ETF_archive_best_v2_20260923/`，其中 `cleanup_manifest.json` 記錄原路徑、檔案數與位元組。封存不屬於目前可執行版本，也不會推送至 Git。

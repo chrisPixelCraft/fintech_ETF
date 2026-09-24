@@ -1,7 +1,0 @@
-{"event": "group_complete", "phase": "failed", "candidate_id": "x0352_daily_baseline"}
-{"event": "group_complete", "phase": "test", "candidate_id": "x0352_daily_baseline"}
-{"event": "group_complete", "phase": "test", "candidate_id": "x0352_daily_baseline"}
-----------------------------------------------------------------------
-Ran 216 tests in 54.302s
-
-OK
