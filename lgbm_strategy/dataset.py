@@ -17,7 +17,7 @@ import numpy as np
 import pandas as pd
 
 from competition.data import AsOfView
-from lgbm_strategy.features import COLUMNS, build_features
+from lgbm_strategy.features import COLUMNS, FeatureConfig, build_features
 from lgbm_strategy.targets import RawReturnTarget, target_for
 
 VALIDATION_SHARE = .2
@@ -49,9 +49,10 @@ def split_dates(dates: pd.DatetimeIndex, span: int) -> tuple[pd.DatetimeIndex, p
     return train, validation
 
 
-def labelled_rows(view: AsOfView, dates: pd.DatetimeIndex, target: pd.DataFrame) -> pd.DataFrame:
+def labelled_rows(view: AsOfView, dates: pd.DatetimeIndex, target: pd.DataFrame,
+                  features: FeatureConfig = FeatureConfig()) -> pd.DataFrame:
     """Feature-ready rows on ``dates`` with a finite label from the wide ``target``."""
-    table = build_features(view, dates)
+    table = build_features(view, dates, features)
     label = target.reindex(index=dates, columns=sorted(view.ret.columns))
     table['label'] = label.stack(future_stack=True).to_numpy()
     keep = table.feature_ready & np.isfinite(table.label)
@@ -90,7 +91,8 @@ def check_unmatured_empty(label: pd.DataFrame, window: pd.DatetimeIndex):
         raise LabelLeakError(f'Finite labels after the last matured origin {window[-1].date()}')
 
 
-def build_training_set(view: AsOfView, horizon: int, lookback: int, target_mode: str) -> TrainingSet:
+def build_training_set(view: AsOfView, horizon: int, lookback: int, target_mode: str,
+                       features: FeatureConfig = FeatureConfig()) -> TrainingSet:
     """Matured rows of the latest ``lookback`` origins labelled by ``target_mode``, split train / validation
     (purged by the label span), plus an audit record."""
     target = target_for(target_mode)
@@ -99,7 +101,7 @@ def build_training_set(view: AsOfView, horizon: int, lookback: int, target_mode:
     label = target.build(view, horizon)
     check_unmatured_empty(label, window)
     train_dates, validation_dates = split_dates(window, span)
-    rows = labelled_rows(view, window, label)
+    rows = labelled_rows(view, window, label, features)
     train, validation = rows[rows.date.isin(train_dates)], rows[rows.date.isin(validation_dates)]
     if train.empty or validation.empty:
         raise InsufficientHistoryError(f'{len(train)} train / {len(validation)} validation rows')

@@ -96,6 +96,33 @@ class LightGBMStrategyTest(unittest.TestCase):
         self.assertIsInstance(strategy, LightGBMStrategy)
         self.assertEqual((strategy.c.horizon, strategy.c.lookback, strategy.c.refit_every), (10, 750, 5))
 
+    def test_refit_on_all_uses_validation_rows(self):
+        from lgbm_strategy.dataset import build_training_set
+        from lgbm_strategy.features import COLUMNS
+        data = build_training_set(self.market.asof(self.market.calendar[340]), 10, 250, 'raw_return')
+        plain = model.fit(data.train, data.validation, COLUMNS)
+        full = model.fit(data.train, data.validation, COLUMNS, refit_on_all=True)
+        again = model.fit(data.train, data.validation, COLUMNS, refit_on_all=True)
+        best = plain.metadata['best_iteration']
+        self.assertEqual(full.metadata['best_iteration'], best)
+        self.assertEqual(full.regressor.booster_.num_trees(), best)
+        self.assertEqual(full.metadata['refit_rows'], len(data.train) + len(data.validation))
+        self.assertFalse(np.allclose(model.predict(plain, data.validation), model.predict(full, data.validation)))
+        np.testing.assert_array_equal(model.predict(full, data.validation), model.predict(again, data.validation))
+
+    def test_data_usage_options_in_config(self):
+        c = LightGBMStrategyConfig.from_dict(dict(CONFIG, min_observed_share=.8, refit_on_all=True))
+        self.assertEqual((c.features.min_observed_share, c.refit_on_all), (.8, True))
+        default = LightGBMStrategyConfig.from_dict(CONFIG)
+        self.assertEqual((default.min_observed_share, default.refit_on_all), (1., False))
+        with self.assertRaises(ValueError):
+            LightGBMStrategyConfig.from_dict(dict(CONFIG, refit_on_all='yes'))
+        with self.assertRaises(ValueError):
+            LightGBMStrategyConfig.from_dict(dict(CONFIG, min_observed_share=1.5))
+        strategy, weights = decide(self.market, strategy=LightGBMStrategy(c, RULES))
+        self.assertEqual(len(weights), 25)
+        self.assertTrue(strategy.log[0]['refit_on_all'])
+
     def test_pearson_metric(self):
         self.assertEqual(model.pearson_metric(np.array([1., 2, 3]), np.array([2., 4, 6])), ('pearson', 1., True))
         self.assertEqual(model.pearson(np.array([1., 2, 3]), np.ones(3)), 0.)

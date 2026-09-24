@@ -37,7 +37,7 @@ from research import registry
 RUNS = ROOT / 'research/runs'
 HOLDOUT_LOG = ROOT / 'research/holdout_access_log.jsonl'
 UPSTREAM = ROOT / 'third_party/autots/UPSTREAM.md'
-CONFIG_KEYS = {'name', 'description', 'strategy', 'params', 'execution', 'planner', 'episodes'}
+CONFIG_KEYS = {'name', 'description', 'strategy', 'params', 'execution', 'planner', 'episodes', 'data'}
 
 _MARKET: MarketData | None = None
 _RULES: CompetitionRules | None = None
@@ -63,7 +63,15 @@ def load_config(path) -> dict:
     unknown = (set(episodes) - {'offsets', 'start'}) | (set(episodes.get('offsets', [])) - set(ep.OFFSETS))
     if unknown:
         raise ValueError(f'Unknown episodes settings {sorted(unknown)}')
+    if set(config.get('data', {})) - {'start'}:
+        raise ValueError(f'Unknown data settings {sorted(set(config["data"]) - {"start"})}')
     return config
+
+
+def market_for(config: dict) -> MarketData:
+    """The loaded market, cut to the config's data floor (``data.start``) when it has one."""
+    start = config.get('data', {}).get('start')
+    return _MARKET if start is None else _MARKET.since(start)
 
 
 def build_strategy(config: dict, rules: CompetitionRules):
@@ -72,9 +80,6 @@ def build_strategy(config: dict, rules: CompetitionRules):
     if kind == 'autots':
         from autots_strategy.strategy import AutoTSStrategy, AutoTSStrategyConfig
         return AutoTSStrategy(AutoTSStrategyConfig.from_dict(params), rules)
-    if kind == 'lgbm':
-        from lgbm_strategy.strategy import LightGBMStrategy, LightGBMStrategyConfig
-        return LightGBMStrategy(LightGBMStrategyConfig.from_dict(params), rules)
     if kind == 'lgbm':
         from lgbm_strategy.strategy import LightGBMStrategy, LightGBMStrategyConfig
         return LightGBMStrategy(LightGBMStrategyConfig.from_dict(params), rules)
@@ -117,8 +122,9 @@ def run_one(config: dict, episode: ep.Episode, out: Path) -> dict:
         strategy = build_strategy(config, _RULES)
         execution = backtest.ExecutionConfig(**config.get('execution', {}))
         policy = PlannerPolicy(**config.get('planner', {}))
-        result = backtest.run_episode(_MARKET, episode, strategy, _RULES, policy, execution)
-        problems = backtest.verify_episode(_MARKET, episode, result, _RULES)
+        market = market_for(config)
+        result = backtest.run_episode(market, episode, strategy, _RULES, policy, execution)
+        problems = backtest.verify_episode(market, episode, result, _RULES)
         for name in ('ledger', 'trades', 'orders', 'holdings', 'issues'):
             result[name].to_csv(folder / f'{name}.csv', index=False)
         (folder / 'strategy_log.json').write_text(json.dumps(getattr(strategy, 'log', []), indent=1, default=str))
@@ -219,6 +225,7 @@ def main(argv=None, progress=None) -> dict:
         git=dict(git, history=(previous or {}).get('git', {}).get('history', []) + [git['commit']]),
         autots=autots_provenance(), data=dict(files=_MARKET.provenance, rules=str(RULES_PATH.relative_to(ROOT)),
                                               data_end=str(data_end.date()),
+                                              data_start=config.get('data', {}).get('start'),
                                               cutoff=str(max(e.end for e in chosen).date()) if chosen else None),
         execution=config.get('execution', {}), workers=args.workers,
         runtime_seconds=time.perf_counter() - started,

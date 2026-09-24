@@ -36,8 +36,13 @@ class FittedModel:
     metadata: dict
 
 
-def fit(train: pd.DataFrame, validation: pd.DataFrame, features: tuple[str, ...], label: str = 'label') -> FittedModel:
-    """Fit on ``train``, early-stop on the validation Pearson correlation, keep the best iteration."""
+def fit(train: pd.DataFrame, validation: pd.DataFrame, features: tuple[str, ...], label: str = 'label',
+        refit_on_all: bool = False) -> FittedModel:
+    """Fit on ``train``, early-stop on the validation Pearson correlation, keep the best iteration.
+
+    ``refit_on_all``: afterwards refit ``best_iteration`` trees on train + validation, so the latest
+    (validation) rows also train the model that predicts; the metadata keeps the early-stopping scores.
+    """
     regressor = lightgbm.LGBMRegressor(**PARAMS)
     regressor.fit(train[list(features)], train[label], eval_X=(validation[list(features)],),
                   eval_y=(validation[label],), eval_metric=pearson_metric,
@@ -46,7 +51,12 @@ def fit(train: pd.DataFrame, validation: pd.DataFrame, features: tuple[str, ...]
     validation_prediction = predict_array(regressor, validation[list(features)])
     metadata = dict(best_iteration=best, validation_pearson=float(regressor.best_score_['valid_0']['pearson']),
                     train_pearson=pearson(train[label].to_numpy(), predict_array(regressor, train[list(features)])),
-                    prediction_std=float(np.std(validation_prediction)))
+                    prediction_std=float(np.std(validation_prediction)), refit_on_all=refit_on_all)
+    if refit_on_all:
+        both = pd.concat([train, validation])
+        regressor = lightgbm.LGBMRegressor(**dict(PARAMS, n_estimators=best))
+        regressor.fit(both[list(features)], both[label])
+        metadata['refit_rows'] = len(both)
     return FittedModel(regressor, tuple(features), metadata)
 
 
