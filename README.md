@@ -8,7 +8,8 @@
 - **進度**：初步測試中，**還沒贏過簡單基準**
 - **能不能提交**：還不行，狀態 `BLOCK_SUBMISSION`，因為每日 D-Plan 產生器還沒做
 - **要跑程式**：看「[4. 怎麼跑](#4-怎麼跑)」
-- **舊版本（v1–V5）**：全部在 `legacy/`，摘要在「[6. 舊版本](#6-舊版本)」
+- **要調參**：看「[5. 如何調參](#5-如何調參finetune)」
+- **舊版本（v1–V5）**：全部在 `legacy/`，摘要在「[7. 舊版本](#7-舊版本)」
 
 ---
 
@@ -88,7 +89,7 @@
 - **資料切分**
   - dev：2010–2021
   - validation：2022–2024
-  - holdout：2025–2026-09
+  - holdout：2025–2026-09，最接近賽期，當最後的測試
     - 必須加旗標才能跑
     - 每次存取都會留下紀錄
 
@@ -149,15 +150,82 @@ PYTHONHASHSEED=0 .venv/bin/python -m research.run_experiment \
   - 大型股籃子
   - 無訊號對照組（只用 LastValueNaive）
 
+## 5. 如何調參（finetune）
+
+### 5.1 三步驟
+
+```bash
+# 1. 先試跑，確認環境沒問題（約 10–20 分鐘；結果不用 commit）
+PROFILE=quick bash research/finetune.sh
+
+# 2. 正式跑（M2 Max 開 10 個 workers，約一晚）
+bash research/finetune.sh
+
+# 3. 把結果整理 commit 上去
+git add research/results/tune_crazy
+git commit -m "Add tuning results crazy"
+git push
+```
+
+- 資料已經在 repo 裡，不用另外下載
+- 中斷了：重跑同一指令，會從斷點接續
+- 想另開一次搜尋：加 `TAG=新名字`
+- 核心數不同：改 `WORKERS=8` 之類
+
+### 5.2 三種規模
+
+| PROFILE | 試幾組設定 | 前幾名跑完整期間 | 每組試幾個 seed | 粗估時間（10 workers） |
+|---|---:|---:|---:|---|
+| `quick` | 6 | 2（只跑部分窗口） | 2 | 10–20 分鐘 |
+| `normal` | 41 | 8 | 3 | 5–7 小時 |
+| `crazy`（預設） | 81 | 16 | 5 | 10–14 小時 |
+
+### 5.3 它做了什麼
+
+- **資料怎麼用**
+  - 挑參數：2010–2024（dev 143 + validation 35 個窗口）
+  - 測試：2025–2026/9（holdout 20 個窗口），最接近賽期，最後只算一次，不改變選擇
+- **流程**（`research/tune.py`）
+  1. 跑三個簡單基準：20 日動能、大型股籃子、無訊號對照組
+  2. 粗篩：目前設定 + 隨機設定，再在領先者附近微調，每組跑 20 個窗口
+  3. 前幾名跑完 2010–2024 全部 178 個窗口
+  4. seed 穩定度：換 seed 重跑，用平均分排名，不挑單一最好的 seed
+  5. 用 2025–2026/9 算測試分數，和簡單基準比較
+- **評分**
+  - 每個 24 日窗口對 20 日動能的超額報酬，平均和中位數各佔一半
+  - 有任何窗口被取消資格，就是 -inf
+- **會調的參數**
+  - 預測：目標序列、預測天數、歷史長度、驗證窗口、評分方式、模型組合、AutoTS 搜尋模式、seed
+  - 組合：持股數、持有緩衝、權重方式、投入比例、單股上限縮放、換手門檻、最後幾天不交易
+
+### 5.4 結果檔（commit 這個資料夾）
+
+`research/results/tune_<tag>/`，每跑完一個階段就更新一次，中途停掉也看得到目前結果：
+
+- `summary.md`：中文結果整理，AI 可以直接讀它來更新 README
+- `summary.json`：同樣內容的機器可讀版
+- `leaderboard.csv`：每組設定的分數
+- `best_config.json`：最佳設定，可直接給 `research.run_experiment --config` 使用
+- `log.txt`：執行過程紀錄
+
+每個窗口的帳本等大型中間檔放在 `research/runs/tune_<tag>/`，不進 git。
+
+### 5.5 怎麼看結果
+
+- **2025–2026 測試 PASS**：最佳設定在最接近賽期的資料上贏過 20 日動能，可以考慮採用
+- **FAIL**：輸給簡單基準，先不要採用，回頭檢查方法
+- **看完測試分數後不要再回頭調參**：否則這個分數就不再客觀
+
 ---
 
-## 5. 檔案結構
+## 6. 檔案結構
 
 ```text
 fintech_ETF/
 ├── autots_strategy/     ← AutoTS 策略：預測目標、AutoTS 包裝、打分、組合
 ├── competition/         ← 競賽核心，與策略無關：規則、資料截止、窗口、規劃、成交、帳本、回測
-├── research/            ← 實驗入口、設定、基準策略、比較、實驗總表
+├── research/            ← 實驗入口、設定、基準策略、比較、實驗總表、調參（finetune.sh、tune.py）
+│   └── results/         ← 調參結果整理（summary.md 等，要 commit）
 ├── tests/               ← 新主線的測試（含因果測試）
 ├── third_party/autots/  ← AutoTS 1.0.4 原始碼（MIT 授權）
 ├── docs/                ← 任務定義、AutoTS 內部機制、策略規格
@@ -168,7 +236,7 @@ fintech_ETF/
 
 ---
 
-## 6. 舊版本
+## 7. 舊版本
 
 ### v1／v2：長期回放
 
