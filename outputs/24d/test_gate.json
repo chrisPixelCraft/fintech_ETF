@@ -1,6 +1,0 @@
-{
-  "completed_at": "2026-09-23T15:18:37.490604+00:00",
-  "returncode": 0,
-  "output": "{\"event\": \"group_complete\", \"phase\": \"failed\", \"candidate_id\": \"x0352_daily_baseline\"}\n{\"event\": \"group_complete\", \"phase\": \"test\", \"candidate_id\": \"x0352_daily_baseline\"}\n{\"event\": \"group_complete\", \"phase\": \"test\", \"candidate_id\": \"x0352_daily_baseline\"}\n----------------------------------------------------------------------\nRan 43 tests in 12.024s\n\nOK\n",
-  "source_guard": "f4eb50868bcdd9e790a0ec495b64aeaa4673023adadb8e2fdcd4c22b52ac82be"
-}

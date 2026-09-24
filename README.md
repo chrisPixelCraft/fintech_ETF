@@ -10,6 +10,17 @@
 | V4 Stage 2 | `NO_V4_WINNER`；策略層已移除，保留 Stage 1 官方均價模擬器與帳本 |
 | **V5** | **程式與測試完成；官方成交資料下載中，尚無任何 V5 績效** |
 
+## Clone 與歷史證據
+
+`outputs/` 已不再追蹤（只保留 `src/strategy_24d.py` 會讀的 v2 設定，以及 V3 測試重建候選譜系所需的三輪 `candidates.json`／`development_ranking.csv`），研究執行結果一律留在本機，摘要放 `reports/`。V1–V4 的完整輸出、帳本與官方原始快取保留在提交 [`2769f876`](https://github.com/chrisPixelCraft/fintech_ETF/tree/2769f876ec4b9795ce5d8cc4e64b8274da58099c)，下方標示的 V4 Stage 1、第四輪與 v2 發行驗證指令都要在該版本執行。
+
+Git 歷史仍含這些大檔，建議用部分 clone，只下載目前版本需要的檔案：
+
+```bash
+git clone --filter=blob:none https://github.com/chrisPixelCraft/fintech_ETF.git
+git checkout 2769f876ec4b9795ce5d8cc4e64b8274da58099c   # 需要舊證據時才切換，會按需下載
+```
+
 ## V5：冠軍策略啟發的四族研究（進行中）
 
 [規格](docs/v5_spec.md)在任何結果出現前預先宣告，依 [champion.md](docs/champion.md) 與 V4 失敗分析設計。修改門檻、切分或參數網格須另立版本並記錄理由。
@@ -54,10 +65,10 @@ python -m unittest discover -s tests -p 'test_v5_*.py' -q
 | 內容 | 連結 |
 |---|---|
 | 範圍與設定 | [Stage 1 設定](config/v4_study.json)／[主規格](docs/v4_master_spec.md)／[驗證規格](docs/v4_execution_validation_spec.md) |
-| 結果與來源 | [配對結果](outputs/v4/stage1/results.csv)／[來源與雜湊](outputs/v4/stage1/manifest.json)／[Open 重現](outputs/v4/stage1/open_reproduction.json) |
-| 官方價格 | [正規化快取](outputs/v4/execution_data.csv)／[下載紀錄](outputs/v4/execution_data.manifest.json) |
+| 結果與來源 | [配對結果](https://github.com/chrisPixelCraft/fintech_ETF/blob/2769f876ec4b9795ce5d8cc4e64b8274da58099c/outputs/v4/stage1/results.csv)／[來源與雜湊](https://github.com/chrisPixelCraft/fintech_ETF/blob/2769f876ec4b9795ce5d8cc4e64b8274da58099c/outputs/v4/stage1/manifest.json)／[Open 重現](https://github.com/chrisPixelCraft/fintech_ETF/blob/2769f876ec4b9795ce5d8cc4e64b8274da58099c/outputs/v4/stage1/open_reproduction.json) |
+| 官方價格 | [正規化快取](https://github.com/chrisPixelCraft/fintech_ETF/blob/2769f876ec4b9795ce5d8cc4e64b8274da58099c/outputs/v4/execution_data.csv)／[下載紀錄](https://github.com/chrisPixelCraft/fintech_ETF/blob/2769f876ec4b9795ce5d8cc4e64b8274da58099c/outputs/v4/execution_data.manifest.json) |
 
-使用既有 Yahoo 快照與官方快取重現，輸出必須選新的 V4 目錄：
+使用既有 Yahoo 快照與官方快取重現（需先切到證據版本 `2769f876`），輸出必須選新的 V4 目錄：
 
 ```bash
 python scripts/v4_run_baseline.py --output outputs/v4/stage1_replay
@@ -86,9 +97,9 @@ python -m unittest discover -s tests -p 'test_v4_*.py' -q
 
 | 內容 | 連結 |
 |---|---|
-| 最新結果 | [精簡報告](reports/24d_round4.md)／[比較 CSV](reports/24d_round4_summary.csv)／[窗口明細](outputs/24d_round4/bottleneck.csv) |
-| 搜尋與凍結 | [搜尋設定](config/24d_round4_study.json)／[凍結紀錄](outputs/24d_round4/final_selection.json)／[參數包](outputs/24d_round4/competition_24d_candidate.json) |
-| 核對證據 | [獨立驗證](outputs/24d_round4/verification.json)／[輸出 SHA256](outputs/24d_round4/result_manifest.json)／[逐日規則](docs/v2_double_check_rules.md) |
+| 最新結果 | [精簡報告](reports/24d_round4.md)／[比較 CSV](reports/24d_round4_summary.csv)／[窗口明細](https://github.com/chrisPixelCraft/fintech_ETF/blob/2769f876ec4b9795ce5d8cc4e64b8274da58099c/outputs/24d_round4/bottleneck.csv) |
+| 搜尋與凍結 | [搜尋設定](config/24d_round4_study.json)／[凍結紀錄](https://github.com/chrisPixelCraft/fintech_ETF/blob/2769f876ec4b9795ce5d8cc4e64b8274da58099c/outputs/24d_round4/final_selection.json)／[參數包](https://github.com/chrisPixelCraft/fintech_ETF/blob/2769f876ec4b9795ce5d8cc4e64b8274da58099c/outputs/24d_round4/competition_24d_candidate.json) |
+| 核對證據 | [獨立驗證](https://github.com/chrisPixelCraft/fintech_ETF/blob/2769f876ec4b9795ce5d8cc4e64b8274da58099c/outputs/24d_round4/verification.json)／[輸出 SHA256](https://github.com/chrisPixelCraft/fintech_ETF/blob/2769f876ec4b9795ce5d8cc4e64b8274da58099c/outputs/24d_round4/result_manifest.json)／[逐日規則](docs/v2_double_check_rules.md) |
 | 最近完整比較 | [第三輪報告](reports/24d_round3.md)／[第三輪比較表](reports/24d_round3_comparison.csv)；不是本輪新參數成績 |
 | 既有參考設定 | [canonical 設定](configs/competition_24d_final.json)／[舊設定解讀](configs/competition_24d_final_metadata.json) |
 
@@ -98,7 +109,7 @@ python -m unittest discover -s tests -p 'test_v4_*.py' -q
 
 ## 重現與驗證
 
-Python 3.10；安裝 `requirements.txt` 與 `requirements-yahoo.txt` 後：
+Python 3.10；安裝 `requirements.txt` 與 `requirements-yahoo.txt` 後執行單元測試。前兩行驗證第四輪保留輸出，需在證據版本 `2769f876` 執行：
 
 ```bash
 python scripts/verify_24d_round4.py --rebuild
@@ -142,7 +153,7 @@ python scripts/report_24d.py --verify
 | 2026 年至 9/21 | 128.65% | 109.28% | 65.81% |
 | 全期帳面報酬 | 309.16% | 248.15% | 121.28% |
 
-細節見 [v2 比較報告](reports/comparison.md)、[固定帳本](outputs/best_v2/)與[發行清單](config/best_v2_release.json)。v2 仍依賴原始日內資料口徑，兩套研究的報酬不能直接拼接。
+細節見 [v2 比較報告](reports/comparison.md)、[固定帳本](https://github.com/chrisPixelCraft/fintech_ETF/tree/2769f876ec4b9795ce5d8cc4e64b8274da58099c/outputs/best_v2/)與[發行清單](config/best_v2_release.json)。v2 仍依賴原始日內資料口徑，兩套研究的報酬不能直接拼接。發行驗證需要完整帳本，請在證據版本 `2769f876` 執行。
 
 ```bash
 python best_v2.py --verify-release

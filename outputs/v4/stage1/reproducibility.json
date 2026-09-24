@@ -1,6 +1,0 @@
-{
-  "status": "PASS",
-  "output_files": 281,
-  "matching_output_hashes": true,
-  "note": "Two complete runs; only manifest path representation changed from absolute to repository-relative; output tables and JSON byte-identical."
-}
