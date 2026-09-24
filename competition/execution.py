@@ -9,7 +9,7 @@ from __future__ import annotations
 import numpy as np
 import pandas as pd
 
-from competition.data import MarketData
+from competition.data import AsOfView, MarketData
 
 OFFICIAL = 'official_vwap'
 PROXIES = ('open', 'hlc3', 'ohlc4')
@@ -17,40 +17,55 @@ DEFAULT_PROXY = 'hlc3'          # lowest median |error| vs official VWAP on 2025
 MODES = ('auto', 'proxy', 'official')
 
 
-def proxy_prices(market: MarketData, kind: str) -> pd.DataFrame:
+def proxy_prices(bars: MarketData | AsOfView, kind: str) -> pd.DataFrame:
     if kind == 'open':
-        return market.open
+        return bars.open
     if kind == 'hlc3':
-        return (market.high + market.low + market.close) / 3
+        return (bars.high + bars.low + bars.close) / 3
     if kind == 'ohlc4':
-        return (market.open + market.high + market.low + market.close) / 4
+        return (bars.open + bars.high + bars.low + bars.close) / 4
     raise ValueError(f'Unknown proxy {kind}')
 
 
-def fill_prices(market: MarketData, date, symbols, mode: str = 'auto',
-                proxy: str = DEFAULT_PROXY) -> tuple[pd.Series, pd.Series]:
-    """Per-symbol fill price and source label for trade date ``date``.
+def resolve_prices(official, alt, mode: str = 'auto', proxy: str = DEFAULT_PROXY):
+    """Fill price and source label from aligned official / proxy prices (Series or DataFrame).
 
     auto: official VWAP when present, else proxy; proxy: always proxy;
     official: official only (missing -> NaN, source ``missing``).
     """
     if mode not in MODES:
         raise ValueError(f'Unknown execution mode {mode}')
+    ok_official = official.gt(0) & np.isfinite(official)
+    ok_alt = alt.gt(0) & np.isfinite(alt)
+    if mode == 'official':
+        use_official, use_alt = ok_official, ok_alt & False
+    elif mode == 'proxy':
+        use_official, use_alt = ok_official & False, ok_alt
+    else:
+        use_official, use_alt = ok_official, ~ok_official & ok_alt
+    price = official.where(use_official, alt.where(use_alt))
+    labels = np.where(use_official, OFFICIAL, np.where(use_alt, 'proxy_' + proxy, 'missing'))
+    source = (pd.DataFrame(labels, index=official.index, columns=official.columns) if isinstance(official, pd.DataFrame)
+              else pd.Series(labels, index=official.index))
+    return price, source
+
+
+def execution_prices(bars: MarketData | AsOfView, mode: str = 'auto',
+                     proxy: str = DEFAULT_PROXY) -> tuple[pd.DataFrame, pd.DataFrame]:
+    """Wide (date x symbol) fill price and source for every session of ``bars``."""
+    return resolve_prices(bars.official_vwap, proxy_prices(bars, proxy), mode, proxy)
+
+
+def fill_prices(market: MarketData, date, symbols, mode: str = 'auto',
+                proxy: str = DEFAULT_PROXY) -> tuple[pd.Series, pd.Series]:
+    """Per-symbol fill price and source label for trade date ``date`` (see ``resolve_prices``)."""
+    if mode not in MODES:
+        raise ValueError(f'Unknown execution mode {mode}')
     symbols = list(symbols)
     i = market.position(date)
     official = market.official_vwap.iloc[i].reindex(symbols)
     alt = proxy_prices(market, proxy).iloc[i].reindex(symbols)
-    ok_official = official.gt(0) & np.isfinite(official)
-    ok_alt = alt.gt(0) & np.isfinite(alt)
-    if mode == 'official':
-        use_official, use_alt = ok_official, pd.Series(False, index=symbols)
-    elif mode == 'proxy':
-        use_official, use_alt = pd.Series(False, index=symbols), ok_alt
-    else:
-        use_official, use_alt = ok_official, ~ok_official & ok_alt
-    price = official.where(use_official, alt.where(use_alt))
-    source = pd.Series(np.where(use_official, OFFICIAL, np.where(use_alt, 'proxy_' + proxy, 'missing')), index=symbols)
-    return price, source
+    return resolve_prices(official, alt, mode, proxy)
 
 
 def calibrate(market: MarketData, start='2025-01-01', end=None) -> pd.DataFrame:

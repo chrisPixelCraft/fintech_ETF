@@ -61,13 +61,33 @@ class DatasetTest(unittest.TestCase):
         audit = alpha.audit
         self.assertEqual((audit['target_mode'], self.data.audit['target_mode']), ('relative_alpha', 'raw_return'))
         self.assertLess(audit['alpha_cross_section_mean_error'], 1e-12)
-        self.assertLess(abs(audit['alpha_target_mean']), 1e-12)
-        self.assertAlmostEqual(audit['raw_target_std'], self.data.audit['raw_target_std'])
+        self.assertNotIn('alpha_cross_section_mean_error', self.data.audit)
+        self.assertEqual(audit['cross_section_count'], self.data.audit['cross_section_count'])
+        self.assertIsNone(audit['official_vwap_share'])
         raw = self.data.train.set_index(['date', 'symbol']).label
         shifted = alpha.train.set_index(['date', 'symbol']).label
         market = (raw - shifted).groupby(level='date')
         self.assertLess(market.std().max(), 1e-12)                # one market return per origin date
         self.assertGreater(market.mean().abs().max(), 0)
+
+    def test_execution_alpha_matures_one_session_later(self):
+        data = dataset.build_training_set(self.view, H, LOOKBACK, 'execution_alpha')
+        cal = self.view.close.index
+        self.assertEqual(pd.Timestamp(data.audit['latest_label_end']), self.view.date)
+        self.assertEqual(pd.Timestamp(data.audit['validation_end']), cal[-2 - H])          # origin + 1 + h
+        train_end, val_start = cal.get_loc(data.train.date.max()), cal.get_loc(data.validation.date.min())
+        self.assertGreater(val_start - train_end, H + 1)                                   # purge = label span
+        self.assertEqual(data.audit['official_vwap_share'] + data.audit['proxy_hlc3_share'], 1.)
+        self.assertEqual(data.audit['proxy_hlc3_share'], 1.)                               # synthetic: no VWAP
+        self.assertLess(data.audit['alpha_cross_section_mean_error'], 1e-12)
+        self.assertEqual(data.audit['label_start'], str(cal[cal.get_loc(data.train.date.min()) + 1].date()))
+
+    def test_label_past_the_matured_window_raises(self):
+        leaky = dataset.target_for('raw_return')
+        window = self.view.close.index[:-H]
+        label = leaky.build(self.view, H - 1)          # a span-9 label checked as if it were span 10
+        with self.assertRaises(dataset.LabelLeakError):
+            dataset.check_unmatured_empty(label, window)
 
     def test_unknown_target_mode_raises(self):
         with self.assertRaises(ValueError):

@@ -71,6 +71,15 @@ class LightGBMCausalityTest(unittest.TestCase):
                 with self.subTest(target_mode=mode, how=how):
                     self.assert_same(base, self.decision(modified(self.market, self.cutoff, how), mode))
 
+    def test_future_execution_prices_do_not_move_decision_d(self):
+        """Fill prices after D-1 feed only unmatured execution labels (spec §25)."""
+        future = self.market.calendar > self.cutoff
+        frames = {name: getattr(self.market, name).copy() for name in ('official_vwap', 'high', 'low')}
+        for frame in frames.values():
+            frame.loc[future] = frame.loc[future] * 1.3
+        base = self.decision(self.market, 'execution_alpha')
+        self.assert_same(base, self.decision(self.market.with_frames(**frames), 'execution_alpha'))
+
     def test_alpha_labels_differ_from_raw(self):
         raw, alpha = self.decision(self.market)['training'], self.decision(self.market, 'relative_alpha')['training']
         pd.testing.assert_frame_equal(raw.train.drop(columns='label'), alpha.train.drop(columns='label'))

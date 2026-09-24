@@ -31,7 +31,7 @@ BENCHMARK = '0050.TW'
 # 5371.TWO (中光電) became 3718.TWO (中光電投控) on 2026-09-03; Yahoo has only the new code.
 RENAMES = {'5371.TWO': '3718.TWO'}
 
-HISTORY_FIELDS = ('open', 'high', 'low', 'close', 'volume', 'ret', 'valid')
+HISTORY_FIELDS = ('open', 'high', 'low', 'close', 'volume', 'ret', 'valid', 'official_vwap')
 
 
 def sha256(path: Path | str) -> str:
@@ -64,6 +64,7 @@ class AsOfView:
     volume: pd.DataFrame
     ret: pd.DataFrame          # action-neutral simple return, NaN where flagged
     valid: pd.DataFrame        # valid price, positive volume, not flagged
+    official_vwap: pd.DataFrame  # official average price (published after each close), NaN if absent
     benchmark_ret: pd.Series   # 0050 action-neutral return
 
     @property
