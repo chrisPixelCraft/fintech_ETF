@@ -1,0 +1,350 @@
+"""Independent reconstruction of every attempted/settled double-check ledger.
+
+No producer accounting, warning, eligibility or metric functions are imported.
+An audit PASS authenticates internal arithmetic against supplied market inputs;
+it does not establish official platform acceptance or missing Active Share.
+"""
+from __future__ import annotations
+from collections import Counter
+from decimal import Decimal, ROUND_FLOOR
+import math
+import numpy as np
+import pandas as pd
+
+
+def _check(condition, message):
+    if not condition:
+        raise AssertionError(message)
+
+
+def _near(actual, expected, label, atol=.005):
+    _check(math.isfinite(float(actual)) and math.isfinite(float(expected))
+           and math.isclose(float(actual), float(expected), rel_tol=1e-11, abs_tol=atol),
+           f'{label}: {actual!r} != {expected!r}')
+
+
+def _source(ctx):
+    """Cache only immutable raw-source preparation across trials in one worker."""
+    signature = (id(ctx['daily']), id(ctx['universe']))
+    cached = ctx.get('_double_check_audit_source')
+    if cached is not None and cached[0] == signature:
+        return cached[1]
+    frame = ctx['daily'].copy()
+    frame['date'] = pd.to_datetime(frame.date).dt.strftime('%Y-%m-%d')
+    _check(not frame.duplicated(['date', 'symbol']).any(), 'Duplicate market observations')
+    universe = set(ctx['universe'].symbol.astype(str))
+    market = {}
+    for r in frame.itertuples(index=False):
+        market.setdefault(r.date, {})[str(r.symbol)] = r
+    source = dict(market=market, sessions=sorted(market), universe=universe)
+    ctx['_double_check_audit_source'] = (signature, source)
+    return source
+
+
+def _groups(frame, key):
+    return {str(day): list(batch.itertuples(index=False)) for day, batch in frame.groupby(key, sort=False)}
+
+
+def _metrics(values, initial):
+    wealth = np.r_[initial, np.asarray(values, dtype=float)]
+    changes = wealth[1:] / wealth[:-1] - 1
+    sigma = float(np.std(changes, ddof=1)) if len(changes) > 1 else 0.
+    return dict(total_return=float(wealth[-1] / initial - 1),
+                max_drawdown=float(1 - np.min(wealth / np.maximum.accumulate(wealth))),
+                annualized_volatility=float(sigma * np.sqrt(252)),
+                sharpe_zero_rf=float(changes.mean() / sigma * np.sqrt(252)) if sigma > 0 else None)
+
+
+def audit_result(result, ctx):
+    """Return independently reconstructed metrics or raise AssertionError.
+
+    ``ctx`` requires raw ``daily`` and ``universe`` DataFrames. ``result`` is
+    the in-memory result returned by double_check_tuning.run_model, or the
+    underlying ledger (tests). Failed/DQ ledgers are audited as well as winners.
+    """
+    source = _source(ctx)
+    market, sessions, universe = source['market'], source['sessions'], source['universe']
+    cfg = result['config']
+    calendar = [d for d in sessions if str(cfg['start']) <= d <= str(cfg['end'])]
+    prior = [d for d in sessions if d < calendar[0]]
+    _check(bool(prior), 'Missing sizing session')
+    initial_day = prior[-1]
+    eq = result['equity']
+    compliance = result['compliance_daily']
+    dates = list(eq.date.astype(str))
+    _check(bool(dates) and dates == calendar[:len(dates)], 'Realized calendar has gaps/duplicates')
+    _check(list(compliance.date.astype(str)) == dates, 'Compliance coverage differs')
+    _check(eq.submission_status.eq('BLOCK_SUBMISSION').all()
+           and eq.active_share_status.str.startswith('UNKNOWN').all(), 'False formal certification')
+    orders = _groups(result['orders'], 'signal_date')
+    trades = _groups(result['trades'], 'date')
+    rejected = _groups(result['rejected_trades'], 'date')
+    positions = _groups(result['holdings'], 'date')
+    snapshot_rows = list(result['snapshots'].itertuples(index=False))
+    snapshots = {str(r.date): r for r in snapshot_rows}
+    _check(len(snapshots) == len(snapshot_rows), 'Duplicate signal snapshots')
+    _check(set(trades) <= set(dates) and set(rejected) <= set(dates)
+           and set(positions) <= set(dates), 'Artifact outside realized calendar')
+    actual_dq = bool(compliance.iloc[-1].disqualified)
+    signal_days = [initial_day] + (dates[:-1] if actual_dq else dates)
+    _check(list(snapshots) == signal_days, 'Signal calendar not prior-session causal')
+    _check(set(orders) <= set(signal_days), 'Orders outside signal calendar')
+    eqrows = {str(r.date): r for r in eq.itertuples(index=False)}
+    cr = {str(r.date): r for r in compliance.itertuples(index=False)}
+    following = dict(zip(sessions[:-1], sessions[1:]))
+    cash, receivable = float(cfg['initial_cash']), 0.
+    holdings, prices, ages = {}, {}, {}
+    for d in sessions:
+        if d > initial_day:
+            break
+        prices.update({s: float(r.close) for s, r in market[d].items() if s in universe})
+    warning_count = stale_days = bound_count = unfilled_count = rejected_count = 0
+    hard_days = cash_breach_days = active_days = overdue_days = count_days = raw_breach_days = 0
+    fees_total = taxes_total = turnover_total = 0.
+    nav_values, economic_values, expected_warnings = [], [], []
+    previous_nav = cash
+    accepted_fill_count = 0
+    max_participation = 0.
+
+    def cap(symbol):
+        return float(cfg['tsmc_max_weight'] if symbol.split('.')[0] == '2330' else cfg['max_weight'])
+
+    def book(q, c):
+        return c + sum(n * prices[s] for s, n in q.items())
+
+    def basic(q, c):
+        value = book(q, c)
+        failures = []
+        if not cfg['min_count'] <= len(q) <= cfg['max_count']:
+            failures.append('HOLDING_COUNT')
+        if c < -1e-6:
+            failures.append('NEGATIVE_CASH')
+        if value <= 0 or c / value >= .25:
+            failures.append('CASH_GE_25_PERCENT')
+        for s, n in q.items():
+            if s not in universe:
+                failures.append('NON_WHITELIST:' + s)
+            if value > 0 and n * prices[s] / value > cap(s) + 1e-10:
+                failures.append('WEIGHT_CAP:' + s)
+        return failures
+
+    def cap_ages(q, c, history, bought, counterfactual=None):
+        value = book(q, c)
+        before_value = book(*counterfactual) if counterfactual is not None else None
+        new, active, passive = {}, [], []
+        for s, n in q.items():
+            if value <= 0 or n * prices[s] / value > cap(s) + 1e-10:
+                new[s] = history.get(s, 0) + 1
+                was_within = (before_value is not None and before_value > 0
+                    and counterfactual[0].get(s, 0.) * prices[s] / before_value <= cap(s) + 1e-10)
+                (active if s in bought or was_within else passive).append(s)
+        return new, active, passive
+
+    def check_plan(day):
+        signal = snapshots[day]
+        _check((signal.decision_date or None) == following.get(day), day + ': wrong next session')
+        if following.get(day):
+            cutoff = pd.Timestamp(following[day]).tz_localize('Asia/Taipei') + pd.Timedelta(hours=8, minutes=55)
+            _check(pd.Timestamp(signal.cutoff_at) == cutoff, 'Decision cutoff mismatch')
+        _check(signal.submission_status == 'BLOCK_SUBMISSION', 'Snapshot certification')
+        batch = orders.get(day, [])
+        names = [r.symbol for r in batch]
+        _check(len(names) == len(set(names)), day + ': duplicate/opposing orders')
+        value = book(holdings, cash)
+        for r in batch:
+            _check(r.symbol in universe and r.symbol in market[day], 'Order lacks official identity/close')
+            quantity = float(r.shares)
+            _check(quantity != 0 and abs(quantity / 1000 - round(quantity / 1000)) < 1e-10, 'Nonlot/zero order')
+            held = holdings.get(r.symbol, 0.)
+            _check(abs(held - round(held / 1000) * 1000) <= 1e-6, 'Odd holding changed')
+            _check(quantity >= -held - 1e-6, 'Prior-holding oversale')
+            _near(r.sizing_price, market[day][r.symbol].close, 'Prior exchange close', 1e-9)
+            _near(r.signal_nav, value, 'Prior book NAV')
+            _near(r.target_shares, held + quantity, 'Target inventory', 1e-6)
+            _near(r.odd_entitlement, held % 1000, 'Recorded odd entitlement', 1e-6)
+            _check(0 <= r.target_weight <= cap(r.symbol), 'Declared weight cap')
+            w, n, p = (Decimal(str(x)) for x in (r.target_weight, r.signal_nav, r.sizing_price))
+            target = int((w * n / p / 1000).to_integral_value(rounding=ROUND_FLOOR)) * 1000
+            _near(target, held + quantity, 'Official Decimal sizing formula', 1e-6)
+            _check(r.reason == signal.plan_reason, 'Order reason does not match decision')
+        if signal.plan_reason.startswith('HOLD_REVALIDATED'):
+            _check(not batch and not basic(holdings, cash), 'Invalid nominal HOLD')
+            _check(all(s in market[day] for s in holdings), 'HOLD relies on stale quotes')
+            lower, upper = float(cfg['price_lower_buffer']), float(cfg['price_buffer'])
+            values = {s: q * prices[s] for s, q in holdings.items()}
+            low_nav = cash + lower * sum(values.values())
+            envelope = (cash >= -1e-6 and low_nav > 0 and cash/low_nav < .25-1e-12
+                        and all(upper*v/(low_nav+(upper-lower)*v) <= cap(s)+1e-10
+                                for s, v in values.items()))
+            _check(envelope == (signal.plan_reason == 'HOLD_REVALIDATED_ENVELOPE'),
+                   'False HOLD price-envelope status')
+        return batch
+
+    pending = check_plan(initial_day)
+    for index, day in enumerate(dates):
+        row, comp, raw = eqrows[day], cr[day], market[day]
+        signal_day = initial_day if index == 0 else dates[index - 1]
+        _check(row.executed_plan == snapshots[signal_day].plan_reason, 'Same-day/lookahead plan')
+        stale = [s for s in holdings if s not in raw]
+        for s, n in list(holdings.items()):
+            if s in raw:
+                receivable += n * float(getattr(raw[s], 'dividend', 0.))
+                holdings[s] = n * float(getattr(raw[s], 'split', 1.))
+        restored, old_cash, old_ages = dict(holdings), cash, dict(ages)
+        proposed = dict(holdings)
+        attempted = []
+        daily_fees = daily_taxes = notional_total = 0.
+        for order in sorted(pending, key=lambda r: (r.shares > 0, r.symbol)):
+            s, quantity = order.symbol, float(order.shares)
+            quote = raw.get(s)
+            volume = float(getattr(quote, 'execution_volume', getattr(quote, 'volume', float('nan'))))
+            turnover = float(getattr(quote, 'turnover', float('nan')))
+            if quote is None or not np.isfinite([volume, turnover]).all() or min(volume, turnover) <= 0:
+                expected_warnings.append((day, s, 'UNFILLED_MISSING_OFFICIAL_VWAP'))
+                unfilled_count += 1
+                continue
+            if proposed.get(s, 0.) + quantity < -1e-6:
+                expected_warnings.append((day, s, 'UNFILLED_ACTION_ADJUSTED_INSUFFICIENT_SHARES'))
+                unfilled_count += 1
+                continue
+            price = turnover / volume
+            gross = abs(quantity) * price
+            fee, tax = gross * float(cfg['commission']), gross * float(cfg['sell_tax']) if quantity < 0 else 0.
+            cash -= quantity * price + fee + tax
+            proposed[s] = proposed.get(s, 0.) + quantity
+            if proposed[s] < 1e-6:
+                del proposed[s]
+            daily_fees += fee
+            daily_taxes += tax
+            notional_total += gross
+            if (price > order.sizing_price * cfg['price_buffer'] + 1e-6
+                    or price < order.sizing_price * cfg['price_lower_buffer'] - 1e-6):
+                expected_warnings.append((day, s, 'EXECUTION_OUTSIDE_PREDECLARED_PRICE_BOUND'))
+                bound_count += 1
+            attempted.append(dict(symbol=s, signal_date=signal_day, shares=quantity, price=price,
+                                  notional=gross, fee=fee, tax=tax, slippage_cost=0.,
+                                  volume_participation=abs(quantity) / volume, execution_volume=volume,
+                                  trade_symbol=getattr(quote, 'source_symbol', s)))
+        prices.update({s: float(r.close) for s, r in raw.items() if s in universe})
+        bought = {r['symbol'] for r in attempted if r['shares'] > 0}
+        ages, active, passive = cap_ages(proposed, cash, old_ages, bought, (restored, old_cash))
+        overdue = [s for s in passive if ages[s] > 5]
+        failures = basic(proposed, cash)
+        reasons = sorted({s for s in failures if not s.startswith('WEIGHT_CAP:')}
+                         | {'ACTIVE_CAP:' + s for s in active} | {'OVERDUE_CAP:' + s for s in overdue})
+        _near(comp.proposed_nav, book(proposed, cash), 'Proposed NAV')
+        _near(comp.proposed_cash, cash, 'Proposed cash')
+        _check(comp.proposed_holdings == len(proposed), 'Proposed holding count')
+        _check(comp.warning_reasons == ';'.join(reasons), 'Warning reason mismatch')
+        _check(bool(comp.warning_today) == bool(reasons) == bool(comp.rolled_back), 'Rollback flag mismatch')
+        _check(comp.active_caps == ';'.join(active) and comp.passive_caps == ';'.join(passive)
+               and comp.overdue_caps == ';'.join(overdue), 'Active/passive/grace mismatch')
+        actual_fills = rejected.get(day, []) if reasons else trades.get(day, [])
+        _check(not (trades.get(day, []) if reasons else rejected.get(day, [])), 'Partial-day rollback or false rejection')
+        _check(len(actual_fills) == len(attempted), 'Missing/duplicate/spurious fill')
+        actual_by_symbol = {r.symbol: r for r in actual_fills}
+        _check(len(actual_by_symbol) == len(actual_fills), 'Duplicate actual fills')
+        for expected in attempted:
+            _check(expected['symbol'] in actual_by_symbol, 'Filled identity differs')
+            actual = actual_by_symbol[expected['symbol']]
+            for key, value in expected.items():
+                if isinstance(value, str):
+                    _check(getattr(actual, key) == value, 'Fill identity/timing mismatch: ' + key)
+                else:
+                    _near(getattr(actual, key), value, 'Fill ' + key, 1e-7)
+            if reasons:
+                _check(actual.rejection == ';'.join(reasons), 'Rejected trade explanation differs')
+        if reasons:
+            warning_count += 1
+            rejected_count += len(attempted)
+            holdings, cash = restored, old_cash
+            ages, _, _ = cap_ages(holdings, cash, old_ages, set())
+            daily_fees = daily_taxes = notional_total = 0.
+            expected_warnings.append((day, '', 'SIMULATED_DAY_ROLLBACK:' + ';'.join(reasons)))
+        else:
+            holdings = proposed
+            accepted_fill_count += len(attempted)
+            max_participation = max([max_participation] + [t['volume_participation'] for t in attempted])
+        _check(comp.rejected_fills == (len(attempted) if reasons else 0), 'Rejected-fill count')
+        _check(comp.cumulative_warnings == warning_count and bool(comp.disqualified) == (warning_count >= 3), 'Warning/DQ state')
+        _check(warning_count < 3 or index == len(dates) - 1, 'Trading continued after third warning')
+        nav = book(holdings, cash)
+        terminal = receivable if index == len(dates) - 1 and warning_count < 3 else 0.
+        published_nav = nav + terminal
+        settled_failures = basic(holdings, cash)
+        raw_breach_days += bool(settled_failures)
+        if stale:
+            expected_warnings.append((day, ';'.join(stale), 'STALE_HELD_PRICES'))
+        stale_days += bool(stale)
+        _check(row.stale_count == comp.stale_count == len(stale), 'Stale source coverage')
+        _check(row.violations == ';'.join(settled_failures), 'Settled rule report')
+        _check(row.active_cap_breaches == ';'.join(active) and row.passive_cap_breaches == ';'.join(passive)
+               and row.overdue_passive_caps == ';'.join(overdue), 'Equity cap report')
+        _near(comp.settled_nav, nav, 'Settlement NAV')
+        _near(comp.settled_cash, cash, 'Settlement cash')
+        _check(row.holdings == comp.settled_holdings == len(holdings), 'Settlement holding count')
+        _check(row.odd_residual_names == sum(q % cfg['lot_size'] > 1e-6 for q in holdings.values()),
+               'Odd entitlements not fully reported')
+        for key, expected in dict(nav=published_nav, economic_nav=nav + receivable, cash=cash,
+                                  cash_ratio=cash / published_nav, dividend_receivable=receivable-terminal,
+                                  terminal_dividend_credit=terminal, fees=daily_fees, taxes=daily_taxes,
+                                  costs=daily_fees+daily_taxes, traded_notional=notional_total,
+                                  turnover=notional_total/previous_nav).items():
+            _near(getattr(row, key), expected, day + ': ' + key, 1e-8 if key in ('cash_ratio', 'turnover') else .005)
+        actual_positions = {r.symbol: r for r in positions.get(day, [])}
+        _check(len(actual_positions) == len(positions.get(day, [])) and set(actual_positions) == set(holdings), 'Holding identity/completeness')
+        for s, n in holdings.items():
+            _near(actual_positions[s].shares, n, 'Corporate-action/fill inventory', 1e-6)
+            _near(actual_positions[s].close, prices[s], 'Holding valuation', 1e-9)
+            _near(actual_positions[s].weight, n*prices[s]/published_nav, 'Holding NAV weight', 1e-10)
+        hard = cash < -1e-6 or cash/nav >= .25 or not cfg['min_count'] <= len(holdings) <= cfg['max_count'] or bool(active or overdue) or not set(holdings) <= universe
+        hard_days += hard
+        cash_breach_days += cash/nav >= .25
+        count_days += not cfg['min_count'] <= len(holdings) <= cfg['max_count']
+        active_days += bool(active)
+        overdue_days += bool(overdue)
+        fees_total += daily_fees
+        taxes_total += daily_taxes
+        turnover_total += notional_total/previous_nav
+        nav_values.append(published_nav)
+        economic_values.append(nav+receivable)
+        previous_nav = nav
+        if day in snapshots:
+            pending = check_plan(day)
+    dq = warning_count >= 3
+    _check(dq or dates == calendar, 'Unexplained truncated run')
+    actual_warnings = Counter((str(r.date), r.symbol, r.issue) for r in result['warnings'].itertuples(index=False))
+    _check(actual_warnings == Counter(expected_warnings), 'Missing/spurious warnings')
+    plan = result.get('plan_audit')
+    if plan is not None:
+        _check(list(plan.date) == signal_days, 'Planner audit coverage')
+        _check(list(plan.final_reason) == [snapshots[d].plan_reason for d in signal_days], 'Planner audit differs from emitted plan')
+        effective = plan if dq else plan.iloc[:-1]
+        invalid_plans = int(effective.final_reason.str.startswith('INFEASIBLE').sum())
+        unsupported_holds = int(effective.final_reason.eq('HOLD_REVALIDATED_CURRENT_ONLY').sum())
+    else:
+        invalid_plans = sum(snapshots[d].plan_reason.startswith('INFEASIBLE') for d in signal_days[:len(dates)])
+        unsupported_holds = sum(snapshots[d].plan_reason == 'HOLD_REVALIDATED_CURRENT_ONLY' for d in signal_days[:len(dates)])
+    metrics = _metrics(nav_values, cfg['initial_cash'])
+    metrics.update({'economic_'+key: value for key, value in _metrics(economic_values, cfg['initial_cash']).items()})
+    metrics.update(final_nav=nav_values[-1], sessions=len(dates), transaction_costs=fees_total+taxes_total,
+                   commission_cost=fees_total, sell_tax_cost=taxes_total, turnover_two_way=turnover_total,
+                   max_daily_volume_participation=max_participation, trades=accepted_fill_count,
+                   simulated_warning_days=warning_count, disqualified=dq, complete_period=dates==calendar,
+                   rejected_trade_count=rejected_count, measured_hard_breach_days=int(hard_days),
+                   raw_rule_breach_days=int(raw_breach_days),
+                   cash_breach_days=int(cash_breach_days), holding_count_breach_days=int(count_days),
+                   active_cap_breach_days=int(active_days), overdue_passive_cap_days=int(overdue_days),
+                   stale_held_price_days=int(stale_days), execution_price_bound_breaches=bound_count,
+                   unfilled_orders=unfilled_count, no_valid_plan_days=invalid_plans,
+                   hold_without_envelope_days=unsupported_holds,
+                   official_compliance='UNKNOWN_BLOCK_SUBMISSION', independent_audit='PASS')
+    for key, value in metrics.items():
+        if key not in result['metrics']:
+            continue
+        actual = result['metrics'][key]
+        if value is None or isinstance(value, (str, bool)):
+            _check(actual == value, 'Metric ' + key + ' differs')
+        else:
+            _near(actual, value, 'Metric ' + key, 1e-7)
+    return metrics

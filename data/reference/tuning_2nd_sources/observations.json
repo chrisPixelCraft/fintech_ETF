@@ -1,0 +1,48 @@
+{
+  "checked_at_utc": "2026-09-21T18:10:08.281758+00:00",
+  "purpose": "bounded historical Active Share source discovery; no holdings weights fabricated",
+  "status": "UNKNOWN_NOT_CERTIFIABLE",
+  "attempts": [
+    {
+      "url": "https://www.nomurafunds.com.tw/ETFWEB/pcf",
+      "source_type": "issuer",
+      "web_search_observation": "Dated2026-09-14 cash PCF and stock weights visible in indexedtext",
+      "direct_download_outcome": "TLS/read timeout after30seconds outside sandbox",
+      "historical_series_acquired": false,
+      "known_at_proven": false
+    },
+    {
+      "url": "https://www.capitalfund.com.tw/etf/product/detail/399/buyback",
+      "source_type": "issuer",
+      "web_search_observation": "Official buyback/PCF entry point found",
+      "historical_series_acquired": false,
+      "known_at_proven": false
+    },
+    {
+      "url": "https://www.twse.com.tw/zh/ETFortune-institute/etfInfo/00980A",
+      "source_type": "exchange",
+      "web_open_observation": "Product details and dividend dates; no complete historical portfolio weights in retrievedpage",
+      "historical_series_acquired": false
+    },
+    {
+      "url": "https://mops.twse.com.tw/mops/web/t120sb02_q10",
+      "source_type": "exchange disclosure portal",
+      "web_open_observation": "Redirected to/mops/error/error.html",
+      "historical_series_acquired": false
+    }
+  ],
+  "first_listing_primary_pdf": "data/tuning_2nd/official_universe/raw/active_etf/twse_20250528.pdf",
+  "official_30_listing_dates": "data/reference/tuning_2nd_active_etf_readiness.csv",
+  "alphaxiv_primary_paper": {
+    "url": "https://www.alphaxiv.org/abs/2209.05559",
+    "title": "Deep Reinforcement Learning for Cryptocurrency Trading: Practical Approach to Address Backtest Overfitting",
+    "year": 2022,
+    "authors": "Gort, Liu, Gao, Chen, Wang",
+    "retrieval_tools": [
+      "alphaxiv.discover_papers",
+      "alphaxiv.get_paper_content(fullText=True)"
+    ],
+    "relevant_section": "Introduction",
+    "applicability": "Repeated validation-set optimization can overfit; financial serial dependence defeats naiveIID assumptions. Does not establish effectiveness of this Taiwan strategy."
+  }
+}

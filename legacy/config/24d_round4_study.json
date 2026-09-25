@@ -1,0 +1,68 @@
+{
+  "study_id": "competition_24d_round4_v1",
+  "authoritative_spec": "docs/v3_tuning.md",
+  "episode_length": 24,
+  "seasonal_end_year": 2025,
+  "splits": {
+    "development": [
+      "2010-01-01",
+      "2018-12-31"
+    ],
+    "validation": [
+      "2019-01-01",
+      "2022-12-31"
+    ],
+    "holdout": [
+      "2023-01-01",
+      "2024-12-31"
+    ]
+  },
+  "required_measured_pass_rate": 1.0,
+  "max_workers": 4,
+  "baseline_id": "x0352_daily_baseline",
+  "objective": "100% measured feasibility first; then median24D, P25, P10, lower MDD, mean, lower turnover",
+  "question": "Can signal-ranking and replacement changes around three development-selected parents pass the required hard development episode without changing entry, allocation or compliance rules?",
+  "hypothesis": "Earlier neighborhoods missed a permitted signal/replacement interaction that changes holdings enough to avoid the recurring failure.",
+  "alternative": "Corporate-action uncertainty and daily allocation constraints dominate all permitted parameter choices; additional search produces no admissible strategy.",
+  "manipulated": [
+    "return_short",
+    "return_long",
+    "momentum_weight",
+    "long_return_fraction",
+    "max_replacements_per_day",
+    "replacement_margin"
+  ],
+  "controlled": [
+    "same immutable Yahoo daily snapshot",
+    "NT$1B zero-held reset",
+    "24 sessions",
+    "D-1 quantities and next-open proxy",
+    "fixed fees/taxes",
+    "all existing measured rules",
+    "all remaining parameters fixed within each parent family"
+  ],
+  "search": {
+    "seed": 2409202604,
+    "new_per_parent": 128,
+    "total_new": 384,
+    "exclude_previous": 1087,
+    "parents": "own-candidate DEVELOPMENT leader of each of three previous studies",
+    "tuned_parameters": [
+      "return_short",
+      "return_long",
+      "momentum_weight",
+      "long_return_fraction",
+      "max_replacements_per_day",
+      "replacement_margin"
+    ],
+    "bottleneck": "monthly_2015-08-03",
+    "screen_cap": 12,
+    "full_development_validation_cap": 6
+  },
+  "selection": "100% measured pass and completeness on ALL development and validation; validation median/P25 not worse than baseline; momentum +/-0.05 stability; official unknowns remain blocked",
+  "diagnostic_policy": "No failed hard-episode candidate may advance. All-new-failed implies immediate final rejection; no full-period financial statistics are invented for unrun candidates.",
+  "stop_condition": "One bounded384-case feasibility study. If no new hard-episode survivor, seal no-qualified replacement and stop before downstream evaluations. Otherwise retain old full-period gates and stop after frozen evaluations.",
+  "prior_exposure": "Validation reused for model selection; historical holdout and recent already exposed in earlier rounds, isolated from this search but not pristine.",
+  "post_freeze": "Only if hard-episode survivors reach downstream evaluation:23holdout,20recent,16seasonal;126rolling forbaseline andnewdiagnostic. No return-based retuning.",
+  "formal_status": "BLOCK_SUBMISSION"
+}

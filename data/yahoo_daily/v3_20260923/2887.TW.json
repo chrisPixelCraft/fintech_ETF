@@ -1,0 +1,35 @@
+{
+  "symbol": "2887.TW",
+  "request": {
+    "start": "2009-01-01",
+    "end": "2026-09-24",
+    "interval": "1d",
+    "auto_adjust": false,
+    "back_adjust": false,
+    "actions": true,
+    "repair": true,
+    "keepna": true,
+    "rounding": false,
+    "prepost": false,
+    "timeout": 30,
+    "raise_errors": true
+  },
+  "errors": [],
+  "status": "DOWNLOADED",
+  "file": "2887.TW.parquet",
+  "sha256": "31968feaee2fc88e75647851cf7b6e93a9195d2261e6b1f0d447b71ecdbf0214",
+  "fetch_utc": "2026-09-23T14:54:23.577307+00:00",
+  "completed_utc": "2026-09-23T14:54:24.999989+00:00",
+  "rows": 4345,
+  "columns": [
+    "Open",
+    "High",
+    "Low",
+    "Close",
+    "Adj Close",
+    "Volume",
+    "Dividends",
+    "Stock Splits",
+    "Repaired?"
+  ]
+}

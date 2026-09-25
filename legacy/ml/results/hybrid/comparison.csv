@@ -1,0 +1,4 @@
+strategy,n,n_failed,mean,median,p25,p10,worst,paired_n,paired_mean_delta,paired_median_delta,paired_win_rate,mdd,turnover,cost_pct,warnings,disqualified,disqualification_rate,runtime_seconds_per_episode
+mom20,236,0,0.020071,0.011866,-0.024969,-0.064946,-0.236707,236,0.0,0.0,0.0,0.057498,3.737164,0.009489,0,0,0.0,0.234886
+hybrid_v2A,236,0,0.022706,0.015544,-0.01805,-0.061872,-0.293201,236,0.002635,0.0,0.330508,0.060366,5.08551,0.013463,0,0,0.0,0.278685
+hybrid_v2B,236,0,0.022536,0.015544,-0.015614,-0.057788,-0.31366,236,0.002465,0.0,0.322034,0.060251,5.068981,0.013412,0,0,0.0,0.273535

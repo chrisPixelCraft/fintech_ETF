@@ -1,0 +1,82 @@
+{
+ "candidate": "mom30",
+ "config": {
+  "name": "sweep_mom30",
+  "description": "P1 momentum sweep: mom30",
+  "strategy": "momentum",
+  "params": {
+   "window": 30,
+   "portfolio": {
+    "n_holdings": 25,
+    "keep_rank": 35,
+    "weighting": "equal",
+    "invested": 0.95,
+    "cap_scale": 0.9,
+    "rebalance_threshold": 0.1,
+    "freeze_last_days": 3
+   }
+  },
+  "execution": {
+   "mode": "auto",
+   "proxy": "hlc3"
+  },
+  "planner": {
+   "rebalance_band": 0.005
+  },
+  "episodes": {
+   "start": "2019-01-01",
+   "offsets": [
+    "month_start",
+    "mid_month"
+   ]
+  }
+ },
+ "reference": {
+  "name": "sweep_mom20",
+  "description": "P1 momentum sweep: mom20",
+  "strategy": "momentum",
+  "params": {
+   "window": 20,
+   "portfolio": {
+    "n_holdings": 25,
+    "keep_rank": 35,
+    "weighting": "equal",
+    "invested": 0.95,
+    "cap_scale": 0.9,
+    "rebalance_threshold": 0.1,
+    "freeze_last_days": 3
+   }
+  },
+  "execution": {
+   "mode": "auto",
+   "proxy": "hlc3"
+  },
+  "planner": {
+   "rebalance_band": 0.005
+  },
+  "episodes": {
+   "start": "2019-01-01",
+   "offsets": [
+    "month_start",
+    "mid_month"
+   ]
+  }
+ },
+ "dev_pick_rule": {
+  "min_median_delta": 0.0,
+  "max_turnover_ratio": 1.5,
+  "min_mean_delta": 0.0
+ },
+ "gate": {
+  "min_mean_delta": 0.005,
+  "min_median_delta": -0.005,
+  "min_win_rate": 0.45,
+  "max_p10_drop": 0.01,
+  "max_worst_drop": 0.02,
+  "max_turnover_ratio": 1.5
+ },
+ "git": {
+  "commit": "6b62adc798547530f89826edcdf0d877ebe99943",
+  "dirty": true
+ }
+}

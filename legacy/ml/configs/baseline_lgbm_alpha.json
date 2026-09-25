@@ -1,0 +1,16 @@
+{
+ "name": "baseline_lgbm_alpha",
+ "description": "baseline_lgbm_jpx2 with one change: the target is the 10-session relative alpha (stock forward return minus the equal-weight universe mean on the same origin date) instead of the raw forward return.",
+ "strategy": "lgbm",
+ "params": {
+  "horizon": 10,
+  "lookback": 750,
+  "refit_every": 5,
+  "target_mode": "relative_alpha",
+  "portfolio": {"n_holdings": 25, "keep_rank": 35, "weighting": "equal", "invested": 0.88, "cap_scale": 0.9,
+                "rebalance_threshold": 0.10, "freeze_last_days": 3}
+ },
+ "execution": {"mode": "auto", "proxy": "hlc3"},
+ "planner": {"rebalance_band": 0.005},
+ "episodes": {"start": "2019-01-01", "offsets": ["month_start", "mid_month"]}
+}

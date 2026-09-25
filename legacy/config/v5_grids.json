@@ -1,0 +1,1702 @@
+{
+  "schema_version": 1,
+  "spec": "docs/v5_spec.md",
+  "families": {
+    "A": {
+      "name": "momentum",
+      "module": "src.v5_momentum",
+      "simplicity": 0
+    },
+    "E": {
+      "name": "direct",
+      "module": "src.v5_direct",
+      "simplicity": 1
+    },
+    "C": {
+      "name": "rank",
+      "module": "src.v5_rank",
+      "simplicity": 2
+    },
+    "B": {
+      "name": "ensemble",
+      "module": "src.v5_ensemble",
+      "simplicity": 3
+    }
+  },
+  "axes": {
+    "A": [
+      "blend",
+      "trend_filter",
+      "n",
+      "rotation"
+    ],
+    "B": [
+      "horizon",
+      "window",
+      "score",
+      "n",
+      "rotation"
+    ],
+    "C": [
+      "horizon",
+      "train_window",
+      "score",
+      "n",
+      "rotation"
+    ],
+    "E": [
+      "train_window",
+      "l2",
+      "horizon",
+      "n",
+      "rotation"
+    ]
+  },
+  "construction_default": {
+    "method": "topn_equal",
+    "cash_target": 0.05,
+    "min_names": 20,
+    "max_names": 30,
+    "max_weight": 0.1,
+    "tsmc_max_weight": 0.25,
+    "regime": false
+  },
+  "regime_overlay": {
+    "breadth_threshold": 0.4,
+    "vol_pct_threshold": 0.7,
+    "vol_window": 20,
+    "pct_window": 250,
+    "min_history": 60,
+    "rule": "risk_off = D-1 breadth(price_ema20>0 share) < 0.40 AND D-1 market-vol percentile >= 0.70; risk_off -> cash 10% and zero voluntary replacements"
+  },
+  "risk_aware": {
+    "risk_lambda": 1.0,
+    "variance_horizon": 20,
+    "min_weight": 0.005,
+    "objective": "mu.w - lambda * sum(vol20^2 * variance_horizon * w^2); mu = expected_return if present else 0.1*(rank_pct-0.5)"
+  },
+  "s2_treatments": [
+    {
+      "id": "T1",
+      "method": "topn_equal",
+      "regime": true
+    },
+    {
+      "id": "T2",
+      "method": "score_bounded",
+      "regime": false
+    },
+    {
+      "id": "T3",
+      "method": "score_bounded",
+      "regime": true
+    },
+    {
+      "id": "T4",
+      "method": "risk_aware",
+      "regime": false
+    },
+    {
+      "id": "T5",
+      "method": "risk_aware",
+      "regime": true
+    }
+  ],
+  "s2_keep_rule": {
+    "median_delta_min": 0.0,
+    "p25_delta_min": -0.005,
+    "paired": "both-complete development episodes"
+  },
+  "baseline": {
+    "id": "A0_V3",
+    "family": "V3",
+    "config": "configs/competition_24d_final.json",
+    "sizing_price_mode": "official_close",
+    "execution_mode": "official_average"
+  },
+  "signals": {
+    "A_S01": {
+      "family": "A",
+      "config": {
+        "blend": "short",
+        "trend_filter": true
+      }
+    },
+    "A_S02": {
+      "family": "A",
+      "config": {
+        "blend": "long",
+        "trend_filter": false
+      }
+    },
+    "A_S03": {
+      "family": "A",
+      "config": {
+        "blend": "long",
+        "trend_filter": true
+      }
+    },
+    "B_S01": {
+      "family": "B",
+      "config": {
+        "horizon": 10,
+        "window": 60,
+        "score_mode": "point"
+      }
+    },
+    "B_S02": {
+      "family": "B",
+      "config": {
+        "horizon": 10,
+        "window": 60,
+        "score_mode": "point_conf"
+      }
+    },
+    "B_S03": {
+      "family": "B",
+      "config": {
+        "horizon": 10,
+        "window": 250,
+        "score_mode": "point"
+      }
+    },
+    "B_S04": {
+      "family": "B",
+      "config": {
+        "horizon": 10,
+        "window": 250,
+        "score_mode": "point_conf"
+      }
+    },
+    "B_S05": {
+      "family": "B",
+      "config": {
+        "horizon": 20,
+        "window": 60,
+        "score_mode": "point"
+      }
+    },
+    "B_S06": {
+      "family": "B",
+      "config": {
+        "horizon": 20,
+        "window": 60,
+        "score_mode": "point_conf"
+      }
+    },
+    "B_S07": {
+      "family": "B",
+      "config": {
+        "horizon": 20,
+        "window": 250,
+        "score_mode": "point"
+      }
+    },
+    "B_S08": {
+      "family": "B",
+      "config": {
+        "horizon": 20,
+        "window": 250,
+        "score_mode": "point_conf"
+      }
+    },
+    "C_S01": {
+      "family": "C",
+      "config": {
+        "horizon": 10,
+        "train_window": 250,
+        "score_mode": "p",
+        "agree_topn": 22
+      }
+    },
+    "C_S02": {
+      "family": "C",
+      "config": {
+        "horizon": 10,
+        "train_window": 250,
+        "score_mode": "p_agree",
+        "agree_topn": 22
+      }
+    },
+    "C_S03": {
+      "family": "C",
+      "config": {
+        "horizon": 10,
+        "train_window": 750,
+        "score_mode": "p",
+        "agree_topn": 22
+      }
+    },
+    "C_S04": {
+      "family": "C",
+      "config": {
+        "horizon": 10,
+        "train_window": 750,
+        "score_mode": "p_agree",
+        "agree_topn": 22
+      }
+    },
+    "C_S05": {
+      "family": "C",
+      "config": {
+        "horizon": 20,
+        "train_window": 250,
+        "score_mode": "p",
+        "agree_topn": 22
+      }
+    },
+    "C_S06": {
+      "family": "C",
+      "config": {
+        "horizon": 20,
+        "train_window": 250,
+        "score_mode": "p_agree",
+        "agree_topn": 22
+      }
+    },
+    "C_S07": {
+      "family": "C",
+      "config": {
+        "horizon": 20,
+        "train_window": 750,
+        "score_mode": "p",
+        "agree_topn": 22
+      }
+    },
+    "C_S08": {
+      "family": "C",
+      "config": {
+        "horizon": 20,
+        "train_window": 750,
+        "score_mode": "p_agree",
+        "agree_topn": 22
+      }
+    },
+    "C_S09": {
+      "family": "C",
+      "config": {
+        "horizon": 20,
+        "train_window": 750,
+        "score_mode": "p",
+        "agree_topn": 26
+      }
+    },
+    "E_S01": {
+      "family": "E",
+      "config": {
+        "train_window": 250,
+        "l2": 0.1,
+        "horizon": 10,
+        "refit_every": 20,
+        "top_n": 22
+      }
+    },
+    "E_S02": {
+      "family": "E",
+      "config": {
+        "train_window": 250,
+        "l2": 0.1,
+        "horizon": 20,
+        "refit_every": 20,
+        "top_n": 22
+      }
+    },
+    "E_S03": {
+      "family": "E",
+      "config": {
+        "train_window": 250,
+        "l2": 1.0,
+        "horizon": 10,
+        "refit_every": 20,
+        "top_n": 22
+      }
+    },
+    "E_S04": {
+      "family": "E",
+      "config": {
+        "train_window": 250,
+        "l2": 1.0,
+        "horizon": 20,
+        "refit_every": 20,
+        "top_n": 22
+      }
+    },
+    "E_S05": {
+      "family": "E",
+      "config": {
+        "train_window": 750,
+        "l2": 0.1,
+        "horizon": 10,
+        "refit_every": 20,
+        "top_n": 22
+      }
+    },
+    "E_S06": {
+      "family": "E",
+      "config": {
+        "train_window": 750,
+        "l2": 0.1,
+        "horizon": 20,
+        "refit_every": 20,
+        "top_n": 22
+      }
+    },
+    "E_S07": {
+      "family": "E",
+      "config": {
+        "train_window": 750,
+        "l2": 1.0,
+        "horizon": 10,
+        "refit_every": 20,
+        "top_n": 22
+      }
+    },
+    "E_S08": {
+      "family": "E",
+      "config": {
+        "train_window": 750,
+        "l2": 1.0,
+        "horizon": 20,
+        "refit_every": 20,
+        "top_n": 22
+      }
+    },
+    "E_S09": {
+      "family": "E",
+      "config": {
+        "train_window": 750,
+        "l2": 1.0,
+        "horizon": 20,
+        "refit_every": 20,
+        "top_n": 26
+      }
+    }
+  },
+  "candidates": [
+    {
+      "id": "A01",
+      "family": "A",
+      "signal": "A_S01",
+      "signal_config": {
+        "blend": "short",
+        "trend_filter": true
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 22,
+        "rotation": "never"
+      },
+      "axes": {
+        "blend": "short",
+        "trend_filter": true,
+        "n": 22,
+        "rotation": "never"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "A02",
+      "family": "A",
+      "signal": "A_S01",
+      "signal_config": {
+        "blend": "short",
+        "trend_filter": true
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "axes": {
+        "blend": "short",
+        "trend_filter": true,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "A03",
+      "family": "A",
+      "signal": "A_S01",
+      "signal_config": {
+        "blend": "short",
+        "trend_filter": true
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 26,
+        "rotation": "never"
+      },
+      "axes": {
+        "blend": "short",
+        "trend_filter": true,
+        "n": 26,
+        "rotation": "never"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "A04",
+      "family": "A",
+      "signal": "A_S01",
+      "signal_config": {
+        "blend": "short",
+        "trend_filter": true
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 26,
+        "rotation": "buffer_2N"
+      },
+      "axes": {
+        "blend": "short",
+        "trend_filter": true,
+        "n": 26,
+        "rotation": "buffer_2N"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "A05",
+      "family": "A",
+      "signal": "A_S02",
+      "signal_config": {
+        "blend": "long",
+        "trend_filter": false
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 22,
+        "rotation": "never"
+      },
+      "axes": {
+        "blend": "long",
+        "trend_filter": false,
+        "n": 22,
+        "rotation": "never"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "A06",
+      "family": "A",
+      "signal": "A_S02",
+      "signal_config": {
+        "blend": "long",
+        "trend_filter": false
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "axes": {
+        "blend": "long",
+        "trend_filter": false,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "A07",
+      "family": "A",
+      "signal": "A_S02",
+      "signal_config": {
+        "blend": "long",
+        "trend_filter": false
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 26,
+        "rotation": "never"
+      },
+      "axes": {
+        "blend": "long",
+        "trend_filter": false,
+        "n": 26,
+        "rotation": "never"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "A08",
+      "family": "A",
+      "signal": "A_S02",
+      "signal_config": {
+        "blend": "long",
+        "trend_filter": false
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 26,
+        "rotation": "buffer_2N"
+      },
+      "axes": {
+        "blend": "long",
+        "trend_filter": false,
+        "n": 26,
+        "rotation": "buffer_2N"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "A09",
+      "family": "A",
+      "signal": "A_S03",
+      "signal_config": {
+        "blend": "long",
+        "trend_filter": true
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 22,
+        "rotation": "never"
+      },
+      "axes": {
+        "blend": "long",
+        "trend_filter": true,
+        "n": 22,
+        "rotation": "never"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "A10",
+      "family": "A",
+      "signal": "A_S03",
+      "signal_config": {
+        "blend": "long",
+        "trend_filter": true
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "axes": {
+        "blend": "long",
+        "trend_filter": true,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "A11",
+      "family": "A",
+      "signal": "A_S03",
+      "signal_config": {
+        "blend": "long",
+        "trend_filter": true
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 26,
+        "rotation": "never"
+      },
+      "axes": {
+        "blend": "long",
+        "trend_filter": true,
+        "n": 26,
+        "rotation": "never"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "A12",
+      "family": "A",
+      "signal": "A_S03",
+      "signal_config": {
+        "blend": "long",
+        "trend_filter": true
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 26,
+        "rotation": "buffer_2N"
+      },
+      "axes": {
+        "blend": "long",
+        "trend_filter": true,
+        "n": 26,
+        "rotation": "buffer_2N"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "B01",
+      "family": "B",
+      "signal": "B_S01",
+      "signal_config": {
+        "horizon": 10,
+        "window": 60,
+        "score_mode": "point"
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "axes": {
+        "horizon": 10,
+        "window": 60,
+        "score": "point",
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "B02",
+      "family": "B",
+      "signal": "B_S02",
+      "signal_config": {
+        "horizon": 10,
+        "window": 60,
+        "score_mode": "point_conf"
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "axes": {
+        "horizon": 10,
+        "window": 60,
+        "score": "point_conf",
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "B03",
+      "family": "B",
+      "signal": "B_S03",
+      "signal_config": {
+        "horizon": 10,
+        "window": 250,
+        "score_mode": "point"
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "axes": {
+        "horizon": 10,
+        "window": 250,
+        "score": "point",
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "B04",
+      "family": "B",
+      "signal": "B_S04",
+      "signal_config": {
+        "horizon": 10,
+        "window": 250,
+        "score_mode": "point_conf"
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "axes": {
+        "horizon": 10,
+        "window": 250,
+        "score": "point_conf",
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "B05",
+      "family": "B",
+      "signal": "B_S05",
+      "signal_config": {
+        "horizon": 20,
+        "window": 60,
+        "score_mode": "point"
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "axes": {
+        "horizon": 20,
+        "window": 60,
+        "score": "point",
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "B06",
+      "family": "B",
+      "signal": "B_S06",
+      "signal_config": {
+        "horizon": 20,
+        "window": 60,
+        "score_mode": "point_conf"
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "axes": {
+        "horizon": 20,
+        "window": 60,
+        "score": "point_conf",
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "B07",
+      "family": "B",
+      "signal": "B_S07",
+      "signal_config": {
+        "horizon": 20,
+        "window": 250,
+        "score_mode": "point"
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "axes": {
+        "horizon": 20,
+        "window": 250,
+        "score": "point",
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "declared_default": true
+    },
+    {
+      "id": "B08",
+      "family": "B",
+      "signal": "B_S08",
+      "signal_config": {
+        "horizon": 20,
+        "window": 250,
+        "score_mode": "point_conf"
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "axes": {
+        "horizon": 20,
+        "window": 250,
+        "score": "point_conf",
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "B09",
+      "family": "B",
+      "signal": "B_S07",
+      "signal_config": {
+        "horizon": 20,
+        "window": 250,
+        "score_mode": "point"
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 22,
+        "rotation": "never"
+      },
+      "axes": {
+        "horizon": 20,
+        "window": 250,
+        "score": "point",
+        "n": 22,
+        "rotation": "never"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "B10",
+      "family": "B",
+      "signal": "B_S07",
+      "signal_config": {
+        "horizon": 20,
+        "window": 250,
+        "score_mode": "point"
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 26,
+        "rotation": "buffer_2N"
+      },
+      "axes": {
+        "horizon": 20,
+        "window": 250,
+        "score": "point",
+        "n": 26,
+        "rotation": "buffer_2N"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "B11",
+      "family": "B",
+      "signal": "B_S07",
+      "signal_config": {
+        "horizon": 20,
+        "window": 250,
+        "score_mode": "point"
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 26,
+        "rotation": "never"
+      },
+      "axes": {
+        "horizon": 20,
+        "window": 250,
+        "score": "point",
+        "n": 26,
+        "rotation": "never"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "C01",
+      "family": "C",
+      "signal": "C_S01",
+      "signal_config": {
+        "horizon": 10,
+        "train_window": 250,
+        "score_mode": "p",
+        "agree_topn": 22
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "axes": {
+        "horizon": 10,
+        "train_window": 250,
+        "score": "p",
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "C02",
+      "family": "C",
+      "signal": "C_S02",
+      "signal_config": {
+        "horizon": 10,
+        "train_window": 250,
+        "score_mode": "p_agree",
+        "agree_topn": 22
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "axes": {
+        "horizon": 10,
+        "train_window": 250,
+        "score": "p_agree",
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "C03",
+      "family": "C",
+      "signal": "C_S03",
+      "signal_config": {
+        "horizon": 10,
+        "train_window": 750,
+        "score_mode": "p",
+        "agree_topn": 22
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "axes": {
+        "horizon": 10,
+        "train_window": 750,
+        "score": "p",
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "C04",
+      "family": "C",
+      "signal": "C_S04",
+      "signal_config": {
+        "horizon": 10,
+        "train_window": 750,
+        "score_mode": "p_agree",
+        "agree_topn": 22
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "axes": {
+        "horizon": 10,
+        "train_window": 750,
+        "score": "p_agree",
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "C05",
+      "family": "C",
+      "signal": "C_S05",
+      "signal_config": {
+        "horizon": 20,
+        "train_window": 250,
+        "score_mode": "p",
+        "agree_topn": 22
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "axes": {
+        "horizon": 20,
+        "train_window": 250,
+        "score": "p",
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "C06",
+      "family": "C",
+      "signal": "C_S06",
+      "signal_config": {
+        "horizon": 20,
+        "train_window": 250,
+        "score_mode": "p_agree",
+        "agree_topn": 22
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "axes": {
+        "horizon": 20,
+        "train_window": 250,
+        "score": "p_agree",
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "C07",
+      "family": "C",
+      "signal": "C_S07",
+      "signal_config": {
+        "horizon": 20,
+        "train_window": 750,
+        "score_mode": "p",
+        "agree_topn": 22
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "axes": {
+        "horizon": 20,
+        "train_window": 750,
+        "score": "p",
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "declared_default": true
+    },
+    {
+      "id": "C08",
+      "family": "C",
+      "signal": "C_S08",
+      "signal_config": {
+        "horizon": 20,
+        "train_window": 750,
+        "score_mode": "p_agree",
+        "agree_topn": 22
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "axes": {
+        "horizon": 20,
+        "train_window": 750,
+        "score": "p_agree",
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "C09",
+      "family": "C",
+      "signal": "C_S07",
+      "signal_config": {
+        "horizon": 20,
+        "train_window": 750,
+        "score_mode": "p",
+        "agree_topn": 22
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 22,
+        "rotation": "never"
+      },
+      "axes": {
+        "horizon": 20,
+        "train_window": 750,
+        "score": "p",
+        "n": 22,
+        "rotation": "never"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "C10",
+      "family": "C",
+      "signal": "C_S09",
+      "signal_config": {
+        "horizon": 20,
+        "train_window": 750,
+        "score_mode": "p",
+        "agree_topn": 26
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 26,
+        "rotation": "buffer_2N"
+      },
+      "axes": {
+        "horizon": 20,
+        "train_window": 750,
+        "score": "p",
+        "n": 26,
+        "rotation": "buffer_2N"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "C11",
+      "family": "C",
+      "signal": "C_S09",
+      "signal_config": {
+        "horizon": 20,
+        "train_window": 750,
+        "score_mode": "p",
+        "agree_topn": 26
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 26,
+        "rotation": "never"
+      },
+      "axes": {
+        "horizon": 20,
+        "train_window": 750,
+        "score": "p",
+        "n": 26,
+        "rotation": "never"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "E01",
+      "family": "E",
+      "signal": "E_S01",
+      "signal_config": {
+        "train_window": 250,
+        "l2": 0.1,
+        "horizon": 10,
+        "refit_every": 20,
+        "top_n": 22
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "axes": {
+        "train_window": 250,
+        "l2": 0.1,
+        "horizon": 10,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "E02",
+      "family": "E",
+      "signal": "E_S02",
+      "signal_config": {
+        "train_window": 250,
+        "l2": 0.1,
+        "horizon": 20,
+        "refit_every": 20,
+        "top_n": 22
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "axes": {
+        "train_window": 250,
+        "l2": 0.1,
+        "horizon": 20,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "E03",
+      "family": "E",
+      "signal": "E_S03",
+      "signal_config": {
+        "train_window": 250,
+        "l2": 1.0,
+        "horizon": 10,
+        "refit_every": 20,
+        "top_n": 22
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "axes": {
+        "train_window": 250,
+        "l2": 1.0,
+        "horizon": 10,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "E04",
+      "family": "E",
+      "signal": "E_S04",
+      "signal_config": {
+        "train_window": 250,
+        "l2": 1.0,
+        "horizon": 20,
+        "refit_every": 20,
+        "top_n": 22
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "axes": {
+        "train_window": 250,
+        "l2": 1.0,
+        "horizon": 20,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "E05",
+      "family": "E",
+      "signal": "E_S05",
+      "signal_config": {
+        "train_window": 750,
+        "l2": 0.1,
+        "horizon": 10,
+        "refit_every": 20,
+        "top_n": 22
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "axes": {
+        "train_window": 750,
+        "l2": 0.1,
+        "horizon": 10,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "E06",
+      "family": "E",
+      "signal": "E_S06",
+      "signal_config": {
+        "train_window": 750,
+        "l2": 0.1,
+        "horizon": 20,
+        "refit_every": 20,
+        "top_n": 22
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "axes": {
+        "train_window": 750,
+        "l2": 0.1,
+        "horizon": 20,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "E07",
+      "family": "E",
+      "signal": "E_S07",
+      "signal_config": {
+        "train_window": 750,
+        "l2": 1.0,
+        "horizon": 10,
+        "refit_every": 20,
+        "top_n": 22
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "axes": {
+        "train_window": 750,
+        "l2": 1.0,
+        "horizon": 10,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "E08",
+      "family": "E",
+      "signal": "E_S08",
+      "signal_config": {
+        "train_window": 750,
+        "l2": 1.0,
+        "horizon": 20,
+        "refit_every": 20,
+        "top_n": 22
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "axes": {
+        "train_window": 750,
+        "l2": 1.0,
+        "horizon": 20,
+        "n": 22,
+        "rotation": "buffer_2N"
+      },
+      "declared_default": true
+    },
+    {
+      "id": "E09",
+      "family": "E",
+      "signal": "E_S08",
+      "signal_config": {
+        "train_window": 750,
+        "l2": 1.0,
+        "horizon": 20,
+        "refit_every": 20,
+        "top_n": 22
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 22,
+        "rotation": "never"
+      },
+      "axes": {
+        "train_window": 750,
+        "l2": 1.0,
+        "horizon": 20,
+        "n": 22,
+        "rotation": "never"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "E10",
+      "family": "E",
+      "signal": "E_S09",
+      "signal_config": {
+        "train_window": 750,
+        "l2": 1.0,
+        "horizon": 20,
+        "refit_every": 20,
+        "top_n": 26
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 26,
+        "rotation": "buffer_2N"
+      },
+      "axes": {
+        "train_window": 750,
+        "l2": 1.0,
+        "horizon": 20,
+        "n": 26,
+        "rotation": "buffer_2N"
+      },
+      "declared_default": false
+    },
+    {
+      "id": "E11",
+      "family": "E",
+      "signal": "E_S09",
+      "signal_config": {
+        "train_window": 750,
+        "l2": 1.0,
+        "horizon": 20,
+        "refit_every": 20,
+        "top_n": 26
+      },
+      "construction": {
+        "method": "topn_equal",
+        "cash_target": 0.05,
+        "min_names": 20,
+        "max_names": 30,
+        "max_weight": 0.1,
+        "tsmc_max_weight": 0.25,
+        "regime": false,
+        "n": 26,
+        "rotation": "never"
+      },
+      "axes": {
+        "train_window": 750,
+        "l2": 1.0,
+        "horizon": 20,
+        "n": 26,
+        "rotation": "never"
+      },
+      "declared_default": false
+    }
+  ],
+  "resolution_notes": [
+    "A: spec says drop \"the 4 with short + filter off + buffer\" but that conjunction has only 2 cells (N=22,26); the 4 dropped here are all short + filter-off cells (both N, both rotations) so every retained cell keeps both rotation rules (balanced one-axis rotation neighbours) and the grid has exactly 12.",
+    "B/C/E: \"4 rotation / N variants on the best-declared default\" -- of the 4 (N,rotation) cells one (22, buffer_2N) is already in the 8-cell factorial; the duplicate is removed per spec \u00a71 (deduplicate), giving 11 distinct.",
+    "Best-declared defaults (declared before any V5 result): B h=20,W=250,score=P; C h=20,T=750,score=mean_p; E T=750,lambda=1.0,h=20. Rationale: horizon aligned with the 24-session episode, the longer window, and the simpler score variant.",
+    "C and E signals depend on N (top-N agreement / top-N soft-portfolio utility), so their N variants carry top_n in the signal config; A and B signals do not depend on N.",
+    "risk_aware scales daily vol20^2 by variance_horizon=20 so the variance term is on the same horizon as mu."
+  ],
+  "excluded_episodes": {
+    "development_2010_01": "WARMUP: ensemble h20 and direct scores unavailable on day 1 (spec amendment 2, declared before any result)",
+    "development_2010_02": "WARMUP: direct scores start 2010-02-26 (spec amendment 2, declared before any result)"
+  }
+}

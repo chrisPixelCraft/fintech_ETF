@@ -1,0 +1,55 @@
+{
+ "as_of": "2026-09-24",
+ "method": "top 25 by 60-session average traded value, equal weight, Active Share repaired to >= 25%",
+ "symbols": [
+  "2303.TW",
+  "2313.TW",
+  "2317.TW",
+  "2327.TW",
+  "2330.TW",
+  "2337.TW",
+  "2344.TW",
+  "2408.TW",
+  "2409.TW",
+  "2454.TW",
+  "3037.TW",
+  "3081.TWO",
+  "3105.TWO",
+  "3189.TW",
+  "3231.TW",
+  "3481.TW",
+  "3661.TW",
+  "3711.TW",
+  "4958.TW",
+  "6182.TWO",
+  "6488.TWO",
+  "6770.TW",
+  "8046.TW",
+  "8299.TWO",
+  "8358.TWO"
+ ],
+ "dropped_for_active_share": [
+  "3443.TW",
+  "6669.TW",
+  "6274.TWO",
+  "2383.TW",
+  "3017.TW",
+  "2368.TW",
+  "1303.TW",
+  "3008.TW",
+  "2308.TW"
+ ],
+ "etf_holdings_as_of": [
+  "2026-09-23",
+  "2026-09-24"
+ ],
+ "check": {
+  "mode": "COLD_START_FALLBACK",
+  "plan_status": "REPAIRED",
+  "orders": 25,
+  "errors": [],
+  "active_share": "PASS",
+  "active_share_min": 0.2521,
+  "closest_etf": "00408A"
+ }
+}

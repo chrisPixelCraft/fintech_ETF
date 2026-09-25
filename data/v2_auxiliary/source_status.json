@@ -1,0 +1,3280 @@
+{
+  "schema_version": "1.0",
+  "retrieved_at": "2026-09-21T15:48:34.776616+00:00",
+  "sources": {
+    "NASDAQ": {
+      "status": "FETCHED_RESEARCH_SOURCE",
+      "rows": 680,
+      "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=USStockPrice&data_id=^IXIC&start_date=2024-01-01&end_date=2026-09-21",
+      "availability": "US 16:30 America/New_York, assumed after completed close",
+      "revision_vintage": "RETRIEVED_TODAY_NOT_ARCHIVED_RELEASE"
+    },
+    "SOX": {
+      "status": "FETCHED_RESEARCH_SOURCE",
+      "rows": 680,
+      "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=USStockPrice&data_id=^SOX&start_date=2024-01-01&end_date=2026-09-21",
+      "availability": "US 16:30 America/New_York, assumed after completed close",
+      "revision_vintage": "RETRIEVED_TODAY_NOT_ARCHIVED_RELEASE"
+    },
+    "NVDA": {
+      "status": "FETCHED_RESEARCH_SOURCE",
+      "rows": 680,
+      "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=USStockPrice&data_id=NVDA&start_date=2024-01-01&end_date=2026-09-21",
+      "availability": "US 16:30 America/New_York, assumed after completed close",
+      "revision_vintage": "RETRIEVED_TODAY_NOT_ARCHIVED_RELEASE"
+    },
+    "TSM_ADR": {
+      "status": "FETCHED_RESEARCH_SOURCE",
+      "rows": 680,
+      "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=USStockPrice&data_id=TSM&start_date=2024-01-01&end_date=2026-09-21",
+      "availability": "US 16:30 America/New_York, assumed after completed close",
+      "revision_vintage": "RETRIEVED_TODAY_NOT_ARCHIVED_RELEASE"
+    },
+    "USD_TWD": {
+      "status": "FETCHED_RESEARCH_PROXY",
+      "rows": 667,
+      "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanExchangeRate&data_id=USD&start_date=2024-01-01&end_date=2026-09-21",
+      "definition": "Bank USD/TWD spot buy/sell midpoint; not global FX close"
+    },
+    "TAIWAN_FUTURES_NIGHT": {
+      "status": "FETCHED_RESEARCH_SOURCE",
+      "rows": 659,
+      "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanFuturesDaily&data_id=TX&start_date=2024-01-01&end_date=2026-09-21",
+      "definition": "Completed after_market close/open; highest-volume completed night contract",
+      "date_semantics_source": "https://www.taifex.com.tw/cht/3/futContractsDateAhView",
+      "availability": "Night attribution day06:00, derived rather than vendor publication timestamp"
+    },
+    "EARNINGS": {
+      "status": "UNKNOWN",
+      "reason": "NO_VERIFIED_POINT_IN_TIME_EARNINGS_PUBLICATION_SOURCE",
+      "fallback": "NEUTRAL"
+    },
+    "INSTITUTIONAL": {
+      "status": "FETCHED_RESEARCH_SOURCE",
+      "provenance_file": "data/v2_auxiliary/institutional_provenance.json",
+      "details": {
+        "schema_version": "1.0",
+        "created_at": "2026-09-21T15:47:50.014008+00:00",
+        "query": {
+          "dataset": "TaiwanStockInstitutionalInvestorsBuySell",
+          "start": "2024-01-01",
+          "end": "2026-09-21",
+          "url_template": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id={ticker}&start_date=2024-01-01&end_date=2026-09-21"
+        },
+        "formula": {
+          "freeze_status": "FROZEN_BEFORE_STRATEGY_RESULT_NO_TUNING",
+          "included_investor_names": [
+            "Foreign_Investor",
+            "Investment_Trust"
+          ],
+          "excluded_dealer_names": [
+            "Dealer_self",
+            "Dealer_Hedging",
+            "Foreign_Dealer_Self"
+          ],
+          "net_buy": "sum(buy - sell) for Foreign_Investor and Investment_Trust",
+          "score": "clip(rolling_5_sum(net_buy) / rolling_5_sum(volume) / 0.1, -1, 1)",
+          "rolling_sessions": 5,
+          "denominator_scale": 0.1
+        },
+        "availability": {
+          "available_at": "source date at 19:30 Asia/Taipei",
+          "basis": "DERIVED_ASSUMPTION_SAME_DAY_19_30_ASIA_TAIPEI_NOT_SOURCE_PUBLISHED",
+          "caveat": "FinMind rows do not prove an original publication timestamp; the schedule is a conservative derived assumption."
+        },
+        "inputs": {
+          "universe": {
+            "path": "data/extended/processed/universe_20241231.csv",
+            "sha256": "abb4063385b919ef26a9d40fa8727b216e045a48f15759db525f5f728f7a1c5a"
+          },
+          "market": {
+            "path": "data/v2/market_daily.csv",
+            "sha256": "c27e8618545c13b5253fa8fe7b4d49875b63220034be94182961418a7c1f2338"
+          },
+          "canonical_volume_fallback": {
+            "path": "data/extended/processed/daily_canonical.csv",
+            "sha256": "48c8d52c0b55d8dd3e5473232ec1e6162be9779ce9ef77f7a40d5ef2474eb3cf"
+          }
+        },
+        "status": "FETCHED_RESEARCH_SOURCE_DERIVED_AVAILABILITY",
+        "requested_tickers": 150,
+        "fetched_tickers": 150,
+        "normalized_tickers": 150,
+        "failures": {},
+        "per_ticker": {
+          "2330": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2317": {
+            "raw_rows": 3290,
+            "published_dates": 658,
+            "included_rows": 1316,
+            "normalized_rows": 654,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2454": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2881": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2308": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2382": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2882": {
+            "raw_rows": 3290,
+            "published_dates": 658,
+            "included_rows": 1316,
+            "normalized_rows": 654,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2412": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2891": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "3711": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2886": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2303": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "6669": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2603": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "1216": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2357": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2885": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2345": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2884": {
+            "raw_rows": 3290,
+            "published_dates": 658,
+            "included_rows": 1316,
+            "normalized_rows": 654,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "3045": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2892": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "5880": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2880": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "3008": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2207": {
+            "raw_rows": 3290,
+            "published_dates": 658,
+            "included_rows": 1316,
+            "normalized_rows": 654,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "6505": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "4904": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2002": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "3034": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "3231": {
+            "raw_rows": 3290,
+            "published_dates": 658,
+            "included_rows": 1316,
+            "normalized_rows": 654,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2395": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2379": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2890": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2883": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2327": {
+            "raw_rows": 3260,
+            "published_dates": 652,
+            "included_rows": 1304,
+            "normalized_rows": 648,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2912": {
+            "raw_rows": 3290,
+            "published_dates": 658,
+            "included_rows": 1316,
+            "normalized_rows": 654,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2609": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "3661": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "4938": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2618": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "1101": {
+            "raw_rows": 3290,
+            "published_dates": 658,
+            "included_rows": 1316,
+            "normalized_rows": 654,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "3017": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "1303": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2301": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2615": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "1301": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2887": {
+            "raw_rows": 3290,
+            "published_dates": 658,
+            "included_rows": 1316,
+            "normalized_rows": 654,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "3533": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "3653": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "3037": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2383": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "6446": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2888": {
+            "raw_rows": 1830,
+            "published_dates": 366,
+            "included_rows": 732,
+            "normalized_rows": 362,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2801": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "5876": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "5871": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2376": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "3443": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2356": {
+            "raw_rows": 3291,
+            "published_dates": 659,
+            "included_rows": 1317,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2360": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "1402": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "1590": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2324": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "6409": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "1519": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "1326": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2105": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2633": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "6415": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2610": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2377": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "5269": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2059": {
+            "raw_rows": 3291,
+            "published_dates": 659,
+            "included_rows": 1317,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "1102": {
+            "raw_rows": 3290,
+            "published_dates": 658,
+            "included_rows": 1316,
+            "normalized_rows": 654,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "1476": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2449": {
+            "raw_rows": 3290,
+            "published_dates": 658,
+            "included_rows": 1316,
+            "normalized_rows": 654,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2834": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2474": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "9910": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "3036": {
+            "raw_rows": 3290,
+            "published_dates": 658,
+            "included_rows": 1316,
+            "normalized_rows": 654,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "9945": {
+            "raw_rows": 3290,
+            "published_dates": 658,
+            "included_rows": 1316,
+            "normalized_rows": 654,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2353": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2368": {
+            "raw_rows": 3290,
+            "published_dates": 658,
+            "included_rows": 1316,
+            "normalized_rows": 654,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2347": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "6526": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2049": {
+            "raw_rows": 3290,
+            "published_dates": 658,
+            "included_rows": 1316,
+            "normalized_rows": 654,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2385": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "3702": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "3481": {
+            "raw_rows": 3260,
+            "published_dates": 652,
+            "included_rows": 1304,
+            "normalized_rows": 648,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "4958": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2409": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2371": {
+            "raw_rows": 3260,
+            "published_dates": 652,
+            "included_rows": 1304,
+            "normalized_rows": 648,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "1504": {
+            "raw_rows": 3290,
+            "published_dates": 658,
+            "included_rows": 1316,
+            "normalized_rows": 654,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "9904": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "8464": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2354": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "3044": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "2812": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "1503": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "3665": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 654,
+            "missing_volume_dates": 1,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "8069": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "3293": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "3529": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "5347": {
+            "raw_rows": 3290,
+            "published_dates": 658,
+            "included_rows": 1316,
+            "normalized_rows": 654,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "6488": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "5274": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "8299": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "6223": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "5483": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "6121": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "4966": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "3324": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "3374": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "5904": {
+            "raw_rows": 3260,
+            "published_dates": 652,
+            "included_rows": 1304,
+            "normalized_rows": 648,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "6147": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "3105": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "3680": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "6274": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "5536": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "3131": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "6535": {
+            "raw_rows": 3290,
+            "published_dates": 658,
+            "included_rows": 1316,
+            "normalized_rows": 654,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "4743": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "5903": {
+            "raw_rows": 3290,
+            "published_dates": 658,
+            "included_rows": 1316,
+            "normalized_rows": 654,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "6187": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "3227": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "1785": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "6561": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "5371": {
+            "raw_rows": 3190,
+            "published_dates": 638,
+            "included_rows": 1276,
+            "normalized_rows": 634,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "3081": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "8415": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "3211": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "4123": {
+            "raw_rows": 3290,
+            "published_dates": 658,
+            "included_rows": 1316,
+            "normalized_rows": 654,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "6548": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "5508": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "6643": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "6188": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "3362": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "6510": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "5009": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "4979": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "3264": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "4772": {
+            "raw_rows": 2800,
+            "published_dates": 610,
+            "included_rows": 1220,
+            "normalized_rows": 481,
+            "missing_volume_dates": 125,
+            "categories": [
+              "Dealer",
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "3363": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "6023": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "4147": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "6125": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "5530": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "3260": {
+            "raw_rows": 3290,
+            "published_dates": 658,
+            "included_rows": 1316,
+            "normalized_rows": 654,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "6589": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          },
+          "8086": {
+            "raw_rows": 3295,
+            "published_dates": 659,
+            "included_rows": 1318,
+            "normalized_rows": 655,
+            "missing_volume_dates": 0,
+            "categories": [
+              "Dealer_Hedging",
+              "Dealer_self",
+              "Foreign_Dealer_Self",
+              "Foreign_Investor",
+              "Investment_Trust"
+            ]
+          }
+        },
+        "raw_artifacts": [
+          {
+            "ticker": "2330",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2330_e809fd3cce5bdea1.json",
+            "sha256": "e809fd3cce5bdea118a81703927528697d75984c938a02fe09ec1cccef230011",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2330&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2317",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2317_a1fd781e87aed447.json",
+            "sha256": "a1fd781e87aed44790ce073361b8da2ff0d67fcfcdbf7872bde8f444a9743a94",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2317&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2454",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2454_5f075de44c1ef28d.json",
+            "sha256": "5f075de44c1ef28d3b529048c6dc2499a4fb1a9d9cf07eb4b9bf3f94251c5bbb",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2454&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2881",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2881_7b3b5434c4199aef.json",
+            "sha256": "7b3b5434c4199aef8e73ed04c37aa0c4b22c78f2906c4b50a78a1d2ab87505d3",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2881&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2308",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2308_71cf137335a7cf58.json",
+            "sha256": "71cf137335a7cf58fe4a43406ba24e3b6ac89b8801c981832f3acd4bc5fedeb7",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2308&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2382",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2382_bbd536e1ee6b2b03.json",
+            "sha256": "bbd536e1ee6b2b03a8d331bb5a4e85bd9e11eb7637150d2e850dceb667e8b8ac",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2382&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2882",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2882_db434f61ff5633fd.json",
+            "sha256": "db434f61ff5633fd898402a5972ab4d0448d1d04327b6cbc83b9f486b4d193ed",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2882&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2412",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2412_c3ce0e054d94aa40.json",
+            "sha256": "c3ce0e054d94aa40acbcc18fde5dc273649750d7581b9c8b63335146be270b45",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2412&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2891",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2891_db23da909c1e45aa.json",
+            "sha256": "db23da909c1e45aa2cf0b32f42fd66c66c6948a57ba2c29baf8097f11a01f9bd",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2891&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "3711",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_3711_d8e15fecb06814e1.json",
+            "sha256": "d8e15fecb06814e11bd5660fb78e5b36c5beca974900351c694c1e881972f749",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=3711&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2886",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2886_e58b3eb2e2f96ee9.json",
+            "sha256": "e58b3eb2e2f96ee9cab005e55445ad1c48345e8958d5340f5b3aabac587d5d60",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2886&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2303",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2303_e1c266200c06116b.json",
+            "sha256": "e1c266200c06116b280923a5497031dc097fe0a7e22f2c72bdf1f9be7710beb9",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2303&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "6669",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_6669_01a32c12f4e738a3.json",
+            "sha256": "01a32c12f4e738a3740ee844047daead08a82c48ffd3e494071ea9f7dd4f35ab",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=6669&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2603",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2603_9d0a4b9d08e1a710.json",
+            "sha256": "9d0a4b9d08e1a71074db2e9073a1fa213e5de1b69d011d2d982d65c6e9225257",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2603&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "1216",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_1216_c137000f1d2f25f3.json",
+            "sha256": "c137000f1d2f25f38166682ca43cd5772fe7ebd8168140676acf8718be3ec4d4",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=1216&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2357",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2357_213f515945338b5a.json",
+            "sha256": "213f515945338b5a4b39d297860b7f757c47dee006c0dfc9fa98f0301ac56435",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2357&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2885",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2885_b28261b833cf0a5a.json",
+            "sha256": "b28261b833cf0a5a6f9f8b0c867c408cf4387063ab0d3df4905e4a04fa7bd3f9",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2885&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2345",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2345_c434360cbae3cff2.json",
+            "sha256": "c434360cbae3cff21419d4cc4235562720f5cac840bd311c4e54b72652948723",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2345&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2884",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2884_4fca1d4480b8869b.json",
+            "sha256": "4fca1d4480b8869b73c4b8cbc341c5ac120d0b1e28b1795e5f27b51b62b66500",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2884&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "3045",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_3045_c9237a077281c458.json",
+            "sha256": "c9237a077281c4587b61aac581da01fd154ec9c37b1281df0a24e3e014b78009",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=3045&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2892",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2892_cb205feb824e25db.json",
+            "sha256": "cb205feb824e25dba1300e448fe31e3b35cf0c908385c53237a44937bfbf2188",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2892&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "5880",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_5880_0f90f958a0a2720f.json",
+            "sha256": "0f90f958a0a2720f095bb392c4c39c39826105efaa1767302b298b221e1de9d8",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=5880&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2880",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2880_c9422440bd6cded6.json",
+            "sha256": "c9422440bd6cded6bec4a71307cfdce10f82f1159fd52054b56e1926c0ac32a9",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2880&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "3008",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_3008_c6f75a0d28d0ffd2.json",
+            "sha256": "c6f75a0d28d0ffd2829f25c25eb38da86ce8962864e413a3b872b7953b660047",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=3008&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2207",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2207_3cce35b19bea3339.json",
+            "sha256": "3cce35b19bea3339e840b33e32ebc18fefe60245ee14628857ae31d2a1db38b0",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2207&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "6505",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_6505_b70d33e8aeef47d7.json",
+            "sha256": "b70d33e8aeef47d7d4ac81e33de64f6f8af5555ace8526f954979b0cf1691a29",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=6505&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "4904",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_4904_ed9ec5452fd2aa5d.json",
+            "sha256": "ed9ec5452fd2aa5d41725308ee3053ea38a867cd44671e0e4cf045c71aed4cc8",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=4904&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2002",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2002_addc706b50b931d8.json",
+            "sha256": "addc706b50b931d86bc5ddd6d0e7cdefba1b31b05ea20aa8af34d4b7e2ed35e8",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2002&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "3034",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_3034_c1fedf3702d064d5.json",
+            "sha256": "c1fedf3702d064d5d54e408823d57020780fccc78a732ee61b99f24db227cc5a",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=3034&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "3231",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_3231_87f2bb7728156ebf.json",
+            "sha256": "87f2bb7728156ebf62fe99d41cf89832c1484122c12a3aff50c428277bf7c710",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=3231&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2395",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2395_de94a9e7d54b03f2.json",
+            "sha256": "de94a9e7d54b03f21a241d9c566ff70a178e4a8b722bb1ff0ff9fd51c9bfac1b",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2395&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2379",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2379_6e790727c3f355a9.json",
+            "sha256": "6e790727c3f355a9a7eac02eca7fd5d07bd4746c834d9b897f80603bd7cd1f57",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2379&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2890",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2890_86a39fa1141326de.json",
+            "sha256": "86a39fa1141326de44d08f1134bb0462d6e94978ba3e40d4b100f070a96d8dee",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2890&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2883",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2883_b81d6cd9fc8a5992.json",
+            "sha256": "b81d6cd9fc8a599234d1d853759f66d369dc7edabf20e8eaa05391925800d95f",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2883&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2327",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2327_1c49e48e16d45dd8.json",
+            "sha256": "1c49e48e16d45dd8b8e52afba227b6d9a2803db7abbeb6cce777fce133caef9c",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2327&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2912",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2912_c2170c4f756f7153.json",
+            "sha256": "c2170c4f756f71530023663fb80dcbcd3ae40ceab9a4ff62215fc2e8b1ee7e08",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2912&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2609",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2609_cfbf6126c0c64862.json",
+            "sha256": "cfbf6126c0c64862456c6ded4744e49682e91a2b16fc8b62e22b22fe197349fc",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2609&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "3661",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_3661_7fbbd026537e271b.json",
+            "sha256": "7fbbd026537e271b8a050c06a3184741580437ad9b59339890537a265fdb6436",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=3661&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "4938",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_4938_1cb43b926ce38d85.json",
+            "sha256": "1cb43b926ce38d8555a552763491e2ceb69b55a6c46521c322c9b324e7d57060",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=4938&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2618",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2618_32ec3941fb96be8b.json",
+            "sha256": "32ec3941fb96be8b9446938a3053c02b1037cbbae5214362bd40b3adba2e4d21",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2618&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "1101",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_1101_11947f3e7fb83515.json",
+            "sha256": "11947f3e7fb835151866110ad9d588bdde8a13d5758cb1ac0ad78bde2347b46b",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=1101&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "3017",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_3017_10d4cc63132db873.json",
+            "sha256": "10d4cc63132db873c729c39b9c61f7590dbf167b6da7cf7bcc60eec763e51f48",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=3017&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "1303",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_1303_33417ab579c69763.json",
+            "sha256": "33417ab579c697630fcf37631a9d4c707ae7d60c658760625098178e7d578800",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=1303&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2301",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2301_7f6a5130f293951e.json",
+            "sha256": "7f6a5130f293951effd7329000520950321cad2766fb52e1154c48d417fb0def",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2301&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2615",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2615_ec6554e0b306bed0.json",
+            "sha256": "ec6554e0b306bed0f7a8f68cc1b044e61bb1074c46aed02abf0f20cbca18f291",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2615&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "1301",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_1301_af36cea47d6c969d.json",
+            "sha256": "af36cea47d6c969df5c1933d99cbff82278dbae92b7ce67e58d985f31e7350aa",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=1301&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2887",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2887_0e56c077df1aba3b.json",
+            "sha256": "0e56c077df1aba3bc998934fbf0accca72caae1d3f13e9f651589e74be4dffd8",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2887&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "3533",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_3533_37171d7b8aa0d6d6.json",
+            "sha256": "37171d7b8aa0d6d62d562b1c5b89541d014228c2cfffb628875cba6d8cc8e9f6",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=3533&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "3653",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_3653_5231d4394c11be10.json",
+            "sha256": "5231d4394c11be104fbbfa78d8b738c63586f6221b5c23258113415c26f3892b",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=3653&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "3037",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_3037_03dae9463147eda8.json",
+            "sha256": "03dae9463147eda864a4d1a40addd32937ba9605036219ce5dac63a71d9f7ec2",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=3037&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2383",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2383_a0e5dc18c2817624.json",
+            "sha256": "a0e5dc18c28176242c4d2e93b426ed5cfcbd14d1b0c83facf67a3626f873263f",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2383&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "6446",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_6446_d815bfb1a4b2477a.json",
+            "sha256": "d815bfb1a4b2477addc960da777c0b1eadffdd3248cae7308d6a436ebfa9b5c6",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=6446&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2888",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2888_666ea5f6cf0b3994.json",
+            "sha256": "666ea5f6cf0b3994e9d504c8edffdd40dc2ef4d92caeef4f169647a1bc1a3d18",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2888&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": false
+          },
+          {
+            "ticker": "2801",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2801_c03b3defbc808a65.json",
+            "sha256": "c03b3defbc808a65c6e13e3f435160d4f2ab5550ad0edeb5b23bb3043f075a70",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2801&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "5876",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_5876_82f2735d76a63a35.json",
+            "sha256": "82f2735d76a63a35ae1264aaa0da927f3d4e33d0eebc2e0b43803c0f94a6eefe",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=5876&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "5871",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_5871_6bbeb62575551f6a.json",
+            "sha256": "6bbeb62575551f6aa08eb97439d5822a488e1d454129038bc76a593bb8a2d811",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=5871&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2376",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2376_04fa4c1b5d6892f5.json",
+            "sha256": "04fa4c1b5d6892f5d37a91fb332cee3b8899f5cf1442c6398e21dd25dc057980",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2376&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "3443",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_3443_17e0996c035e5d54.json",
+            "sha256": "17e0996c035e5d5422d008bdb504775496d3eb51393c8a79cb1932053c47e7e0",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=3443&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2356",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2356_4aa0a328824d5527.json",
+            "sha256": "4aa0a328824d55279563383e42507f48f6d862434ab9934d867720b5a4c1beac",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2356&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2360",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2360_17aa7f3049f6d83d.json",
+            "sha256": "17aa7f3049f6d83d38769417ce86f3c0b112ff3904492a4669cb0805c1e3f342",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2360&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "1402",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_1402_fffbc372de18aad8.json",
+            "sha256": "fffbc372de18aad8c0bae27595e8f4608f9b64daa60f442315098a2df7ace5a8",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=1402&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "1590",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_1590_4e3c66e2d918ce4e.json",
+            "sha256": "4e3c66e2d918ce4e27823cb9f6ef90af50e8bc62629141de551f0bae0950bca8",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=1590&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2324",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2324_cc54ff1ae5d31561.json",
+            "sha256": "cc54ff1ae5d31561986936dc96829ea5307cbf022440279537392f70f5ae4943",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2324&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "6409",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_6409_86d712a7116bd9a0.json",
+            "sha256": "86d712a7116bd9a0ce55a57ac87def57866b6a1fd6bd60616fc6bf9be2e31ae7",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=6409&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": false
+          },
+          {
+            "ticker": "1519",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_1519_67f1a865ef69b2c1.json",
+            "sha256": "67f1a865ef69b2c1c43136fb0e5cbc3379bd413488d483725732bff0fad99843",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=1519&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "1326",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_1326_f5bde1a55b385cd0.json",
+            "sha256": "f5bde1a55b385cd05b5b47c21b6bbe37ef0599d3b7afa12b7dad1612a4f0016e",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=1326&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2105",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2105_4e3b5623c90b74c3.json",
+            "sha256": "4e3b5623c90b74c362429d7e618e86593fef4865a99ee480024811e157f4abe5",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2105&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": false
+          },
+          {
+            "ticker": "2633",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2633_073e9589bf3e178d.json",
+            "sha256": "073e9589bf3e178d12e13e9c9cd56cbbdafae9cd5a0b44c07f0546c176b16847",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2633&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": false
+          },
+          {
+            "ticker": "6415",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_6415_b2940494b5a8831e.json",
+            "sha256": "b2940494b5a8831e99d0bc986db72f2691f9535876247415eb0586552f03e4a3",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=6415&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2610",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2610_e1b6131cd215ef0e.json",
+            "sha256": "e1b6131cd215ef0e9225521e6e32c7fe0c33bb65e8df5a519e0159090ac7a3eb",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2610&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2377",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2377_514bf0d5cf3fd3ad.json",
+            "sha256": "514bf0d5cf3fd3adfb15242e48c083371ffc77cc4a6ea100c200277b41e755e9",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2377&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "5269",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_5269_ec939106f9e0aab1.json",
+            "sha256": "ec939106f9e0aab192878dbcffc8ee0424140f56ba4f0b2c2da353c1ec652126",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=5269&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": false
+          },
+          {
+            "ticker": "2059",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2059_b4d9c31e1ecec5b7.json",
+            "sha256": "b4d9c31e1ecec5b7b83bc363a2fad03ad0fa1383ee788e3debaa5619220a5c9b",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2059&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "1102",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_1102_bcfe381fe186c60b.json",
+            "sha256": "bcfe381fe186c60b32e4d8d1a890bca40b91629a73df479261b8e746c1b30be5",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=1102&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": false
+          },
+          {
+            "ticker": "1476",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_1476_f1779f0bddcc1974.json",
+            "sha256": "f1779f0bddcc19746519a092601545ff1ee3537b0c6676d548c2b47b5a51d695",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=1476&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": false
+          },
+          {
+            "ticker": "2449",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2449_68bddda363a31ad0.json",
+            "sha256": "68bddda363a31ad0607f7dafe392ac897740d956158cdf56526be244896dc7c9",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2449&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2834",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2834_8bd6622a4dd5b64a.json",
+            "sha256": "8bd6622a4dd5b64a7da227360ddd116f4056ccb4a13af0c21941b65a713f278c",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2834&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2474",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2474_71f47cd899c6f64c.json",
+            "sha256": "71f47cd899c6f64c58c0e022831f0e31a1ad15583bb505f3d1230885bc0a0adf",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2474&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": false
+          },
+          {
+            "ticker": "9910",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_9910_f5d4f920eadd0bf3.json",
+            "sha256": "f5d4f920eadd0bf32109a7d70a0ce212276f58c3fda10d1eaeaffb00c26ebfd4",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=9910&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": false
+          },
+          {
+            "ticker": "3036",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_3036_b2f39dee45aa2e3a.json",
+            "sha256": "b2f39dee45aa2e3aac2b1bbd8e5f90541d0101d40c54d4f9968c0586caad3b70",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=3036&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "9945",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_9945_fb3a4c5944bda25d.json",
+            "sha256": "fb3a4c5944bda25db05bc75ba0132830109f01bf86e4763440f99de52cfa945a",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=9945&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": false
+          },
+          {
+            "ticker": "2353",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2353_3a43ddcfeeda3f77.json",
+            "sha256": "3a43ddcfeeda3f775e1d71215b722b27f8f1c8659c32b5a41b82dc070ecc65ea",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2353&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": false
+          },
+          {
+            "ticker": "2368",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2368_a2b1b6b1ce9832b5.json",
+            "sha256": "a2b1b6b1ce9832b52a1440ee326a5e43256099882a8d6e42a9e1e2579a2259c1",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2368&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2347",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2347_a035d7de9ff858df.json",
+            "sha256": "a035d7de9ff858df263da3e2cc9951e1f26cabd4fa3be92a9426206129e015ab",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2347&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "6526",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_6526_ded847905b5b9def.json",
+            "sha256": "ded847905b5b9deff122b15dd161ea53e448c1b68a9a48aa49708ee8704a6c51",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=6526&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": false
+          },
+          {
+            "ticker": "2049",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2049_7bbe2ab2e9c56114.json",
+            "sha256": "7bbe2ab2e9c561141fa4d2f0e4f96b617b2e4e93ab2c367b34e85761e44e981f",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2049&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": false
+          },
+          {
+            "ticker": "2385",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2385_8abd71e3bd301e99.json",
+            "sha256": "8abd71e3bd301e99945a427b39e41444a7ab6d2391b1f6ee2d9ebb81d6f6fd91",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2385&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": false
+          },
+          {
+            "ticker": "3702",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_3702_eb3773475269f3ec.json",
+            "sha256": "eb3773475269f3ec45e2cb26f6a2126e627084e76403d035a261de5330827f72",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=3702&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "3481",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_3481_ef4a331093de6a0d.json",
+            "sha256": "ef4a331093de6a0d690a776e906d30bcdfbcac966202eda112a5878e0838d2db",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=3481&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "4958",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_4958_b49264c9af16de30.json",
+            "sha256": "b49264c9af16de30939aee9e6f75d1300cf1835fb191cce863d73d3fd081e1d5",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=4958&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2409",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2409_c5dad259429b1e61.json",
+            "sha256": "c5dad259429b1e61445c3b32215ff0f724bf086495d7edcd1eb83656f6cbe418",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2409&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2371",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2371_72e6a22ecb00f4f8.json",
+            "sha256": "72e6a22ecb00f4f8629699a8ea768257361383b2c1f9f72469136c6e52e23fdc",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2371&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": false
+          },
+          {
+            "ticker": "1504",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_1504_6b593f232578353d.json",
+            "sha256": "6b593f232578353d1da2796c2dea0c9d084491c4371810d54237280f0f9ac4cb",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=1504&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "9904",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_9904_708aa421c9f930ff.json",
+            "sha256": "708aa421c9f930ff880913446c072b4d0bb889d74b925e58777463cd18d6a66e",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=9904&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": false
+          },
+          {
+            "ticker": "8464",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_8464_b7d5d88b03593051.json",
+            "sha256": "b7d5d88b0359305182a31cd49ab40472ef0a95c0b7042065fd7726cc0f3f4b43",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=8464&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": false
+          },
+          {
+            "ticker": "2354",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2354_090ea1cf2704f17e.json",
+            "sha256": "090ea1cf2704f17e0a892b89582d3ef4219849de0961423f005bb5352c20defa",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2354&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": false
+          },
+          {
+            "ticker": "3044",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_3044_4480cc89b117ccae.json",
+            "sha256": "4480cc89b117ccae48486a6b359030c319fd1052a356a513dcba01b354ac10aa",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=3044&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "2812",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_2812_ff9d3c2e7909aea4.json",
+            "sha256": "ff9d3c2e7909aea4f5c9dc000fa1e64dea95fa80fe97450142b27925bb8974bf",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=2812&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "1503",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_1503_9340319a5b1dc501.json",
+            "sha256": "9340319a5b1dc501b9fef9c0126e470f9453761f79c315bc50e589f179b8a3e4",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=1503&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": false
+          },
+          {
+            "ticker": "3665",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_3665_b2b57575ce32a1d6.json",
+            "sha256": "b2b57575ce32a1d6d569739eb82433840ddbdebb654b152d761c793a83847910",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=3665&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "8069",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_8069_48facb4e1f1e9f4e.json",
+            "sha256": "48facb4e1f1e9f4ec5c48db4e83ac85b51f9580909167a31976940e4e7e79a2b",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=8069&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "3293",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_3293_86bf1db681686516.json",
+            "sha256": "86bf1db681686516a5ba3ca91bb91d0da24916bd281fe77b2eb0515c1c0c810a",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=3293&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "3529",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_3529_1982a4285fc34824.json",
+            "sha256": "1982a4285fc3482416e1fb7e795c4608a9f7d947bff688a16f73a0b84a0822c4",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=3529&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "5347",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_5347_896928b3a1eeb108.json",
+            "sha256": "896928b3a1eeb108a8c3870522a5c15a2be333c05cc32c3035f2a942525a999e",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=5347&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "6488",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_6488_0dde4d1c400a7669.json",
+            "sha256": "0dde4d1c400a7669d12a5adf78b5b2a65a3d379334cee94ff0db27efdb70a0f1",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=6488&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "5274",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_5274_d627f04981764e9e.json",
+            "sha256": "d627f04981764e9ed2fae5ae35e7453fb2419c557baf028f85803270b04bc7f6",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=5274&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "8299",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_8299_5928b125aad12c2b.json",
+            "sha256": "5928b125aad12c2ba649c05bded90914c03dff618e3f07c711ece9786cad9dc6",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=8299&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "6223",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_6223_a4c634e5b9dcc165.json",
+            "sha256": "a4c634e5b9dcc165773b540b8c9f82ef36fb1e47262753c432b165b9476546c9",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=6223&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "5483",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_5483_05c05cc6e1181483.json",
+            "sha256": "05c05cc6e118148351d3d7c72c4b223e2166998ab58b4c589efb0dd5acc099ca",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=5483&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "6121",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_6121_6eb32cdb0c6c8d4e.json",
+            "sha256": "6eb32cdb0c6c8d4ead1b8facbfa711b7d850dd1b3492f30b7d9836f47cfb5bb8",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=6121&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "4966",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_4966_8aabb4b2ffd16558.json",
+            "sha256": "8aabb4b2ffd16558208f6aa46b38bfe4ea268b6a7e0d94b5dfdb93a2cdb8e4df",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=4966&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "3324",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_3324_8629739e437a8f2e.json",
+            "sha256": "8629739e437a8f2e1aa4905258410d899de3ecf4a71f76b08966e88c347f0cf0",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=3324&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "3374",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_3374_2651db26af7cea15.json",
+            "sha256": "2651db26af7cea15960228a0ccf0fceb1cb3be45c18b05f2af1218728b99d497",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=3374&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "5904",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_5904_d9dcc7ce4f9198bf.json",
+            "sha256": "d9dcc7ce4f9198bfbc0c3f1290281f4572fc057d0b32fd4492ca4d34a80c6c5a",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=5904&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": false
+          },
+          {
+            "ticker": "6147",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_6147_3fe474b680c079a3.json",
+            "sha256": "3fe474b680c079a39f712d2393711e15476f5c9ab8f43f6d132755637b22896f",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=6147&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "3105",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_3105_8568a2066e3e629b.json",
+            "sha256": "8568a2066e3e629ba9ebfcc533014b95639a11a0becd2c86f679b9c0f53b2ed2",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=3105&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "3680",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_3680_cb515f44bd31639c.json",
+            "sha256": "cb515f44bd31639c1c29f3cfbdd999ec27d1d577e4b63caa0045944936a35988",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=3680&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "6274",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_6274_6f9abaa1a6a9cc1c.json",
+            "sha256": "6f9abaa1a6a9cc1cbbf2e2466573ac55a5149ad2d378360bf56caef7868c9a13",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=6274&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "5536",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_5536_4a6b8f5501777d51.json",
+            "sha256": "4a6b8f5501777d515f7ac8be83e084d91db00a63f4b6b93da1c163fe0f2edefb",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=5536&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "3131",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_3131_3d424aedb9b226a4.json",
+            "sha256": "3d424aedb9b226a49524623ec03cf3b39d23ceb18abd5e0a6fe91157296aee0b",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=3131&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "6535",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_6535_9d95c52664dd25fc.json",
+            "sha256": "9d95c52664dd25fc64d9b43ca00be91b27ac38d02a1fbd29ab9bf66efc6e125e",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=6535&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": false
+          },
+          {
+            "ticker": "4743",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_4743_477958508f803d79.json",
+            "sha256": "477958508f803d79ac75be51b644df17f82977e7e2a48c44fc8f7edc82784759",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=4743&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": false
+          },
+          {
+            "ticker": "5903",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_5903_7ffed73495ed38d7.json",
+            "sha256": "7ffed73495ed38d7645873a4b096cf132eded583433870225122a5e5d72fa4fc",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=5903&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "6187",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_6187_52bbf6db0a7a63b5.json",
+            "sha256": "52bbf6db0a7a63b5be3ab396ac093691c7a63420b4bf585bc3acf7d7d2a824a3",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=6187&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "3227",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_3227_b9eb487e9449f253.json",
+            "sha256": "b9eb487e9449f25352e92177187cd46b3553f491cb61fe15189aa17bc7b10076",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=3227&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "1785",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_1785_6a49761e970e7d82.json",
+            "sha256": "6a49761e970e7d82b135ee4d222ea31752ed45df95d5f01e29ad04c980670459",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=1785&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "6561",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_6561_53a4c6b28d07f89a.json",
+            "sha256": "53a4c6b28d07f89ac77e8bc970adb11493d1a85c8109d452054024bbc922b635",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=6561&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": false
+          },
+          {
+            "ticker": "5371",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_5371_1371a35fcd418786.json",
+            "sha256": "1371a35fcd418786e344f053512b97a89750d876a2e275ad91d3381fc92f7b87",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=5371&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": false
+          },
+          {
+            "ticker": "3081",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_3081_8bb7a2c69796e62e.json",
+            "sha256": "8bb7a2c69796e62eecc79a006f56e8de682c45343b4bce0dc4b9a9b1fd0af665",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=3081&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "8415",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_8415_d3d9720870cdc595.json",
+            "sha256": "d3d9720870cdc595e323611bd594a5d45b099f11310edeaefd61a1de08cc5a64",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=8415&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "3211",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_3211_7fffd927aa28decc.json",
+            "sha256": "7fffd927aa28decce613997359a1b82ae868751eeec4e6a3ddb4db25d47359a4",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=3211&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "4123",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_4123_27516164f54a3518.json",
+            "sha256": "27516164f54a3518bbad382696e8f7031a70d40a9f7f257d03856c6e0f7661e6",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=4123&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "6548",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_6548_31ac961d26b47d00.json",
+            "sha256": "31ac961d26b47d00fb2cebcc8fd6d1941ea0c475b795288785fff3f315ff2ade",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=6548&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "5508",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_5508_669b56ea7e0bebd9.json",
+            "sha256": "669b56ea7e0bebd9bbfed608aa95745c1e2c9bd5750cdf0e3ff631d836416c0c",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=5508&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": false
+          },
+          {
+            "ticker": "6643",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_6643_5ebd08b3fb91f63e.json",
+            "sha256": "5ebd08b3fb91f63ecb82ff3f126623360ca9c4378f62edec0971ae401fef043c",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=6643&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": false
+          },
+          {
+            "ticker": "6188",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_6188_ccdb5846464cc8ce.json",
+            "sha256": "ccdb5846464cc8ced88a65b15f81b633c1a2c809049936ed5b3bca6d52457432",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=6188&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": false
+          },
+          {
+            "ticker": "3362",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_3362_a1983b5295ce759d.json",
+            "sha256": "a1983b5295ce759d24fce6566e86572296c90eea904bfdf4e3bb1d7404c7fac9",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=3362&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": false
+          },
+          {
+            "ticker": "6510",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_6510_0174d5006d995a80.json",
+            "sha256": "0174d5006d995a805589707bbd3739858e0101fce71c8cedf9c02ec14404a53e",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=6510&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "5009",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_5009_a8bd08a879c21237.json",
+            "sha256": "a8bd08a879c2123750d9e2fa2fc7a3cdecf9ec71a6a6b398ad7602603b4d896b",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=5009&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": false
+          },
+          {
+            "ticker": "4979",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_4979_46019cf7757c2ecf.json",
+            "sha256": "46019cf7757c2ecfeefc143d53e5b2d619a61b6682a4b3d7fe9da14aac9622a1",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=4979&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "3264",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_3264_dffa138d50932bc6.json",
+            "sha256": "dffa138d50932bc6ff5d8353a56f3a25e10c5d9f4425044d19ac94852016414b",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=3264&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "4772",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_4772_05939453834a2497.json",
+            "sha256": "05939453834a249725aee8a64972b68ff34ed0d9675ad04d1598d610678f9203",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=4772&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "3363",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_3363_ca1b6289ee4ed1c8.json",
+            "sha256": "ca1b6289ee4ed1c8220b560fd40da685a43d06b8559ec2ad7d5ec8a3274a7349",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=3363&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "6023",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_6023_1b7423d3d52fad0c.json",
+            "sha256": "1b7423d3d52fad0c391c15cb05a650e29b0b18433014a8a5cbdca739d3567875",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=6023&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "4147",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_4147_fe68be0dc6d582f2.json",
+            "sha256": "fe68be0dc6d582f2216e373d1e72389bc59d31ccf7d7ef1d3ed2d18e873fd510",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=4147&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": false
+          },
+          {
+            "ticker": "6125",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_6125_4ca3389465f7fda1.json",
+            "sha256": "4ca3389465f7fda1a3eb5e2f71711f2e4799bc87c6bffb0029bc3244c7554e96",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=6125&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": false
+          },
+          {
+            "ticker": "5530",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_5530_3d56e5aaade61694.json",
+            "sha256": "3d56e5aaade61694d0771e835de0baa44861b0b7460edc44bcd46bc6ec76c762",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=5530&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": false
+          },
+          {
+            "ticker": "3260",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_3260_6714139ce172e877.json",
+            "sha256": "6714139ce172e8771e2927694b1cb5b82dafbfc79507a9ad1ef9518133430415",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=3260&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": true
+          },
+          {
+            "ticker": "6589",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_6589_172193b72aeae130.json",
+            "sha256": "172193b72aeae130a69aa5745b62553df022bf623a4e5b3816895ee263993792",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=6589&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": false
+          },
+          {
+            "ticker": "8086",
+            "path": "data/v2_auxiliary/raw/flow/TaiwanStockInstitutionalInvestorsBuySell_8086_413d50a6a96b6681.json",
+            "sha256": "413d50a6a96b6681dd1d42e22cac6de800d699960f8bd66a074b77a5c3a531d7",
+            "source_url": "https://api.finmindtrade.com/api/v4/data?dataset=TaiwanStockInstitutionalInvestorsBuySell&data_id=8086&start_date=2024-01-01&end_date=2026-09-21",
+            "cache_reused": false
+          }
+        ],
+        "output": {
+          "path": "data/v2_auxiliary/institutional_pit.csv",
+          "rows": 97713,
+          "sha256": "caa28c7268a73380dea60fac1543b20e1f27b0faadcb6fc7981022dd23ca460a"
+        },
+        "source_status_merge": {
+          "INSTITUTIONAL": {
+            "status": "FETCHED_RESEARCH_SOURCE_DERIVED_AVAILABILITY",
+            "rows": 97713,
+            "symbols": 150,
+            "path": "data/v2_auxiliary/institutional_pit.csv",
+            "sha256": "caa28c7268a73380dea60fac1543b20e1f27b0faadcb6fc7981022dd23ca460a",
+            "availability": "DERIVED_ASSUMPTION_SAME_DAY_19_30_ASIA_TAIPEI_NOT_SOURCE_PUBLISHED",
+            "failure_count": 0,
+            "fallback": "NEUTRAL_WHEN_MISSING"
+          }
+        },
+        "trust": "CANDIDATE_SOURCE_ROWS_WITH_DERIVED_AVAILABILITY_ASSUMPTION"
+      }
+    }
+  }
+}

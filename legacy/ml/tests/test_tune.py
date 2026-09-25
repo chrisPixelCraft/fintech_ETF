@@ -1,0 +1,176 @@
+import io
+import json
+import tempfile
+import unittest
+from pathlib import Path
+
+import numpy as np
+
+from autots_strategy.strategy import AutoTSStrategyConfig
+from research import tune
+
+
+def write_run(root: Path, returns: dict, disqualified=()):
+    for episode, value in returns.items():
+        folder = root / 'episodes' / episode
+        folder.mkdir(parents=True)
+        (folder / 'summary.json').write_text(json.dumps(dict(
+            episode_id=episode, status='COMPLETE', terminal_return=value, max_drawdown=.05, turnover=1.,
+            warning_days=0, disqualified=episode in disqualified)))
+    (root / 'manifest.json').write_text(json.dumps(dict(episode_ids=sorted(returns))))
+
+
+class TuneSpaceTest(unittest.TestCase):
+    def test_base_point_reproduces_baseline_autots(self):
+        base = json.loads(tune.BASE.read_text())
+        rebuilt = tune.to_config(tune.base_point(), base['name'])
+        self.assertEqual(AutoTSStrategyConfig.from_dict(rebuilt['params']),
+                         AutoTSStrategyConfig.from_dict(base['params']))
+        for key in ('execution', 'planner'):
+            self.assertEqual(rebuilt[key], base[key])
+        self.assertEqual(rebuilt['episodes'], tune.EPISODES)
+
+    def test_sampling_is_deterministic_and_valid(self):
+        draw = lambda: [tune.random_point(np.random.default_rng(7), .2) for _ in range(1)]
+        self.assertEqual(draw(), draw())
+        rng = np.random.default_rng(1)
+        points = [tune.random_point(rng, .2) for _ in range(40)]
+        self.assertTrue(all(p['validation_step'] >= p['horizon'] for p in points))
+        self.assertGreaterEqual(sum(tune.valid(p) for p in points), 35)
+
+    def test_mutation_changes_one_or_two_keys(self):
+        rng = np.random.default_rng(3)
+        base = tune.base_point()
+        for _ in range(20):
+            changed = {k for k, v in tune.mutate(base, rng).items() if v != base[k]}
+            self.assertTrue(1 <= len(changed) <= 2, changed)
+
+
+class TuneScoreTest(unittest.TestCase):
+    def test_score_covers_the_union_of_splits_but_only_requested_episodes(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            dev, val = Path(tmp) / 'dev', Path(tmp) / 'val'
+            write_run(dev, {'dev_a': .02, 'dev_b': .00})
+            write_run(val, {'val_a': .04})
+            extra = dev / 'episodes' / 'dev_old'   # left over from an earlier, different subset
+            extra.mkdir()
+            (extra / 'summary.json').write_text(json.dumps(dict(
+                episode_id='dev_old', status='COMPLETE', terminal_return=9., max_drawdown=0., turnover=0.)))
+            reference = {k: dict(terminal_return=0.) for k in ('dev_a', 'dev_b', 'val_a', 'dev_old')}
+            result = tune.score_runs([dev, val], reference)
+            self.assertEqual(result['n'], 3)
+            self.assertAlmostEqual(result['mean_return'], .02)
+
+    def test_score_is_half_mean_half_median_of_excess(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            run = Path(tmp) / 'run'
+            write_run(run, {'a': .03, 'b': .01, 'c': -.02})
+            reference = {k: dict(terminal_return=v) for k, v in {'a': .01, 'b': .01, 'c': .01}.items()}
+            result = tune.score_runs([run], reference)
+            excess = np.array([.02, 0., -.03])
+            self.assertAlmostEqual(result['score'], .5 * excess.mean() + .5 * np.median(excess))
+            self.assertAlmostEqual(result['win_rate'], 1 / 3)
+
+    def test_disqualified_episode_scores_minus_infinity(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            run = Path(tmp) / 'run'
+            write_run(run, {'a': .05, 'b': .05}, disqualified={'b'})
+            reference = {'a': dict(terminal_return=0.), 'b': dict(terminal_return=0.)}
+            self.assertEqual(tune.score_runs([run], reference)['score'], -np.inf)
+
+
+class TuneResultFilesTest(unittest.TestCase):
+    def test_result_files_summarise_the_pick(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tuner = tune.Tuner('t', 'quick', 2, 1, runs_dir=Path(tmp) / 'runs', results_dir=Path(tmp) / 'results')
+            point = tune.base_point()
+            pid = tuner.add(point)
+            metrics = dict(n=4, failed=0, score=.01, mean_excess=.01, median_excess=.01, win_rate=.75,
+                           mean_return=.02, median_return=.02, p25_return=-.01, mean_max_drawdown=.05,
+                           mean_turnover=1., warning_days=0, disqualified=0)
+            tuner.state['scores'].update({pid: metrics, f'{pid}@full': metrics,
+                                          f'{pid}@test': dict(metrics, mean_excess=-.004)})
+            tuner.state['seed_groups'][pid] = dict(members=[pid], sensitive=False, seed_mean=.01, seed_std=0.,
+                                                   n_seeds=1)
+            tuner.state['pick'] = pid
+            tuner.state['done'] = ['screen', 'confirm', 'seeds', 'test']
+            tuner.reference = {   # one crash window (0050 -15%) and one calm window
+                'dev_a': dict(split='dev', start='2020-03-02', terminal_return=-.12, benchmark_0050_return=-.15),
+                'dev_b': dict(split='dev', start='2020-06-01', terminal_return=.03, benchmark_0050_return=.02)}
+            write_run(tuner.root / 'runs' / f'{pid}__dev', {'dev_a': -.08, 'dev_b': .04})
+            tuner.save()
+            tuner.write_outputs()
+            folder = Path(tmp) / 'results' / 'tune_t'
+            for name in ('summary.md', 'summary.json', 'leaderboard.csv', 'best_config.json'):
+                self.assertTrue((folder / name).exists(), name)
+            summary = json.loads((folder / 'summary.json').read_text())
+            self.assertEqual(summary['meta']['status'], 'COMPLETE')
+            self.assertEqual(summary['best']['config'], pid)
+            self.assertEqual(summary['best']['verdict'], 'FAIL')
+            text = (folder / 'summary.md').read_text()
+            self.assertIn(pid, text)
+            self.assertIn('**FAIL**', text)
+            crashes = summary['best']['crashes']['select']
+            self.assertEqual([row['episode'] for row in crashes], ['dev_a'])
+            self.assertAlmostEqual(crashes[0]['config'] - crashes[0]['momentum'], .04)
+            self.assertIn('| dev_a | -15.00% | -12.00% | -8.00% | +4.00% |', text)
+            best = json.loads((folder / 'best_config.json').read_text())
+            self.assertEqual(best['params'], tune.to_config(point, 'x')['params'])
+
+
+class TuneProgressTest(unittest.TestCase):
+    def test_progress_counts_executed_episodes_per_split(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            stream = io.StringIO()
+            progress = tune.Progress(total=10, done=2, path=Path(tmp) / 'progress.txt', stream=stream)
+            progress.start('2/4 confirm 1/3', 'abc', ['dev', 'validation'])
+            dev = progress.tracker('dev')
+            dev(3, 5)            # 3 already complete: reused, not counted
+            dev(4, 5)
+            dev(5, 5)
+            val = progress.tracker('validation')
+            val(0, 2)
+            val(1, 2)
+            self.assertEqual((progress.done, progress.executed), (5, 3))
+            line = progress.line()
+            for text in ('[2/4 confirm 1/3]', 'abc', 'train 5/5', 'val 1/2', '50%', '5/10', 'ETA'):
+                self.assertIn(text, line)
+            progress.draw(force=True)
+            self.assertIn('train 5/5', (Path(tmp) / 'progress.txt').read_text())
+
+    def test_baseline_episodes_are_not_counted(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            progress = tune.Progress(total=10, done=0, path=Path(tmp) / 'p.txt', stream=io.StringIO())
+            progress.start('0/4 baselines', 'momentum_20d', ['dev'])
+            update = progress.tracker('dev', counted=False)
+            update(0, 3)
+            update(3, 3)
+            self.assertEqual(progress.done, 0)
+
+    def test_resumed_search_counts_episodes_already_on_disk(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tuner = tune.Tuner('t', 'quick', 1, 1, runs_dir=Path(tmp) / 'runs', results_dir=Path(tmp) / 'results')
+            for run, n in (('abc__dev', 3), ('abc__validation', 1), ('baseline_momentum_20d__dev', 5)):
+                for i in range(n):
+                    folder = tuner.root / 'runs' / run / 'episodes' / f'e{i}'
+                    folder.mkdir(parents=True)
+                    (folder / 'summary.json').write_text('{}')
+            self.assertEqual(tuner.computed_episodes(), 4)   # baselines excluded
+
+    def test_resume_refuses_a_different_episode_window(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            tuner = tune.Tuner('t', 'quick', 1, 1, runs_dir=Path(tmp), results_dir=Path(tmp))
+            tuner.state.pop('episodes')   # a search started before EPISODES existed
+            tuner.save()
+            with self.assertRaises(SystemExit):
+                tune.Tuner('t', 'quick', 1, 1, runs_dir=Path(tmp), results_dir=Path(tmp))
+
+    def test_plan_is_positive_and_ordered_by_profile(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            plans = {name: tune.Tuner('t_' + name, name, 1, 1, runs_dir=Path(tmp), results_dir=Path(tmp)).plan()
+                     for name in ('quick', 'normal', 'crazy')}
+            self.assertTrue(0 < plans['quick'] < plans['normal'] < plans['crazy'], plans)
+
+
+if __name__ == '__main__':
+    unittest.main()

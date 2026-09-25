@@ -1,0 +1,20 @@
+{
+ "name": "baseline_autots_lastvalue_naive",
+ "description": "No-signal control: AutoTS with LastValueNaive only (mu = 0 for every name, ties broken by symbol); same pipeline as baseline_autots.",
+ "strategy": "autots",
+ "params": {
+  "target": {"series": "relative_log_price", "market": "ew"},
+  "forecaster": {"mode": "fixed_template", "horizon": 5, "lookback": 240, "validation_windows": 4,
+                 "validation_step": 24, "metric": "rank_ic", "n_jobs": 1, "random_seed": 2026,
+                 "template": [{"Model": "LastValueNaive", "ModelParameters": {},
+                               "TransformationParameters": {"fillna": "ffill", "transformations": {}, "transformation_params": {}}}]},
+  "score": "z",
+  "portfolio": {"n_holdings": 25, "keep_rank": 35, "weighting": "equal", "invested": 0.88, "cap_scale": 0.9,
+                "rebalance_threshold": 0.10, "freeze_last_days": 3},
+  "refit_every": 24,
+  "predict_every": 5
+ },
+ "execution": {"mode": "auto", "proxy": "hlc3"},
+ "planner": {"rebalance_band": 0.005},
+ "episodes": {"offsets": ["month_start"]}
+}

@@ -1,0 +1,77 @@
+{
+ "name": "tuned_autots_quick",
+ "description": "research.tune candidate: {\"cap_scale\": 0.9, \"freeze_last_days\": 0, \"horizon\": 10, \"invested\": 0.95, \"keep_extra\": 15, \"lookback\": 240, \"max_generations\": 1, \"metric\": \"topk_spread\", \"mode\": \"fixed_template\", \"n_holdings\": 20, \"predict_every\": 3, \"rebalance_threshold\": 0.15, \"refit_every\": 12, \"score\": \"rank_blend\", \"seed\": 2026, \"target\": \"relative_log_price/0050\", \"template\": \"stat\", \"validation_step\": 10, \"validation_windows\": 3, \"vol_window\": 60, \"weighting\": \"score\"}",
+ "strategy": "autots",
+ "params": {
+  "target": {
+   "series": "relative_log_price",
+   "market": "0050"
+  },
+  "forecaster": {
+   "mode": "fixed_template",
+   "horizon": 10,
+   "lookback": 240,
+   "validation_windows": 3,
+   "validation_step": 10,
+   "metric": "topk_spread",
+   "n_jobs": 1,
+   "random_seed": 2026,
+   "template": [
+    {
+     "Model": "ETS",
+     "ModelParameters": {
+      "damped_trend": true,
+      "trend": "additive",
+      "seasonal": null,
+      "seasonal_periods": null,
+      "method": null
+     },
+     "TransformationParameters": {
+      "fillna": "ffill",
+      "transformations": {},
+      "transformation_params": {}
+     }
+    },
+    {
+     "Model": "ARIMA",
+     "ModelParameters": {
+      "p": 1,
+      "d": 1,
+      "q": 0,
+      "regression_type": null
+     },
+     "TransformationParameters": {
+      "fillna": "ffill",
+      "transformations": {},
+      "transformation_params": {}
+     }
+    }
+   ]
+  },
+  "score": "rank_blend",
+  "portfolio": {
+   "n_holdings": 20,
+   "keep_rank": 35,
+   "weighting": "score",
+   "invested": 0.95,
+   "cap_scale": 0.9,
+   "rebalance_threshold": 0.15,
+   "freeze_last_days": 0
+  },
+  "refit_every": 12,
+  "predict_every": 3,
+  "vol_window": 60
+ },
+ "execution": {
+  "mode": "auto",
+  "proxy": "hlc3"
+ },
+ "planner": {
+  "rebalance_band": 0.005
+ },
+ "episodes": {
+  "offsets": [
+   "month_start"
+  ]
+ }
+}

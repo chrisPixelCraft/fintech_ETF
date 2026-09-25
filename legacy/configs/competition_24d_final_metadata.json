@@ -1,0 +1,82 @@
+{
+  "schema_version": 1,
+  "frozen_config_path": "configs/competition_24d_final.json",
+  "frozen_config_sha256": "a2e79e53e27e9cd09ffd476174f9f68fd6e4599fa1739afc925ab08709f7016c",
+  "final_selection_sha256": "add9a5ead6e0ae704bc5fb4d307ddac75ebc6580f56200a9b3fc5e3bef9f829f",
+  "run_manifest_sha256": "a2f4b07b9ce10497b43f276e436cabbf5c1d16b1a2e5230c1735d52b930b347f",
+  "source_guard": "f4eb50868bcdd9e790a0ec495b64aeaa4673023adadb8e2fdcd4c22b52ac82be",
+  "data_snapshot_metadata_sha256": "411cb05a6f395d60ce856747609b0b93d2f2f1af352acb616c9d24eee5884089",
+  "nominal_daily_sha256": "4fc1f7aced552f472020db2823e27fe74a7680be2104d4528787ab8ba109e6bb",
+  "actual_data_cutoff": "2026-09-23",
+  "requested_data_end_exclusive": "2026-09-24",
+  "selection_frozen_at": "2026-09-23T15:32:31.728225+00:00",
+  "selection_decision": "NO_ELIGIBLE_CANDIDATE",
+  "frozen_candidate_id": "x0352_daily_baseline",
+  "adopted_candidate_id": null,
+  "inherited_template_dates": {
+    "start": "2025-01-01",
+    "end": "2026-09-21",
+    "interpretation": "INACTIVE_TEMPLATE_DATES: each episode overrides start/end from its registered session interval; these are not the data cutoff or live execution bounds."
+  },
+  "inherited_study_policy": {
+    "value": {
+      "parameter_search": true,
+      "historical_period_is_development": true,
+      "official_live_submission": "BLOCK_IF_UNKNOWN",
+      "selection_scope": "EX_POST_DEVELOPMENT",
+      "selection": "ZERO_MEASURED_HARD_THEN_BOOK_NAV_RETURN_THEN_MDD",
+      "primary_track": "official_ex_post",
+      "historical_track": "SAME_PARAMETERS_SENSITIVITY"
+    },
+    "interpretation": "INACTIVE_LEGACY_V2_METADATA: the actual 24D selection uses final_selection.json and the frozen study ranking/splits below; this legacy book-NAV-return criterion is not used."
+  },
+  "actual_selection_ranking": [
+    "compliance_pass_rate DESC",
+    "valid_episode_rate DESC",
+    "median_24d_return DESC",
+    "p25_24d_return DESC",
+    "median_mdd ASC",
+    "mean_24d_return DESC",
+    "median_turnover ASC",
+    "candidate_id ASC"
+  ],
+  "actual_selection_splits": {
+    "development": [
+      "2010-01-01",
+      "2019-12-31"
+    ],
+    "validation": [
+      "2020-01-01",
+      "2022-12-31"
+    ],
+    "holdout": [
+      "2023-01-01",
+      "2024-12-31"
+    ]
+  },
+  "four_hour_policy": {
+    "use_4h": false,
+    "match_4h_coverage": false,
+    "active_top_level_mode": "disabled",
+    "active_feature_mode": "disabled",
+    "inherited_nested_modes": {
+      "tuning_params": "coverage_only",
+      "deep_feature_params": "coverage_only",
+      "full_tuning_params": "coverage_only"
+    },
+    "interpretation": "Nested coverage_only values preserve the legacy parameter record; use_4h=False, match_4h_coverage=False and active disabled modes govern 24D execution."
+  },
+  "execution_assumptions": {
+    "execution": "open_proxy",
+    "execution_assumption": "DAILY_OPEN_RESEARCH_PROXY",
+    "initial_cash": 1000000000,
+    "commission": 0.001425,
+    "sell_tax": 0.003,
+    "slippage_bps": 0,
+    "dividend_cash_policy": "end_of_period"
+  },
+  "active_share_status": "ACTIVE_SHARE_NOT_VERIFIED",
+  "ready_status": "BLOCK_READY",
+  "submission_status": "BLOCK_SUBMISSION",
+  "operational_status": "RESEARCH_ONLY: this companion clarifies frozen metadata; it does not authorize live submission or parameter changes."
+}

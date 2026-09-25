@@ -1,0 +1,588 @@
+{
+  "trust_state": "CANDIDATE_PENDING_INDEPENDENT_REVIEW",
+  "period": [
+    "2024-01-01",
+    "2026-09-21"
+  ],
+  "universe_path": "data/extended/processed/universe_20241231.csv",
+  "universe_sha256": "abb4063385b919ef26a9d40fa8727b216e045a48f15759db525f5f728f7a1c5a",
+  "index_rows": 41796,
+  "industry_rows": 1694,
+  "coverage": {
+    "2025-01-02": {
+      "known": 50,
+      "unknown_symbols": [
+        "1101.TW",
+        "1102.TW",
+        "1216.TW",
+        "1301.TW",
+        "1303.TW",
+        "1326.TW",
+        "1402.TW",
+        "1476.TW",
+        "1503.TW",
+        "1504.TW",
+        "1519.TW",
+        "1590.TW",
+        "2002.TW",
+        "2049.TW",
+        "2059.TW",
+        "2105.TW",
+        "2207.TW",
+        "2301.TW",
+        "2303.TW",
+        "2308.TW",
+        "2317.TW",
+        "2324.TW",
+        "2327.TW",
+        "2330.TW",
+        "2345.TW",
+        "2347.TW",
+        "2353.TW",
+        "2354.TW",
+        "2356.TW",
+        "2357.TW",
+        "2360.TW",
+        "2368.TW",
+        "2371.TW",
+        "2376.TW",
+        "2377.TW",
+        "2379.TW",
+        "2382.TW",
+        "2383.TW",
+        "2385.TW",
+        "2395.TW",
+        "2409.TW",
+        "2412.TW",
+        "2449.TW",
+        "2454.TW",
+        "2474.TW",
+        "2603.TW",
+        "2609.TW",
+        "2610.TW",
+        "2615.TW",
+        "2618.TW",
+        "2633.TW",
+        "2801.TW",
+        "2812.TW",
+        "2834.TW",
+        "2880.TW",
+        "2881.TW",
+        "2882.TW",
+        "2883.TW",
+        "2884.TW",
+        "2885.TW",
+        "2886.TW",
+        "2887.TW",
+        "2888.TW",
+        "2890.TW",
+        "2891.TW",
+        "2892.TW",
+        "2912.TW",
+        "3008.TW",
+        "3017.TW",
+        "3034.TW",
+        "3036.TW",
+        "3037.TW",
+        "3044.TW",
+        "3045.TW",
+        "3231.TW",
+        "3443.TW",
+        "3481.TW",
+        "3533.TW",
+        "3653.TW",
+        "3661.TW",
+        "3665.TW",
+        "3702.TW",
+        "3711.TW",
+        "4904.TW",
+        "4938.TW",
+        "4958.TW",
+        "5269.TW",
+        "5871.TW",
+        "5876.TW",
+        "5880.TW",
+        "6023.TWO",
+        "6409.TW",
+        "6415.TW",
+        "6505.TW",
+        "6526.TW",
+        "6669.TW",
+        "8464.TW",
+        "9904.TW",
+        "9910.TW",
+        "9945.TW"
+      ]
+    },
+    "2026-09-21": {
+      "known": 49,
+      "unknown_symbols": [
+        "1101.TW",
+        "1102.TW",
+        "1216.TW",
+        "1301.TW",
+        "1303.TW",
+        "1326.TW",
+        "1402.TW",
+        "1476.TW",
+        "1503.TW",
+        "1504.TW",
+        "1519.TW",
+        "1590.TW",
+        "2002.TW",
+        "2049.TW",
+        "2059.TW",
+        "2105.TW",
+        "2207.TW",
+        "2301.TW",
+        "2303.TW",
+        "2308.TW",
+        "2317.TW",
+        "2324.TW",
+        "2327.TW",
+        "2330.TW",
+        "2345.TW",
+        "2347.TW",
+        "2353.TW",
+        "2354.TW",
+        "2356.TW",
+        "2357.TW",
+        "2360.TW",
+        "2368.TW",
+        "2371.TW",
+        "2376.TW",
+        "2377.TW",
+        "2379.TW",
+        "2382.TW",
+        "2383.TW",
+        "2385.TW",
+        "2395.TW",
+        "2409.TW",
+        "2412.TW",
+        "2449.TW",
+        "2454.TW",
+        "2474.TW",
+        "2603.TW",
+        "2609.TW",
+        "2610.TW",
+        "2615.TW",
+        "2618.TW",
+        "2633.TW",
+        "2801.TW",
+        "2812.TW",
+        "2834.TW",
+        "2880.TW",
+        "2881.TW",
+        "2882.TW",
+        "2883.TW",
+        "2884.TW",
+        "2885.TW",
+        "2886.TW",
+        "2887.TW",
+        "2888.TW",
+        "2890.TW",
+        "2891.TW",
+        "2892.TW",
+        "2912.TW",
+        "3008.TW",
+        "3017.TW",
+        "3034.TW",
+        "3036.TW",
+        "3037.TW",
+        "3044.TW",
+        "3045.TW",
+        "3231.TW",
+        "3443.TW",
+        "3481.TW",
+        "3533.TW",
+        "3653.TW",
+        "3661.TW",
+        "3665.TW",
+        "3702.TW",
+        "3711.TW",
+        "4904.TW",
+        "4938.TW",
+        "4958.TW",
+        "5269.TW",
+        "5371.TWO",
+        "5871.TW",
+        "5876.TW",
+        "5880.TW",
+        "6023.TWO",
+        "6409.TW",
+        "6415.TW",
+        "6505.TW",
+        "6526.TW",
+        "6669.TW",
+        "8464.TW",
+        "9904.TW",
+        "9910.TW",
+        "9945.TW"
+      ]
+    }
+  },
+  "raw_files": [
+    {
+      "path": "data/sector/raw/mops_sii_113_11_0.html",
+      "sha256": "c02573c9d447a270aa2169def9ac228c152e2f407379c2ec69cc7d20d8b5bd6e"
+    },
+    {
+      "path": "data/sector/raw/taifex_5371_20260903.pdf",
+      "sha256": "fcea768f2a932c6ddf5c0153300c3135a780d47639cc7955b15d1aee2703468c"
+    },
+    {
+      "path": "data/sector/raw/tpex_constituents_2024.json",
+      "sha256": "9512721f36156b5f538ee101798472fb7111f2523e2c7d71fab0ab6b0344f976"
+    },
+    {
+      "path": "data/sector/raw/tpex_constituents_202411.json",
+      "sha256": "1e8b8f9407c7e6ee97fe994fb9be3f2389383678c42cd455435706d373476954"
+    },
+    {
+      "path": "data/sector/raw/tpex_constituents_page.html",
+      "sha256": "4557e80b81d33a8fcb559978cc535aa1467547eede1c74932ab3d63393ee2460"
+    },
+    {
+      "path": "data/sector/raw/tpex_idxsm_202401.json",
+      "sha256": "ee094963e8060a0ffb349ec15063a7802f31fac8d4df1b38b6261fbfe27d5d21"
+    },
+    {
+      "path": "data/sector/raw/tpex_idxsm_202402.json",
+      "sha256": "25a0525e0c14dfa1baf53e2d9ca30a80c160f2fe1e125dcf211ddbc6bbd0d6e1"
+    },
+    {
+      "path": "data/sector/raw/tpex_idxsm_202403.json",
+      "sha256": "402d2c9e3d7a582b77b71c0976c1486cc044cac209327a9eda9b49358320c2e2"
+    },
+    {
+      "path": "data/sector/raw/tpex_idxsm_202404.json",
+      "sha256": "da93792fc869efe51bef2a4614a0af47617ebe4bee0a3087f9c7f2ebd4346a48"
+    },
+    {
+      "path": "data/sector/raw/tpex_idxsm_202405.json",
+      "sha256": "5f0cd382377880e8cf3081c1a7ee64bd465e644d1e580d44afbf7e6c0a5ae021"
+    },
+    {
+      "path": "data/sector/raw/tpex_idxsm_202406.json",
+      "sha256": "e73595904b9d549637db8068fe4ed43cef1909ceb55ef1644b5bb24059b76978"
+    },
+    {
+      "path": "data/sector/raw/tpex_idxsm_202407.json",
+      "sha256": "783658fcb0a3a7ef3989c2ea88c4a4957b02dda0020535e2612a24e5ea34d47b"
+    },
+    {
+      "path": "data/sector/raw/tpex_idxsm_202408.json",
+      "sha256": "4cb60baf2ddc9754ac6e2af4c8dc4046825b1a530e93a63deb74ff00129aef60"
+    },
+    {
+      "path": "data/sector/raw/tpex_idxsm_202409.json",
+      "sha256": "0c12311ebb4f991e6de1dda9e5fe069489b6ad05c7da5e634cd2e56deb33c2d3"
+    },
+    {
+      "path": "data/sector/raw/tpex_idxsm_202410.json",
+      "sha256": "23c3f2b6df59276168902a043d3c4ddebd8b948efa04b418826696272795b1cc"
+    },
+    {
+      "path": "data/sector/raw/tpex_idxsm_202411.json",
+      "sha256": "39937ff18fcf62b9bf431168ce9fc760c3ad96066f00c895d57c932e0840b1ca"
+    },
+    {
+      "path": "data/sector/raw/tpex_idxsm_202412.json",
+      "sha256": "c9f8443f08b02c3f839e70b47542112e956ff6965d75b84e386f417a7159eedd"
+    },
+    {
+      "path": "data/sector/raw/tpex_idxsm_202501.json",
+      "sha256": "fc13ab47dfa293b145fd749023e8e10ab9fc796aeb65fe961a2898a4e8acc238"
+    },
+    {
+      "path": "data/sector/raw/tpex_idxsm_202502.json",
+      "sha256": "18da881b1e8cda699dc92a897521280d89d1a53d5c551e4014868fb9f35855a0"
+    },
+    {
+      "path": "data/sector/raw/tpex_idxsm_202503.json",
+      "sha256": "477f28b10d996d39c07938b4eafcfb34a7145bc4b2616872f93ae142f5277fed"
+    },
+    {
+      "path": "data/sector/raw/tpex_idxsm_202504.json",
+      "sha256": "d106790890d4832c2747d7ac52da2cf7c6ab0869f0f2d55fb86d6843585f5136"
+    },
+    {
+      "path": "data/sector/raw/tpex_idxsm_202505.json",
+      "sha256": "927516ee1ad73a60a75536a9b812d3fdc7900f259f1eed0d050d400cf7c4bbd3"
+    },
+    {
+      "path": "data/sector/raw/tpex_idxsm_202506.json",
+      "sha256": "6012d88800526f3df9ce74ae56ed289168a033ad9ee35de2d03d1860906a0669"
+    },
+    {
+      "path": "data/sector/raw/tpex_idxsm_202507.json",
+      "sha256": "344b6ba0f7bddae428d00918eece6141790a370b9ea7bc19618bcdca0b3ca2e1"
+    },
+    {
+      "path": "data/sector/raw/tpex_idxsm_202508.json",
+      "sha256": "02fff59cfa5ea1640e341fbcda1eb32487b58475a8b720e7735a5b719fa2af0c"
+    },
+    {
+      "path": "data/sector/raw/tpex_idxsm_202509.json",
+      "sha256": "cc6d4876a07fbfc2dfaf131af927f5c2206b2a6e8f0e37bd8c3aa5abb8eb8680"
+    },
+    {
+      "path": "data/sector/raw/tpex_idxsm_202510.json",
+      "sha256": "ddca915f4e2cc77335ab1fd5e1ba0c0714cc6bea4f185318f986befa0bb7f157"
+    },
+    {
+      "path": "data/sector/raw/tpex_idxsm_202511.json",
+      "sha256": "aca215d5358099d1a5a2f35693f07834bd1bd80a5d055dac936e8ab28c276311"
+    },
+    {
+      "path": "data/sector/raw/tpex_idxsm_202512.json",
+      "sha256": "94d3d3a2207b32b287b14bd55987c6da0d2890f93e6fde246ede447b178da516"
+    },
+    {
+      "path": "data/sector/raw/tpex_idxsm_202601.json",
+      "sha256": "eb255e4b0fb7dc7d4381616a6464ef753ff628bf87b4d1b7d9febaee0faae613"
+    },
+    {
+      "path": "data/sector/raw/tpex_idxsm_202602.json",
+      "sha256": "f7d0056e921d6d8c95f6e26ccb1691d86fe39a69ffd84ad3b3457305c110864d"
+    },
+    {
+      "path": "data/sector/raw/tpex_idxsm_202603.json",
+      "sha256": "5c02e7e9b2d0ec2d21b0bc14df24c0150e0867a4eaf3f2c8b0083d5fc1fa1062"
+    },
+    {
+      "path": "data/sector/raw/tpex_idxsm_202604.json",
+      "sha256": "2dca051bbfb9737dee39aff11aef3c31af96b0df37af353560187d47d31ca07d"
+    },
+    {
+      "path": "data/sector/raw/tpex_idxsm_202605.json",
+      "sha256": "cc2d2a693125e79b18af37d99708ef74143212f2d5d2230d1610a551754a331a"
+    },
+    {
+      "path": "data/sector/raw/tpex_idxsm_202606.json",
+      "sha256": "7bd38e6322f4f342b5ba5a36e5f77edbb1147fc20bb32d160b4499c7a5b90b69"
+    },
+    {
+      "path": "data/sector/raw/tpex_idxsm_202607.json",
+      "sha256": "c0e43b24abf30f01e0d1ce3a55a108fcb184e139d1849e78124f41f599e26cef"
+    },
+    {
+      "path": "data/sector/raw/tpex_idxsm_202608.json",
+      "sha256": "0ea9d8b95402b50c278302b535fa88d41bb60ed760b5637c6717b8b9b32c7a16"
+    },
+    {
+      "path": "data/sector/raw/tpex_idxsm_202609.json",
+      "sha256": "c27fc8f49a23bb4b904b15965eb61a54af27cd4164318ee37860f68624294945"
+    },
+    {
+      "path": "data/sector/raw/tpex_idxsm_page.html",
+      "sha256": "f730c4214cb2b9693abbe6d9824c5d3d578de5d80696fa341f5a668c92135375"
+    },
+    {
+      "path": "data/sector/raw/tpex_members_202311.xlsx",
+      "sha256": "0259f2380ea1d691f0964c869db63a14505a3bc7b1301fc16de787fa7ef98962"
+    },
+    {
+      "path": "data/sector/raw/tpex_members_202312.xlsx",
+      "sha256": "286becaa0bc57a582b7e8f936f6f5ae3b8a8f7686686a9434d827b0fc28a9d1a"
+    },
+    {
+      "path": "data/sector/raw/tpex_members_202401.xlsx",
+      "sha256": "9c2f7cd44decc6890f4213d161fdac4aa7a48ab316f48e9c4d90c88756bb8fe0"
+    },
+    {
+      "path": "data/sector/raw/tpex_members_202402.xlsx",
+      "sha256": "706413213ae6be818000247b5a992fceabc79c01d8bca9aa3f87a5d624dac9fb"
+    },
+    {
+      "path": "data/sector/raw/tpex_members_202403.xlsx",
+      "sha256": "796800836a6eb9059fb385e3a7a017473fb48d51955ed7cec4de8ee55a40d755"
+    },
+    {
+      "path": "data/sector/raw/tpex_members_202404.xlsx",
+      "sha256": "35844afc3cf16638aa9ef4588c35358bb408107f3635dc853285fa07c4326526"
+    },
+    {
+      "path": "data/sector/raw/tpex_members_202405.xlsx",
+      "sha256": "9f6802e9778aedfd2de70c4a7d478da35f75c497bd6ed7e23b61e65fd59b1c5e"
+    },
+    {
+      "path": "data/sector/raw/tpex_members_202406.xlsx",
+      "sha256": "0f69a42433c44c014e13224039a77377eab2b99579c8d2dd50f842c71662aa5a"
+    },
+    {
+      "path": "data/sector/raw/tpex_members_202407.xlsx",
+      "sha256": "f0e725b1a1e4298e1a3e6389d689bd619b2b6d1d2159b325ec688d8e4c43a9a6"
+    },
+    {
+      "path": "data/sector/raw/tpex_members_202408.xlsx",
+      "sha256": "cb5e3f62f7b332175de36c903e32e42cd2a0071678534710ab78080021abb0f2"
+    },
+    {
+      "path": "data/sector/raw/tpex_members_202409.xlsx",
+      "sha256": "5f4e42b1b21142d9b35cac6244c71c7244585a1a7030f8e2274608dbeda3c751"
+    },
+    {
+      "path": "data/sector/raw/tpex_members_202410.xlsx",
+      "sha256": "b5bd0fd6d2d0bb5aa26caf7705489702a16d3ee94b3455f01b137d94f31d5f8d"
+    },
+    {
+      "path": "data/sector/raw/tpex_members_202411.xlsx",
+      "sha256": "4156ac17ae13231d794e333ab40ede463433896a095ca4786cc9c4c68395c827"
+    },
+    {
+      "path": "data/sector/raw/tpex_members_202412.xlsx",
+      "sha256": "c2cade0d4d130a5c80ae17a8bb14c98c4bba6ca12e00809b4797bc3de1153411"
+    },
+    {
+      "path": "data/sector/raw/tpex_members_202501.xlsx",
+      "sha256": "d7cff2489e52b0018eef656134e6f38f653bfffe6ac4b6487c3a5ced3fa8668f"
+    },
+    {
+      "path": "data/sector/raw/tpex_members_202502.xlsx",
+      "sha256": "7dddc1eaf0278f238891fbdf8bd1537fd1d9588505bfdc780a7d21cdc7fcebb2"
+    },
+    {
+      "path": "data/sector/raw/tpex_members_202503.xlsx",
+      "sha256": "541a403d74b6a223a4c318c68e40445d360752d4b18f43850372428e20307b80"
+    },
+    {
+      "path": "data/sector/raw/tpex_members_202504.xlsx",
+      "sha256": "f1b91a6e386107633cf84fd928a4218a3b0af48d0473a7b81027125b4fc3ab09"
+    },
+    {
+      "path": "data/sector/raw/tpex_members_202505.xlsx",
+      "sha256": "944201542c354bf7caf2742040188cd90c663d86b705b210e01279912354b322"
+    },
+    {
+      "path": "data/sector/raw/tpex_members_202506.xlsx",
+      "sha256": "64b5372c50a20d732c2a1318b44b09a8de983c3fbd49e19104b9a3a9f20d5411"
+    },
+    {
+      "path": "data/sector/raw/tpex_members_202507.xlsx",
+      "sha256": "7353ee45ff889e1285faa370af95848e9dc4f6261fa3c38ee0cabe92c4de5cbc"
+    },
+    {
+      "path": "data/sector/raw/tpex_members_202508.xlsx",
+      "sha256": "28490458c01111746c7443868ac37f9adee2f2a622177ab532b61c75b970ea65"
+    },
+    {
+      "path": "data/sector/raw/tpex_members_202509.xlsx",
+      "sha256": "d922f73f9acfcd1403a81f5d1ccefd4f559d21127bb19f02959999d91fb0ee7a"
+    },
+    {
+      "path": "data/sector/raw/tpex_members_202510.xlsx",
+      "sha256": "91b0e8bcd360fd56df266f4a88e4d7216885b385ef21f337d69f47d89b941787"
+    },
+    {
+      "path": "data/sector/raw/tpex_members_202511.xlsx",
+      "sha256": "8b89d161a152d2ac5e9d47842e99946f8617b5fdcfa22d4d38f248048665e367"
+    },
+    {
+      "path": "data/sector/raw/tpex_members_202512.xlsx",
+      "sha256": "2a0051794b7350b3f6329330596f7d8878231d139e10d77002c8537136777bab"
+    },
+    {
+      "path": "data/sector/raw/tpex_members_202601.xlsx",
+      "sha256": "47f65e127833432187ed439a6c16a06044da17afd674860d4bdd4ab3f137cff9"
+    },
+    {
+      "path": "data/sector/raw/tpex_members_202602.xlsx",
+      "sha256": "5096958f626dd7bb4174afa06cd377bd3bf0db1b2e3deef40c0b7aeec28a57d2"
+    },
+    {
+      "path": "data/sector/raw/tpex_members_202603.xlsx",
+      "sha256": "5f870d0854c8d35d86e9ae9167c933e554f2caa8183220590dfc412e5df4876b"
+    },
+    {
+      "path": "data/sector/raw/tpex_members_202604.xlsx",
+      "sha256": "43570e8c8caf48f4ba341d2a01bd17bdc3fd8291a36d2f6abbe53c5e3bb6d368"
+    },
+    {
+      "path": "data/sector/raw/tpex_members_202605.xlsx",
+      "sha256": "6fc82be82851623a37aaa8c49b33d56ba32e7766f22599d3df533e8c7b464175"
+    },
+    {
+      "path": "data/sector/raw/tpex_members_202606.xlsx",
+      "sha256": "9266bf906026519e6d36098ca2e67864a9a3d2ec46432e31d344c041e2bdd34c"
+    },
+    {
+      "path": "data/sector/raw/tpex_members_202607.xlsx",
+      "sha256": "7a1a72eec9a31948b50bad6a00604325103204ddeda6ab5b3e1f1120f7cde7aa"
+    },
+    {
+      "path": "data/sector/raw/tpex_members_202608.xlsx",
+      "sha256": "89100be714d523b3a0ecc10c40e66f3f76ca9aeb8cebe23456fb7ee1c0fd1cf3"
+    },
+    {
+      "path": "data/sector/raw/tpex_reclass_2024.html",
+      "sha256": "c51f87d2f3f9ec3298a6fdd4fd70490c84b0cf82188aeac03b932694c553161a"
+    },
+    {
+      "path": "data/sector/raw/tpex_reclass_2025.html",
+      "sha256": "53cc57c73cbfa2c1e36ef2e6cd77186f4064e756293a2b287cc0e1930992f667"
+    },
+    {
+      "path": "data/sector/raw/tpex_reclass_2026.html",
+      "sha256": "cb449d69be519247d44e10eb1489e3c1c8e9d1fc93248f1cd49a437e4e028220"
+    },
+    {
+      "path": "data/sector/raw/tpex_stats_indices_page.html",
+      "sha256": "b83f602e251fa1c3281579e0041f5fc558ee259cee8fbc96122961d5908e8ded"
+    },
+    {
+      "path": "data/sector/raw/twse_class_20230630_18.json",
+      "sha256": "222c5fc81ef724fa12901b1fdd4bd004d8621577da717aa9d2d8d19bb87cc4bd"
+    },
+    {
+      "path": "data/sector/raw/twse_class_20230630_36.json",
+      "sha256": "d7653d98b9d78ee5c3ce50248551c91c453304b53240db28445ffcc5cc906e18"
+    },
+    {
+      "path": "data/sector/raw/twse_class_20230703_36.json",
+      "sha256": "080f27149f424129d16ea7677b5a7e1c0167e22eb40c3b0145b13db547ee06d0"
+    },
+    {
+      "path": "data/sector/raw/twse_class_20241231_24.json",
+      "sha256": "6274cb30c3a3c4103d015a5002f7a038d125dfac55dc1b71c513857f6944c89b"
+    },
+    {
+      "path": "data/sector/raw/twse_daily_page.html",
+      "sha256": "677e9962c8b949c19bb5792376bef85374ff60cbc76565b4e6a0b6522d8d0b09"
+    },
+    {
+      "path": "data/sector/raw/twse_listing_6446_20240124.pdf",
+      "sha256": "c52e4cbdbd50871cbbe42a009608d56042ada7b810efb1610ba2f3edd1133b15"
+    },
+    {
+      "path": "data/sector/raw/twse_listing_6589_20250718.pdf",
+      "sha256": "0c041b22550b8dffe8a212bc89e9b38ff73c33f5d87a06d44e0eb0b23cc2e821"
+    },
+    {
+      "path": "data/sector/raw/twse_mi_index_page.html",
+      "sha256": "d9264dcecf7722e9bb4807eba7922961d5c183d76b1534ee64c495abbf53cd2c"
+    }
+  ],
+  "known_at_policy": "Never use retrieval time as historical availability. Monthly classification uses following-month-end conservative public availability assumption, supported by official seventh-business-day release schedule.",
+  "source_schedule_url": "https://www.tpex.org.tw/zh-tw/mainboard/trading/statistics/indices/constituents.html",
+  "index_available_at_policy": "Each official daily index close assumed publicly available by19:30Asia/Taipei on that session; not an archived timestamp.",
+  "history_policy": "UNKNOWN before dated evidence; carry most recent publicly-known historical classification forward, record refreshed source intervals; no current classification backfill.",
+  "limitations": [
+    "Historical files retrieved today may contain revisions; no original-time archive snapshot exists.",
+    "TWSE industry-filter snapshot not used until historical classification semantics verified.",
+    "Official TWSE index coverage depends on existing cached daily reports; absent days not synthesized.",
+    "TPEx does not publish indices for every industry, including finance and trade department stores.",
+    "6446 and6589 switch from TPEx toTWSE biotechnology on official listing dates; 5371 successor classification is UNKNOWN from2026-09-03.",
+    "Canonical turnover coverage is incomplete; v2 has a separate execution dataset owned by the runner, not audited here.",
+    "Parent electronic/chemical composite indices are retained for audit but is_leaf=false; do not rank them alongside leaf sectors."
+  ],
+  "canonical_turnover": {
+    "rows": 99661,
+    "nonnull": 16853
+  },
+  "output_hashes": {
+    "industry_history.csv": "ac31623f69693ef95dedf865d2ca2a06c6f16ddbd36eea0dca9384735d92c2db",
+    "sector_index_daily.csv": "7f69969ead4a623768789da1c8391da8f2ec9f1b7843e51bb98dfaaa5a1aaef2",
+    "index_coverage.csv": "5e66f0829e2da3f6bf5b4c4dec3ed5c2c33b486dfb49bdd5feae65b92f1a6a8c"
+  }
+}

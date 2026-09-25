@@ -1,0 +1,14 @@
+# Production strategy (Mom20: ./run_daily.sh -> production/) and the kept research harness.
+# Direct dependencies only, pinned to the versions of the frozen research env
+# (legacy/ml/requirements-autots.txt, 2026-09-24). Interpreter: CPython 3.12.
+#
+#   uv venv --python 3.12 .venv
+#   uv pip install --python .venv/bin/python -r requirements.txt
+#
+# pandas is held < 3 and numpy < 2.3 on purpose (see legacy/ml/requirements-autots.txt).
+numpy==2.2.6
+pandas==2.3.3
+pyarrow==25.0.1        # pandas.read_parquet: data/ Yahoo panel (competition/data.py)
+lxml==6.1.3            # pandas.read_html: MoneyDJ ETF holdings (production/etf_holdings.py)
+requests==2.34.2       # official TWSE/TPEx + holdings downloads (production/)
+jsonschema==4.26.0     # D-Plan schema check (production/validate.py)

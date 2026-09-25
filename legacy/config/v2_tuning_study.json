@@ -1,0 +1,1689 @@
+{
+  "study_id": "v2_abc_tuning_20260922",
+  "created_at": "2026-09-21T16:08:17.571801+00:00",
+  "seed": 20260922,
+  "strategies": [
+    "A",
+    "B",
+    "C"
+  ],
+  "candidates_per_strategy": 64,
+  "trial_budget": 192,
+  "spaces": {
+    "target_count": [
+      20,
+      25,
+      30
+    ],
+    "replacement_margin": [
+      0,
+      0.05,
+      0.1,
+      0.2,
+      0.3
+    ],
+    "max_replacements_per_day": [
+      0,
+      1,
+      2,
+      4
+    ],
+    "volatility_spike_ratio": [
+      1.5,
+      2.0,
+      2.5,
+      3.0
+    ],
+    "one_day_chase_return": [
+      0.04,
+      0.07,
+      0.095
+    ],
+    "volume_low": [
+      0.3,
+      0.5,
+      0.8
+    ],
+    "volume_high": [
+      2.0,
+      3.0,
+      5.0
+    ],
+    "four_hour_mode": [
+      "strict",
+      "coverage_only"
+    ],
+    "returns": [
+      "fast",
+      "base",
+      "slow"
+    ],
+    "ema": [
+      "fast",
+      "base",
+      "slow"
+    ],
+    "macd": [
+      "fast",
+      "base",
+      "slow"
+    ],
+    "score_profile": [
+      "fast",
+      "base",
+      "slow",
+      "balanced"
+    ],
+    "sector_top_fraction": [
+      0.25,
+      0.5,
+      0.75,
+      1.0
+    ],
+    "sector_short_weight": [
+      0.0,
+      0.5,
+      0.5333333333333333,
+      1.0
+    ],
+    "sector_fallback_mode": [
+      "baseline",
+      "total_eligible"
+    ],
+    "c_alpha": [
+      0.0,
+      0.02,
+      0.08,
+      0.16,
+      0.3
+    ]
+  },
+  "score_profiles": {
+    "base": [
+      0.4,
+      0.35,
+      0.1,
+      0.05,
+      0.05,
+      0.05
+    ],
+    "fast": [
+      0.6,
+      0.15,
+      0.1,
+      0.05,
+      0.05,
+      0.05
+    ],
+    "slow": [
+      0.15,
+      0.6,
+      0.1,
+      0.05,
+      0.05,
+      0.05
+    ],
+    "balanced": [
+      0.3,
+      0.3,
+      0.15,
+      0.1,
+      0.1,
+      0.05
+    ]
+  },
+  "presets": {
+    "returns": {
+      "fast": [
+        10,
+        30
+      ],
+      "base": [
+        20,
+        50
+      ],
+      "slow": [
+        30,
+        90
+      ]
+    },
+    "ema": {
+      "fast": [
+        10,
+        30
+      ],
+      "base": [
+        20,
+        50
+      ],
+      "slow": [
+        30,
+        90
+      ]
+    },
+    "macd": {
+      "fast": [
+        8,
+        21,
+        5
+      ],
+      "base": [
+        12,
+        26,
+        9
+      ],
+      "slow": [
+        19,
+        39,
+        9
+      ]
+    }
+  },
+  "cutoffs": [
+    "2025-06-30",
+    "2025-12-31",
+    "2026-03-31",
+    "2026-06-30"
+  ],
+  "selection": [
+    "valid_accounting",
+    "min_hard_breach_days",
+    "min_infeasible_executed_days",
+    "max_economic_total_return",
+    "min_economic_max_drawdown",
+    "candidate_id"
+  ],
+  "hard_breach": "cash >= 25% OR active weight-cap OR overdue passive weight-cap; union of session dates",
+  "historical_period_is_development": true,
+  "unseen_test": false,
+  "strategic_cash_target": 0,
+  "fixed": [
+    "frozen_data",
+    "150_historical_universe",
+    "VWAP",
+    "costs",
+    "lot_size",
+    "price_buffer",
+    "local_allocation",
+    "company_actions",
+    "long_EMA100_200",
+    "4H_indicator_periods",
+    "overnight_factor_scales_and_exposures"
+  ],
+  "boundary_policy": "Report edge winners as unresolved. No claim of global optimum; no adaptive use of evaluation outcomes.",
+  "schedule_policy": "H1 incumbent; at each cutoff rank candidate continuous ledgers using only dates <= cutoff, then switch parameters within one continuing ledger. Never splice candidate NAVs.",
+  "candidates": [
+    {
+      "candidate_id": "p000",
+      "design": "incumbent",
+      "varied": "none",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0.1,
+        "max_replacements_per_day": 2,
+        "volatility_spike_ratio": 2.0,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.5,
+        "volume_high": 3.0,
+        "four_hour_mode": "strict",
+        "returns": "base",
+        "ema": "base",
+        "macd": "base",
+        "score_profile": "base",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.08
+      }
+    },
+    {
+      "candidate_id": "p001",
+      "design": "one_factor",
+      "varied": "replacement_margin",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0,
+        "max_replacements_per_day": 2,
+        "volatility_spike_ratio": 2.0,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.5,
+        "volume_high": 3.0,
+        "four_hour_mode": "strict",
+        "returns": "base",
+        "ema": "base",
+        "macd": "base",
+        "score_profile": "base",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.08
+      }
+    },
+    {
+      "candidate_id": "p002",
+      "design": "one_factor",
+      "varied": "replacement_margin",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0.05,
+        "max_replacements_per_day": 2,
+        "volatility_spike_ratio": 2.0,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.5,
+        "volume_high": 3.0,
+        "four_hour_mode": "strict",
+        "returns": "base",
+        "ema": "base",
+        "macd": "base",
+        "score_profile": "base",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.08
+      }
+    },
+    {
+      "candidate_id": "p003",
+      "design": "one_factor",
+      "varied": "replacement_margin",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0.2,
+        "max_replacements_per_day": 2,
+        "volatility_spike_ratio": 2.0,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.5,
+        "volume_high": 3.0,
+        "four_hour_mode": "strict",
+        "returns": "base",
+        "ema": "base",
+        "macd": "base",
+        "score_profile": "base",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.08
+      }
+    },
+    {
+      "candidate_id": "p004",
+      "design": "one_factor",
+      "varied": "replacement_margin",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0.3,
+        "max_replacements_per_day": 2,
+        "volatility_spike_ratio": 2.0,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.5,
+        "volume_high": 3.0,
+        "four_hour_mode": "strict",
+        "returns": "base",
+        "ema": "base",
+        "macd": "base",
+        "score_profile": "base",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.08
+      }
+    },
+    {
+      "candidate_id": "p005",
+      "design": "one_factor",
+      "varied": "max_replacements_per_day",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0.1,
+        "max_replacements_per_day": 0,
+        "volatility_spike_ratio": 2.0,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.5,
+        "volume_high": 3.0,
+        "four_hour_mode": "strict",
+        "returns": "base",
+        "ema": "base",
+        "macd": "base",
+        "score_profile": "base",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.08
+      }
+    },
+    {
+      "candidate_id": "p006",
+      "design": "one_factor",
+      "varied": "max_replacements_per_day",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0.1,
+        "max_replacements_per_day": 1,
+        "volatility_spike_ratio": 2.0,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.5,
+        "volume_high": 3.0,
+        "four_hour_mode": "strict",
+        "returns": "base",
+        "ema": "base",
+        "macd": "base",
+        "score_profile": "base",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.08
+      }
+    },
+    {
+      "candidate_id": "p007",
+      "design": "one_factor",
+      "varied": "max_replacements_per_day",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0.1,
+        "max_replacements_per_day": 4,
+        "volatility_spike_ratio": 2.0,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.5,
+        "volume_high": 3.0,
+        "four_hour_mode": "strict",
+        "returns": "base",
+        "ema": "base",
+        "macd": "base",
+        "score_profile": "base",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.08
+      }
+    },
+    {
+      "candidate_id": "p008",
+      "design": "one_factor",
+      "varied": "target_count",
+      "params": {
+        "target_count": 20,
+        "replacement_margin": 0.1,
+        "max_replacements_per_day": 2,
+        "volatility_spike_ratio": 2.0,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.5,
+        "volume_high": 3.0,
+        "four_hour_mode": "strict",
+        "returns": "base",
+        "ema": "base",
+        "macd": "base",
+        "score_profile": "base",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.08
+      }
+    },
+    {
+      "candidate_id": "p009",
+      "design": "one_factor",
+      "varied": "target_count",
+      "params": {
+        "target_count": 30,
+        "replacement_margin": 0.1,
+        "max_replacements_per_day": 2,
+        "volatility_spike_ratio": 2.0,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.5,
+        "volume_high": 3.0,
+        "four_hour_mode": "strict",
+        "returns": "base",
+        "ema": "base",
+        "macd": "base",
+        "score_profile": "base",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.08
+      }
+    },
+    {
+      "candidate_id": "p010",
+      "design": "one_factor",
+      "varied": "volatility_spike_ratio",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0.1,
+        "max_replacements_per_day": 2,
+        "volatility_spike_ratio": 1.5,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.5,
+        "volume_high": 3.0,
+        "four_hour_mode": "strict",
+        "returns": "base",
+        "ema": "base",
+        "macd": "base",
+        "score_profile": "base",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.08
+      }
+    },
+    {
+      "candidate_id": "p011",
+      "design": "one_factor",
+      "varied": "volatility_spike_ratio",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0.1,
+        "max_replacements_per_day": 2,
+        "volatility_spike_ratio": 3.0,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.5,
+        "volume_high": 3.0,
+        "four_hour_mode": "strict",
+        "returns": "base",
+        "ema": "base",
+        "macd": "base",
+        "score_profile": "base",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.08
+      }
+    },
+    {
+      "candidate_id": "p012",
+      "design": "one_factor",
+      "varied": "one_day_chase_return",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0.1,
+        "max_replacements_per_day": 2,
+        "volatility_spike_ratio": 2.0,
+        "one_day_chase_return": 0.04,
+        "volume_low": 0.5,
+        "volume_high": 3.0,
+        "four_hour_mode": "strict",
+        "returns": "base",
+        "ema": "base",
+        "macd": "base",
+        "score_profile": "base",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.08
+      }
+    },
+    {
+      "candidate_id": "p013",
+      "design": "one_factor",
+      "varied": "one_day_chase_return",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0.1,
+        "max_replacements_per_day": 2,
+        "volatility_spike_ratio": 2.0,
+        "one_day_chase_return": 0.095,
+        "volume_low": 0.5,
+        "volume_high": 3.0,
+        "four_hour_mode": "strict",
+        "returns": "base",
+        "ema": "base",
+        "macd": "base",
+        "score_profile": "base",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.08
+      }
+    },
+    {
+      "candidate_id": "p014",
+      "design": "one_factor",
+      "varied": "volume_range",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0.1,
+        "max_replacements_per_day": 2,
+        "volatility_spike_ratio": 2.0,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.3,
+        "volume_high": 5.0,
+        "four_hour_mode": "strict",
+        "returns": "base",
+        "ema": "base",
+        "macd": "base",
+        "score_profile": "base",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.08
+      }
+    },
+    {
+      "candidate_id": "p015",
+      "design": "one_factor",
+      "varied": "volume_range",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0.1,
+        "max_replacements_per_day": 2,
+        "volatility_spike_ratio": 2.0,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.8,
+        "volume_high": 2.0,
+        "four_hour_mode": "strict",
+        "returns": "base",
+        "ema": "base",
+        "macd": "base",
+        "score_profile": "base",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.08
+      }
+    },
+    {
+      "candidate_id": "p016",
+      "design": "one_factor",
+      "varied": "four_hour_mode",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0.1,
+        "max_replacements_per_day": 2,
+        "volatility_spike_ratio": 2.0,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.5,
+        "volume_high": 3.0,
+        "four_hour_mode": "coverage_only",
+        "returns": "base",
+        "ema": "base",
+        "macd": "base",
+        "score_profile": "base",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.08
+      }
+    },
+    {
+      "candidate_id": "p017",
+      "design": "one_factor",
+      "varied": "returns",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0.1,
+        "max_replacements_per_day": 2,
+        "volatility_spike_ratio": 2.0,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.5,
+        "volume_high": 3.0,
+        "four_hour_mode": "strict",
+        "returns": "fast",
+        "ema": "base",
+        "macd": "base",
+        "score_profile": "base",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.08
+      }
+    },
+    {
+      "candidate_id": "p018",
+      "design": "one_factor",
+      "varied": "returns",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0.1,
+        "max_replacements_per_day": 2,
+        "volatility_spike_ratio": 2.0,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.5,
+        "volume_high": 3.0,
+        "four_hour_mode": "strict",
+        "returns": "slow",
+        "ema": "base",
+        "macd": "base",
+        "score_profile": "base",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.08
+      }
+    },
+    {
+      "candidate_id": "p019",
+      "design": "one_factor",
+      "varied": "ema",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0.1,
+        "max_replacements_per_day": 2,
+        "volatility_spike_ratio": 2.0,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.5,
+        "volume_high": 3.0,
+        "four_hour_mode": "strict",
+        "returns": "base",
+        "ema": "fast",
+        "macd": "base",
+        "score_profile": "base",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.08
+      }
+    },
+    {
+      "candidate_id": "p020",
+      "design": "one_factor",
+      "varied": "ema",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0.1,
+        "max_replacements_per_day": 2,
+        "volatility_spike_ratio": 2.0,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.5,
+        "volume_high": 3.0,
+        "four_hour_mode": "strict",
+        "returns": "base",
+        "ema": "slow",
+        "macd": "base",
+        "score_profile": "base",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.08
+      }
+    },
+    {
+      "candidate_id": "p021",
+      "design": "one_factor",
+      "varied": "macd",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0.1,
+        "max_replacements_per_day": 2,
+        "volatility_spike_ratio": 2.0,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.5,
+        "volume_high": 3.0,
+        "four_hour_mode": "strict",
+        "returns": "base",
+        "ema": "base",
+        "macd": "fast",
+        "score_profile": "base",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.08
+      }
+    },
+    {
+      "candidate_id": "p022",
+      "design": "one_factor",
+      "varied": "macd",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0.1,
+        "max_replacements_per_day": 2,
+        "volatility_spike_ratio": 2.0,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.5,
+        "volume_high": 3.0,
+        "four_hour_mode": "strict",
+        "returns": "base",
+        "ema": "base",
+        "macd": "slow",
+        "score_profile": "base",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.08
+      }
+    },
+    {
+      "candidate_id": "p023",
+      "design": "one_factor",
+      "varied": "score_profile",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0.1,
+        "max_replacements_per_day": 2,
+        "volatility_spike_ratio": 2.0,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.5,
+        "volume_high": 3.0,
+        "four_hour_mode": "strict",
+        "returns": "base",
+        "ema": "base",
+        "macd": "base",
+        "score_profile": "fast",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.08
+      }
+    },
+    {
+      "candidate_id": "p024",
+      "design": "one_factor",
+      "varied": "score_profile",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0.1,
+        "max_replacements_per_day": 2,
+        "volatility_spike_ratio": 2.0,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.5,
+        "volume_high": 3.0,
+        "four_hour_mode": "strict",
+        "returns": "base",
+        "ema": "base",
+        "macd": "base",
+        "score_profile": "slow",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.08
+      }
+    },
+    {
+      "candidate_id": "p025",
+      "design": "one_factor",
+      "varied": "score_profile",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0.1,
+        "max_replacements_per_day": 2,
+        "volatility_spike_ratio": 2.0,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.5,
+        "volume_high": 3.0,
+        "four_hour_mode": "strict",
+        "returns": "base",
+        "ema": "base",
+        "macd": "base",
+        "score_profile": "balanced",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.08
+      }
+    },
+    {
+      "candidate_id": "p026",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 20,
+        "replacement_margin": 0.1,
+        "max_replacements_per_day": 0,
+        "volatility_spike_ratio": 2.5,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.5,
+        "volume_high": 5.0,
+        "four_hour_mode": "coverage_only",
+        "returns": "base",
+        "ema": "base",
+        "macd": "slow",
+        "score_profile": "base",
+        "sector_top_fraction": 0.75,
+        "sector_short_weight": 0.0,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.16
+      }
+    },
+    {
+      "candidate_id": "p027",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 30,
+        "replacement_margin": 0.3,
+        "max_replacements_per_day": 4,
+        "volatility_spike_ratio": 1.5,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.3,
+        "volume_high": 3.0,
+        "four_hour_mode": "coverage_only",
+        "returns": "base",
+        "ema": "slow",
+        "macd": "base",
+        "score_profile": "base",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.5,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.0
+      }
+    },
+    {
+      "candidate_id": "p028",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0.05,
+        "max_replacements_per_day": 2,
+        "volatility_spike_ratio": 3.0,
+        "one_day_chase_return": 0.095,
+        "volume_low": 0.3,
+        "volume_high": 2.0,
+        "four_hour_mode": "coverage_only",
+        "returns": "base",
+        "ema": "slow",
+        "macd": "base",
+        "score_profile": "base",
+        "sector_top_fraction": 0.75,
+        "sector_short_weight": 0.5,
+        "sector_fallback_mode": "total_eligible",
+        "c_alpha": 0.08
+      }
+    },
+    {
+      "candidate_id": "p029",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 30,
+        "replacement_margin": 0.3,
+        "max_replacements_per_day": 2,
+        "volatility_spike_ratio": 3.0,
+        "one_day_chase_return": 0.095,
+        "volume_low": 0.5,
+        "volume_high": 3.0,
+        "four_hour_mode": "strict",
+        "returns": "slow",
+        "ema": "slow",
+        "macd": "base",
+        "score_profile": "balanced",
+        "sector_top_fraction": 0.75,
+        "sector_short_weight": 1.0,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.3
+      }
+    },
+    {
+      "candidate_id": "p030",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 30,
+        "replacement_margin": 0.1,
+        "max_replacements_per_day": 1,
+        "volatility_spike_ratio": 2.5,
+        "one_day_chase_return": 0.04,
+        "volume_low": 0.5,
+        "volume_high": 5.0,
+        "four_hour_mode": "strict",
+        "returns": "fast",
+        "ema": "slow",
+        "macd": "base",
+        "score_profile": "balanced",
+        "sector_top_fraction": 0.25,
+        "sector_short_weight": 1.0,
+        "sector_fallback_mode": "total_eligible",
+        "c_alpha": 0.02
+      }
+    },
+    {
+      "candidate_id": "p031",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0.3,
+        "max_replacements_per_day": 0,
+        "volatility_spike_ratio": 2.5,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.8,
+        "volume_high": 5.0,
+        "four_hour_mode": "strict",
+        "returns": "fast",
+        "ema": "fast",
+        "macd": "base",
+        "score_profile": "slow",
+        "sector_top_fraction": 1.0,
+        "sector_short_weight": 1.0,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.16
+      }
+    },
+    {
+      "candidate_id": "p032",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 20,
+        "replacement_margin": 0.05,
+        "max_replacements_per_day": 2,
+        "volatility_spike_ratio": 2.0,
+        "one_day_chase_return": 0.095,
+        "volume_low": 0.3,
+        "volume_high": 3.0,
+        "four_hour_mode": "coverage_only",
+        "returns": "base",
+        "ema": "slow",
+        "macd": "fast",
+        "score_profile": "balanced",
+        "sector_top_fraction": 0.75,
+        "sector_short_weight": 1.0,
+        "sector_fallback_mode": "total_eligible",
+        "c_alpha": 0.0
+      }
+    },
+    {
+      "candidate_id": "p033",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0.2,
+        "max_replacements_per_day": 2,
+        "volatility_spike_ratio": 2.5,
+        "one_day_chase_return": 0.095,
+        "volume_low": 0.3,
+        "volume_high": 5.0,
+        "four_hour_mode": "strict",
+        "returns": "base",
+        "ema": "fast",
+        "macd": "slow",
+        "score_profile": "slow",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.0
+      }
+    },
+    {
+      "candidate_id": "p034",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 20,
+        "replacement_margin": 0,
+        "max_replacements_per_day": 1,
+        "volatility_spike_ratio": 1.5,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.5,
+        "volume_high": 2.0,
+        "four_hour_mode": "strict",
+        "returns": "fast",
+        "ema": "base",
+        "macd": "base",
+        "score_profile": "base",
+        "sector_top_fraction": 0.25,
+        "sector_short_weight": 0.5,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.3
+      }
+    },
+    {
+      "candidate_id": "p035",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0.3,
+        "max_replacements_per_day": 4,
+        "volatility_spike_ratio": 1.5,
+        "one_day_chase_return": 0.095,
+        "volume_low": 0.8,
+        "volume_high": 3.0,
+        "four_hour_mode": "coverage_only",
+        "returns": "slow",
+        "ema": "base",
+        "macd": "fast",
+        "score_profile": "balanced",
+        "sector_top_fraction": 1.0,
+        "sector_short_weight": 0.5,
+        "sector_fallback_mode": "total_eligible",
+        "c_alpha": 0.16
+      }
+    },
+    {
+      "candidate_id": "p036",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0.05,
+        "max_replacements_per_day": 1,
+        "volatility_spike_ratio": 3.0,
+        "one_day_chase_return": 0.04,
+        "volume_low": 0.3,
+        "volume_high": 2.0,
+        "four_hour_mode": "coverage_only",
+        "returns": "slow",
+        "ema": "slow",
+        "macd": "fast",
+        "score_profile": "balanced",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.02
+      }
+    },
+    {
+      "candidate_id": "p037",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 30,
+        "replacement_margin": 0.2,
+        "max_replacements_per_day": 0,
+        "volatility_spike_ratio": 2.5,
+        "one_day_chase_return": 0.04,
+        "volume_low": 0.8,
+        "volume_high": 2.0,
+        "four_hour_mode": "coverage_only",
+        "returns": "slow",
+        "ema": "slow",
+        "macd": "base",
+        "score_profile": "fast",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.5,
+        "sector_fallback_mode": "total_eligible",
+        "c_alpha": 0.3
+      }
+    },
+    {
+      "candidate_id": "p038",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 30,
+        "replacement_margin": 0.05,
+        "max_replacements_per_day": 1,
+        "volatility_spike_ratio": 3.0,
+        "one_day_chase_return": 0.04,
+        "volume_low": 0.8,
+        "volume_high": 3.0,
+        "four_hour_mode": "coverage_only",
+        "returns": "fast",
+        "ema": "fast",
+        "macd": "fast",
+        "score_profile": "fast",
+        "sector_top_fraction": 0.25,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "total_eligible",
+        "c_alpha": 0.08
+      }
+    },
+    {
+      "candidate_id": "p039",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 30,
+        "replacement_margin": 0.3,
+        "max_replacements_per_day": 1,
+        "volatility_spike_ratio": 1.5,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.3,
+        "volume_high": 2.0,
+        "four_hour_mode": "coverage_only",
+        "returns": "base",
+        "ema": "base",
+        "macd": "fast",
+        "score_profile": "base",
+        "sector_top_fraction": 0.25,
+        "sector_short_weight": 1.0,
+        "sector_fallback_mode": "total_eligible",
+        "c_alpha": 0.3
+      }
+    },
+    {
+      "candidate_id": "p040",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 20,
+        "replacement_margin": 0.2,
+        "max_replacements_per_day": 4,
+        "volatility_spike_ratio": 2.0,
+        "one_day_chase_return": 0.04,
+        "volume_low": 0.8,
+        "volume_high": 5.0,
+        "four_hour_mode": "strict",
+        "returns": "fast",
+        "ema": "fast",
+        "macd": "fast",
+        "score_profile": "slow",
+        "sector_top_fraction": 0.25,
+        "sector_short_weight": 1.0,
+        "sector_fallback_mode": "total_eligible",
+        "c_alpha": 0.0
+      }
+    },
+    {
+      "candidate_id": "p041",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 30,
+        "replacement_margin": 0.1,
+        "max_replacements_per_day": 0,
+        "volatility_spike_ratio": 2.5,
+        "one_day_chase_return": 0.095,
+        "volume_low": 0.8,
+        "volume_high": 2.0,
+        "four_hour_mode": "strict",
+        "returns": "slow",
+        "ema": "base",
+        "macd": "base",
+        "score_profile": "balanced",
+        "sector_top_fraction": 0.25,
+        "sector_short_weight": 0.5,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.02
+      }
+    },
+    {
+      "candidate_id": "p042",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 20,
+        "replacement_margin": 0,
+        "max_replacements_per_day": 4,
+        "volatility_spike_ratio": 1.5,
+        "one_day_chase_return": 0.095,
+        "volume_low": 0.5,
+        "volume_high": 5.0,
+        "four_hour_mode": "strict",
+        "returns": "slow",
+        "ema": "base",
+        "macd": "base",
+        "score_profile": "fast",
+        "sector_top_fraction": 0.75,
+        "sector_short_weight": 1.0,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.0
+      }
+    },
+    {
+      "candidate_id": "p043",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 20,
+        "replacement_margin": 0.05,
+        "max_replacements_per_day": 1,
+        "volatility_spike_ratio": 2.0,
+        "one_day_chase_return": 0.095,
+        "volume_low": 0.8,
+        "volume_high": 2.0,
+        "four_hour_mode": "strict",
+        "returns": "base",
+        "ema": "fast",
+        "macd": "slow",
+        "score_profile": "slow",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.5,
+        "sector_fallback_mode": "total_eligible",
+        "c_alpha": 0.08
+      }
+    },
+    {
+      "candidate_id": "p044",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 30,
+        "replacement_margin": 0,
+        "max_replacements_per_day": 1,
+        "volatility_spike_ratio": 3.0,
+        "one_day_chase_return": 0.04,
+        "volume_low": 0.5,
+        "volume_high": 5.0,
+        "four_hour_mode": "strict",
+        "returns": "fast",
+        "ema": "base",
+        "macd": "fast",
+        "score_profile": "base",
+        "sector_top_fraction": 1.0,
+        "sector_short_weight": 1.0,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.02
+      }
+    },
+    {
+      "candidate_id": "p045",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 30,
+        "replacement_margin": 0.3,
+        "max_replacements_per_day": 1,
+        "volatility_spike_ratio": 1.5,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.3,
+        "volume_high": 5.0,
+        "four_hour_mode": "strict",
+        "returns": "slow",
+        "ema": "base",
+        "macd": "fast",
+        "score_profile": "fast",
+        "sector_top_fraction": 1.0,
+        "sector_short_weight": 0.0,
+        "sector_fallback_mode": "total_eligible",
+        "c_alpha": 0.3
+      }
+    },
+    {
+      "candidate_id": "p046",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 30,
+        "replacement_margin": 0.05,
+        "max_replacements_per_day": 0,
+        "volatility_spike_ratio": 3.0,
+        "one_day_chase_return": 0.04,
+        "volume_low": 0.5,
+        "volume_high": 3.0,
+        "four_hour_mode": "coverage_only",
+        "returns": "fast",
+        "ema": "fast",
+        "macd": "slow",
+        "score_profile": "slow",
+        "sector_top_fraction": 0.25,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "total_eligible",
+        "c_alpha": 0.16
+      }
+    },
+    {
+      "candidate_id": "p047",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 30,
+        "replacement_margin": 0.3,
+        "max_replacements_per_day": 2,
+        "volatility_spike_ratio": 2.0,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.8,
+        "volume_high": 2.0,
+        "four_hour_mode": "strict",
+        "returns": "base",
+        "ema": "slow",
+        "macd": "slow",
+        "score_profile": "fast",
+        "sector_top_fraction": 0.75,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.08
+      }
+    },
+    {
+      "candidate_id": "p048",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0.2,
+        "max_replacements_per_day": 1,
+        "volatility_spike_ratio": 2.5,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.3,
+        "volume_high": 3.0,
+        "four_hour_mode": "strict",
+        "returns": "slow",
+        "ema": "base",
+        "macd": "base",
+        "score_profile": "balanced",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.0,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.08
+      }
+    },
+    {
+      "candidate_id": "p049",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 20,
+        "replacement_margin": 0.2,
+        "max_replacements_per_day": 0,
+        "volatility_spike_ratio": 2.0,
+        "one_day_chase_return": 0.04,
+        "volume_low": 0.8,
+        "volume_high": 3.0,
+        "four_hour_mode": "coverage_only",
+        "returns": "fast",
+        "ema": "fast",
+        "macd": "fast",
+        "score_profile": "fast",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.5,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.02
+      }
+    },
+    {
+      "candidate_id": "p050",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 30,
+        "replacement_margin": 0.05,
+        "max_replacements_per_day": 4,
+        "volatility_spike_ratio": 2.5,
+        "one_day_chase_return": 0.04,
+        "volume_low": 0.3,
+        "volume_high": 2.0,
+        "four_hour_mode": "coverage_only",
+        "returns": "slow",
+        "ema": "fast",
+        "macd": "slow",
+        "score_profile": "slow",
+        "sector_top_fraction": 1.0,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "total_eligible",
+        "c_alpha": 0.02
+      }
+    },
+    {
+      "candidate_id": "p051",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0.1,
+        "max_replacements_per_day": 0,
+        "volatility_spike_ratio": 1.5,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.3,
+        "volume_high": 2.0,
+        "four_hour_mode": "coverage_only",
+        "returns": "slow",
+        "ema": "fast",
+        "macd": "slow",
+        "score_profile": "base",
+        "sector_top_fraction": 0.25,
+        "sector_short_weight": 0.0,
+        "sector_fallback_mode": "total_eligible",
+        "c_alpha": 0.0
+      }
+    },
+    {
+      "candidate_id": "p052",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 20,
+        "replacement_margin": 0,
+        "max_replacements_per_day": 4,
+        "volatility_spike_ratio": 3.0,
+        "one_day_chase_return": 0.095,
+        "volume_low": 0.5,
+        "volume_high": 3.0,
+        "four_hour_mode": "coverage_only",
+        "returns": "base",
+        "ema": "slow",
+        "macd": "base",
+        "score_profile": "base",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.5,
+        "sector_fallback_mode": "total_eligible",
+        "c_alpha": 0.3
+      }
+    },
+    {
+      "candidate_id": "p053",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 20,
+        "replacement_margin": 0.1,
+        "max_replacements_per_day": 4,
+        "volatility_spike_ratio": 2.0,
+        "one_day_chase_return": 0.095,
+        "volume_low": 0.8,
+        "volume_high": 5.0,
+        "four_hour_mode": "coverage_only",
+        "returns": "slow",
+        "ema": "slow",
+        "macd": "slow",
+        "score_profile": "balanced",
+        "sector_top_fraction": 0.25,
+        "sector_short_weight": 1.0,
+        "sector_fallback_mode": "total_eligible",
+        "c_alpha": 0.16
+      }
+    },
+    {
+      "candidate_id": "p054",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0.1,
+        "max_replacements_per_day": 2,
+        "volatility_spike_ratio": 3.0,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.3,
+        "volume_high": 2.0,
+        "four_hour_mode": "coverage_only",
+        "returns": "fast",
+        "ema": "slow",
+        "macd": "fast",
+        "score_profile": "fast",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.0,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.16
+      }
+    },
+    {
+      "candidate_id": "p055",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 20,
+        "replacement_margin": 0.2,
+        "max_replacements_per_day": 4,
+        "volatility_spike_ratio": 2.5,
+        "one_day_chase_return": 0.095,
+        "volume_low": 0.3,
+        "volume_high": 3.0,
+        "four_hour_mode": "coverage_only",
+        "returns": "slow",
+        "ema": "base",
+        "macd": "fast",
+        "score_profile": "balanced",
+        "sector_top_fraction": 0.75,
+        "sector_short_weight": 0.0,
+        "sector_fallback_mode": "total_eligible",
+        "c_alpha": 0.08
+      }
+    },
+    {
+      "candidate_id": "p056",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 20,
+        "replacement_margin": 0.1,
+        "max_replacements_per_day": 4,
+        "volatility_spike_ratio": 1.5,
+        "one_day_chase_return": 0.04,
+        "volume_low": 0.5,
+        "volume_high": 5.0,
+        "four_hour_mode": "strict",
+        "returns": "fast",
+        "ema": "base",
+        "macd": "fast",
+        "score_profile": "slow",
+        "sector_top_fraction": 1.0,
+        "sector_short_weight": 0.0,
+        "sector_fallback_mode": "total_eligible",
+        "c_alpha": 0.0
+      }
+    },
+    {
+      "candidate_id": "p057",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 20,
+        "replacement_margin": 0.1,
+        "max_replacements_per_day": 1,
+        "volatility_spike_ratio": 2.0,
+        "one_day_chase_return": 0.04,
+        "volume_low": 0.5,
+        "volume_high": 5.0,
+        "four_hour_mode": "coverage_only",
+        "returns": "base",
+        "ema": "fast",
+        "macd": "slow",
+        "score_profile": "fast",
+        "sector_top_fraction": 1.0,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.08
+      }
+    },
+    {
+      "candidate_id": "p058",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0.3,
+        "max_replacements_per_day": 2,
+        "volatility_spike_ratio": 1.5,
+        "one_day_chase_return": 0.095,
+        "volume_low": 0.3,
+        "volume_high": 3.0,
+        "four_hour_mode": "strict",
+        "returns": "fast",
+        "ema": "fast",
+        "macd": "fast",
+        "score_profile": "slow",
+        "sector_top_fraction": 0.5,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.3
+      }
+    },
+    {
+      "candidate_id": "p059",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0,
+        "max_replacements_per_day": 2,
+        "volatility_spike_ratio": 2.0,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.5,
+        "volume_high": 3.0,
+        "four_hour_mode": "strict",
+        "returns": "slow",
+        "ema": "base",
+        "macd": "slow",
+        "score_profile": "balanced",
+        "sector_top_fraction": 0.75,
+        "sector_short_weight": 0.0,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.08
+      }
+    },
+    {
+      "candidate_id": "p060",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0,
+        "max_replacements_per_day": 0,
+        "volatility_spike_ratio": 1.5,
+        "one_day_chase_return": 0.04,
+        "volume_low": 0.5,
+        "volume_high": 3.0,
+        "four_hour_mode": "strict",
+        "returns": "base",
+        "ema": "base",
+        "macd": "slow",
+        "score_profile": "fast",
+        "sector_top_fraction": 0.75,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.02
+      }
+    },
+    {
+      "candidate_id": "p061",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0.2,
+        "max_replacements_per_day": 2,
+        "volatility_spike_ratio": 2.0,
+        "one_day_chase_return": 0.04,
+        "volume_low": 0.8,
+        "volume_high": 5.0,
+        "four_hour_mode": "strict",
+        "returns": "base",
+        "ema": "slow",
+        "macd": "slow",
+        "score_profile": "base",
+        "sector_top_fraction": 1.0,
+        "sector_short_weight": 0.5333333333333333,
+        "sector_fallback_mode": "baseline",
+        "c_alpha": 0.16
+      }
+    },
+    {
+      "candidate_id": "p062",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 25,
+        "replacement_margin": 0.05,
+        "max_replacements_per_day": 2,
+        "volatility_spike_ratio": 3.0,
+        "one_day_chase_return": 0.095,
+        "volume_low": 0.8,
+        "volume_high": 2.0,
+        "four_hour_mode": "coverage_only",
+        "returns": "fast",
+        "ema": "slow",
+        "macd": "base",
+        "score_profile": "base",
+        "sector_top_fraction": 1.0,
+        "sector_short_weight": 0.0,
+        "sector_fallback_mode": "total_eligible",
+        "c_alpha": 0.02
+      }
+    },
+    {
+      "candidate_id": "p063",
+      "design": "joint_stratified",
+      "varied": "bundle",
+      "params": {
+        "target_count": 20,
+        "replacement_margin": 0,
+        "max_replacements_per_day": 0,
+        "volatility_spike_ratio": 3.0,
+        "one_day_chase_return": 0.07,
+        "volume_low": 0.5,
+        "volume_high": 2.0,
+        "four_hour_mode": "strict",
+        "returns": "fast",
+        "ema": "fast",
+        "macd": "slow",
+        "score_profile": "slow",
+        "sector_top_fraction": 0.75,
+        "sector_short_weight": 0.0,
+        "sector_fallback_mode": "total_eligible",
+        "c_alpha": 0.3
+      }
+    }
+  ]
+}

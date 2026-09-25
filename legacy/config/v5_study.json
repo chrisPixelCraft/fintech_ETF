@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "study_id": "v5_champion_inspired_families",
+  "spec": "docs/v5_spec.md",
+  "inputs": {
+    "daily": "data/yahoo_daily/v3_20260923/nominal_daily.parquet",
+    "calendar": "data/yahoo_daily/v3_20260923/calendar_v2.json",
+    "universe": "data/reference/universe_competition_20260731.csv",
+    "base_config": "configs/competition_24d_final.json",
+    "competition_rules": "data/reference/competition_rules.json"
+  },
+  "outputs": {
+    "data_dir": "outputs/v5/data",
+    "episode_registry": "outputs/v5/data/episodes.json",
+    "requested_dates": "outputs/v5/data/requested_dates.csv",
+    "execution_data": "outputs/v5/data/execution_data.csv",
+    "execution_manifest": "outputs/v5/data/execution_data.manifest.json"
+  },
+  "raw_cache_sources": [
+    "outputs/v4/stage2_data/official_raw",
+    "outputs/v4/official_raw"
+  ],
+  "episode_length": 24,
+  "initial_cash": 1000000000,
+  "execution_mode": "official_average",
+  "sizing_price_mode": "official_close",
+  "calendar_interpretation": "Frozen observed-session proxy (calendar_v2), identical to V4; not an independently certified exchange calendar",
+  "anchor_rule": "First calendar session on or after the 1st of each month; the episode is that session plus the next 23 sessions; the prior session is the sizing/initial-close day",
+  "completeness_rule": "Only windows with a prior session and all 24 sessions on or before the latest calendar date are registered",
+  "splits": {
+    "development": {"kind": "monthly", "first_month": "2010-01", "last_month": "2018-12", "expected_count": 108},
+    "validation": {"kind": "monthly", "first_month": "2019-01", "last_month": "2022-12", "expected_count": 48},
+    "holdout_retrospective": {"kind": "monthly", "first_month": "2023-01", "last_month": "2024-12", "expected_count": 24,
+      "interpretation": "Not pristine: V3 was tuned on it and V4 viewed Jan/Jul windows; can reject, cannot certify"},
+    "diagnostic_seasonal": {"kind": "seasonal", "month_day": "10-26", "first_year": 2010, "last_year": 2025, "expected_count": 16,
+      "rule": "Session with minimum absolute calendar-day distance to Oct 26; ties go to the later session"},
+    "diagnostic_recent": {"kind": "monthly", "first_month": "2025-01", "last_month": "LATEST_COMPLETE"}
+  },
+  "fetch_policy": {
+    "endpoints": "src/v4_execution.official_url (TWSE MI_INDEX ALLBUT0999, TPEx dailyQuotes)",
+    "one_worker_per_market": true,
+    "delay_seconds": {"TWSE": 3.5, "TPEx": 2.0},
+    "transient_retry_backoff_seconds": [10, 30, 90],
+    "throttle_status_codes": [403, 428, 429],
+    "throttle_cooldown_seconds": 900,
+    "max_throttle_cooldowns_per_run": 4,
+    "missing_policy": "Never substitute Open/Close; missing official rows keep official_execution_available=false"
+  },
+  "submission_status": "BLOCK_SUBMISSION"
+}

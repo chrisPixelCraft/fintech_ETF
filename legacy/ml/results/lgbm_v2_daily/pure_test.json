@@ -1,0 +1,59 @@
+{
+ "period": "2025-2026/09",
+ "windows": 40,
+ "reference": {
+  "n": 40,
+  "n_failed": 0,
+  "mean": 0.08793979284885464,
+  "median": 0.10985485766372227,
+  "p25": 0.0027982218627436994,
+  "p10": -0.08668706224095432,
+  "worst": -0.162757889004169,
+  "paired_n": 40,
+  "paired_mean_delta": 0.0,
+  "paired_median_delta": 0.0,
+  "paired_win_rate": 0.0,
+  "mdd": 0.08095205478689063,
+  "turnover": 3.375811800465448,
+  "cost_pct": 0.008611804425781178,
+  "warnings": 1,
+  "disqualified": 0,
+  "disqualification_rate": 0.0,
+  "runtime_seconds_per_episode": 0.2333647322269826
+ },
+ "metrics": {
+  "n": 40,
+  "n_failed": 0,
+  "mean": 0.07103503833511897,
+  "median": 0.07519197358843199,
+  "p25": 0.007350633626828806,
+  "p10": -0.0483847550321021,
+  "worst": -0.1830534575596232,
+  "paired_n": 40,
+  "paired_mean_delta": -0.016904754513735663,
+  "paired_median_delta": -0.025677177079259206,
+  "paired_win_rate": 0.325,
+  "mdd": 0.09314577633627845,
+  "turnover": 5.676086474479648,
+  "cost_pct": 0.015498216949471932,
+  "warnings": 1,
+  "disqualified": 0,
+  "disqualification_rate": 0.0,
+  "runtime_seconds_per_episode": 0.21515397407420095
+ },
+ "ci95": [
+  -0.03660230960347275,
+  0.003181502019212121
+ ],
+ "acceptance": {
+  "checks": {
+   "mean_delta > +0.5%": false,
+   "median_delta >= 0": false,
+   "no extra disqualification": true,
+   "extra cost < mean_delta": false
+  },
+  "passed": false
+ },
+ "decision": "STOP",
+ "note": "run after the 2015-2024 STOP at the user's request (spec section 7); does not change the STOP"
+}

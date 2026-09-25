@@ -1,0 +1,336 @@
+{
+  "schema_version": "1.0",
+  "retrieved_on": "2026-09-21",
+  "status": "VERIFIED_SOURCE_EXTRACTION_WITH_UNRESOLVED_INTERPRETATIONS",
+  "source_document": {
+    "path": "/Users/chrishsieh/Downloads/AI CUP 2026玉山人工智慧公開挑戰賽_比賽辦法.pdf",
+    "sha256": "55a26bb7408eedba7f3c395ca84c5d3d3d471532c5f3c01dfa2166336a983cf7",
+    "pages": 16,
+    "critical_pages_visually_verified": [
+      6,
+      7,
+      8,
+      9,
+      10
+    ],
+    "creation_time_from_pdf_metadata": "2026-09-01 11:41:01 Asia/Taipei"
+  },
+  "official_event_url": "https://esun-ai-challenge.tw/events/fundaiagent",
+  "official_event_api": "https://esun-ai-challenge.tw/api/events/fundaiagent/",
+  "event_published_at_raw": "2026-09-18 10:05:13",
+  "api_datetime_timezone": "API response does not label timezone; do not treat as proven UTC timestamp",
+  "initial_capital_twd": 1000000000,
+  "contest": {
+    "start": "2026-10-26",
+    "end": "2026-11-27",
+    "trading_days": 24,
+    "successful_submission_days_min": 22,
+    "maximum_daily_submissions": 25,
+    "timezone": "Asia/Taipei",
+    "submit_from_previous_calendar_day": "19:30",
+    "submit_deadline_trade_day": "08:55",
+    "result_publication": "19:00",
+    "source_pages": [
+      1,
+      2,
+      4,
+      7,
+      8
+    ]
+  },
+  "universe": {
+    "definition": "TWSE top 100 by market capitalization plus TPEx top 50, as of July 2026 month end",
+    "reference_date": "2026-07-31",
+    "reference_date_precision": "month end in PDF; calendar date interpreted",
+    "count": 150,
+    "twse_count": 100,
+    "tpex_count": 50,
+    "csv": "data/reference/universe_competition_20260731.csv",
+    "attachment_created_at_raw": "2026-09-18 10:02:56",
+    "attachment_updated_at_raw": "2026-09-18 10:02:56",
+    "first_publication_proven": false,
+    "earlier_publication_evidence": null,
+    "source_url": "https://esun-ai-challenge.tw/api/events/fundaiagent/attachments/5/download/",
+    "pdf_sha256": "b6a17beb84cfbfe3db8629d6af8c2938b4443114de0d82e333bc487e4c7d8bd6",
+    "pdf_pages_visually_verified": [
+      1,
+      2,
+      3
+    ],
+    "pdf_rules_page": 8,
+    "january_use_status": "LOOKAHEAD_UNIVERSE_CONTAMINATION: July market capitalization was unavailable in January"
+  },
+  "portfolio": {
+    "minimum_positions": 20,
+    "maximum_positions": 30,
+    "limits_denominator": "end_of_day_NAV",
+    "general_stock_max_weight": 0.1,
+    "ticker_max_weights": {
+      "2330": 0.25
+    },
+    "cash_min": 0.0,
+    "cash_max_exclusive": 0.25,
+    "long_only": true,
+    "margin_allowed": false,
+    "shorting_allowed": false,
+    "stock_borrow_allowed": false,
+    "day_trading_allowed": false,
+    "order_lot_size_shares": 1000,
+    "source_pages": [
+      8,
+      9,
+      10
+    ]
+  },
+  "execution": {
+    "order_sizing_price": "previous trading day official close",
+    "order_sizing_nav": "previous trading day NAV",
+    "target_shares_formula": "floor(target_weight * previous_nav / previous_close / 1000) * 1000",
+    "order_shares_formula": "target_shares - actual_current_shares",
+    "execution_price": "trade_date_turnover_twd / trade_date_share_volume",
+    "fill_policy_pdf": "all orders fill",
+    "missing_price_policy_guide": "orders may not fill when no price exists; use actual settled holdings",
+    "commission_buy_rate": 0.001425,
+    "commission_sell_rate": 0.001425,
+    "transaction_tax_buy_rate": 0.0,
+    "transaction_tax_sell_rate": 0.003,
+    "commission_rounding_rule": null,
+    "minimum_fee_twd": null,
+    "slippage_rate_pdf": null,
+    "fees_from_cash": true,
+    "nav_formula": "sum(holding_shares * current_raw_close) + cash",
+    "source_pages": [
+      6,
+      7,
+      8
+    ],
+    "guide_url": "https://esun-ai-challenge.tw/api/events/fundaiagent/attachments/12/download/",
+    "guide_section": "⑥ orders — 實際委託",
+    "guide_sha256": "7e17f4685c76568da2999719e7aeaeba71fba90f1073752a42e37f357c2bd839",
+    "schema_url": "https://esun-ai-challenge.tw/api/events/fundaiagent/attachments/11/download/",
+    "schema_sha256": "b4703cbb2387065d3612d799018cac0b8671f49305bcb63fe3c518f8bc89b95f"
+  },
+  "corporate_actions": {
+    "splits_and_stock_dividends": "adjust shares or cash to actual market events",
+    "cash_dividends": "accumulate separately; credit to final NAV only at contest end; not spendable at ex-date",
+    "cash_dividend_intraperiod_nav_treatment": "footnote specifies final NAV inclusion; do not assume regular broker pay-date cash availability",
+    "source_pages": [
+      8,
+      10
+    ]
+  },
+  "active_share": {
+    "formula": "0.5 * sum_i(abs(w_portfolio_i - w_benchmark_i))",
+    "portfolio_top_n": 10,
+    "benchmark_top_n": 10,
+    "minimum": 0.2,
+    "breach_operator": "<",
+    "consecutive_breach_days_for_direct_disqualification": 2,
+    "benchmark_list_reference_date": "2026-09-11",
+    "benchmark_count": 30,
+    "benchmark_list": [
+      {
+        "ticker": "00980A",
+        "name": "主動野村臺灣優選"
+      },
+      {
+        "ticker": "00982A",
+        "name": "主動群益台灣強棒"
+      },
+      {
+        "ticker": "00981A",
+        "name": "主動統一台股成長"
+      },
+      {
+        "ticker": "00983A",
+        "name": "主動中信 ARK 創新"
+      },
+      {
+        "ticker": "00984A",
+        "name": "主動安聯台灣高息"
+      },
+      {
+        "ticker": "00985A",
+        "name": "主動野村台灣 50"
+      },
+      {
+        "ticker": "00986A",
+        "name": "主動台新龍頭成長"
+      },
+      {
+        "ticker": "00989A",
+        "name": "主動摩根美國科技"
+      },
+      {
+        "ticker": "00988A",
+        "name": "主動統一全球創新"
+      },
+      {
+        "ticker": "00991A",
+        "name": "主動復華未來 50"
+      },
+      {
+        "ticker": "00990A",
+        "name": "主動元大 AI 新經濟"
+      },
+      {
+        "ticker": "00987A",
+        "name": "主動台新優勢成長"
+      },
+      {
+        "ticker": "00992A",
+        "name": "主動群益科技創新"
+      },
+      {
+        "ticker": "00994A",
+        "name": "主動第一金台股優"
+      },
+      {
+        "ticker": "00995A",
+        "name": "主動中信台灣卓越"
+      },
+      {
+        "ticker": "00993A",
+        "name": "主動安聯台灣"
+      },
+      {
+        "ticker": "00996A",
+        "name": "主動兆豐台灣豐收"
+      },
+      {
+        "ticker": "00400A",
+        "name": "主動國泰動能高息"
+      },
+      {
+        "ticker": "00401A",
+        "name": "主動摩根台灣鑫收"
+      },
+      {
+        "ticker": "00997A",
+        "name": "主動群益美國增長"
+      },
+      {
+        "ticker": "00999A",
+        "name": "主動野村臺灣高息"
+      },
+      {
+        "ticker": "00403A",
+        "name": "主動統一升級 50"
+      },
+      {
+        "ticker": "00402A",
+        "name": "主動安聯美國科技"
+      },
+      {
+        "ticker": "00404A",
+        "name": "主動聯博動能 50"
+      },
+      {
+        "ticker": "00405A",
+        "name": "主動富邦台灣龍耀"
+      },
+      {
+        "ticker": "00406A",
+        "name": "主動中信台灣收益"
+      },
+      {
+        "ticker": "00407A",
+        "name": "主動凱基台灣"
+      },
+      {
+        "ticker": "00408A",
+        "name": "主動第一金優股息"
+      },
+      {
+        "ticker": "00410A",
+        "name": "主動永豐科技趨勢"
+      },
+      {
+        "ticker": "00409A",
+        "name": "主動復華全球 50"
+      }
+    ],
+    "benchmark_list_url": "https://esun-ai-challenge.tw/api/events/fundaiagent/attachments/4/download/",
+    "benchmark_list_sha256": "d19cb228af7569b662cc0cfd741c726a4016ec3cc37536bf1c1d7bd891ec49d5",
+    "benchmark_list_attachment_created_at_raw": "2026-09-18 10:02:55",
+    "benchmark_holdings_historical_weights_available": false,
+    "top10_renormalization_defined": false,
+    "security_union_defined": false,
+    "cash_treatment_defined": false,
+    "benchmark_holdings_date_lag_defined": false,
+    "different_benchmark_consecutive_day_rule_defined": false,
+    "compliance_verdict_without_weights": "UNKNOWN",
+    "source_pages": [
+      8,
+      10
+    ]
+  },
+  "violations": {
+    "max_warnings_per_day": 1,
+    "warnings_for_disqualification": 3,
+    "invalid_day_order_handling": "invalidate all that day orders and value previous day portfolio at current prices",
+    "warning_reasons": [
+      "missing_daily_D_Plan",
+      "negative_settlement_cash",
+      "cash_above_limit",
+      "position_count_outside_20_30",
+      "single_position_above_cap",
+      "holding_outside_150_whitelist",
+      "agent_decision_trade_inconsistency"
+    ],
+    "passive_weight_drift_grace_trading_days": 5,
+    "passive_drift_warning_day": 6,
+    "active_buy_caused_weight_breach": "immediate_warning",
+    "active_share_breach": "separate direct disqualification after two consecutive days; not three-warning policy",
+    "source_pages": [
+      9,
+      10
+    ]
+  },
+  "scoring": {
+    "preliminary_primary": "highest_final_NAV",
+    "preliminary_tiebreak": "lowest_maximum_drawdown",
+    "final_score": "own_preliminary_NAV / sum_finalists_NAV + own_demo_funding / sum_finalists_demo_funding",
+    "final_tiebreak": "higher_demo_funding",
+    "source_pages": [
+      6,
+      7
+    ]
+  },
+  "unresolved": [
+    {
+      "id": "cash_equality",
+      "fact": "p8 says <25%; p9 warning condition says >25%",
+      "safe_implementation": "strictly less than25%"
+    },
+    {
+      "id": "fee_rounding",
+      "fact": "no minimum fee or TWD rounding method stated",
+      "implementation_must_be_labeled_assumption": true
+    },
+    {
+      "id": "active_share_definition",
+      "fact": "top10 weights normalization, union, cash and holdings lag omitted",
+      "required_for_official_certification": "organizer clarification plus dated historical benchmark holdings"
+    },
+    {
+      "id": "suspension_fill",
+      "fact": "PDF all-filled promise qualified by guide no-price example",
+      "safe_implementation": "never fabricate missing transaction price"
+    },
+    {
+      "id": "fractional_corporate_action_entitlements",
+      "fact": "handling of resulting odd lots and rounding omitted",
+      "implementation_must_be_labeled_assumption": true
+    }
+  ],
+  "anti_lookahead_implications": [
+    "January to September cannot use July-end whitelist as if known on January1.",
+    "Daily bars at t close can drive orders only for a later trading date.",
+    "Trade-date VWAP/close used solely for execution/valuation, never for deciding order quantity.",
+    "Do not rescale buys using realized execution price to force positive cash.",
+    "A static list published in September may be used only as a labeled retrospective contest-universe diagnostic before publication.",
+    "Historical benchmark holdings must be as-of published data, not today holdings retroactively inserted.",
+    "A pretrade checker uses known prices; posttrade settlement checker detects violations from unknown price movement."
+  ]
+}

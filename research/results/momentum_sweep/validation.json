@@ -1,0 +1,60 @@
+{
+ "candidate": "mom30",
+ "table": {
+  "mom20": {
+   "n": 70,
+   "n_failed": 0,
+   "mean": 0.01605929087777584,
+   "median": 0.01004347601217237,
+   "p25": -0.03211532591897254,
+   "p10": -0.07738821081403986,
+   "worst": -0.16140646358369504,
+   "paired_n": 70,
+   "paired_mean_delta": 0.0,
+   "paired_median_delta": 0.0,
+   "paired_win_rate": 0.0,
+   "mdd": 0.06690864467414086,
+   "turnover": 3.928603353385783,
+   "cost_pct": 0.009989411488518212,
+   "warnings": 0,
+   "disqualified": 0,
+   "disqualification_rate": 0.0,
+   "runtime_seconds_per_episode": 0.28566540774253163
+  },
+  "mom30": {
+   "n": 70,
+   "n_failed": 0,
+   "mean": 0.01971488983316084,
+   "median": 0.015089313320141406,
+   "p25": -0.029720713219171302,
+   "p10": -0.07561857880593494,
+   "worst": -0.1562965404314156,
+   "paired_n": 70,
+   "paired_mean_delta": 0.0036555989553849993,
+   "paired_median_delta": 0.0020931219286113856,
+   "paired_win_rate": 0.5571428571428572,
+   "mdd": 0.06591896880267545,
+   "turnover": 2.9671773652625295,
+   "cost_pct": 0.0072164253006997,
+   "warnings": 0,
+   "disqualified": 0,
+   "disqualification_rate": 0.0,
+   "runtime_seconds_per_episode": 0.43011622017220363,
+   "ci95": [
+    -0.0028852911498675445,
+    0.010195747846117044
+   ]
+  }
+ },
+ "checks": {
+  "mean_delta > +0.5%": false,
+  "median_delta >= -0.5%": true,
+  "win_rate >= 45%": true,
+  "P10 drop <= 1%": true,
+  "worst drop <= 2%": true,
+  "extra cost < mean_delta": true,
+  "turnover <= 1.5x": true,
+  "no extra disqualification": true
+ },
+ "verdict": "FAIL"
+}

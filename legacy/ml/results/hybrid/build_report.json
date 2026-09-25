@@ -1,0 +1,20 @@
+{
+ "revenue": {
+  "rows": 22933,
+  "months": 164
+ },
+ "twse": {
+  "ok_days": 3095,
+  "empty_days": [],
+  "missing_days": []
+ },
+ "tpex": {
+  "ok_days": 2871,
+  "empty_days": [],
+  "missing_days": []
+ },
+ "flows": {
+  "rows": 412839,
+  "days": 3095
+ }
+}
