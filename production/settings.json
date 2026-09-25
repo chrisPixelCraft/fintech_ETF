@@ -1,9 +1,9 @@
 {
  "team_id": "TEAM_11076",
  "team_id_note": "Organizer-assigned team id (resolved P-U6); the validator still blocks the TEAM_UNSET placeholder",
- "contest_start": "2026-10-27",
+ "contest_start": "2026-10-26",
  "contest_sessions": 24,
- "contest_note": "TWSE 2026 holiday schedule: 2026-10-26 is a make-up holiday for 10/25, so the contest trades 24 sessions from 2026-10-27 to 2026-11-27 (resolved U1 / P-U5)",
+ "contest_note": "The organizer names 2026-10-26 the first trading day (rules example: submit 10/25 19:30 - 10/26 08:55). The TWSE 2026 schedule lists 10/26 as a make-up holiday; counting from 10/26 is correct either way because contest_position counts market-calendar sessions, so a closed 10/26 is simply skipped. Run and submit on 10/26.",
  "require_official_holdings": false,
  "require_official_note": "P-U1: the organizer holdings API address and auth are unknown; pass --holdings <export> each day",
  "active_etf_list": "data/reference/tuning_2nd_active_etf_readiness.csv",
