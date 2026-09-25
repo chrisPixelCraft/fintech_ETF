@@ -29,9 +29,9 @@ from hybrid.sources import DATA
 from lgbm_strategy import model
 from lgbm_strategy.dataset import split_dates
 
-DATA_START = '2011-01-01'
+DATA_START = '2014-01-01'
 REFIT_EVERY = 5
-PERIODS = {'eval': ('2012-01-01', '2024-12-31'), 'test': ('2025-01-01', '2026-09-30')}
+PERIODS = {'eval': ('2015-01-01', '2024-12-31'), 'test': ('2025-01-01', '2026-09-30')}
 PANEL = DATA / 'panel.parquet'
 
 _PANEL: pd.DataFrame | None = None

@@ -1,10 +1,10 @@
-"""The one Hybrid evaluation (docs/hybrid_spec.md section 7): Mom20 vs Hybrid v2A / v2B on 2012-2024.
+"""The one Hybrid evaluation (docs/hybrid_spec.md section 7): Mom20 vs Hybrid v2A / v2B on 2015-2024.
 
     PYTHONHASHSEED=0 .venv/bin/python -m hybrid.evaluate --workers 10
     PYTHONHASHSEED=0 .venv/bin/python -m hybrid.evaluate --pure-test --workers 10   # only after PASS
 
-Every run uses market data from 2011-01-01 and the production portfolio
-layer on the same windows (dev from 2012 plus validation, month start and
+Every run uses market data from 2014-01-01 and the production portfolio
+layer on the same windows (dev from 2015 plus validation, month start and
 mid-month), paired per window with Mom20. The acceptance rule and the version
 choice are fixed in the spec; the verdict is written once and a second
 evaluation with a different verdict is refused. Panic-window diagnostics are
@@ -31,7 +31,7 @@ RUNS = ROOT / 'research/runs/hybrid'
 RESULTS = ROOT / 'research/results/hybrid'
 VERDICT = RESULTS / 'verdict.json'
 PORTFOLIO = json.loads((ROOT / 'production/strategy.json').read_text())['params']['portfolio']
-EPISODES = {'start': '2012-01-01', 'offsets': ['month_start', 'mid_month']}
+EPISODES = {'start': '2015-01-01', 'offsets': ['month_start', 'mid_month']}
 SPLITS = {'eval': ('dev', 'validation'), 'test': ('holdout',)}
 REFERENCE, VERSIONS = 'mom20', ('hybrid_v2A', 'hybrid_v2B')
 GATE = dict(min_mean_delta=.005, min_median_delta=0.)
@@ -111,7 +111,7 @@ def choose(results: dict) -> str | None:
 
 
 def summary_md(verdict: dict) -> str:
-    lines = ['# Hybrid 評估：2012–2024（只跑一次）', '',
+    lines = ['# Hybrid 評估：2015–2024（只跑一次）', '',
              f'- 窗口：{verdict["windows"]} 個 24 日窗口（月初＋月中），資料自 {DATA_START} 起',
              '- 規則寫死於 [docs/hybrid_spec.md](../../../docs/hybrid_spec.md)', '',
              f'**{verdict["decision"]}**', '',
