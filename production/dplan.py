@@ -106,11 +106,12 @@ def build(inp: engine.DayInput, result: engine.DayResult, identity: Identity, st
                                     content_as_of=stamp(pd.Timestamp(prev.date()) + pd.Timedelta(hours=19)),
                                     name='主辦方結算持股（庫存明細）')
     if result.active_share.get('minimum') is not None and etf_source_url:
-        sources['etf'] = dict(source_id=ids.next('S'), authority='fininst', url=etf_source_url, content_as_of=content,
-                              name='主動 ETF 前十大持股')
+        sources['etf'] = dict(source_id=ids.next('S'), authority='vendor', url=etf_source_url, content_as_of=content,
+                              name='MoneyDJ 主動 ETF 前十大持股')
     sid = {k: v['source_id'] for k, v in sources.items()}
 
-    view = inp.market.asof(prev)
+    cal = inp.market.calendar
+    view = inp.market.asof(prev if prev in cal else cal[cal <= prev][-1])   # stale data only on fallback days
     log_ret = np.log1p(view.ret.iloc[-20:])
     mom20 = np.expm1(log_ret.sum(min_count=20))
     bench20 = float(np.expm1(np.log1p(view.benchmark_ret.iloc[-20:]).sum()))

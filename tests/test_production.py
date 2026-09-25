@@ -185,6 +185,23 @@ class EngineTest(unittest.TestCase):
                               day_index=0, sessions_remaining=24, require_official=True)
         self.assertEqual(engine.run_day(inp).mode, engine.EMERGENCY)
 
+    def test_market_data_down(self):
+        """No T-1 row: a held book still submits a HOLD D-Plan; Day 1 cannot size and escalates."""
+        last = self.market.calendar[-1]
+        trade, prev = last + pd.offsets.BDay(2), last + pd.offsets.BDay(1)
+        d1, p1 = self.market.calendar[-3], self.market.calendar[-4]
+        first = engine.run_day(engine.DayInput(d1, p1, self.market, initial_book(RULES, str(p1.date())), STRATEGY,
+                                               RULES, 0, 24))
+        book, _, _, _ = settle_day(initial_book(RULES, str(p1.date())), d1, first.plan.orders, self.market, RULES)
+        held = engine.DayInput(trade, prev, self.market, book, STRATEGY, RULES, 2, 22, cold_start=COLD,
+                               degraded=('MARKET_DATA_FAILED',))
+        result = engine.run_day(held)
+        self.assertEqual(result.mode, engine.HOLD)
+        self.assert_valid(held, result)
+        cold = engine.DayInput(trade, prev, self.market, initial_book(RULES, str(last.date())), STRATEGY, RULES, 0, 24,
+                               cold_start=COLD, degraded=('MARKET_DATA_FAILED',))
+        self.assertEqual(engine.run_day(cold).mode, engine.EMERGENCY)
+
     def test_active_share_repair_in_normal_path(self):
         normal = engine.run_day(self.inp())
         top = sorted(normal.target, key=lambda s: (-normal.target[s], s))[:10]

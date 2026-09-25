@@ -92,3 +92,6 @@ nohup.out
 
 # AutoTS research run folders stay local; registry.csv and reports are tracked.
 /research/runs/
+
+# Production daily runs (inputs, raw official responses, D-Plans, audit); only reviewed summaries are committed
+/production_runs/

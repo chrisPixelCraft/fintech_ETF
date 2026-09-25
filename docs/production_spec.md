@@ -321,29 +321,60 @@ DEV 最後最多留 1–3 個 candidate，最好只有 1 個。
 
 ---
 
-## 12. Repo 現況（2026-09-25）
+## 12. 執行狀態（2026-09-25）
 
-| 項目 | 狀態 |
-|---|---|
-| 策略、組合、定股數、帳本 | 已有，`research/`、`autots_strategy/`、`competition/` |
-| 官方日行情解析 | legacy 有，`legacy/src/v4_execution.py`；網路可連 TWSE |
-| D-Plan generator、validator | 沒有 |
-| Fallback、cold start | 沒有 |
-| 主辦方持股 API | 路徑與認證未知；`/api/portfolio/holdings/` 直接請求回 404 |
-| 提交管道 | 文件未寫，推測為後台上傳 |
-| 主動 ETF 持股 | `NOT_ACQUIRED` |
-| 2026 賽期交易日曆 | 未確認（`docs/task.md` U1） |
+| 項目 | 狀態 | 證據 |
+|---|---|---|
+| P1 Momentum 小實驗 | • 完成：Mom20 維持<br>• mom30 validation +0.37% 未達 +0.5% | [momentum_sweep/summary.md](../research/results/momentum_sweep/summary.md) |
+| 每日 pipeline | • 完成，`./run_daily.sh` | `production/run_daily.py` |
+| 每日資料 | • Yahoo 更新＋官方 T−1 交叉比對<br>• 2026-09-24 對 150 檔 0 差異 | `production/market_data.py` |
+| 官方持股對帳 | • 讀匯出檔；不一致即 FALLBACK_HOLD | `production/state.py` |
+| Fallback 四種模式 | • HOLD、合規修補、cold start、EMERGENCY | `production/engine.py`、`tests/test_production.py` |
+| Cold-start 名單 | • 25 檔，Active Share PASS 25.2% | `production/cold_start.json` |
+| 主動 ETF 持股 | • MoneyDJ 前十大，30/30 檔 | `production/etf_holdings.py` |
+| Active Share | • checker＋repair；2026-09-25 Mom20 最低 29.5% | `production/active_share.py` |
+| D-Plan 與驗證 | • schema＋C1/C2/C12/C13/覆蓋 | `production/dplan.py`、`production/validate.py` |
+| 一致性 gate | • 40 窗口、960 天 CONSISTENCY_PASS | [production_replay/summary_holdout.md](../research/results/production_replay/summary_holdout.md) |
+| 即時 dry run | • 2026-09-25 READY_TO_SUBMIT | `production_runs/dryrun/`（不進 git） |
 
 ## 13. 需要外部提供（UNRESOLVED）
 
-| ID | 問題 | 在確認前的做法 |
+| ID | 問題 | 目前做法 |
 |---|---|---|
-| P-U1 | 主辦方持股 API 的網址與認證 | 讀使用者匯出的持股檔（JSON/CSV） |
+| P-U1 | 主辦方持股 API 的網址與認證 | 每天用 `--holdings` 傳入後台匯出檔 |
 | P-U2 | 提交方式 | 產生檔案，人工上傳 |
-| P-U3 | 主動 ETF 前十大持股來源 | 嘗試公開網站；取不到就 `ACTIVE_SHARE_UNVERIFIED` |
-| P-U4 | Active Share 官方算法細節 | 採保守算法並標示假設 |
-| P-U5 | 賽期交易日曆（10/26 或 10/27 起） | 從 TWSE 休市表確認 |
-| P-U6 | `team_id` | 需主辦方配發值 |
+| P-U3 | 主動 ETF 持股來源 | MoneyDJ（vendor），非投信原始揭露 |
+| P-U4 | Active Share 官方算法細節 | 保守：raw 與正規化取低；近似同權取最壞情況 |
+| P-U5 | 賽期交易日曆（10/26 或 10/27 起） | `production/settings.json` 的 `contest_start` 需確認 |
+| P-U6 | `team_id` | 設定為 `TEAM_UNSET`，驗證器會擋下 |
 | P-U7 | 非 LLM 管線是否算 AI Agent | 需主辦方確認（`docs/task.md` U10） |
 
 其餘規則類 UNRESOLVED 見 [docs/task.md](task.md) 的 UNRESOLVED 總表。
+
+## 14. 每日操作手冊
+
+賽前一次：
+
+1. 在 `production/settings.json` 填入 `team_id`、確認 `contest_start`
+2. 重新凍結 cold-start 名單
+   - `python -m production.etf_holdings --out <etf.csv>`
+   - `python -m production.cold_start --etf-holdings <etf.csv> --yahoo-dir <最新 Yahoo 快取>`
+3. commit 乾淨版本（D-Plan 的 `code_version` 不可帶 `-dirty`）
+4. 清掉 dry run 狀態，正式狀態放在 `production_runs/state/`
+
+每個交易日 T（台北 05:00–08:55）：
+
+1. 從後台匯出前一日結算持股
+2. 執行 `./run_daily.sh <T> --holdings <匯出檔>`
+3. 結束碼 0：上傳 `production_runs/<T>/D-Plan_*.json`
+4. 結束碼 2：讀 `audit.md`
+   - 仍有 D-Plan 就先上傳
+   - 再處理原因
+
+| 狀態 | 意思 | 要做什麼 |
+|---|---|---|
+| `NORMAL` | 凍結策略正常執行 | 上傳 |
+| `FALLBACK_HOLD` | 資料或對帳有問題，沿用持股 | 上傳，再查原因 |
+| `FALLBACK_COMPLIANCE_REPAIR` | 只做最少合規修補 | 上傳，再查原因 |
+| `COLD_START_FALLBACK` | 首日用凍結名單建倉 | 上傳 |
+| `EMERGENCY_REVIEW_REQUIRED` | 連合法 fallback 都產生不了 | 08:55 前人工處理 |

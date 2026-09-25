@@ -48,6 +48,7 @@ class DayInput:
     etfs: dict | None = None                # active_share.load_etf_holdings
     required_etfs: tuple = ()
     cold_start: tuple = ()                  # frozen cold-start symbols
+    degraded: tuple = ()                    # upstream data problems that forbid the normal path
 
 
 @dataclass
@@ -80,8 +81,9 @@ def momentum_of(strategy: dict) -> MomentumConfig:
 
 
 def sizing_close(market: MarketData, prev: pd.Timestamp, book: SettledBook) -> pd.Series:
-    """T-1 close, with a held name's last valid close when T-1 has none (as in the backtest)."""
-    close = market.close.loc[prev].copy()
+    """T-1 close, with a held name's last valid close when T-1 has none (as in the backtest).
+    Without a T-1 row the latest earlier row is used and the caller must not trade on it."""
+    close = (market.close.loc[prev] if prev in market.close.index else market.close.loc[:prev].iloc[-1]).copy()
     for s in book.holdings:
         if not np.isfinite(close.get(s, np.nan)):
             close[s] = book.marks[s]
@@ -205,6 +207,7 @@ def run_day(inp: DayInput) -> DayResult:
                                book.cap_ages, book.warnings)
     elif inp.require_official:
         reasons.append('OFFICIAL_STATE_MISSING')
+    reasons += [f'DEGRADED:{d}' for d in inp.degraded]
     close = sizing_close(inp.market, inp.prev_date, book)
     nav = book.nav
     gate = data_gate(inp.market, inp.prev_date, book)
@@ -222,6 +225,9 @@ def run_day(inp: DayInput) -> DayResult:
             result = fallback_path(inp, book, nav, close, reasons)
         except Exception as error:
             result = DayResult(EMERGENCY, reasons + [f'FALLBACK_FAILED:{error!r}'], {}, _hold_plan(book),
+                               dict(book.holdings), nav, close)
+        if inp.prev_date not in inp.market.close.index and result.plan.orders:
+            result = DayResult(EMERGENCY, result.reasons + ['STALE_SIZING_CLOSE_WITH_ORDERS'], {}, _hold_plan(book),
                                dict(book.holdings), nav, close)
     result.data_gate, result.reconciliation = gate, rec
     return result

@@ -7,9 +7,12 @@
 - 目前最好：20 日動能
   - 2025–2026 平均 +8.79%
   - AutoTS、LightGBM 都輸它
-- 還不能提交
-  - 狀態 `BLOCK_SUBMISSION`
-  - 缺每日 D-Plan 產生器
+- 每日提交流程已完成
+  - 入口 `./run_daily.sh`
+  - 見 [docs/production_spec.md](docs/production_spec.md)
+- 正式比賽前還要補
+  - 主辦方配發的 `team_id`
+  - 確認首個交易日
 - 2025–2026 已經用過
   - 不再是沒看過的資料
   - 依它調整會高估
@@ -188,6 +191,18 @@ echo "$PWD/third_party/autots" > .venv/lib/python3.12/site-packages/fintech_etf_
 .venv/bin/python -c "import autots; print(autots.__version__)"
 ```
 
+### 每日提交
+
+```bash
+# 交易日 T 的 05:00–08:55（台北）；結束碼 0 = 上傳 production_runs/<T>/D-Plan_*.json
+./run_daily.sh 2026-10-27 --holdings <後台匯出的持股檔>
+```
+
+- 模式與處理方式見 [docs/production_spec.md](docs/production_spec.md) 第 14 節
+- production 與回測逐日一致
+  - 40 窗口、960 天
+  - [production_replay](research/results/production_replay/summary_holdout.md)
+
 ### 常用指令
 
 ```bash
@@ -274,6 +289,7 @@ fintech_ETF/
 ├── competition/         ← 競賽核心：規則、資料截止、窗口、下單規劃、成交、帳本、回測
 ├── autots_strategy/     ← AutoTS 策略，以及三種方法共用的組合層 portfolio.py
 ├── lgbm_strategy/       ← LightGBM：特徵、標籤、訓練資料、模型、策略
+├── production/          ← 每日提交：資料、對帳、engine、fallback、Active Share、D-Plan、驗證、replay
 ├── research/            ← 實驗入口、設定、基準策略、比較、實驗總表、各輪研究
 │   ├── configs/         ← 實驗設定
 │   └── results/         ← 整理後的結果（要 commit）
