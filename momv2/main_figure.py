@@ -7,7 +7,7 @@ Test: the 40 windows of 2025-01 .. 2026-09; model baselines come from
 research/results/final_test/episode_returns.csv (same window ids, same Mom20).
 Delta = strategy return - Mom20 return in the same 24-day window; 95% CI is
 a paired bootstrap (10,000 draws, seed 0).
-Outputs: docs/figures/main_figure_{light,dark}.png, research/results/main_table.md.
+Outputs: docs/figures/main_figure.png, research/results/main_table.md.
 """
 from __future__ import annotations
 
@@ -91,52 +91,42 @@ def collect() -> dict:
     return rows
 
 
-def figure(rows: dict, mode: str):
-    th = THEME[mode]
-    items = [(k, v) for k, v in rows.items() if v['type'] != 'ours']
-    order = sorted(items, key=lambda kv: (list(TYPES).index(kv[1]['type']),
-                                          -(kv[1]['full'] or kv[1]['test'])['delta']))
-    y = np.arange(len(order))[::-1]
-    plt.rcParams.update({'font.family': ['Helvetica', 'Arial', 'DejaVu Sans'], 'font.size': 10})
-    fig, axes = plt.subplots(1, 2, figsize=(11, 6.2), sharey=True, facecolor=th['surface'])
-    panels = [('full', 'Full period 2015–2026 (276 windows)'), ('test', 'Test 2025–2026 (40 windows)')]
-    for ax, (key, title) in zip(axes, panels):
-        ax.set_facecolor(th['surface'])
-        ax.axvline(0, color=th['text'], lw=1.2, zorder=1)
-        ax.axvline(.5, color=th['muted'], lw=1, ls=(0, (4, 3)), zorder=1)
-        for yi, (_, v) in zip(y, order):
-            s = v[key]
-            _, marker, slot = TYPES[v['type']]
-            color = th['series'][slot]
-            if s is None:
-                ax.text(0.05, yi, 'n/a', va='center', ha='left', color=th['muted'], fontsize=8)
-                continue
-            d, lo, hi = 100 * s['delta'], 100 * s['lo'], 100 * s['hi']
-            ax.plot([lo, hi], [yi, yi], color=color, lw=2, solid_capstyle='round', zorder=2)
-            ax.plot(d, yi, marker=marker, ms=8, color=color, mec=th['surface'], mew=2, zorder=3)
-        ax.set_title(title, color=th['text'], fontsize=11, loc='left', pad=10)
-        ax.set_xlabel('Δ vs Mom20 per 24-day window (percentage points)', color=th['muted'])
-        ax.grid(axis='x', color=th['grid'], lw=.8)
-        ax.set_axisbelow(True)
-        for side in ('top', 'right', 'left'):
-            ax.spines[side].set_visible(False)
-        ax.spines['bottom'].set_color(th['grid'])
-        ax.tick_params(colors=th['muted'], length=0)
-    axes[0].set_yticks(y, [v['en'] for _, v in order], color=th['text'])
-    axes[0].set_ylim(-.7, len(order) - .1)
-    handles = [Line2D([], [], marker=m, ls='', ms=8, color=th['series'][i], label=en) for en, m, i in TYPES.values()]
-    handles += [Line2D([], [], color=th['text'], lw=1.2, label='Mom20 (ours) = 0'),
-                Line2D([], [], color=th['muted'], lw=1, ls=(0, (4, 3)), label='Pass threshold +0.5')]
-    fig.legend(handles=handles, loc='lower center', ncol=5, frameon=False, labelcolor=th['text'],
-               bbox_to_anchor=(.55, .025))
-    fig.suptitle('Nothing beats Mom20 on the 2025–2026 test (paired difference, 95% CI)', x=.02, ha='left',
-                 color=th['text'], fontsize=13, fontweight='bold')
-    fig.text(.02, .005, '† Residual 120d was tuned on 2015–2021 and picked after seeing 2022–2024; '
-             'its full-period result is in-sample.', color=th['muted'], fontsize=8.5, ha='left')
-    fig.tight_layout(rect=(0, .08, 1, .96))
+BARS = {   # label on the chart -> row in rows (2025-2026 test mean return)
+    'Mom20（Ours）': 'Mom20（Ours）', 'Mom25': 'Mom25', 'Residual 20 日': 'Residual 20 日（扣等權市場）',
+    '台積電 22.5% 核心': '台積電 22.5% ＋ 等權', '多尺度 MACD': '多尺度 MACD', 'LightGBM': 'LightGBM（最佳）',
+    'AutoTS': 'AutoTS', 'H1 residual 120 日': 'Residual 120 日（H1）', '技術指標重排': '技術指標 Composite（19 個）',
+}
+OURS, OTHER, INK, MUTED = '#2a78d6', '#c9c8c2', '#0b0b0b', '#52514e'
+
+
+def figure(rows: dict):
+    """One white bar chart: mean return per 24-day window on the 2025-2026 test."""
+    data = sorted(((label, rows[key]['test']['mean']) for label, key in BARS.items()), key=lambda x: x[1])
+    plt.rcParams.update({'font.family': ['PingFang TC', 'Heiti TC', 'Arial Unicode MS'], 'font.size': 12})
+    fig, ax = plt.subplots(figsize=(8, 5), facecolor='white')
+    ax.set_facecolor('white')
+    labels, values = zip(*data)
+    colors = [OURS if l.endswith('（Ours）') else OTHER for l in labels]
+    ax.barh(labels, [100 * v for v in values], color=colors, height=.62, edgecolor='white', linewidth=2)
+    for i, (l, v) in enumerate(data):
+        ours = l.endswith('（Ours）')
+        ax.text(100 * v + .12, i, f'{v:+.2%}', va='center', ha='left', fontsize=12,
+                color=INK, fontweight='bold' if ours else 'normal')
+    for tick in ax.get_yticklabels():
+        tick.set_color(INK)
+        tick.set_fontweight('bold' if tick.get_text().endswith('（Ours）') else 'normal')
+    ax.set_xlim(0, 100 * max(values) * 1.18)
+    ax.xaxis.set_visible(False)
+    for side in ('top', 'right', 'bottom'):
+        ax.spines[side].set_visible(False)
+    ax.spines['left'].set_color('#d7d6d1')
+    ax.tick_params(axis='y', length=0)
+    ax.set_title('2025–2026 每 24 個交易日的平均報酬', loc='left', color=INK, fontsize=15, fontweight='bold', pad=14)
+    fig.text(.01, .01, '40 個窗口，每月月初、月中起跑；同一套組合與成本', color=MUTED, fontsize=10)
+    fig.tight_layout(rect=(0, .04, 1, 1))
     FIGURES.mkdir(parents=True, exist_ok=True)
-    path = FIGURES / f'main_figure_{mode}.png'
-    fig.savefig(path, dpi=200, facecolor=th['surface'])
+    path = FIGURES / 'main_figure.png'
+    fig.savefig(path, dpi=200, facecolor='white')
     plt.close(fig)
     return path
 
@@ -164,8 +154,7 @@ def table_md(rows: dict) -> str:
 
 def main():
     rows = collect()
-    for mode in THEME:
-        print(figure(rows, mode))
+    print(figure(rows))
     md = ['# Main table', '', '由 `python -m momv2.main_figure` 產生；Δ = 和 Mom20 在同一個 24 日窗口的報酬差，'
           '95% CI 為配對 bootstrap。', '', table_md(rows), '']
     TABLE.write_text('\n'.join(md))
