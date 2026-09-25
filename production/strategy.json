@@ -1,0 +1,13 @@
+{
+ "name": "production_mom20",
+ "description": "Frozen production strategy (docs/production_spec.md section 0): equal-weight top-25 by trailing 20-session action-neutral log return, invested 95%, keep rank 35, 10% turnover gate, no trades in the last 3 sessions. Identical to research/results/final_test momentum_20.",
+ "strategy": "momentum",
+ "params": {
+  "window": 20,
+  "portfolio": {"n_holdings": 25, "keep_rank": 35, "weighting": "equal", "invested": 0.95, "cap_scale": 0.9,
+                "rebalance_threshold": 0.1, "freeze_last_days": 3}
+ },
+ "execution": {"mode": "auto", "proxy": "hlc3"},
+ "planner": {"rebalance_band": 0.005},
+ "episodes": {"offsets": ["month_start", "mid_month"]}
+}

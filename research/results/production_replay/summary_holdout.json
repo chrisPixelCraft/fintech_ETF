@@ -1,0 +1,16 @@
+{
+ "status": "CONSISTENCY_PASS",
+ "checks": {
+  "all days normal path": true,
+  "every D-Plan validates": true,
+  "target weights identical": true,
+  "orders identical": true,
+  "holdings identical": true,
+  "cash and NAV within 1e-06": true
+ },
+ "days": 960,
+ "episodes": 40,
+ "max_nav_diff": 0.0,
+ "max_cash_diff": 0.0,
+ "failing_days": []
+}

@@ -1,0 +1,38 @@
+{
+ "as_of": "2026-09-23",
+ "method": "top 25 by 60-session average traded value, equal weight",
+ "symbols": [
+  "1303.TW",
+  "2303.TW",
+  "2308.TW",
+  "2317.TW",
+  "2327.TW",
+  "2330.TW",
+  "2344.TW",
+  "2383.TW",
+  "2408.TW",
+  "2454.TW",
+  "3008.TW",
+  "3017.TW",
+  "3037.TW",
+  "3105.TWO",
+  "3189.TW",
+  "3231.TW",
+  "3443.TW",
+  "3481.TW",
+  "3711.TW",
+  "4958.TW",
+  "6488.TWO",
+  "6669.TW",
+  "6770.TW",
+  "8046.TW",
+  "8299.TWO"
+ ],
+ "check": {
+  "mode": "COLD_START_FALLBACK",
+  "plan_status": "REPAIRED",
+  "orders": 25,
+  "errors": [],
+  "active_share": "ACTIVE_SHARE_UNVERIFIED"
+ }
+}
