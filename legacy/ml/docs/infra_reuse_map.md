@@ -1,6 +1,6 @@
 # Competition Infrastructure Reuse Map
 
-This map covers competition **infrastructure** only: data, calendar, execution, rule checks, planner, ledger, episodes, and D-Plan. Strategy code (V3 features and scores, V5 selection and regime) stays in legacy. Task facts are in [docs/task.md](../docs/task.md).
+This map covers competition **infrastructure** only: data, calendar, execution, rule checks, planner, ledger, episodes, and D-Plan. Strategy code (V3 features and scores, V5 selection and regime) stays in legacy. Task facts are in [docs/task.md](../../../docs/task.md).
 
 - Inspected on 2026-09-24 at `HEAD 0363e41`
 - Tests were run with the concurrently built `.venv`

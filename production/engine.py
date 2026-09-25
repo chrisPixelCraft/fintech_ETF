@@ -18,8 +18,7 @@ from dataclasses import dataclass, field
 import numpy as np
 import pandas as pd
 
-from autots_strategy import portfolio
-from competition import ledger, planner
+from competition import ledger, planner, portfolio
 from competition.backtest import PortfolioState
 from competition.data import MarketData
 from competition.rules import CompetitionRules

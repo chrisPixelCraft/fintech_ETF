@@ -3,7 +3,7 @@ import unittest
 import numpy as np
 import pandas as pd
 
-from autots_strategy import portfolio
+from competition import portfolio
 from competition.backtest import PortfolioState
 from competition.rules import load_rules
 from research.baselines import MomentumConfig, MomentumStrategy, _eligible, momentum_score

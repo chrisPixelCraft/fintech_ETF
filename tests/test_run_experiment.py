@@ -26,6 +26,12 @@ class RunExperimentTest(unittest.TestCase):
         after = HOLDOUT_LOG.read_text() if HOLDOUT_LOG.exists() else None
         self.assertEqual(before, after)
 
+    def test_archived_strategies_point_to_legacy(self):
+        from competition.rules import load_rules
+        for kind in ('autots', 'lgbm', 'hybrid', 'nonsense'):
+            with self.subTest(kind=kind), self.assertRaisesRegex(ValueError, 'legacy/ml'):
+                run_experiment.build_strategy(dict(name='x', strategy=kind), load_rules())
+
     def test_progress_callback_reports_every_episode(self):
         with tempfile.TemporaryDirectory() as tmp:
             calls = []
@@ -44,14 +50,12 @@ class RunExperimentTest(unittest.TestCase):
             args = ['--config', str(MOMENTUM), '--split', 'dev', '--episodes', '2', '--out', str(out),
                     '--registry', str(reg)]
             manifest = quiet(run_experiment.main, args)
-            for key in ('run_id', 'status', 'config_hash', 'git', 'autots', 'data', 'split', 'runtime_seconds',
+            for key in ('run_id', 'status', 'config_hash', 'git', 'data', 'split', 'runtime_seconds',
                         'episode_ids', 'environment'):
                 self.assertIn(key, manifest)
             self.assertEqual(manifest['status'], 'COMPLETE')
             self.assertEqual(len(manifest['git']['commit']), 40)
             self.assertIn('dirty', manifest['git'])
-            self.assertEqual(manifest['autots']['upstream_commit'], 'd35f3189e0d2bab84732e957ca3f4c737da08bf0')
-            self.assertTrue(manifest['autots']['local_patches'][0].startswith('P1'))
             self.assertEqual(len(manifest['data']['files']), 4)
             self.assertTrue((out / 'config.json').exists())
             for e in manifest['episode_ids']:

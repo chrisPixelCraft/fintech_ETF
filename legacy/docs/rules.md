@@ -1,6 +1,6 @@
 # 規則與正式使用限制
 
-**目前是研究回放，正式提交維持 `BLOCK_SUBMISSION`。** 原始依據保留於 [official_docs](../official_docs/)，未取得的主辦方證據不會被當作通過。
+**目前是研究回放，正式提交維持 `BLOCK_SUBMISSION`。** 原始依據保留於 [official_docs](../../official_docs/)，未取得的主辦方證據不會被當作通過。
 
 ## 回放中檢查的條件
 

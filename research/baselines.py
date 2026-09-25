@@ -1,10 +1,11 @@
 """Mandatory simple baselines (same planner/ledger; portfolio layer shared where it applies).
 
-- MomentumStrategy: equal-weight top-N by trailing log return, same portfolio
-  construction (buffer, caps, turnover gate) as the AutoTS strategy.
+- MomentumStrategy: equal-weight top-N by trailing log return through the shared
+  portfolio layer (competition/portfolio.py: buffer, caps, turnover gate). The
+  production strategy (Mom20) is this class with its defaults.
 - BasketStrategy: equal-weight top-N by trailing average traded value (a causal
   large-cap proxy) bought at the first session and held.
-The no-signal AutoTS control is a config (LastValueNaive only), not code.
+The archived AutoTS / LightGBM / hybrid strategies live in legacy/ml/.
 """
 from __future__ import annotations
 
@@ -12,7 +13,7 @@ from dataclasses import dataclass, field
 
 import numpy as np
 
-from autots_strategy import portfolio
+from competition import portfolio
 from competition.backtest import PortfolioState
 from competition.data import AsOfView
 from competition.rules import CompetitionRules

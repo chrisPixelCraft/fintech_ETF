@@ -90,7 +90,7 @@ nohup.out
 # Agent worktrees
 .claude/worktrees/
 
-# AutoTS research run folders stay local; registry.csv and reports are tracked.
+# Research run folders (research.run_experiment) stay local; registry.csv and reports are tracked.
 /research/runs/
 
 # Production daily runs (inputs, raw official responses, D-Plans, audit); only reviewed summaries are committed
