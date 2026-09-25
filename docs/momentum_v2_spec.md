@@ -244,7 +244,14 @@ Composite = 平均( rank(Mom20), rank(resid 60／β 120), rank(−換手率 20),
 - 但第 4、6 節事先規定 H2 保留與否只看資料覆蓋率（97.5% ≥ 95%）；看到結果後拿掉 H2 就是事後挑選，因此 Composite 維持四項等權，由 Validation gate 判定
 - H1 選到 60 日 residual，比 Mom20 長；Mom60（未扣 beta）在 2025–2026 final test 輸給 Mom20，揭露備查
 
-## 13. 修訂紀錄
+## 13. Validation 結果：STOP
+
+- Composite 2022–2024：配對平均 Δ +0.23%（< +0.5%），中位數 Δ +1.17%，成本與失格通過 → **STOP，Mom20 維持**
+- 依第 10 節：Test 不跑；不換權重、不拿掉 H2、不改用單一 component
+- 診斷（只報告）：H1 +2.02%、H3 +0.58%、H2 −1.06%
+- 完整表格：[research/results/momentum_v2/summary.md](../research/results/momentum_v2/summary.md)
+
+## 14. 修訂紀錄
 
 | 日期 | 修改 | 原因 | 當時是否看過結果 |
 |---|---|---|---|
