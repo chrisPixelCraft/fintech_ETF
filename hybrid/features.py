@@ -125,7 +125,7 @@ def build_panel(market: MarketData, revenue: pd.DataFrame, flows: pd.DataFrame, 
     cols = sorted(market.symbols)
     stacked = {name: frames[name].reindex(index=market.calendar, columns=cols).stack(future_stack=True)
                for name in V2B}
-    panel = pd.DataFrame(stacked).astype(float)
+    panel = pd.DataFrame(stacked).astype(float).replace([np.inf, -np.inf], np.nan)   # e.g. log(0) liquidity
     panel['ready'] = (market.valid.reindex(columns=cols).stack(future_stack=True).fillna(False).astype(bool)
                       & panel.r20.notna())
     panel['label'] = raw_forward_return(market.ret, HORIZON).reindex(columns=cols).stack(future_stack=True)

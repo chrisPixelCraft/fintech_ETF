@@ -92,6 +92,10 @@ class FeatureTest(unittest.TestCase):
         b = short.loc[:cut, list(features.V2B) + ['ready']]
         pd.testing.assert_frame_equal(a, b)
 
+    def test_no_infinite_values(self):
+        values = self.panel[list(features.V2B)].to_numpy()
+        self.assertFalse(np.isinf(values).any())
+
     def test_definitions(self):
         row = self.panel.xs('2023-05-31', level='date').loc['2330.TW']
         p = np.exp(np.log1p(self.market.ret['2330.TW']).cumsum())
