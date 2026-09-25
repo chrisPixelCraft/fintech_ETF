@@ -1,6 +1,6 @@
 # 策略：Mom20 與結果
 
-正式策略是 20 日動能（Mom20），已凍結。之後三個研究都沒贏它。
+正式策略是 20 日動能（Mom20），已凍結。之後的研究都沒贏它。
 
 ## Mom20 定義
 
@@ -100,6 +100,36 @@
 - 通過門檻都是平均 Δ > +0.5%
 - 2025–2026 已經用過
   - 依它調整會高估
+
+### 動能改良研究：都沒換掉 Mom20
+
+2015–2026 共 276 個 24 日窗口，逐窗口和 Mom20 配對。規則都事先寫死；程式與 spec 已封存在 legacy。
+
+| 研究 | 全期 Δ | 2025–2026 Δ | 結論 |
+|---|---:|---:|---|
+| [Momentum-v2](../legacy/ml/results/momentum_v2/summary.md) | — | — | • validation +0.23%<br>• STOP |
+| [H1 residual 120 日](../legacy/ml/results/h1_residual/summary.md) | +0.84% | −2.15% | • test 反轉<br>• STOP |
+| [Mom25](../legacy/ml/results/mom25_report/summary.md) | +0.16% | −0.29% | • 打平<br>  ↳ 三段 CI 都含 0 |
+| [Residual 修正 ew20](../legacy/ml/results/residual_fixes/summary.md) | +0.06% | −0.31% | • 打平<br>• 只列 shadow 候選 |
+| [技術指標 Composite](../legacy/ml/results/technical_momentum/summary.md) | −1.00% | −2.43% | • STOP |
+| [多尺度 MACD](../legacy/ml/results/macd_momentum/summary.md) | −0.24% | −1.06% | • STOP |
+| [台積電 22.5% 核心](../legacy/ml/results/tsmc_core/summary.md) | −0.08% | −1.52% | • STOP<br>• 警告 11 次 |
+
+- Momentum-v2 只跑到 validation
+  - 2022–2024，70 窗口
+  - 沒過 +0.5% 就停
+- H1 的 validation 不乾淨
+  - 看過才挑 H1
+  - +1.78% 在 test 變 −2.15%
+- [Residual 何時贏](../legacy/ml/results/residual_regimes/summary.md)
+  - 7 種市場狀態分組
+  - Spearman |ρ| ≤ 0.15
+  - 只看不選
+- [台積電為何幫助小](../legacy/ml/results/tsmc_core/analysis.md)
+- 總表與圖
+  - [main_table.md](../legacy/ml/results/main_table.md)
+  - [main_figure.png](../legacy/ml/docs/figures/main_figure.png)
+  - [全部實驗](../legacy/ml/results/all_experiments.md)
 
 ### Production 一致性
 

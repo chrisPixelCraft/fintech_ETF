@@ -1,6 +1,6 @@
 # H1：market-residual momentum 單獨評估
 
-- 規則寫死於 [docs/h1_residual_spec.md](../../../docs/h1_residual_spec.md)
+- 規則寫死於 [docs/h1_residual_spec.md](../../docs/h1_residual_spec.md)
 - 市場資料自 2014-01-01 起；24 日窗口（月初＋月中），逐窗口和 Mom20 配對
 
 ## 1. DEV 2015–2021：調參

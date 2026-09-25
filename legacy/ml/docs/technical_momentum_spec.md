@@ -161,7 +161,7 @@ Composite 跑一次
 
 ## 12. 結果：STOP，關閉「Mom20 缺技術面資訊」
 
-完整大表：[research/results/technical_momentum/summary.md](../research/results/technical_momentum/summary.md)
+完整大表：[research/results/technical_momentum/summary.md](../results/technical_momentum/summary.md)
 
 | | 對 Mom20 平均 Δ | 95% CI | 勝率 | 周轉（Mom20 3.68） | 成本（Mom20 0.94%） |
 |---|---:|---:|---:|---:|---:|

@@ -1,6 +1,6 @@
 # Residual 修正：一張大表
 
-- 規則寫死於 [docs/residual_fixes_spec.md](../../../docs/residual_fixes_spec.md)
+- 規則寫死於 [docs/residual_fixes_spec.md](../../docs/residual_fixes_spec.md)
 - **探索性**：所有期間都已看過；production 維持 Mom20
 
 ## 1. 報酬與配對差距

@@ -102,7 +102,7 @@ Validation sanity：平均 Δ > 0？
 - 選出 **N = 120、B = 250**：DEV 配對平均 Δ +1.170%，中位數 +0.70%，周轉 1.43
 - 預設 60／120 為 +0.965%；門檻 +1.165%，只高出 0.004 個百分點，實質上是平手，但依規則機械選出
 - 又落在網格邊界（N 最大值）；DEV 上的趨勢是窗口越長越好、周轉越低；規則不允許再擴網格
-- 完整表格：[research/results/h1_residual/summary.md](../research/results/h1_residual/summary.md)
+- 完整表格：[research/results/h1_residual/summary.md](../results/h1_residual/summary.md)
 
 ## 8. 結果：Test STOP，Mom20 維持
 

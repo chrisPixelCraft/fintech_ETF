@@ -1,8 +1,11 @@
-# ML 研究封存：AutoTS、LightGBM、Hybrid
+# ML 與動能改良研究封存
 
-這裡放 2026-09 試過的機器學習選股方法。每一輪都和 20 日動能（Mom20）逐窗口配對比較，沒有一個穩定贏過它，所以正式提交仍用 Mom20。
+這裡放 2026-09 試過的機器學習選股方法，以及之後的動能改良研究（`momv2/`）。每一輪都和 20 日動能（Mom20）逐窗口配對比較，沒有一個穩定贏過它，所以正式提交仍用 Mom20。
 
-程式只搬了位置、沒改 import，要在提交 `05745bf` 才能跑（見「[怎麼重跑](#怎麼重跑)」）。
+程式只搬了位置、沒改 import，要回到舊提交才能跑（見「[怎麼重跑](#怎麼重跑)」）：
+
+- ML 各輪：`05745bf`
+- 動能改良（`momv2/`）：`6d2a7c4`
 
 ## 先看這裡
 
@@ -13,6 +16,13 @@
 - 最後兩輪也 STOP
   - Hybrid、每日 LightGBM-v2
   - 都沒達 +0.5% 門檻
+- 動能改良也都沒換掉 Mom20
+  - 8 項研究
+  - 見 [動能改良](#動能改良momv2)
+- 總覽
+  - [main_table.md](results/main_table.md)：各方法對 Mom20
+  - [all_experiments.md](results/all_experiments.md)：全部設定
+  - [main_figure.png](docs/figures/main_figure.png)
 - 資料已被重複使用
   - 2025–2026 用過多次
   - 2015–2024 用過兩次
@@ -94,9 +104,36 @@ v2 特徵加入月營收與法人買賣超，定義在 [hybrid_spec.md](docs/hyb
 - 2025–2026 加跑不改結論
   - 記在 spec 第 7 節
 
+### 動能改良（momv2）
+
+2015–2026 共 276 個 24 日窗口，逐窗口和 Mom20 配對。每項的 spec 事先寫死 gate，只跑一次。Δ 取自 [main_table.md](results/main_table.md)。
+
+| 研究 | 問題 | 結果 | 連結 |
+|---|---|---|---|
+| Momentum-v2 | • H1 residual＋H2 周轉＋H3 營收<br>• 合成分數能否贏 | • validation Δ +0.23%<br>• STOP | [summary](results/momentum_v2/summary.md)、[spec](docs/momentum_v2_spec.md) |
+| H1 residual | • 只用市場殘差動能 | • validation +1.78%<br>  ↳ 看過才挑，不乾淨<br>• test Δ −2.15%<br>• STOP | [summary](results/h1_residual/summary.md)、[spec](docs/h1_residual_spec.md) |
+| Mom25 | • 25 日比 20 日強嗎<br>• 只看不選 | • 全期 +0.16%<br>• 2025–2026 −0.29%<br>• 三段 CI 都含 0 | [summary](results/mom25_report/summary.md) |
+| Residual 修正 | • 6 種 residual 修法 | • ew20 全期 +0.06%<br>• 只列 shadow 候選<br>• production 不換 | [summary](results/residual_fixes/summary.md)、[spec](docs/residual_fixes_spec.md) |
+| Residual 何時贏 | • 7 種市場狀態分組 | • Spearman \|ρ\| ≤ 0.15<br>• 只看不選 | [summary](results/residual_regimes/summary.md) |
+| 技術指標 | • 19 個指標重排前 40 | • 全期 Δ −1.00%<br>• 2025–2026 −2.43%<br>• STOP | [summary](results/technical_momentum/summary.md)、[spec](docs/technical_momentum_spec.md) |
+| 多尺度 MACD | • 三尺度 MACD 重排前 40 | • 全期 Δ −0.24%<br>• 2025–2026 −1.06%<br>• STOP | [summary](results/macd_momentum/summary.md)、[spec](docs/macd_momentum_spec.md) |
+| 台積電核心 | • 2330 固定 22.5%<br>• 其餘分數加權 | • 全期 Δ −0.08%<br>• 2025–2026 −1.52%<br>• STOP | [summary](results/tsmc_core/summary.md)、[spec](docs/tsmc_core_spec.md)、[analysis](results/tsmc_core/analysis.md) |
+
+- 門檻都是平均 Δ > +0.5%
+  - 另有 CI、中位數等條件
+- 所有期間都已看過
+  - 結果只當歷史證據
+
 ## 怎麼重跑
 
-程式裡的 import 仍是搬移前的路徑（例如 `research.lgbm_jpx2`、`autots_strategy`），要回到提交 `05745bf` 執行：
+程式裡的 import 仍是搬移前的路徑（例如 `research.lgbm_jpx2`、`autots_strategy`、`momv2`），要回到舊提交執行：
+
+| 提交 | 能跑什麼 | 缺什麼 |
+|---|---|---|
+| `05745bf` | • AutoTS、LightGBM<br>• Hybrid、每日 LightGBM-v2 | • 沒有 `momv2/` |
+| `6d2a7c4` | • `momv2/` 動能改良 | • 沒有每日 LightGBM-v2 |
+
+以 `05745bf` 為例（`6d2a7c4` 同樣步驟，換提交即可）：
 
 ```bash
 git worktree add ../etf-05745bf 05745bf
@@ -112,7 +149,7 @@ echo "$PWD/third_party/autots" > .venv/lib/python3.12/site-packages/fintech_etf_
 .venv/bin/python -m unittest discover -s tests -q
 ```
 
-在該提交裡的入口：
+`05745bf` 裡的入口：
 
 | 研究 | 指令 |
 |---|---|
@@ -126,12 +163,33 @@ echo "$PWD/third_party/autots" > .venv/lib/python3.12/site-packages/fintech_etf_
 | Hybrid | `python -m hybrid.evaluate` |
 | 每日 LightGBM-v2 | `python -m hybrid.evaluate_daily` |
 
+`6d2a7c4` 裡的入口（指令前加 `PYTHONHASHSEED=0`）：
+
+| 研究 | 指令 |
+|---|---|
+| Momentum-v2 | `python -m momv2.evaluate {coverage,dev,validation,test}` |
+| H1 residual | `python -m momv2.h1_evaluate {dev,validation,test}` |
+| Residual 修正 | `python -m momv2.fixes_report` |
+| Residual 何時贏 | `python -m momv2.regime_report` |
+| 技術指標 | `python -m momv2.tech_evaluate` |
+| MACD、台積電核心 | `python -m momv2.macd_tsmc_evaluate` |
+| 台積電原因分析 | `python -m momv2.tsmc_analysis` |
+| H2 發行股數資料 | `python -m momv2.sources {fetch,build}` |
+| 主圖與 main_table | `python -m momv2.main_figure` |
+| all_experiments | `python -m momv2.all_experiments` |
+
+- Mom25 報告沒有入口
+  - 由未 commit 的暫存腳本產生
+  - 提交 `9097068` 只有結果
+- 評估類指令可加 `--workers 8`
+
 - 結果會寫到 `research/results/`
   - 該提交的路徑，不是這裡
 - 中斷後重跑同一指令
   - 從完成的窗口接續
 - 已凍結的評估別重跑
   - Hybrid、每日 v2 都只准一次
+  - momv2 各 stage 會拒絕改寫結果
 
 ## 目錄
 
@@ -140,11 +198,12 @@ legacy/ml/
 ├── autots_strategy/          ← AutoTS 策略（預測、分數、標籤）
 ├── lgbm_strategy/            ← LightGBM：特徵、標籤、訓練資料、模型
 ├── hybrid/                   ← v2 特徵、恐慌 gate、walk-forward、兩個評估入口
+├── momv2/                    ← 動能改良：訊號、技術指標、MACD、台積電核心、主圖與總表
 ├── studies/                  ← 各輪研究入口、調參、最終測試、動能變體
 ├── configs/                  ← 實驗設定（AutoTS、各 LightGBM 標籤）
-├── tests/                    ← 測試（含因果測試）
-├── docs/                     ← 各輪 spec、最終測試計畫、infra 盤點
-├── results/                  ← 各輪整理後的結果
+├── tests/                    ← 測試（含因果測試、momv2、技術指標、MACD／台積電）
+├── docs/                     ← 各輪 spec、最終測試計畫、infra 盤點、figures/main_figure.png
+├── results/                  ← 各輪整理後的結果、main_table、all_experiments
 ├── third_party/autots/       ← AutoTS 1.0.4 原始碼（MIT，含修補 P1）
 └── requirements-autots.txt   ← 這個時期的套件版本
 ```

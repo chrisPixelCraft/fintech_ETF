@@ -7,12 +7,15 @@
   - [策略細節](docs/strategy.md)
 - 結果：Mom20 最好
   - 2025–2026 平均 +8.79%
+  - 其他方法都沒贏它
   - [全部結果](docs/strategy.md#結果)
 - 每日提交：`./run_daily.sh`
+  - 05:00–08:55 上傳 D-Plan
+  - 首日 10/26，隊號 `TEAM_11076`
   - [怎麼跑](docs/how_to_run.md)
-- 賽前還缺
-  - `team_id`
-  - 首日 10/26 或 10/27
-  - [待確認清單](docs/production_spec.md)
 - [比賽規則](docs/task.md)
 - [舊研究](legacy/README.md)
+
+[各方法數字](legacy/ml/results/main_table.md)
+
+![2025–2026 平均報酬：Mom20 最高](legacy/ml/docs/figures/main_figure.png)

@@ -22,7 +22,8 @@ uv pip install --python .venv/bin/python -r requirements.txt
 
 ```bash
 # 交易日 T 的 05:00–08:55（台北）
-./run_daily.sh 2026-10-27 --holdings <後台匯出的持股檔>
+./run_daily.sh 2026-10-26                                    # 首日，不用持股檔
+./run_daily.sh 2026-10-27 --holdings <後台匯出的持股檔>      # 之後每天
 
 # 不連網試跑（用本地資料）
 ./run_daily.sh 2026-09-24 --offline
@@ -36,15 +37,14 @@ uv pip install --python .venv/bin/python -r requirements.txt
 - 狀態與處理方式
   - 見 [production_spec.md](production_spec.md) 第 14 節
 
-## 賽前還缺
+## 隊號與首日
 
-- 主辦方配發的 `team_id`
-  - 目前是 `TEAM_UNSET`
-  - 驗證器會擋下
-- 首個交易日未定
-  - 10/26 或 10/27
-- 兩者都填在 `production/settings.json`
-- 完整清單見 [production_spec.md](production_spec.md) 第 13 節
+- 隊號 `TEAM_11076`
+  - 已填入 `production/settings.json`
+- 首日 2026-10-26
+  - 主辦方指定
+  - 休市會自動跳過
+- 見 [production_spec.md](production_spec.md) 第 13 節
 
 ## 常用指令
 
@@ -89,7 +89,7 @@ fintech_ETF/
 ├── competition/      ← 規則、資料、窗口、組合層、下單、成交、帳本、回測
 ├── production/       ← 每日提交：資料、對帳、engine、fallback、Active Share、D-Plan、驗證、replay
 ├── research/         ← 基準策略、run_experiment、compare、registry
-│   ├── configs/      ← momentum_20d、largecap_basket
+│   ├── configs/      ← baselines/：momentum_20d、largecap_basket
 │   └── results/      ← final_test、momentum_sweep、production_replay
 ├── tests/            ← 71 個測試（含因果測試）
 ├── docs/             ← 規則、production spec、策略、本頁

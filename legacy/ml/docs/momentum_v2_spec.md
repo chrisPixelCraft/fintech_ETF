@@ -228,7 +228,7 @@ Validation 2022–2024：Composite 一次
 
 ## 12. DEV 選參結果（凍結於 Validation 之前）
 
-完整表格：[research/results/momentum_v2/summary.md](../research/results/momentum_v2/summary.md)，凍結檔 `research/results/momentum_v2/freeze.json`。
+完整表格：[research/results/momentum_v2/summary.md](../results/momentum_v2/summary.md)，凍結檔 `research/results/momentum_v2/freeze.json`。
 
 | Component | 選出 | DEV 平均 Δ | 預設值的 DEV 平均 Δ |
 |---|---|---:|---:|
@@ -249,7 +249,7 @@ Composite = 平均( rank(Mom20), rank(resid 60／β 120), rank(−換手率 20),
 - Composite 2022–2024：配對平均 Δ +0.23%（< +0.5%），中位數 Δ +1.17%，成本與失格通過 → **STOP，Mom20 維持**
 - 依第 10 節：Test 不跑；不換權重、不拿掉 H2、不改用單一 component
 - 診斷（只報告）：H1 +2.02%、H3 +0.58%、H2 −1.06%
-- 完整表格：[research/results/momentum_v2/summary.md](../research/results/momentum_v2/summary.md)
+- 完整表格：[research/results/momentum_v2/summary.md](../results/momentum_v2/summary.md)
 
 ## 14. 修訂紀錄
 

@@ -1,6 +1,6 @@
 # Momentum-v2 評估
 
-- 規則寫死於 [docs/momentum_v2_spec.md](../../../docs/momentum_v2_spec.md)
+- 規則寫死於 [docs/momentum_v2_spec.md](../../docs/momentum_v2_spec.md)
 - 市場資料自 2014-01-01 起；24 日窗口（月初＋月中），逐窗口和 Mom20 配對
 
 - H2 發行股數覆蓋率 97.5%（門檻 95%）→ 保留 H2

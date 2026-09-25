@@ -88,7 +88,7 @@ PASS → Prospective shadow → 全部 P0 → 才考慮 production
 
 ## 7. 結果：STOP，技術面研究永久關閉
 
-完整大表：[research/results/macd_momentum/summary.md](../research/results/macd_momentum/summary.md)
+完整大表：[research/results/macd_momentum/summary.md](../results/macd_momentum/summary.md)
 
 | | 對 Mom20 平均 Δ | 95% CI | 2025–2026 | 周轉（Mom20 3.68） |
 |---|---:|---:|---:|---:|
