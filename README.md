@@ -13,9 +13,10 @@
 - 每日提交流程已完成
   - 入口 `./run_daily.sh`
   - 見 [docs/production_spec.md](docs/production_spec.md)
-- 正式比賽前還要補
-  - 主辦方配發的 `team_id`
-  - 確認首個交易日
+- 賽前設定已完成
+  - `team_id`：`TEAM_11076`
+  - 首個交易日：2026-10-26
+  - 10/26 照常送 D-Plan
 - 歷史資料全部用過
   - 2015–2026 都看過
   - 再調參會高估
@@ -262,7 +263,7 @@ echo "$PWD/third_party/autots" > .venv/lib/python3.12/site-packages/fintech_etf_
 
 ```bash
 # 交易日 T 的 05:00–08:55（台北）；結束碼 0 = 上傳 production_runs/<T>/D-Plan_*.json
-./run_daily.sh 2026-10-27 --holdings <後台匯出的持股檔>
+./run_daily.sh 2026-10-26 --holdings <後台匯出的持股檔>
 ```
 
 - 模式與處理方式見 [docs/production_spec.md](docs/production_spec.md) 第 14 節
