@@ -86,6 +86,9 @@ def build_strategy(config: dict, rules: CompetitionRules):
     if kind == 'hybrid':
         from hybrid.strategy import HybridConfig, HybridStrategy
         return HybridStrategy(HybridConfig.from_dict(params), rules)
+    if kind == 'momv2':
+        from momv2.strategy import Momv2Config, Momv2Strategy
+        return Momv2Strategy(Momv2Config.from_dict(params), rules)
     from research.baselines import BasketConfig, BasketStrategy, MomentumConfig, MomentumStrategy
     if kind == 'momentum':
         return MomentumStrategy(MomentumConfig.from_dict(params), rules)
@@ -108,7 +111,12 @@ def autots_provenance() -> dict:
     from autots_strategy.forecaster import RUNTIME_OVERRIDES
     return dict(upstream_commit=commit.group(1) if commit else None, version=autots.__version__,
                 local_patches=[f'{pid}: {path}' for pid, path in patches], runtime_overrides=list(RUNTIME_OVERRIDES),
-                path=str(Path(autots.__file__).resolve().parent.relative_to(ROOT)))
+                path=_relative(Path(autots.__file__).resolve().parent))
+
+
+def _relative(path: Path) -> str:
+    """Repo-relative when inside ROOT (a git worktree may import a package from the main checkout)."""
+    return str(path.relative_to(ROOT)) if path.is_relative_to(ROOT) else str(path)
 
 
 def _init_worker():
