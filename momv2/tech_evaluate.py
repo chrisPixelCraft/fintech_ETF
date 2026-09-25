@@ -43,16 +43,16 @@ def tech_config(variant: str) -> dict:
                 params=dict(variant=variant, portfolio=base['params']['portfolio']))
 
 
-def windows(names) -> pd.DataFrame:
+def windows(names, ref: str = REFERENCE) -> pd.DataFrame:
     rows = []
     for split in SPLITS:
         runs = {n: complete(n, split) for n in names}
         common = set.intersection(*(set(r) for r in runs.values()))
-        if len(common) != len(runs[REFERENCE]):
+        if len(common) != len(runs[ref]):
             raise SystemExit(f'{split}: runs cover different windows')
         for eid in sorted(common):
-            s = runs[REFERENCE][eid]
-            row = dict(episode=eid, start=pd.Timestamp(s['start']))
+            s = runs[ref][eid]
+            row = dict(episode=eid, start=pd.Timestamp(s['start']), end=pd.Timestamp(s['end']))
             for n, r in runs.items():
                 x = r[eid]
                 row.update({n: x['terminal_return'], f'{n}|turnover': x['turnover'], f'{n}|cost': x['costs'] / 1e9,
@@ -61,8 +61,8 @@ def windows(names) -> pd.DataFrame:
     return pd.DataFrame(rows)
 
 
-def stats(f: pd.DataFrame, name: str) -> dict:
-    d = (f[name] - f[REFERENCE]).to_numpy()
+def stats(f: pd.DataFrame, name: str, ref: str = REFERENCE) -> dict:
+    d = (f[name] - f[ref]).to_numpy()
     boot = d[np.random.default_rng(0).integers(0, len(d), size=(10000, len(d)))].mean(axis=1)
     out = dict(n=len(d), mean=float(f[name].mean()), mean_delta=float(d.mean()), median_delta=float(np.median(d)),
                win=float((d > 0).mean()), ci95=[float(np.percentile(boot, 2.5)), float(np.percentile(boot, 97.5))],
@@ -72,7 +72,7 @@ def stats(f: pd.DataFrame, name: str) -> dict:
                mean_after_drop_top=float(np.sort(d)[:-GATE['drop_top']].mean()))
     for label, (lo, hi) in {**BLOCKS, **PRICE_SOURCE}.items():
         g = f[(f.start >= lo) & (f.start <= hi)]
-        out[label] = float((g[name] - g[REFERENCE]).mean())
+        out[label] = float((g[name] - g[ref]).mean())
     return out
 
 
