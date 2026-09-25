@@ -226,7 +226,25 @@ Validation 2022–2024：Composite 一次
 6. PASS 才跑 Test 一次
 7. 依結果 STOP 或進 shadow
 
-## 12. 修訂紀錄
+## 12. DEV 選參結果（凍結於 Validation 之前）
+
+完整表格：[research/results/momentum_v2/summary.md](../research/results/momentum_v2/summary.md)，凍結檔 `research/results/momentum_v2/freeze.json`。
+
+| Component | 選出 | DEV 平均 Δ | 預設值的 DEV 平均 Δ |
+|---|---|---:|---:|
+| H1 | N = 60，B = 120 | +0.97% | −0.08%（20／60） |
+| H2 | N = 20（預設，沒有設定合格） | −1.07% | −1.07% |
+| H3 | `yoy` | +1.07% | +0.67%（`yoy+Δyoy`） |
+
+```text
+Composite = 平均( rank(Mom20), rank(resid 60／β 120), rank(−換手率 20), rank(營收 yoy) )
+```
+
+- H2 在 DEV 上三組都明顯為負（95% CI 都在 0 以下），假設在 DEV 上不成立
+- 但第 4、6 節事先規定 H2 保留與否只看資料覆蓋率（97.5% ≥ 95%）；看到結果後拿掉 H2 就是事後挑選，因此 Composite 維持四項等權，由 Validation gate 判定
+- H1 選到 60 日 residual，比 Mom20 長；Mom60（未扣 beta）在 2025–2026 final test 輸給 Mom20，揭露備查
+
+## 13. 修訂紀錄
 
 | 日期 | 修改 | 原因 | 當時是否看過結果 |
 |---|---|---|---|
