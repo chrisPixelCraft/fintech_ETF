@@ -53,6 +53,44 @@ class SignalTest(unittest.TestCase):
         view = dataclasses.replace(self.view, ret=ret)
         self.assertTrue(np.isnan(residual_momentum(view, self.names, 20, 60)[name]))
 
+    def test_market_returns_leave_one_out(self):
+        rows, name = 60, self.names[0]
+        lr_all = np.log1p(self.view.ret.iloc[-rows:])
+        ew = signals.market_returns(self.view, self.names, rows, 'ew')
+        expected = lr_all.drop(columns=name).mean(axis=1)
+        np.testing.assert_allclose(ew[name].to_numpy(), expected.to_numpy())
+        groups = signals.industries()
+        semis = [s for s in groups.index[groups == '半導體業'] if s in lr_all.columns]
+        inside = [s for s in self.names if s in semis][0]
+        ind = signals.market_returns(self.view, self.names, rows, 'industry')
+        np.testing.assert_allclose(ind[inside].to_numpy(), lr_all[semis].drop(columns=inside).mean(axis=1).to_numpy())
+        small = [s for s in self.names if (groups == groups.get(s)).sum() < signals.INDUSTRY_MIN]
+        self.assertTrue(small)
+        np.testing.assert_allclose(ind[small[0]].to_numpy(), ew[small[0]].to_numpy())
+
+    def test_beta_shrink_and_benchmarks(self):
+        name = self.names[2]
+        for bench in ('ew', 'industry'):
+            lm = signals.market_returns(self.view, self.names, 60, bench)[name]
+            lr = np.log1p(self.view.ret[name].iloc[-60:])
+            ok = lr.notna() & lm.notna()
+            beta = np.cov(lr[ok], lm[ok], bias=True)[0, 1] / np.var(lm[ok])
+            for shrink in (0., .5):
+                b = (1 - shrink) * beta + shrink
+                tail = ok.iloc[-25:]
+                expected = (lr.iloc[-25:][tail] - b * lm.iloc[-25:][tail]).sum()
+                got = residual_momentum(self.view, self.names, 25, 60, bench, shrink)[name]
+                self.assertAlmostEqual(got, expected, places=10)
+
+    def test_fixed_residuals_ignore_the_future(self):
+        cut = until(self.market, self.date)
+        noisy = cut.with_frames(ret=pd.concat([cut.ret, self.market.ret.loc[self.date:].iloc[1:] * 3]))
+        for bench, shrink in (('ew', 0.), ('industry', 0.), ('0050', .5)):
+            config = SignalConfig(kind='h1', resid_window=25, beta_window=60, benchmark=bench, beta_shrink=shrink)
+            a, _ = signals.score(self.market.asof(self.date), config)
+            b, _ = signals.score(noisy.asof(self.date), config)
+            pd.testing.assert_series_equal(a, b)
+
     def test_turnover_uses_valid_days_and_shares(self):
         shares = pd.Series(1e6, index=self.names)
         got = turnover(self.view, self.names, 20, shares)
