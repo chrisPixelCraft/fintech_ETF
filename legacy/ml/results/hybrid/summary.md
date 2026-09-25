@@ -1,7 +1,7 @@
 # Hybrid 評估：2015–2024（只跑一次）
 
 - 窗口：236 個 24 日窗口（月初＋月中），資料自 2014-01-01 起
-- 規則寫死於 [docs/hybrid_spec.md](../../../docs/hybrid_spec.md)
+- 規則寫死於 [docs/hybrid_spec.md](../../docs/hybrid_spec.md)
 
 **STOP**
 

@@ -1,13 +1,16 @@
 """Run one config over a split's episodes: parallel, resumable, provenance-logged.
 
     PYTHONHASHSEED=0 .venv/bin/python -m research.run_experiment \\
-        --config research/configs/baseline_autots.json --split dev --episodes 6 --workers 6
+        --config production/strategy.json --split dev --episodes 6 --workers 6
 
 Outputs research/runs/<run_id>/ (gitignored): manifest.json, config.json and
 episodes/<episode_id>/{ledger,trades,orders,holdings,issues}.csv + summary.json
 + strategy_log.json. One row per invocation is appended to research/registry.csv.
 The holdout split needs --i-understand-holdout and is logged to
 research/holdout_access_log.jsonl.
+
+Only the momentum and basket strategies run from here; the AutoTS, LightGBM and
+hybrid strategies are archived in legacy/ml/.
 """
 from __future__ import annotations
 
@@ -16,7 +19,6 @@ import hashlib
 import json
 import os
 import platform
-import re
 import subprocess
 import sys
 import time
@@ -33,10 +35,11 @@ from competition.data import MarketData, load_market
 from competition.planner import PlannerPolicy
 from competition.rules import ROOT, RULES_PATH, CompetitionRules, load_rules
 from research import registry
+from research.baselines import BasketConfig, BasketStrategy, MomentumConfig, MomentumStrategy
 
 RUNS = ROOT / 'research/runs'
 HOLDOUT_LOG = ROOT / 'research/holdout_access_log.jsonl'
-UPSTREAM = ROOT / 'third_party/autots/UPSTREAM.md'
+LEGACY_KINDS = ('autots', 'lgbm', 'hybrid', 'macd', 'tsmc', 'technical', 'momv2')
 CONFIG_KEYS = {'name', 'description', 'strategy', 'params', 'execution', 'planner', 'episodes', 'data'}
 
 _MARKET: MarketData | None = None
@@ -77,55 +80,20 @@ def market_for(config: dict) -> MarketData:
 def build_strategy(config: dict, rules: CompetitionRules):
     params = config.get('params', {})
     kind = config['strategy']
-    if kind == 'autots':
-        from autots_strategy.strategy import AutoTSStrategy, AutoTSStrategyConfig
-        return AutoTSStrategy(AutoTSStrategyConfig.from_dict(params), rules)
-    if kind == 'lgbm':
-        from lgbm_strategy.strategy import LightGBMStrategy, LightGBMStrategyConfig
-        return LightGBMStrategy(LightGBMStrategyConfig.from_dict(params), rules)
-    if kind == 'hybrid':
-        from hybrid.strategy import HybridConfig, HybridStrategy
-        return HybridStrategy(HybridConfig.from_dict(params), rules)
-    if kind == 'macd':
-        from momv2.macd import MacdConfig, MacdStrategy
-        return MacdStrategy(MacdConfig.from_dict(params), rules)
-    if kind == 'tsmc':
-        from momv2.tsmc import TsmcConfig, TsmcStrategy
-        return TsmcStrategy(TsmcConfig.from_dict(params), rules)
-    if kind == 'technical':
-        from momv2.technical import TechConfig, TechStrategy
-        return TechStrategy(TechConfig.from_dict(params), rules)
-    if kind == 'momv2':
-        from momv2.strategy import Momv2Config, Momv2Strategy
-        return Momv2Strategy(Momv2Config.from_dict(params), rules)
-    from research.baselines import BasketConfig, BasketStrategy, MomentumConfig, MomentumStrategy
     if kind == 'momentum':
         return MomentumStrategy(MomentumConfig.from_dict(params), rules)
     if kind == 'basket':
         return BasketStrategy(BasketConfig.from_dict(params), rules)
-    raise ValueError(f'Unknown strategy {kind}')
+    if kind in LEGACY_KINDS:
+        raise ValueError(f"Strategy '{kind}' is archived in legacy/ml/ and no longer runs from the repo root "
+                         '(see legacy/ml/README.md for the commit to rerun it at)')
+    raise ValueError(f"Unknown strategy '{kind}' (supported: momentum, basket; other strategies are archived in legacy/ml/)")
 
 
 def git_state() -> dict:
     def run(*args):
         return subprocess.run(['git', *args], cwd=ROOT, capture_output=True, text=True).stdout.strip()
     return dict(commit=run('rev-parse', 'HEAD'), dirty=bool(run('status', '--porcelain')))
-
-
-def autots_provenance() -> dict:
-    text = UPSTREAM.read_text()
-    commit = re.search(r'\| Commit \| `([0-9a-f]{40})`', text)
-    patches = re.findall(r'^\| (P\d+) \| `([^`]+)`', text, flags=re.M)
-    import autots
-    from autots_strategy.forecaster import RUNTIME_OVERRIDES
-    return dict(upstream_commit=commit.group(1) if commit else None, version=autots.__version__,
-                local_patches=[f'{pid}: {path}' for pid, path in patches], runtime_overrides=list(RUNTIME_OVERRIDES),
-                path=_relative(Path(autots.__file__).resolve().parent))
-
-
-def _relative(path: Path) -> str:
-    """Repo-relative when inside ROOT (a git worktree may import a package from the main checkout)."""
-    return str(path.relative_to(ROOT)) if path.is_relative_to(ROOT) else str(path)
 
 
 def _init_worker():
@@ -243,10 +211,9 @@ def main(argv=None, progress=None) -> dict:
         failed=sorted(k for k, s in summaries.items() if not s or s['status'] != 'COMPLETE'),
         config_path=str(args.config), config_name=config['name'], config_hash=chash,
         git=dict(git, history=(previous or {}).get('git', {}).get('history', []) + [git['commit']]),
-        autots=autots_provenance(), data=dict(files=_MARKET.provenance, rules=str(RULES_PATH.relative_to(ROOT)),
-                                              data_end=str(data_end.date()),
-                                              data_start=config.get('data', {}).get('start'),
-                                              cutoff=str(max(e.end for e in chosen).date()) if chosen else None),
+        data=dict(files=_MARKET.provenance, rules=str(RULES_PATH.relative_to(ROOT)),
+                  data_end=str(data_end.date()), data_start=config.get('data', {}).get('start'),
+                  cutoff=str(max(e.end for e in chosen).date()) if chosen else None),
         execution=config.get('execution', {}), workers=args.workers,
         runtime_seconds=time.perf_counter() - started,
         episode_runtime_seconds=dict(mean=float(np.mean(runtimes)), median=float(np.median(runtimes)),

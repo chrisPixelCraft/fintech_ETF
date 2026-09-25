@@ -13,8 +13,8 @@
 | v3 研究規格 | [24 日規格](v3_spec.md) |
 | 逐日規則與未知項 | [完整規則](v2_double_check_rules.md) |
 | v3 研究結果 | [24 日摘要](../reports/24d_strategy_summary.md) |
-| v2 規則與阻斷項 | [規則說明](../../docs/rules.md) |
-| v2 資料與偏誤 | [資料說明](../../docs/data.md) |
+| v2 規則與阻斷項 | [規則說明](rules.md) |
+| v2 資料與偏誤 | [資料說明](data.md) |
 | v2 績效比較 | [比較報告](../reports/comparison.md) |
 | 主辦方原文 | [official_docs](../../official_docs/) |
 | 保留內容與來源 | [發行清單](../config/best_v2_release.json) |

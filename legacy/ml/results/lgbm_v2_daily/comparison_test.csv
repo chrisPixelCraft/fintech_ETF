@@ -1,0 +1,3 @@
+strategy,n,n_failed,mean,median,p25,p10,worst,paired_n,paired_mean_delta,paired_median_delta,paired_win_rate,mdd,turnover,cost_pct,warnings,disqualified,disqualification_rate,runtime_seconds_per_episode
+mom20,40,0,0.08794,0.109855,0.002798,-0.086687,-0.162758,40,0.0,0.0,0.0,0.080952,3.375812,0.008612,1,0,0.0,0.233365
+lgbm_v2A_daily,40,0,0.071035,0.075192,0.007351,-0.048385,-0.183053,40,-0.016905,-0.025677,0.325,0.093146,5.676086,0.015498,1,0,0.0,0.215154
