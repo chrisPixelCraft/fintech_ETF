@@ -55,8 +55,8 @@ def build_and_save_panel() -> pd.DataFrame:
     return panel
 
 
-def schedule(calendar: pd.DatetimeIndex, benchmark_ret: pd.Series, period: str) -> dict:
-    """refit date -> panic decision days it serves."""
+def schedule(calendar: pd.DatetimeIndex, benchmark_ret: pd.Series, period: str, all_days: bool = False) -> dict:
+    """refit date -> decision days it serves (panic days only, or every day for the daily spec)."""
     lo, hi = map(pd.Timestamp, PERIODS[period])
     gate = panic_table(benchmark_ret).panic.reindex(calendar).fillna(False)
     days = calendar[(calendar >= lo) & (calendar <= hi)]
@@ -64,7 +64,7 @@ def schedule(calendar: pd.DatetimeIndex, benchmark_ret: pd.Series, period: str) 
     blocks = {}
     for i, refit in enumerate(refits):
         nxt = refits[i + 1] if i + 1 < len(refits) else hi + pd.Timedelta(days=1)
-        block = [d for d in days[(days >= refit) & (days < nxt)] if gate.iloc[calendar.get_loc(d) - 1]]
+        block = [d for d in days[(days >= refit) & (days < nxt)] if all_days or gate.iloc[calendar.get_loc(d) - 1]]
         if block:
             blocks[refit] = block
     return blocks
@@ -114,11 +114,12 @@ def fit_and_predict(task: tuple) -> list[dict]:
                        refit_date=refit, variant=variant, **audit)]
 
 
-def run(period: str, workers: int, variants=tuple(VARIANTS)) -> dict:
+def run(period: str, workers: int, variants=tuple(VARIANTS), all_days: bool = False) -> dict:
     if not PANEL.exists():
         build_and_save_panel()
     market = market_since_start()
-    blocks = schedule(market.calendar, market.benchmark_ret, period)
+    blocks = schedule(market.calendar, market.benchmark_ret, period, all_days)
+    suffix = f'{period}_daily' if all_days else period
     tasks = [(refit, days, v) for v in variants for refit, days in blocks.items()]
     with ProcessPoolExecutor(max_workers=workers, initializer=_init, initargs=(str(PANEL),)) as pool:
         results = [r for part in pool.map(fit_and_predict, tasks) for r in part]
@@ -127,11 +128,11 @@ def run(period: str, workers: int, variants=tuple(VARIANTS)) -> dict:
     for v in variants:
         rows = frame[(frame.variant == v) & (frame.symbol != '__audit__')]
         rows.drop(columns=[c for c in ('cutoff', 'latest_label_end') if c in rows]).to_parquet(
-            DATA / f'predictions_{v}_{period}.parquet')
+            DATA / f'predictions_{v}_{suffix}.parquet')
         audit = frame[(frame.variant == v) & (frame.symbol == '__audit__')]
         report[v] = dict(refits=len(audit), decision_days=int(rows.decision_date.nunique()),
                          median_trees=float(audit.score.median()))
-    (DATA / f'walkforward_{period}.json').write_text(json.dumps(report, indent=1))
+    (DATA / f'walkforward_{suffix}.json').write_text(json.dumps(report, indent=1))
     print(report, flush=True)
     return report
 
@@ -141,10 +142,12 @@ def main(argv=None):
     parser.add_argument('--period', choices=sorted(PERIODS), default='eval')
     parser.add_argument('--workers', type=int, default=8)
     parser.add_argument('--rebuild-panel', action='store_true')
+    parser.add_argument('--all-days', action='store_true', help='predict every day (docs/lgbm_v2_daily_spec.md)')
+    parser.add_argument('--variants', nargs='+', default=list(VARIANTS), choices=list(VARIANTS))
     args = parser.parse_args(argv)
     if args.rebuild_panel or not PANEL.exists():
         build_and_save_panel()
-    run(args.period, args.workers)
+    run(args.period, args.workers, tuple(args.variants), args.all_days)
 
 
 if __name__ == '__main__':

@@ -19,7 +19,7 @@ from competition.rules import ROOT, CompetitionRules
 from hybrid.gate import panic_at
 from research.baselines import MomentumConfig, _eligible, momentum_score
 
-KEYS = {'predictions', 'window', 'portfolio'}
+KEYS = {'predictions', 'window', 'portfolio', 'always'}
 _CACHE: dict = {}
 
 
@@ -36,6 +36,7 @@ def load_predictions(path: str) -> dict:
 class HybridConfig:
     predictions: str                                  # parquet from hybrid.walkforward
     momentum: MomentumConfig = field(default_factory=MomentumConfig)
+    always: bool = False                              # docs/lgbm_v2_daily_spec.md: LightGBM every day, no gate
 
     @classmethod
     def from_dict(cls, raw: dict) -> 'HybridConfig':
@@ -43,7 +44,9 @@ class HybridConfig:
         if unknown or 'predictions' not in raw:
             raise ValueError(f'Hybrid needs predictions; unknown keys {sorted(unknown)}')
         momentum = MomentumConfig.from_dict({k: raw[k] for k in ('window', 'portfolio') if k in raw})
-        return cls(predictions=raw['predictions'], momentum=momentum)
+        if not isinstance(raw.get('always', False), bool):
+            raise ValueError('always must be true or false')
+        return cls(predictions=raw['predictions'], momentum=momentum, always=raw.get('always', False))
 
 
 class HybridStrategy:
@@ -51,7 +54,7 @@ class HybridStrategy:
         self.c, self.rules, self.log = config, rules, []
 
     def decide(self, view: AsOfView, state: PortfolioState) -> dict:
-        panic = panic_at(view.benchmark_ret)
+        panic = True if self.c.always else panic_at(view.benchmark_ret)
         if panic:
             predictions = load_predictions(self.c.predictions)
             if state.date not in predictions:

@@ -178,5 +178,26 @@ class StrategyTest(unittest.TestCase):
                 s.decide(self.market.asof(self.market.calendar[self.market.position(other) - 1]), self.state(other))
 
 
+class DailyTest(unittest.TestCase):
+    def test_always_uses_lightgbm_on_calm_days(self):
+        market = load_market().since('2011-01-01')
+        table = gate.panic_table(market.benchmark_ret)
+        cal = market.calendar
+        calm = next(cal[i + 1] for i in range(len(cal) - 1) if not table.panic.iloc[i] and cal[i] > pd.Timestamp('2020-01-01'))
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / 'p.parquet'
+            pd.DataFrame(dict(decision_date=calm, symbol=market.symbols,
+                              score=np.arange(len(market.symbols), dtype=float))).to_parquet(path)
+            _CACHE.clear()
+            s = HybridStrategy(HybridConfig.from_dict(dict(predictions=str(path), window=20, always=True)), RULES)
+            state = PortfolioState(date=calm, asof=calm, day_index=0, sessions_remaining=24, holdings={}, cash=1e9,
+                                   nav=1e9, weights={}, episode_id='x')
+            weights = s.decide(market.asof(cal[market.position(calm) - 1]), state)
+            self.assertEqual(s.log[-1]['expert'], 'lgbm_v2')
+            self.assertTrue(set(weights) <= set(market.symbols[-40:]))
+        with self.assertRaises(ValueError):
+            HybridConfig.from_dict(dict(predictions='x', always='yes'))
+
+
 if __name__ == '__main__':
     unittest.main()
