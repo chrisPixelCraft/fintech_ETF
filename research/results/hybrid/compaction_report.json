@@ -1,0 +1,21 @@
+{
+ "twse": {
+  "raw_files": 3307,
+  "kept_days": 2892,
+  "rows": 268781,
+  "empty_days": 0
+ },
+ "tpex": {
+  "raw_files": 2871,
+  "kept_days": 2871,
+  "rows": 123763,
+  "empty_days": 0
+ },
+ "revenue": {
+  "raw_pages": 800,
+  "kept_pages": 656,
+  "rows": 22933,
+  "months": 164
+ },
+ "raw_deleted": "/Users/chrishsieh/Documents/dev/fintech_ETF/data/hybrid/raw"
+}
