@@ -7,18 +7,21 @@
 - 目前最好：20 日動能
   - 2025–2026 平均 +8.79%
   - AutoTS、LightGBM 都輸它
+- 動能改良已結案
+  - 6 項研究都沒贏
+  - 見「[2. 動能改良研究](#2-動能改良研究)」
 - 每日提交流程已完成
   - 入口 `./run_daily.sh`
   - 見 [docs/production_spec.md](docs/production_spec.md)
 - 正式比賽前還要補
   - 主辦方配發的 `team_id`
   - 確認首個交易日
-- 2025–2026 已經用過
-  - 不再是沒看過的資料
-  - 依它調整會高估
-- 跑程式看「[4. 怎麼跑](#4-怎麼跑)」
+- 歷史資料全部用過
+  - 2015–2026 都看過
+  - 再調參會高估
+- 跑程式看「[5. 怎麼跑](#5-怎麼跑)」
 - 舊版本在 `legacy/`
-  - 摘要見「[7. 舊版本](#7-舊版本)」
+  - 摘要見「[8. 舊版本](#8-舊版本)」
 
 ---
 
@@ -79,7 +82,66 @@
 
 ---
 
-## 2. 比賽規則重點
+## 2. 動能改良研究
+
+2026-09 做了 6 項研究，想找贏過 20 日動能的改法。每項都先把規則寫死在 spec，再只跑一次；沒過就停止，不再重試。
+
+| 研究 | 改了什麼 | 結果 | 結論 |
+|---|---|---|---|
+| [P1 動能小實驗](research/results/momentum_sweep/summary.md) | • 回看 15–30 日<br>• skip、多期、品質 | • DEV 選出 mom30<br>• validation +0.37% | • 未過 +0.5%<br>• 維持 Mom20 |
+| [Hybrid](research/results/hybrid/summary.md) | • 恐慌日改用<br>  ↳ LightGBM-v2 | • 2015–2024 +0.26% | • 未過，停止 |
+| [Momentum-v2](research/results/momentum_v2/summary.md) | • Mom20 ＋ residual<br>• ＋低換手 ＋營收 | • validation +0.23% | • 未過，停止 |
+| [H1 residual](research/results/h1_residual/summary.md) | • 只用 residual<br>  ↳ 120 日、β 250 日 | • 看過的資料 +1.78%<br>• 2025–2026 −2.15% | • 反轉，停止 |
+| [Mom25](research/results/mom25_report/summary.md) | • 回看改 25 日 | • 2015–21 +0.19%<br>• 2022–24 +0.37%<br>• 2025–26 −0.29% | • 和 Mom20 打平 |
+| [residual 修正](research/results/residual_fixes/summary.md) | • 等權、產業基準<br>• β 收縮 | • 最好 +0.06% | • 和動能打平 |
+
+- 數字都是對 20 日動能的配對平均差
+  - 24 日窗口，逐窗口配對
+- 規則在各 spec
+  - [momentum_v2_spec.md](docs/momentum_v2_spec.md)
+  - [h1_residual_spec.md](docs/h1_residual_spec.md)
+  - [residual_fixes_spec.md](docs/residual_fixes_spec.md)
+
+### 學到什麼
+
+**最佳回看天數會翻轉。** 2015–2024 窗口越長越好，2025–2026 只有 20 日有效：
+
+| 對 20 日動能 | 2015–2024 | 2025–2026 |
+|---|---:|---:|
+| 25 日動能 | +0.19% ~ +0.37% | −0.29% |
+| 60 日動能 | — | −1.78% |
+| 120 日 residual | +1.17% ~ +1.78% | −2.15% |
+
+- 來源：[mom25_report](research/results/mom25_report/summary.md)、[final_test](research/results/final_test/summary.md)、[h1_residual](research/results/h1_residual/summary.md)
+- 比賽接在 2025–2026 之後
+  - 20 日較可能適用
+
+**扣大盤（residual）沒有額外價值。**
+
+- 20／25 日時和動能打平
+  - 全期 −0.07%、+0.01%
+- 0050 被台積電主導
+  - 2022 起相關 ≥ 0.91
+  - 會扭曲 residual
+- 改扣等權市場後
+  - 2025–2026 從 −0.98% 到 −0.31%
+  - 全期仍只打平
+- 來源：[residual_fixes](research/results/residual_fixes/summary.md)、[residual_regimes](research/results/residual_regimes/summary.md)
+
+**看過的資料不能當證據。** H1 是在 2022–2024 表現好之後才挑出來的，在那段 +1.78%，到沒看過的 2025–2026 變成 −2.15%。事先寫死規則，擋下了這次錯誤的替換。
+
+**其他無效的訊號：**
+
+- 低換手：每段都輸
+  - validation −1.06%
+- 產業 residual：無額外價值
+- 月營收未測 2025–2026
+  - validation +0.58%
+  - 只是診斷，沒有 test
+
+---
+
+## 3. 比賽規則重點
 
 | 項目 | 規定 |
 |---|---|
@@ -96,7 +158,7 @@
 
 ---
 
-## 3. 策略與安全機制
+## 4. 策略與安全機制
 
 ### 三種方法
 
@@ -160,16 +222,21 @@
 |---|---|---|
 | dev | 2010–2021 | • 試方法 |
 | validation | 2022–2024 | • 選定後確認 |
-| holdout | 2025–2026-09 | • 最後測試<br>• 已在最終測試用過 |
+| holdout | 2025–2026-09 | • 最後測試<br>• 已用過多次 |
 
-- 最新研究資料從 2019 起
-  - 150 檔是 2026 名單
+- holdout 已用於
+  - 最終測試、H1 test
+  - Mom25、residual 報告
+- LightGBM 資料從 2019 起
+- 動能改良資料從 2014 起
+  - 2014 只當暖身
+- 150 檔是 2026 名單
   - 越早年份偏誤越大
 - 設定方式：config 的 `data.start`
 
 ---
 
-## 4. 怎麼跑
+## 5. 怎麼跑
 
 ### 第一次設定
 
@@ -220,7 +287,7 @@ PYTHONHASHSEED=0 .venv/bin/python -m research.run_experiment \
 bash research/final_test.sh
 ```
 
-LightGBM 各輪研究的入口：
+各輪研究的入口：
 
 | 研究 | 指令 |
 |---|---|
@@ -229,6 +296,18 @@ LightGBM 各輪研究的入口：
 | 成交對齊標籤 | `python -m research.target_alignment` |
 | 學習率診斷 | `python -m research.lr_diagnostic` |
 | 資料使用 | `python -m research.data_usage` |
+| P1 動能小實驗 | `python -m research.momentum_sweep` |
+| Hybrid | `python -m hybrid.evaluate` |
+| Momentum-v2 | `python -m momv2.evaluate coverage｜dev｜validation｜test` |
+| H1 residual | `python -m momv2.h1_evaluate dev｜validation｜test` |
+| residual 分組比較 | `python -m momv2.regime_report` |
+| residual 修正 | `python -m momv2.fixes_report` |
+
+- 各階段只能跑一次
+  - 結果不同會拒絕寫入
+- 外部資料下載
+  - 月營收、法人：`python -m hybrid.sources`
+  - 發行股數：`python -m momv2.sources fetch`
 
 ### 結果在哪
 
@@ -243,7 +322,7 @@ LightGBM 各輪研究的入口：
 
 ---
 
-## 5. AutoTS 調參（finetune）
+## 6. AutoTS 調參（finetune）
 
 這是 AutoTS 的參數搜尋工具，程式在 `research/tune.py`。
 
@@ -282,7 +361,7 @@ git add research/results/tune_crazy && git commit -m "Add tuning results crazy" 
 
 ---
 
-## 6. 檔案結構
+## 7. 檔案結構
 
 ```text
 fintech_ETF/
@@ -290,13 +369,15 @@ fintech_ETF/
 ├── autots_strategy/     ← AutoTS 策略，以及三種方法共用的組合層 portfolio.py
 ├── lgbm_strategy/       ← LightGBM：特徵、標籤、訓練資料、模型、策略
 ├── production/          ← 每日提交：資料、對帳、engine、fallback、Active Share、D-Plan、驗證、replay
+├── hybrid/              ← Hybrid：月營收與法人資料、恐慌 gate、LightGBM-v2 walk-forward
+├── momv2/               ← 動能改良：residual、換手、營收訊號，各研究的評估與報告
 ├── research/            ← 實驗入口、設定、基準策略、比較、實驗總表、各輪研究
 │   ├── configs/         ← 實驗設定
 │   └── results/         ← 整理後的結果（要 commit）
 ├── tests/               ← 測試（含因果測試）
 ├── docs/                ← 任務定義、各輪 spec、最終測試計畫
 ├── third_party/autots/  ← AutoTS 1.0.4 原始碼（MIT，含修補 P1）
-├── data/                ← 日線快照、股票池、規則
+├── data/                ← 日線快照、股票池、規則；hybrid/、momv2/ 是外部資料（不進 git）
 ├── official_docs/       ← 主辦方原始文件與 D-Plan schema
 └── legacy/              ← V2–V5 舊程式、報告、測試
 ```
@@ -305,7 +386,7 @@ AutoTS 直接修改 repo 內的原始碼，不從 PyPI 安裝，修改紀錄在 
 
 ---
 
-## 7. 舊版本
+## 8. 舊版本
 
 ### v1／v2：長期回放
 
