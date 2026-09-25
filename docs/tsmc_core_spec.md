@@ -92,7 +92,7 @@ Active Share 任一天 < 20% → 不能用
 
 ## 8. 結果：STOP
 
-完整大表：[research/results/tsmc_core/summary.md](../research/results/tsmc_core/summary.md)
+完整大表：[research/results/tsmc_core/summary.md](../research/results/tsmc_core/summary.md)；原因分析：[analysis.md](../research/results/tsmc_core/analysis.md)
 
 | | 對 Mom20 平均 Δ | 95% CI | 2025–2026 | 周轉 | 警告 |
 |---|---:|---:|---:|---:|---:|

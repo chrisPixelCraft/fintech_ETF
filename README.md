@@ -146,7 +146,24 @@
 - 趨勢、量能族群打平
 - 重排大幅提高換手
   - 周轉 3.68 → 5.80
-- 來源：[technical_momentum](research/results/technical_momentum/summary.md)
+- 文獻版 MACD 也一樣
+  - 多尺度標準化 −0.24%
+  - 尺度越慢越差
+- 來源：[technical_momentum](research/results/technical_momentum/summary.md)、[macd_momentum](research/results/macd_momentum/summary.md)
+
+**台積電加碼幫助很小。** 加碼的比較對象是 Mom20 選出的其他股票，不是 0：
+
+| 期間 | 台積電累積漲幅 | 台積電／窗口 | Mom20 組合／窗口 | 加碼到 22.5% 的效果 |
+|---|---:|---:|---:|---:|
+| 2015–2024 | +81% ~ +208% | +2.0% ~ +4.5% | +1.2% ~ +3.5% | +0.07% ~ +0.17% |
+| 2025–2026 | +141% | +4.93% | +8.79% | −1.00% |
+
+- 效果 ≈ 加碼部位 19% × 兩者差距
+- Mom20 已有 13% 的日子持有台積電
+- 2025–2026 中小型 AI 股漲更多
+- 分數加權讓警告 1 → 11
+  - 高分股成交後超過 10%
+- 來源：[tsmc_core](research/results/tsmc_core/summary.md)、[analysis](research/results/tsmc_core/analysis.md)
 
 **其他無效的訊號：**
 
