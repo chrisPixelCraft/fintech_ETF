@@ -50,7 +50,8 @@ def summary_md(v: dict) -> str:
     lines = [f'# LightGBM-v2 每日排名：{v["period"]}', '',
              f'- 窗口：{v["windows"]} 個 24 日窗口，與 Mom20 逐窗口配對；規則見 docs/lgbm_v2_daily_spec.md',
              '- 2015–2024 是這段資料第二次被用來比較（見 spec 第 3 節揭露）' if v['period'] == '2015-2024' else
-             '- 2025–2026 純測試：只跑一次，只報告', '', f'**{v["decision"]}**', '',
+             '- 2025–2026 純測試：只跑一次，只報告', *([f'- **注意**：{v["note"]}'] if v.get('note') else []), '',
+             f'**{v["decision"]}**（本期間通過條件）', '',
              '| 策略 | 平均 | 中位數 | 配對平均 Δ | 配對中位數 Δ | 95% CI | 勝率 | P10 | 最差 | 周轉 | 成本 | 失格 |',
              '|---|' + '---:|' * 11,
              f'| Mom20 | {pct(ref["mean"])} | {pct(ref["median"])} | — | — | — | — | {pct(ref["p10"])} | '
@@ -67,10 +68,13 @@ def main(argv=None) -> dict:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('--workers', type=int, default=8)
     parser.add_argument('--pure-test', action='store_true')
+    parser.add_argument('--after-stop', action='store_true',
+                        help='run the pure test despite a STOP verdict (spec section 7); reported as such')
     args = parser.parse_args(argv)
     RESULTS.mkdir(parents=True, exist_ok=True)
-    if args.pure_test and not (VERDICT.exists() and json.loads(VERDICT.read_text())['decision'] == 'PASS'):
-        raise SystemExit('The pure test runs only after a PASS verdict')
+    passed = VERDICT.exists() and json.loads(VERDICT.read_text())['decision'] == 'PASS'
+    if args.pure_test and not passed and not args.after_stop:
+        raise SystemExit('The pure test runs only after a PASS verdict (or with --after-stop, spec section 7)')
     period, splits = ('test', base.SPLITS['test']) if args.pure_test else ('eval', base.SPLITS['eval'])
     for split in splits:
         base.run(base.REFERENCE, split, period, args.workers)
@@ -83,7 +87,9 @@ def main(argv=None) -> dict:
     verdict = dict(period='2025-2026/09' if args.pure_test else '2015-2024', windows=len(reference), reference=ref,
                    metrics=m, ci95=base.paired_ci({k: s for k, s in mine.items() if s.get('status') == 'COMPLETE'},
                                                   reference),
-                   acceptance=acceptance, decision='PASS' if acceptance['passed'] else 'STOP')
+                   acceptance=acceptance, decision='PASS' if acceptance['passed'] else 'STOP',
+                   note=('run after the 2015-2024 STOP at the user\'s request (spec section 7); does not change the STOP'
+                         if args.pure_test and not passed else None))
     target = RESULTS / ('pure_test.json' if args.pure_test else 'verdict.json')
     if not args.pure_test and VERDICT.exists() and json.loads(VERDICT.read_text())['decision'] != verdict['decision']:
         raise SystemExit(f'{VERDICT} already holds a different verdict; the evaluation runs once')
