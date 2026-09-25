@@ -8,7 +8,7 @@
   - 2025–2026 平均 +8.79%
   - AutoTS、LightGBM 都輸它
 - 動能改良已結案
-  - 6 項研究都沒贏
+  - 7 項研究都沒贏
   - 見「[2. 動能改良研究](#2-動能改良研究)」
 - 每日提交流程已完成
   - 入口 `./run_daily.sh`
@@ -85,7 +85,7 @@
 
 ## 2. 動能改良研究
 
-2026-09 做了 6 項研究，想找贏過 20 日動能的改法。每項都先把規則寫死在 spec，再只跑一次；沒過就停止，不再重試。
+2026-09 做了 7 項研究，想找贏過 20 日動能的改法。每項都先把規則寫死在 spec，再只跑一次；沒過就停止，不再重試。
 
 | 研究 | 改了什麼 | 結果 | 結論 |
 |---|---|---|---|
@@ -95,6 +95,7 @@
 | [H1 residual](research/results/h1_residual/summary.md) | • 只用 residual<br>  ↳ 120 日、β 250 日 | • 看過的資料 +1.78%<br>• 2025–2026 −2.15% | • 反轉，停止 |
 | [Mom25](research/results/mom25_report/summary.md) | • 回看改 25 日 | • 2015–21 +0.19%<br>• 2022–24 +0.37%<br>• 2025–26 −0.29% | • 和 Mom20 打平 |
 | [residual 修正](research/results/residual_fixes/summary.md) | • 等權、產業基準<br>• β 收縮 | • 最好 +0.06% | • 和動能打平 |
+| [技術指標重排](research/results/technical_momentum/summary.md) | • 前 40 名內重排<br>• 19 個指標、4 族 | • Composite −1.00%<br>• 四段全負 | • 停止<br>• 技術面假說關閉 |
 
 - 數字都是對 20 日動能的配對平均差
   - 24 日窗口，逐窗口配對
@@ -102,6 +103,7 @@
   - [momentum_v2_spec.md](docs/momentum_v2_spec.md)
   - [h1_residual_spec.md](docs/h1_residual_spec.md)
   - [residual_fixes_spec.md](docs/residual_fixes_spec.md)
+  - [technical_momentum_spec.md](docs/technical_momentum_spec.md)
 
 ### 學到什麼
 
@@ -130,6 +132,18 @@
 - 來源：[residual_fixes](research/results/residual_fixes/summary.md)、[residual_regimes](research/results/residual_regimes/summary.md)
 
 **看過的資料不能當證據。** H1 是在 2022–2024 表現好之後才挑出來的，在那段 +1.78%，到沒看過的 2025–2026 變成 −2.15%。事先寫死規則，擋下了這次錯誤的替換。
+
+**技術指標沒有額外資訊。** 在 Mom20 前 40 名內重排：
+
+- 避開過熱反而輸
+  - 衰竭族群 −2.22%
+  - 過熱強勢股仍續強
+- 避開高波動也輸
+  - 波動族群 −1.78%
+- 趨勢、量能族群打平
+- 重排大幅提高換手
+  - 周轉 3.68 → 5.80
+- 來源：[technical_momentum](research/results/technical_momentum/summary.md)
 
 **其他無效的訊號：**
 
