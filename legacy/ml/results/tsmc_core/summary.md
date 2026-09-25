@@ -1,6 +1,6 @@
 # TSMC Core：台積電 22.5% ＋ 0.85 分數／0.15 反波動加權
 
-- 規則寫死於 [docs/tsmc_core_spec.md](../../../docs/tsmc_core_spec.md)
+- 規則寫死於 [docs/tsmc_core_spec.md](../../docs/tsmc_core_spec.md)
 - **後見之明偏誤**：已知台積電 2015–2026 大漲才選它加碼；回測只當風險描述
 - 276 個 24 日窗口，逐窗口和 Mom20 配對
 

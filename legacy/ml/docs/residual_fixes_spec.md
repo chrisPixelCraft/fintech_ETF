@@ -9,7 +9,7 @@
 
 ## 0. 背景
 
-- [residual_regimes 報告](../research/results/residual_regimes/summary.md)：resid20 − mom20 全期 −0.07%、resid25 − mom25 +0.01%；2022–2024 小贏（+0.48%／+0.32%），2025–2026 輸（−0.98%／−0.63%）
+- [residual_regimes 報告](../results/residual_regimes/summary.md)：resid20 − mom20 全期 −0.07%、resid25 − mom25 +0.01%；2022–2024 小贏（+0.48%／+0.32%），2025–2026 輸（−0.98%／−0.63%）
 - 最明顯的格子：Mom20 持股偏向高 β 時 resid25 − mom25 −0.39%（t = −2.2），但幾乎全部來自 2025–2026
 
 ## 1. 機制檢查（寫 spec 前完成，不看策略報酬）
@@ -87,7 +87,7 @@
 
 ## 7. 結果（探索性）
 
-完整大表：[research/results/residual_fixes/summary.md](../research/results/residual_fixes/summary.md)
+完整大表：[research/results/residual_fixes/summary.md](../results/residual_fixes/summary.md)
 
 | 策略 | 全期 Δmom | 2015–21 | 2022–24 | 2025–26 | 對原 residual |
 |---|---:|---:|---:|---:|---:|

@@ -7,7 +7,7 @@
 - 內容只搬位置，沒改寫
 - 分兩個時期
   - V1–V5：規則式策略
-  - ML：AutoTS、LightGBM、Hybrid
+  - ML：AutoTS、LightGBM、Hybrid、動能改良
 
 ## 各時期一覽
 
@@ -17,7 +17,7 @@
 | V3 | • 改做 24 日賽期<br>• 搜尋 1,471 組 | • 無一組全合規<br>  ↳ `NO_ELIGIBLE_CANDIDATE` | [docs/](docs/README.md) |
 | V4 | • 官方均價管線<br>• 帳本驗證 | • `NO_V4_WINNER`<br>• 現行帳本源自此版 | [docs/](docs/README.md) |
 | V5 | • 參考冠軍策略<br>• 設計四族策略 | • 官方資料沒下載齊<br>• 沒跑出結果 | [docs/](docs/README.md) |
-| ML | • AutoTS、LightGBM<br>• Hybrid、每日 v2 | • 全部輸 Mom20<br>  ↳ 最佳 −1.17% | [ml/README.md](ml/README.md) |
+| ML | • AutoTS、LightGBM<br>• Hybrid、每日 v2<br>• 動能改良 8 項 | • 全部沒贏 Mom20<br>  ↳ 最終測試最佳 −1.17%<br>• 動能改良也沒換掉 | [ml/README.md](ml/README.md) |
 
 - V1–V5 規格與報告
   - [docs/README.md](docs/README.md)、[reports/](reports/)
@@ -74,4 +74,7 @@ V1–V4 完整輸出、帳本與官方原始快取在提交 [`2769f876`](https:/
 
 ## ML 時期
 
-程式只能在提交 `05745bf` 執行，步驟見 [ml/README.md](ml/README.md#怎麼重跑)。
+程式要回舊提交執行，步驟見 [ml/README.md](ml/README.md#怎麼重跑)。
+
+- AutoTS、LightGBM、Hybrid：`05745bf`
+- 動能改良 `momv2/`：`6d2a7c4`

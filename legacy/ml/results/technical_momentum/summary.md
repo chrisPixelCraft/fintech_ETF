@@ -1,6 +1,6 @@
 # Technical Momentum：Mom20 前 40 名內用技術指標重排
 
-- 規則寫死於 [docs/technical_momentum_spec.md](../../../docs/technical_momentum_spec.md)
+- 規則寫死於 [docs/technical_momentum_spec.md](../../docs/technical_momentum_spec.md)
 - Retrospective causal stress test：2015-01 到 2026-09，所有期間都已看過
 - 276 個 24 日窗口，逐窗口和 Mom20 配對；組合層與 production 相同
 

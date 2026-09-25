@@ -1,6 +1,6 @@
 # MACD Momentum：Mom20 前 40 名內用多尺度標準化 MACD 重排
 
-- 規則寫死於 [docs/macd_momentum_spec.md](../../../docs/macd_momentum_spec.md)
+- 規則寫死於 [docs/macd_momentum_spec.md](../../docs/macd_momentum_spec.md)
 - 276 個 24 日窗口，逐窗口和 Mom20（資料自 2013）配對
 
 ## 三尺度 MACD 重排：**STOP**
