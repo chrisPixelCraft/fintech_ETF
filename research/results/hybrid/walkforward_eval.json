@@ -1,0 +1,12 @@
+{
+ "v2A": {
+  "refits": 195,
+  "decision_days": 715,
+  "median_trees": 287.0
+ },
+ "v2B": {
+  "refits": 195,
+  "decision_days": 715,
+  "median_trees": 338.0
+ }
+}

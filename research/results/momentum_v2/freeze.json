@@ -1,0 +1,41 @@
+{
+ "chosen": {
+  "h1": {
+   "resid_window": 60,
+   "beta_window": 120
+  },
+  "h2": {
+   "turnover_window": 20
+  },
+  "h3": {
+   "revenue_score": "yoy"
+  }
+ },
+ "composite": {
+  "kind": "composite",
+  "resid_window": 60,
+  "beta_window": 120,
+  "turnover_window": 20,
+  "revenue_score": "yoy"
+ },
+ "pick_rule": {
+  "min_median_delta": 0.0,
+  "max_turnover_ratio": 1.5,
+  "min_gain_over_default": 0.002
+ },
+ "gates": {
+  "validation": {
+   "min_mean_delta": 0.005,
+   "min_median_delta": 0.0
+  },
+  "test": {
+   "min_mean_delta": 0.0,
+   "min_median_delta": 0.0
+  }
+ },
+ "keep_h2": true,
+ "git": {
+  "commit": "37f5c52260e29cfe0862f0d5acc62b3ad50d1cf3",
+  "dirty": true
+ }
+}

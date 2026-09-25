@@ -1,0 +1,109 @@
+{
+ "decision": "STOP",
+ "chosen": null,
+ "windows": 236,
+ "reference": {
+  "n": 236,
+  "n_failed": 0,
+  "mean": 0.020071232352489685,
+  "median": 0.011865545608586214,
+  "p25": -0.02496920239369224,
+  "p10": -0.06494602220067114,
+  "worst": -0.23670675023940502,
+  "paired_n": 236,
+  "paired_mean_delta": 0.0,
+  "paired_median_delta": 0.0,
+  "paired_win_rate": 0.0,
+  "mdd": 0.057498037274337346,
+  "turnover": 3.737164107442945,
+  "cost_pct": 0.009489486543769672,
+  "warnings": 0,
+  "disqualified": 0,
+  "disqualification_rate": 0.0,
+  "runtime_seconds_per_episode": 0.23488571660129956
+ },
+ "versions": {
+  "hybrid_v2A": {
+   "metrics": {
+    "n": 236,
+    "n_failed": 0,
+    "mean": 0.022705754685721183,
+    "median": 0.01554410187345201,
+    "p25": -0.018050091057337486,
+    "p10": -0.06187238377684706,
+    "worst": -0.293201158188206,
+    "paired_n": 236,
+    "paired_mean_delta": 0.002634522333231503,
+    "paired_median_delta": 0.0,
+    "paired_win_rate": 0.3305084745762712,
+    "mdd": 0.06036550364486572,
+    "turnover": 5.085509769286607,
+    "cost_pct": 0.013462935823253013,
+    "warnings": 0,
+    "disqualified": 0,
+    "disqualification_rate": 0.0,
+    "runtime_seconds_per_episode": 0.27868479976653254
+   },
+   "ci95": [
+    -0.00028291803862962554,
+    0.005699651087574732
+   ],
+   "acceptance": {
+    "checks": {
+     "mean_delta > +0.5%": false,
+     "median_delta >= 0": true,
+     "no extra disqualification": true,
+     "extra cost < mean_delta": false
+    },
+    "passed": false
+   },
+   "panic": {
+    "panic_days": 1667,
+    "panic_windows": 149,
+    "mean_delta_in_panic_windows": 0.004172800474111642,
+    "median_delta_in_panic_windows": 0.0006651760971391196
+   }
+  },
+  "hybrid_v2B": {
+   "metrics": {
+    "n": 236,
+    "n_failed": 0,
+    "mean": 0.02253648287426045,
+    "median": 0.01554410187345201,
+    "p25": -0.015614269942495984,
+    "p10": -0.057788393825326356,
+    "worst": -0.31365953974323657,
+    "paired_n": 236,
+    "paired_mean_delta": 0.0024652505217707655,
+    "paired_median_delta": 0.0,
+    "paired_win_rate": 0.3220338983050847,
+    "mdd": 0.0602510967217003,
+    "turnover": 5.068981412206151,
+    "cost_pct": 0.013412499030052734,
+    "warnings": 0,
+    "disqualified": 0,
+    "disqualification_rate": 0.0,
+    "runtime_seconds_per_episode": 0.273535028436126
+   },
+   "ci95": [
+    -0.0005730376709796169,
+    0.005616127686690401
+   ],
+   "acceptance": {
+    "checks": {
+     "mean_delta > +0.5%": false,
+     "median_delta >= 0": true,
+     "no extra disqualification": true,
+     "extra cost < mean_delta": false
+    },
+    "passed": false
+   },
+   "panic": {
+    "panic_days": 1667,
+    "panic_windows": 149,
+    "mean_delta_in_panic_windows": 0.003904692101596648,
+    "median_delta_in_panic_windows": 9.979364569789873e-05
+   }
+  }
+ }
+}
