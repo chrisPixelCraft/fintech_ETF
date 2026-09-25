@@ -346,7 +346,7 @@ DEV 最後最多留 1–3 個 candidate，最好只有 1 個。
 | P-U3 | 主動 ETF 持股來源 | MoneyDJ（vendor），非投信原始揭露 |
 | P-U4 | Active Share 官方算法細節 | 保守：raw 與正規化取低；近似同權取最壞情況 |
 | ~~P-U5~~ | 賽期交易日曆 | **已解決**：10/26 補假休市（證交所 2026 休市表），首日 10/27，至 11/27 共 24 個交易日 |
-| P-U6 | `team_id` | 設定為 `TEAM_UNSET`，驗證器會擋下 |
+| ~~P-U6~~ | `team_id` | **已解決**：主辦方配發 `TEAM_11076`，已填入 `production/settings.json` |
 | P-U7 | 非 LLM 管線是否算 AI Agent | 需主辦方確認（`docs/task.md` U10） |
 
 其餘規則類 UNRESOLVED 見 [docs/task.md](task.md) 的 UNRESOLVED 總表。
@@ -355,7 +355,7 @@ DEV 最後最多留 1–3 個 candidate，最好只有 1 個。
 
 賽前一次：
 
-1. 在 `production/settings.json` 填入 `team_id`（`contest_start` 已確認為 2026-10-27）
+1. ~~在 `production/settings.json` 填入 `team_id`~~：已完成（`TEAM_11076`；`contest_start` 為 2026-10-27）
 2. 重新凍結 cold-start 名單
    - `python -m production.etf_holdings --out <etf.csv>`
    - `python -m production.cold_start --etf-holdings <etf.csv> --yahoo-dir <最新 Yahoo 快取>`
