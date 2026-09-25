@@ -1,111 +1,174 @@
-# ETF 策略研究：AutoTS-first
+# ETF 策略研究：150 檔、挑 25 檔、24 個交易日
 
-> **一句話**：用 AutoTS 預測 150 檔股票未來 5 天的相對表現，每天挑前 25 檔，在競賽規則內跑 24 個交易日，目標是期末 NAV 最大。
+每天從 150 檔股票挑出前 25 檔，在競賽規則內跑 24 個交易日，目標是期末 NAV 最大。
 
 ## 先看這裡
 
-- **主線**：AutoTS 策略，程式在 `autots_strategy/`
-- **進度**：初步測試中，**還沒贏過簡單基準**
-- **能不能提交**：還不行，狀態 `BLOCK_SUBMISSION`，因為每日 D-Plan 產生器還沒做
-- **要跑程式**：看「[4. 怎麼跑](#4-怎麼跑)」
-- **要調參**：看「[5. 如何調參](#5-如何調參finetune)」
-- **舊版本（v1–V5）**：全部在 `legacy/`，摘要在「[7. 舊版本](#7-舊版本)」
+- 目前最好：20 日動能
+  - 2025–2026 平均 +8.79%
+  - AutoTS、LightGBM 都輸它
+- 還不能提交
+  - 狀態 `BLOCK_SUBMISSION`
+  - 缺每日 D-Plan 產生器
+- 2025–2026 已經用過
+  - 不再是沒看過的資料
+  - 依它調整會高估
+- 跑程式看「[4. 怎麼跑](#4-怎麼跑)」
+- 舊版本在 `legacy/`
+  - 摘要見「[7. 舊版本](#7-舊版本)」
 
 ---
 
-## 1. 目前進度
+## 1. 目前結果
 
-- **測試範圍**：dev 切分中的 6 個 24 日窗口，只是初步比較
-- **平均報酬**：
+### 最終測試：2025-01 ～ 2026-09
 
-  | 策略 | 平均報酬 |
-  |---|---:|
-  | AutoTS 基準 | −2.4% ～ −3.8% |
-  | 20 日動能 | −1.1% |
-  | 大型股籃子 | −1.6% |
+設定寫在 [docs/final_test_plan.md](docs/final_test_plan.md)，結果在 [research/results/final_test/summary.md](research/results/final_test/summary.md)。
 
-- **結論**：AutoTS **目前輸給簡單基準**
-- **還缺**：每日 D-Plan 產生器
-- **完整紀錄**：[research/registry.csv](research/registry.csv)
+- 資料從 2019 年起
+- 每 5 天滾動重訓
+  - 用 2019 到前一天
+- 40 個 24 日窗口
+  - 每月月初、月中各一個
+- 共用同一套組合
+  - 前 25 檔等權，投入 95%
+
+| 設定 | 平均報酬 | 中位數 | 對 20 日動能 | 95% 區間 | 勝率 |
+|---|---:|---:|---:|---:|---:|
+| **20 日動能** | **+8.79%** | **+10.99%** | — | — | — |
+| 10 日動能 | +5.97% | +8.79% | −2.82% | −4.40% ~ −1.25% | 28% |
+| 60 日動能 | +7.02% | +6.90% | −1.78% | −3.27% ~ −0.26% | 32% |
+| AutoTS（預測 5 天） | +7.04% | +5.89% | −1.75% | −3.05% ~ −0.46% | 35% |
+| LightGBM 最佳（D，學習率 0.01） | +7.62% | +8.78% | −1.17% | −2.80% ~ +0.56% | 35% |
+| LightGBM 對照組（學習率 0.005） | +6.65% | +7.22% | −2.15% | −4.42% ~ +0.21% | 38% |
+
+- 20 日動能是預設設定
+  - 不是測試期挑的
+- 學習率影響很小
+  - 5 個學習率差 ≤0.5%
+- LightGBM：D ≥ C > 對照組
+  - 每個學習率都成立
+- 所有方法都贏 0050
+  - 部分來自存活偏誤
+- 2025-08-01 缺 28 檔價格
+  - 多數組別記 1 次警告
+  - 沒有組別失格
+
+完整 21 組和逐窗口報酬見 [summary.md](research/results/final_test/summary.md)，另有 [episode_returns.csv](research/results/final_test/episode_returns.csv)。
+
+### LightGBM 研究經過
+
+每一輪只改一件事，都和 20 日動能配對比較。
+
+| 輪次 | 改了什麼 | 結果 | 結論 |
+|---|---|---|---|
+| [JPX #2 基準](research/results/lgbm_jpx2/summary.md) | • 照 JPX 第 2 名做 | • 對動能 −0.25% | • 停止 |
+| [相對強弱標籤](research/results/lgbm_alpha/summary.md) | • 標籤減市場平均 | • 對動能 −0.29%<br>• 和原版一樣 | • 停止 |
+| [成交對齊標籤](research/results/target_alignment/summary.md) | • 隔天成交價進場 | • 對動能 −0.53% | • 標籤不是瓶頸 |
+| [學習率診斷](research/results/lr_diagnostic/) | • 學習率 0.1 ～ 0.0005 | • 排名相關都 0.02–0.03 | • 學習率不是瓶頸 |
+| [資料使用](research/results/data_usage/summary.md) | • 資料從 2019 起<br>• 最近 20% 也訓練 | • C 對對照組 +0.90%<br>  ↳ 95% 區間 +0.13% ~ +1.68% | • C 有效 |
+| [最終測試](research/results/final_test/summary.md) | • 21 組設定 | • LightGBM 最佳 −1.17% | • 動能仍最好 |
+
+- 前三輪用 dev 70 窗口
+  - 2019–2021，資料回推到 2016
+- 資料使用用 dev 46 窗口
+  - 2020–2021，資料從 2019 起
 
 ---
 
 ## 2. 比賽規則重點
 
-- **賽期**：2026-10-26 → 11-27，24 個交易日
-- **本金**：10 億元，全現金起始
-- **股票池**：固定 150 檔
-- **持股數**：每天 20–30 檔
-- **單股上限**：NAV 10%，2330 為 25%
-- **現金**：必須 < 25%
-- **交易**：整張（1,000 股），只能做多
-- **成交價**：當日官方成交均價（成交金額 ÷ 成交股數）
-- **細節**：[docs/task.md](docs/task.md)
+| 項目 | 規定 |
+|---|---|
+| 賽期 | 2026-10-26 → 11-27，24 個交易日 |
+| 本金 | 10 億元，全現金起始 |
+| 股票池 | 固定 150 檔 |
+| 持股數 | 每天 20–30 檔 |
+| 單股上限 | NAV 10%，2330 為 25% |
+| 現金 | 不能負數，且必須 < 25% |
+| 交易 | 整張（1,000 股），只能做多 |
+| 成交價 | 當日官方成交均價（成交金額 ÷ 成交股數） |
+
+細節見 [docs/task.md](docs/task.md)。
 
 ---
 
-## 3. AutoTS 策略
+## 3. 策略與安全機制
 
-### 3.1 每個決策日 D 做什麼
+### 三種方法
 
-1. **拿資料**
-   - 只看得到 D−1 收盤以前的資料
-   - 含未來股利的 `adj_close` 一律不讀
-2. **算預測目標**
-   - 個股相對「等權市場」的 log 價格
-   - 預測 5 個交易日後的變化
-3. **選模型**（每個 24 日窗口開始時選一次）
-   - 候選 7 個：
-     - LastValueNaive
-     - AverageValueNaive（20 日、60 日）
-     - SeasonalNaive
-     - ETS
-     - ARIMA
-     - WindowRegression（Ridge）
-   - 評分方式：rank IC，也就是預測排序和實際排序的相關程度
-   - 驗證方式：4 個歷史窗口，每個 24 天
-4. **預測**
-   - 每 5 天預測一次
-   - 預測值轉成 z-score
-5. **選股**
-   - 前 25 檔，等權重
-   - 持有緩衝：排名還在前 35 名內就續抱
-   - 換手門檻：要換的部位不到 10% 就不調整
-6. **下單與結算**（`competition/`）
-   - **planner**：用官方公式換算整張股數
-     - 違規時先自動修正
-     - 修不好就維持原持股
-     - 仍不合規就標記為不可行
-   - **ledger**：用當日官方成交均價結算
-     - 沒有官方價時，用有明確標示的 HLC3 代理價
-     - 不會捏造價格
+| 方法 | 分數怎麼算 | 程式 |
+|---|---|---|
+| 動能 | • 過去 N 天報酬 | `research/baselines.py` |
+| AutoTS | • 預測相對強弱<br>• 每窗口重選模型 | `autots_strategy/` |
+| LightGBM | • 15 個價量特徵<br>• 預測未來 10 天報酬 | `lgbm_strategy/` |
 
-### 3.2 安全機制
+三種方法共用組合層 `autots_strategy/portfolio.py`：
 
-- **防止偷看未來**
-  - 關閉 AutoTS 會用到未來資料的前處理
-  - 不傳入未來的回歸變數
-  - `tests/test_causality.py` 會竄改未來資料，確認決策完全不變
-- **資料切分**
-  - dev：2010–2021
-  - validation：2022–2024
-  - holdout：2025–2026-09，最接近賽期，當最後的測試
-    - 必須加旗標才能跑
-    - 每次存取都會留下紀錄
+- 分數前 25 檔等權
+- 排名前 35 就續抱
+- 換手 <10% 不調整
+- 最後 3 天不交易
 
-### 3.3 AutoTS 原始碼
+### LightGBM 的三種訓練方式
 
-- **位置**：[`third_party/autots/`](third_party/autots/UPSTREAM.md)，版本 1.0.4
-- **使用方式**：直接修改這份原始碼，不從 PyPI 安裝
-- **修改紀錄**：`third_party/autots/UPSTREAM.md`
-- **目前修補**：P1
-  - 原版遇到 150 檔這種不是 100 倍數的數量時，會默默丟掉第 101–150 檔
+每次重訓都依時間切：前 80% 訓練，最近 20% 驗證。
+
+| 方式 | 樹的數量 | 最終模型用的資料 |
+|---|---|---|
+| 對照組 | • 提早停止選 | • 只用前 80% |
+| C | • 提早停止選 | • 再用 100% 重訓 |
+| D | • 事先固定<br>  ↳ 2020–2024 的中位數 | • 100%，不切驗證 |
+
+- 特徵在 `lgbm_strategy/features.py`
+  - 報酬、波動、均線乖離
+- 標籤在 `lgbm_strategy/targets.py`
+  - 原始、相對強弱、成交對齊
+- D 的樹數在 [tree_calibration](research/results/tree_calibration/trees.json)
+  - 0.005 → 246 棵
+
+### 下單與結算（`competition/`）
+
+- planner 換算整張股數
+  - 假設買在漲停價
+  - 現金也不會變負
+- ledger 用官方均價結算
+  - 沒有時用 HLC3
+  - 不捏造價格
+- 當天違規就整天作廢
+  - 並記 1 次警告
+
+### 防止偷看未來
+
+- 決策只看 D−1 以前
+- 不讀 `adj_close`
+  - 它含未來股利
+- 訓練標籤必須已確定
+  - 晚於 D−1 就報錯
+- 因果測試竄改未來資料
+  - 決策必須完全不變
+  - `tests/test_causality.py`、`tests/test_lgbm_causality.py`
+- 測試期要加旗標
+  - 存取記在 `research/holdout_access_log.jsonl`
+
+### 資料切分
+
+| 切分 | 期間 | 用途 |
+|---|---|---|
+| dev | 2010–2021 | • 試方法 |
+| validation | 2022–2024 | • 選定後確認 |
+| holdout | 2025–2026-09 | • 最後測試<br>• 已在最終測試用過 |
+
+- 最新研究資料從 2019 起
+  - 150 檔是 2026 名單
+  - 越早年份偏誤越大
+- 設定方式：config 的 `data.start`
 
 ---
 
 ## 4. 怎麼跑
 
-### 4.1 第一次設定
+### 第一次設定
 
 需要 Python 3.12 和 [uv](https://docs.astral.sh/uv/)。
 
@@ -125,7 +188,7 @@ echo "$PWD/third_party/autots" > .venv/lib/python3.12/site-packages/fintech_etf_
 .venv/bin/python -c "import autots; print(autots.__version__)"
 ```
 
-### 4.2 日常使用
+### 常用指令
 
 ```bash
 # 跑測試
@@ -133,113 +196,74 @@ echo "$PWD/third_party/autots" > .venv/lib/python3.12/site-packages/fintech_etf_
 
 # 跑一個實驗：dev 切分，平均取 6 個窗口
 PYTHONHASHSEED=0 .venv/bin/python -m research.run_experiment \
-    --config research/configs/baseline_autots.json --split dev --episodes 6 --workers 6
+    --config research/configs/baseline_lgbm_raw.json --split dev --episodes 6 --workers 6
 
 # 比較兩次實驗
 .venv/bin/python -m research.compare research/runs/<run_A> research/runs/<run_B>
 
-# JPX #2 LightGBM 基準 vs 動能 vs AutoTS（smoke 6 窗口 → 全部 dev，可中斷續跑）
-PYTHONHASHSEED=0 .venv/bin/python -m research.lgbm_jpx2 --workers 10
+# 最終測試：單元測試 → D 的樹數 → 21 組 × 2025–2026（約 3–4 小時，可中斷續跑）
+bash research/final_test.sh
 ```
 
-### 4.3 結果在哪
+LightGBM 各輪研究的入口：
 
-- **每次實驗**：`research/runs/<run_id>/`，不進 Git
-  - 每個窗口的帳本、交易、委託、摘要
-- **實驗總表**：`research/registry.csv`，每跑一次加一列
-- **中斷了**：重跑同一指令，會從已完成的窗口接續
-- **簡單基準**：設定在 `research/configs/baselines/`
-  - 20 日動能
-  - 大型股籃子
-  - 無訊號對照組（只用 LastValueNaive）
+| 研究 | 指令 |
+|---|---|
+| JPX #2 基準 | `python -m research.lgbm_jpx2` |
+| 相對強弱標籤 | `python -m research.lgbm_alpha` |
+| 成交對齊標籤 | `python -m research.target_alignment` |
+| 學習率診斷 | `python -m research.lr_diagnostic` |
+| 資料使用 | `python -m research.data_usage` |
 
-## 5. 如何調參（finetune）
+### 結果在哪
 
-### 5.1 三步驟
+- 每窗口明細不進 git
+  - 在 `research/runs/`
+- 整理後的結果要 commit
+  - 在 `research/results/`
+- 每次執行記一列
+  - `research/registry.csv`
+- 中斷後重跑同一指令
+  - 從完成的窗口接續
+
+---
+
+## 5. AutoTS 調參（finetune）
+
+這是 AutoTS 的參數搜尋工具，程式在 `research/tune.py`。
 
 ```bash
-# 1. 先試跑，確認環境沒問題（約 10–20 分鐘；結果不用 commit）
+# 1. 試跑（約 10–20 分鐘；結果不用 commit）
 PROFILE=quick bash research/finetune.sh
 
 # 2. 正式跑（M2 Max 開 10 個 workers，約一晚）
 bash research/finetune.sh
 
-# 3. 把結果整理 commit 上去
-git add research/results/tune_crazy
-git commit -m "Add tuning results crazy"
-git push
+# 3. commit 結果
+git add research/results/tune_crazy && git commit -m "Add tuning results crazy" && git push
 ```
 
-- 資料已經在 repo 裡，不用另外下載
-- 中斷了：重跑同一指令，會從斷點接續
-- 想另開一次搜尋：加 `TAG=新名字`
-- 核心數不同：改 `WORKERS=8` 之類
+- 加 `TAG=名字` 另開一次
+- 改 `WORKERS=8` 調核心數
+- 中斷後重跑會接續
 
-### 5.2 看進度
-
-終端機最下面會有一行即時進度：
-
-```text
-[2/4 confirm 3/16] c8f116731e | train 98/143 val 0/35 | ████████░░░░░░░░░░░░ 41% 2841/7012 | 3h02m, ETA ~6h39m
-```
-
-- `[2/4 confirm 3/16]`：第 2 階段（共 4 個階段），這個階段的第 3 組設定，共 16 組
-- `c8f116731e`：目前這組設定的代號
-- `train` / `val` / `test`：這組設定在 dev（2010–2021）、validation（2022–2024）、holdout（2025–2026）各跑了幾個窗口
-- 進度條：整次調參要算的 AutoTS 窗口完成多少
-  - 總數是上限估計；某組設定換 seed 結果不變時，總數會自動變小
-- `3h02m, ETA ~6h39m`：已經跑了多久、大約還要多久（用這次執行的速度估算）
-- 在另一個終端機查看：`cat research/results/tune_crazy/progress.txt`
-- 中斷後重跑，進度會從實際停下的地方繼續算
-
-階段對照：`0/4 baselines` → `1/4 screen`、`1/4 local` → `2/4 confirm` → `3/4 seeds` → `4/4 test`
-
-### 5.3 三種規模
-
-| PROFILE | 試幾組設定 | 前幾名跑完整期間 | 每組試幾個 seed | 粗估時間（10 workers） |
+| PROFILE | 試幾組 | 前幾名跑全期 | 每組 seed 數 | 時間（10 workers） |
 |---|---:|---:|---:|---|
-| `quick` | 6 | 2（只跑部分窗口） | 2 | 10–20 分鐘 |
+| `quick` | 6 | 2（部分窗口） | 2 | 10–20 分鐘 |
 | `normal` | 41 | 8 | 3 | 5–7 小時 |
 | `crazy`（預設） | 81 | 16 | 5 | 10–14 小時 |
 
-### 5.4 它做了什麼
+流程：
+1. 跑三個簡單基準
+2. 粗篩隨機設定，再在領先者附近微調
+3. 前幾名跑完 2019–2024 全部 140 個窗口
+4. 換 seed 重跑，用平均分排名
+5. 用 2025–2026/9 算測試分數
 
-- **資料怎麼用**
-  - 挑參數：2019–2024（dev 70 + validation 70 個窗口）
-  - 測試：2025–2026/9（holdout 40 個窗口），最接近賽期，最後只算一次，不改變選擇
-  - 每月月初、月中各一個起點；基準、挑參數、測試都用同一組窗口
-  - 為什麼從 2019 開始：150 檔是 2026 年的大型股，越早的年份越像事先知道誰會漲；2019 起仍包含 2020 疫情崩盤和 2022 空頭
-- **流程**（`research/tune.py`）
-  1. 跑三個簡單基準：20 日動能、大型股籃子、無訊號對照組
-  2. 粗篩：目前設定 + 隨機設定，再在領先者附近微調，每組跑 20 個窗口
-  3. 前幾名跑完 2019–2024 全部 140 個窗口
-  4. seed 穩定度：換 seed 重跑，用平均分排名，不挑單一最好的 seed
-  5. 用 2025–2026/9 算測試分數，和簡單基準比較
-- **評分**
-  - 每個 24 日窗口對 20 日動能的超額報酬，平均和中位數各佔一半
-  - 有任何窗口被取消資格，就是 -inf
-- **會調的參數**
-  - 預測：目標序列、預測天數、歷史長度、驗證窗口、評分方式、模型組合、AutoTS 搜尋模式、seed
-  - 組合：持股數、持有緩衝、權重方式、投入比例、單股上限縮放、換手門檻、最後幾天不交易
+評分是每個 24 日窗口對 20 日動能的超額報酬，平均和中位數各佔一半；有窗口被取消資格就是 −inf。結果寫在 `research/results/tune_<tag>/`（`summary.md`、`leaderboard.csv`、`best_config.json`），`crazy` 規模還沒跑完。
 
-### 5.5 結果檔（commit 這個資料夾）
-
-`research/results/tune_<tag>/`，每跑完一個階段就更新一次，中途停掉也看得到目前結果：
-
-- `summary.md`：中文結果整理，AI 可以直接讀它來更新 README；含「大跌窗口表現」（0050 在窗口內跌 10% 以上時，最佳設定和動能各跌多少，只供觀察）
-- `summary.json`：同樣內容的機器可讀版
-- `leaderboard.csv`：每組設定的分數
-- `best_config.json`：最佳設定，可直接給 `research.run_experiment --config` 使用
-- `log.txt`：執行過程紀錄
-- `progress.txt`：最新一行進度
-
-每個窗口的帳本等大型中間檔放在 `research/runs/tune_<tag>/`，不進 git。
-
-### 5.6 怎麼看結果
-
-- **2025–2026 測試 PASS**：最佳設定在最接近賽期的資料上贏過 20 日動能，可以考慮採用
-- **FAIL**：輸給簡單基準，先不要採用，回頭檢查方法
-- **看完測試分數後不要再回頭調參**：否則這個分數就不再客觀
+- 2025–2026 已用過
+  - 測試分數會偏樂觀
 
 ---
 
@@ -247,18 +271,21 @@ git push
 
 ```text
 fintech_ETF/
-├── autots_strategy/     ← AutoTS 策略：預測目標、AutoTS 包裝、打分、組合
-├── lgbm_strategy/       ← JPX #2 LightGBM 基準：特徵、訓練資料、模型、策略（組合層共用 autots_strategy）
-├── competition/         ← 競賽核心，與策略無關：規則、資料截止、窗口、規劃、成交、帳本、回測
-├── research/            ← 實驗入口、設定、基準策略、比較、實驗總表、調參（finetune.sh、tune.py）
-│   └── results/         ← 調參結果整理（summary.md 等，要 commit）
-├── tests/               ← 新主線的測試（含因果測試）
-├── third_party/autots/  ← AutoTS 1.0.4 原始碼（MIT 授權）
-├── docs/                ← 任務定義、AutoTS 內部機制、策略規格
-├── data/                ← 日線快照、股票池、規則等輸入資料
+├── competition/         ← 競賽核心：規則、資料截止、窗口、下單規劃、成交、帳本、回測
+├── autots_strategy/     ← AutoTS 策略，以及三種方法共用的組合層 portfolio.py
+├── lgbm_strategy/       ← LightGBM：特徵、標籤、訓練資料、模型、策略
+├── research/            ← 實驗入口、設定、基準策略、比較、實驗總表、各輪研究
+│   ├── configs/         ← 實驗設定
+│   └── results/         ← 整理後的結果（要 commit）
+├── tests/               ← 測試（含因果測試）
+├── docs/                ← 任務定義、各輪 spec、最終測試計畫
+├── third_party/autots/  ← AutoTS 1.0.4 原始碼（MIT，含修補 P1）
+├── data/                ← 日線快照、股票池、規則
 ├── official_docs/       ← 主辦方原始文件與 D-Plan schema
-└── legacy/              ← V2–V5 舊程式、報告、測試（只搬位置，沒改內容）
+└── legacy/              ← V2–V5 舊程式、報告、測試
 ```
+
+AutoTS 直接修改 repo 內的原始碼，不從 PyPI 安裝，修改紀錄在 [third_party/autots/UPSTREAM.md](third_party/autots/UPSTREAM.md)。修補 P1 修正原版在股票數不是 100 倍數時，默默丟掉第 101–150 檔的問題。
 
 ---
 
@@ -266,8 +293,10 @@ fintech_ETF/
 
 ### v1／v2：長期回放
 
-- 固定參數 `x0352`，期間 2025-01-02 → 2026-09-21
-- 資料與成交口徑不同，**不能代表 24 日賽期**
+- 固定參數 `x0352`
+  - 2025-01-02 → 2026-09-21
+- 資料與成交口徑不同
+  - 不能代表 24 日賽期
 
 | 期間 | v2 `x0352` | v1 | 0050 |
 |---|---:|---:|---:|
@@ -277,11 +306,13 @@ fintech_ETF/
 
 ### V3、V4、V5
 
-- **V3**：改做 24 日短賽期，搜尋 1,471 組參數，沒有一組通過全部合規門檻（`NO_ELIGIBLE_CANDIDATE`）
-- **V4**：建好官方成交均價資料管線和帳本驗證，但沒找到勝出策略（`NO_V4_WINNER`）；現在的成交與帳本邏輯就是從這版改寫
-- **V5**：參考冠軍策略設計四族策略，程式完成，但官方成交資料沒下載齊，沒跑出結果
+| 版本 | 做了什麼 | 結果 |
+|---|---|---|
+| V3 | • 改做 24 日賽期<br>• 搜尋 1,471 組參數 | • 無一組全合規<br>  ↳ `NO_ELIGIBLE_CANDIDATE` |
+| V4 | • 建官方均價管線<br>• 建帳本驗證 | • 沒找到勝出策略<br>  ↳ `NO_V4_WINNER`<br>• 現行帳本源自此版 |
+| V5 | • 參考冠軍策略<br>• 設計四族策略 | • 官方資料沒下載齊<br>• 沒跑出結果 |
 
-### 去哪裡看更多
-
-- **各版程式與測試方式**：[legacy/README.md](legacy/README.md)
-- **完整舊輸出、帳本、官方原始快取**：提交 [`2769f876`](https://github.com/chrisPixelCraft/fintech_ETF/tree/2769f876ec4b9795ce5d8cc4e64b8274da58099c)
+- 各版程式與測試方式
+  - [legacy/README.md](legacy/README.md)
+- 完整舊輸出與帳本
+  - 提交 [`2769f876`](https://github.com/chrisPixelCraft/fintech_ETF/tree/2769f876ec4b9795ce5d8cc4e64b8274da58099c)
