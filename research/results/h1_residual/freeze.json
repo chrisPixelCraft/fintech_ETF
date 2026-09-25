@@ -1,0 +1,85 @@
+{
+ "chosen": {
+  "resid_window": 120,
+  "beta_window": 250
+ },
+ "default": {
+  "resid_window": 60,
+  "beta_window": 120
+ },
+ "grid": [
+  {
+   "resid_window": 20,
+   "beta_window": 60
+  },
+  {
+   "resid_window": 20,
+   "beta_window": 120
+  },
+  {
+   "resid_window": 20,
+   "beta_window": 250
+  },
+  {
+   "resid_window": 25,
+   "beta_window": 60
+  },
+  {
+   "resid_window": 25,
+   "beta_window": 120
+  },
+  {
+   "resid_window": 25,
+   "beta_window": 250
+  },
+  {
+   "resid_window": 40,
+   "beta_window": 60
+  },
+  {
+   "resid_window": 40,
+   "beta_window": 120
+  },
+  {
+   "resid_window": 40,
+   "beta_window": 250
+  },
+  {
+   "resid_window": 60,
+   "beta_window": 60
+  },
+  {
+   "resid_window": 60,
+   "beta_window": 120
+  },
+  {
+   "resid_window": 60,
+   "beta_window": 250
+  },
+  {
+   "resid_window": 90,
+   "beta_window": 120
+  },
+  {
+   "resid_window": 90,
+   "beta_window": 250
+  },
+  {
+   "resid_window": 120,
+   "beta_window": 120
+  },
+  {
+   "resid_window": 120,
+   "beta_window": 250
+  }
+ ],
+ "pick_rule": {
+  "min_median_delta": 0.0,
+  "max_turnover_ratio": 1.5,
+  "min_gain_over_default": 0.002
+ },
+ "git": {
+  "commit": "f33916d6016c645ae27a0008d6063f54b32323aa",
+  "dirty": true
+ }
+}

@@ -39,7 +39,7 @@ from research.baselines import BasketConfig, BasketStrategy, MomentumConfig, Mom
 
 RUNS = ROOT / 'research/runs'
 HOLDOUT_LOG = ROOT / 'research/holdout_access_log.jsonl'
-LEGACY_KINDS = ('autots', 'lgbm', 'hybrid')
+LEGACY_KINDS = ('autots', 'lgbm', 'hybrid', 'macd', 'tsmc', 'technical', 'momv2')
 CONFIG_KEYS = {'name', 'description', 'strategy', 'params', 'execution', 'planner', 'episodes', 'data'}
 
 _MARKET: MarketData | None = None
@@ -86,8 +86,8 @@ def build_strategy(config: dict, rules: CompetitionRules):
         return BasketStrategy(BasketConfig.from_dict(params), rules)
     if kind in LEGACY_KINDS:
         raise ValueError(f"Strategy '{kind}' is archived in legacy/ml/ and no longer runs from the repo root "
-                         '(rerun it at commit 05745bf, see legacy/ml/)')
-    raise ValueError(f"Unknown strategy '{kind}' (supported: momentum, basket; AutoTS/LightGBM/hybrid are in legacy/ml/)")
+                         '(see legacy/ml/README.md for the commit to rerun it at)')
+    raise ValueError(f"Unknown strategy '{kind}' (supported: momentum, basket; other strategies are archived in legacy/ml/)")
 
 
 def git_state() -> dict:
