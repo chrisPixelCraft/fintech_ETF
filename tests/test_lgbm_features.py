@@ -55,6 +55,21 @@ class FeatureValueTest(unittest.TestCase):
         table = features.build_features(view, pd.DatetimeIndex([gap]))
         self.assertFalse(table.set_index('symbol').at['S003.TW', 'feature_ready'])
 
+    def test_min_observed_share_keeps_rows_across_a_gap(self):
+        ret = self.market.ret.copy()
+        gap = self.market.calendar[-10]
+        ret.loc[gap, 'S003.TW'] = np.nan
+        view = self.market.with_frames(ret=ret).asof(self.view.date)
+        relaxed = features.feature_frames(view, features.FeatureConfig(min_observed_share=.8))
+        vol = relaxed['volatility_20']['S003.TW']
+        self.assertTrue(vol.iloc[-10:].notna().all())                  # 19 of 20 observed >= 16 needed
+        self.assertAlmostEqual(vol.iloc[-1], np.log1p(ret['S003.TW'].iloc[-20:]).std())   # std skips the gap
+        strict = features.feature_frames(view)
+        self.assertTrue(strict['volatility_20']['S003.TW'].iloc[-10:].isna().all())
+        self.assertEqual(features.FeatureConfig(.8).min_periods(60), 48)
+        with self.assertRaises(ValueError):
+            features.FeatureConfig(0.)
+
     def test_short_history_is_not_ready(self):
         view = self.market.asof(self.market.calendar[40])  # 41 rows < 60-session windows
         table = features.build_features(view, view.close.index[-1:])

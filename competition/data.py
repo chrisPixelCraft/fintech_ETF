@@ -105,6 +105,16 @@ class MarketData:
         cut = {f: getattr(self, f).iloc[:stop] for f in HISTORY_FIELDS}
         return AsOfView(date=self.calendar[stop - 1], benchmark_ret=self.benchmark_ret.iloc[:stop], **cut)
 
+    def since(self, start) -> 'MarketData':
+        """The same market with every row dated before ``start`` removed (a later data floor)."""
+        keep = self.calendar >= pd.Timestamp(start)
+        if not keep.any():
+            raise ValueError(f'No sessions on or after {start}')
+        values = {f.name: getattr(self, f.name) for f in fields(self)}
+        values.update({name: value[keep] for name, value in values.items()
+                       if isinstance(value, (pd.DataFrame, pd.Series, pd.DatetimeIndex))})
+        return MarketData(**values)
+
     def with_frames(self, **frames) -> 'MarketData':
         values = {f.name: getattr(self, f.name) for f in fields(self)}
         values.update(frames)
