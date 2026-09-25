@@ -8,7 +8,7 @@
   - 2025–2026 平均 +8.79%
   - AutoTS、LightGBM 都輸它
 - 動能改良已結案
-  - 7 項研究都沒贏
+  - 9 項研究都沒贏
   - 見「[2. 動能改良研究](#2-動能改良研究)」
 - 每日提交流程已完成
   - 入口 `./run_daily.sh`
@@ -84,7 +84,7 @@
 
 ## 2. 動能改良研究
 
-2026-09 做了 7 項研究，想找贏過 20 日動能的改法。每項都先把規則寫死在 spec，再只跑一次；沒過就停止，不再重試。
+2026-09 做了 9 項研究，想找贏過 20 日動能的改法。每項都先把規則寫死在 spec，再只跑一次；沒過就停止，不再重試。
 
 | 研究 | 改了什麼 | 結果 | 結論 |
 |---|---|---|---|
@@ -95,6 +95,8 @@
 | [Mom25](research/results/mom25_report/summary.md) | • 回看改 25 日 | • 2015–21 +0.19%<br>• 2022–24 +0.37%<br>• 2025–26 −0.29% | • 和 Mom20 打平 |
 | [residual 修正](research/results/residual_fixes/summary.md) | • 等權、產業基準<br>• β 收縮 | • 最好 +0.06% | • 和動能打平 |
 | [技術指標重排](research/results/technical_momentum/summary.md) | • 前 40 名內重排<br>• 19 個指標、4 族 | • Composite −1.00%<br>• 四段全負 | • 停止<br>• 技術面假說關閉 |
+| [多尺度 MACD](research/results/macd_momentum/summary.md) | • Baz 標準化 MACD<br>• 前 40 名內重排 | • −0.24%<br>• 2025–26 −1.06% | • 停止<br>• 不再測 MACD |
+| [台積電核心](research/results/tsmc_core/summary.md) | • 台積電 22.5%<br>• 0.85 分數／0.15 反波動 | • −0.08%<br>• 警告 1 → 11 | • 停止 |
 
 - 數字都是對 20 日動能的配對平均差
   - 24 日窗口，逐窗口配對
@@ -103,6 +105,8 @@
   - [h1_residual_spec.md](docs/h1_residual_spec.md)
   - [residual_fixes_spec.md](docs/residual_fixes_spec.md)
   - [technical_momentum_spec.md](docs/technical_momentum_spec.md)
+  - [macd_momentum_spec.md](docs/macd_momentum_spec.md)
+  - [tsmc_core_spec.md](docs/tsmc_core_spec.md)
 
 ### 學到什麼
 
