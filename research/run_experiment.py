@@ -86,6 +86,12 @@ def build_strategy(config: dict, rules: CompetitionRules):
     if kind == 'hybrid':
         from hybrid.strategy import HybridConfig, HybridStrategy
         return HybridStrategy(HybridConfig.from_dict(params), rules)
+    if kind == 'macd':
+        from momv2.macd import MacdConfig, MacdStrategy
+        return MacdStrategy(MacdConfig.from_dict(params), rules)
+    if kind == 'tsmc':
+        from momv2.tsmc import TsmcConfig, TsmcStrategy
+        return TsmcStrategy(TsmcConfig.from_dict(params), rules)
     if kind == 'technical':
         from momv2.technical import TechConfig, TechStrategy
         return TechStrategy(TechConfig.from_dict(params), rules)
