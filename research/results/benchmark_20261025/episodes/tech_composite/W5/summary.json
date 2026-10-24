@@ -1,0 +1,35 @@
+{
+  "episode_id": "W5",
+  "split": "recent_diagnostic",
+  "start": "2026-09-16",
+  "end": "2026-10-22",
+  "sessions": 24,
+  "complete": true,
+  "terminal_nav": 948113539.7646316,
+  "terminal_return": -0.05188646023536836,
+  "max_drawdown": 0.09059991689455393,
+  "dividend_credit": 207936.35499999998,
+  "turnover": 6.560336346722621,
+  "costs": 18106124.458551623,
+  "fees": 9505397.50889462,
+  "taxes": 8600726.949657002,
+  "warning_days": 0,
+  "disqualified": false,
+  "unfilled_orders": 0,
+  "envelope_breaches": 0,
+  "fill_sources": {
+    "official_vwap": 191
+  },
+  "plan_status": {
+    "REPAIRED": 4,
+    "OK": 20
+  },
+  "quality_flag_days": 0,
+  "mean_holdings": 25.0,
+  "mean_cash_ratio": 0.06072477975130262,
+  "decide_seconds": 0.2946486240016384,
+  "benchmark_0050_return": 0.006117661420036669,
+  "equal_weight_universe_return": 0.015294562235548011,
+  "verification_problems": [],
+  "runtime_seconds": 0.3960399169991433
+}

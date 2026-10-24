@@ -1,0 +1,38 @@
+[
+  {
+    "date": "2026-07-09",
+    "action": "build",
+    "scored": 143
+  },
+  {
+    "date": "2026-07-14",
+    "action": "rerank",
+    "turnover": 0.21269610650776768,
+    "scored": 148
+  },
+  {
+    "date": "2026-07-16",
+    "action": "trim",
+    "names": [
+      "2408.TW"
+    ]
+  },
+  {
+    "date": "2026-07-21",
+    "action": "rerank",
+    "turnover": 0.28302235090613614,
+    "scored": 147
+  },
+  {
+    "date": "2026-07-28",
+    "action": "rerank",
+    "turnover": 0.24212596523225127,
+    "scored": 147
+  },
+  {
+    "date": "2026-08-04",
+    "action": "rerank",
+    "turnover": 0.3655979365425313,
+    "scored": 147
+  }
+]

@@ -1,0 +1,49 @@
+{
+  "decision": "REJECT",
+  "selected_strategy": "KT_0.25",
+  "selected_alpha": 0.25,
+  "gates": {
+    "V1": {
+      "passed": true,
+      "selected": 0.02857142857142857,
+      "maximum": 0.12857142857142856
+    },
+    "V2": {
+      "passed": false,
+      "selected": 0.07142857142857142,
+      "minimum": 0.14142857142857143
+    },
+    "V3": {
+      "passed": false,
+      "selected": 0.0018679294890984251,
+      "minimum": 0.003066960670156331
+    },
+    "V4": {
+      "passed": true,
+      "disqualifications": 0,
+      "warning_days": 0,
+      "maximum_each": 0
+    }
+  },
+  "k2b_control": {
+    "count": 70,
+    "gain_5pp_count": 12,
+    "loss_5pp_count": 9,
+    "p_gain_5pp": 0.17142857142857143,
+    "p_gain_10pp": 0.02857142857142857,
+    "p_loss_5pp": 0.12857142857142856,
+    "tail_edge": 0.04285714285714286,
+    "stability_score": -0.08571428571428572,
+    "mean_delta_vs_0050": 0.006066960670156331,
+    "median_delta_vs_0050": 0.005691980110385353,
+    "win_rate": 0.5571428571428572,
+    "total_warning_days": 0,
+    "max_warning_days": 0,
+    "disqualifications": 0,
+    "mean_turnover": 1.8714595553200597,
+    "mean_costs": 4131201.650932657,
+    "p90_max_drawdown": 0.1211621627890108,
+    "verify_problem_count": 0
+  },
+  "automatic_strategy_change": false
+}

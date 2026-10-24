@@ -1,0 +1,164 @@
+{
+  "candidates": {
+    "K3.0": {
+      "G0": {
+        "passed": false,
+        "disqualifications": 0,
+        "maximum_disqualifications": 0,
+        "total_warning_days": 5,
+        "maximum_total_warning_days": 0
+      },
+      "G1": {
+        "passed": false,
+        "p_gain_5pp": 0.25,
+        "minimum_gain_5pp": 0.2510144927536232,
+        "p_gain_10pp": 0.09420289855072464,
+        "minimum_gain_10pp": 0.07797101449275362
+      },
+      "G2": {
+        "passed": true,
+        "p_loss_5pp": 0.09420289855072464,
+        "maximum_loss_5pp": 0.13144927536231885
+      },
+      "G3": {
+        "passed": true,
+        "positive_blocks": 4,
+        "required_positive_blocks": 3,
+        "blocks": [
+          {
+            "strategy": "K3.0",
+            "block": "2015\u20132018",
+            "count": 96,
+            "tail_edge": 0.21875,
+            "mean_delta_vs_0050": 0.018609589397717844
+          },
+          {
+            "strategy": "K3.0",
+            "block": "2019\u20132021",
+            "count": 70,
+            "tail_edge": 0.14285714285714285,
+            "mean_delta_vs_0050": 0.019536859307353823
+          },
+          {
+            "strategy": "K3.0",
+            "block": "2022\u20132024",
+            "count": 70,
+            "tail_edge": 0.02857142857142858,
+            "mean_delta_vs_0050": 0.003296369495175717
+          },
+          {
+            "strategy": "K3.0",
+            "block": "2025\u20132026",
+            "count": 40,
+            "tail_edge": 0.25,
+            "mean_delta_vs_0050": 0.036992817558469636
+          }
+        ]
+      },
+      "G4": {
+        "passed": false,
+        "recent_mean_delta_vs_0050": -0.023443075910342427,
+        "minimum": -0.02
+      },
+      "failing_gates": [
+        "G0",
+        "G1",
+        "G4"
+      ],
+      "all_passed": false
+    },
+    "K3.1": {
+      "G0": {
+        "passed": false,
+        "disqualifications": 0,
+        "maximum_disqualifications": 0,
+        "total_warning_days": 2,
+        "maximum_total_warning_days": 0
+      },
+      "G1": {
+        "passed": false,
+        "p_gain_5pp": 0.21739130434782608,
+        "minimum_gain_5pp": 0.2510144927536232,
+        "p_gain_10pp": 0.06884057971014493,
+        "minimum_gain_10pp": 0.07797101449275362
+      },
+      "G2": {
+        "passed": false,
+        "p_loss_5pp": 0.14492753623188406,
+        "maximum_loss_5pp": 0.13144927536231885
+      },
+      "G3": {
+        "passed": true,
+        "positive_blocks": 3,
+        "required_positive_blocks": 3,
+        "blocks": [
+          {
+            "strategy": "K3.1",
+            "block": "2015\u20132018",
+            "count": 96,
+            "tail_edge": 0.08333333333333333,
+            "mean_delta_vs_0050": 0.007859682531852196
+          },
+          {
+            "strategy": "K3.1",
+            "block": "2019\u20132021",
+            "count": 70,
+            "tail_edge": 0.02857142857142858,
+            "mean_delta_vs_0050": 0.011793743235645105
+          },
+          {
+            "strategy": "K3.1",
+            "block": "2022\u20132024",
+            "count": 70,
+            "tail_edge": -0.05714285714285716,
+            "mean_delta_vs_0050": -0.00640517490757543
+          },
+          {
+            "strategy": "K3.1",
+            "block": "2025\u20132026",
+            "count": 40,
+            "tail_edge": 0.35,
+            "mean_delta_vs_0050": 0.04506189695449257
+          }
+        ]
+      },
+      "G4": {
+        "passed": true,
+        "recent_mean_delta_vs_0050": 0.007299160103664515,
+        "minimum": -0.02
+      },
+      "failing_gates": [
+        "G0",
+        "G1",
+        "G2"
+      ],
+      "all_passed": false
+    }
+  },
+  "k2_control": {
+    "count": 276,
+    "mean_delta_vs_0050": 0.01509131658551053,
+    "median_delta_vs_0050": 0.012953737107043506,
+    "win_rate": 0.6159420289855072,
+    "p_gain_5pp": 0.2210144927536232,
+    "p_gain_10pp": 0.057971014492753624,
+    "p_gain_15pp": 0.018115942028985508,
+    "p_loss_5pp": 0.10144927536231885,
+    "tail_edge": 0.11956521739130435,
+    "p90_max_drawdown": 0.11032849540181439,
+    "total_warning_days": 0,
+    "max_warning_days": 0,
+    "disqualifications": 0,
+    "mean_turnover": 1.7986567860196152,
+    "mean_costs": 3956581.1986540477
+  },
+  "passing_candidates": [],
+  "selected_candidates": [],
+  "closest_candidates_if_none_pass": [
+    "K3.0",
+    "K3.1"
+  ],
+  "closest_definition": "Fewest failing gates; ties retained, descriptive only (not preregistered).",
+  "verdict": "Maintain K2",
+  "automatic_strategy_change": false
+}

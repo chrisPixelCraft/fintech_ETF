@@ -1,0 +1,6 @@
+已完成，結果存於 [CODEX_REPORT.md](/Users/chrishsieh/Documents/dev/fintech_ETF/research/results/recent5_new/CODEX_REPORT.md)。
+
+- 35/35 回測完成，驗帳 0 問題；一致性與凍結雜湊檢查全通過。
+- 840 筆 AS 與全部指定輸出齊全。
+- **C1 唯一通過全部門檻**；S1、S2 均未通過 G1。
+- 僅寫入允許路徑，未執行任何 Git 寫入。

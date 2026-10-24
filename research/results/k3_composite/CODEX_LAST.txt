@@ -1,0 +1,7 @@
+已完成，依凍結門檻維持 K2。
+
+- 新回測 562/562；K1 診斷 7/7，驗證問題 0。
+- 凍結檔案未變；holdout log 僅追加 2 行。
+- 未執行 Git 寫入。
+
+[查看報告](research/results/k3_composite/CODEX_REPORT.md)

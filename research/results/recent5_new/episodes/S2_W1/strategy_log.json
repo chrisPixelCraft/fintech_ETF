@@ -1,0 +1,263 @@
+[
+  {
+    "date": "2026-04-30",
+    "action": "trade",
+    "turnover": 0.475,
+    "bear": false,
+    "high_vol": true,
+    "ret120": 0.3661867733171349,
+    "vol20": 0.021427461136454013,
+    "vol20_median250": 0.011621730874265442,
+    "momentum_slots": 8
+  },
+  {
+    "date": "2026-05-04",
+    "action": "hold",
+    "turnover": 0.02693962640092936,
+    "bear": false,
+    "high_vol": true,
+    "ret120": 0.3705064465898391,
+    "vol20": 0.020378878326421986,
+    "vol20_median250": 0.011621730874265442,
+    "momentum_slots": 8
+  },
+  {
+    "date": "2026-05-05",
+    "action": "hold",
+    "turnover": 0.029259066931456364,
+    "bear": false,
+    "high_vol": true,
+    "ret120": 0.39837528168857494,
+    "vol20": 0.020584455179178028,
+    "vol20_median250": 0.011621730874265442,
+    "momentum_slots": 8
+  },
+  {
+    "date": "2026-05-06",
+    "action": "hold",
+    "turnover": 0.06436143784675162,
+    "bear": false,
+    "high_vol": true,
+    "ret120": 0.398375281688575,
+    "vol20": 0.019433524311216123,
+    "vol20_median250": 0.011621730874265442,
+    "momentum_slots": 8
+  },
+  {
+    "date": "2026-05-07",
+    "action": "hold",
+    "turnover": 0.06427465887211294,
+    "bear": false,
+    "high_vol": true,
+    "ret120": 0.4050384060457284,
+    "vol20": 0.019387331868351707,
+    "vol20_median250": 0.011621730874265442,
+    "momentum_slots": 8
+  },
+  {
+    "date": "2026-05-08",
+    "action": "hold",
+    "turnover": 0.06956643556734793,
+    "bear": false,
+    "high_vol": true,
+    "ret120": 0.4345088915295962,
+    "vol20": 0.01716025379479325,
+    "vol20_median250": 0.011621730874265442,
+    "momentum_slots": 8
+  },
+  {
+    "date": "2026-05-11",
+    "action": "hold",
+    "turnover": 0.06848235643746724,
+    "bear": false,
+    "high_vol": true,
+    "ret120": 0.4304409171129019,
+    "vol20": 0.017446893305588487,
+    "vol20_median250": 0.011621730874265442,
+    "momentum_slots": 8
+  },
+  {
+    "date": "2026-05-12",
+    "action": "trade",
+    "turnover": 0.12891818221539364,
+    "bear": false,
+    "high_vol": true,
+    "ret120": 0.44199814024901546,
+    "vol20": 0.01746222844077708,
+    "vol20_median250": 0.011621730874265442,
+    "momentum_slots": 8
+  },
+  {
+    "date": "2026-05-13",
+    "action": "hold",
+    "turnover": 0.06964260438399159,
+    "bear": false,
+    "high_vol": true,
+    "ret120": 0.4391095355651765,
+    "vol20": 0.017419636331034712,
+    "vol20_median250": 0.011621730874265442,
+    "momentum_slots": 8
+  },
+  {
+    "date": "2026-05-14",
+    "action": "hold",
+    "turnover": 0.0970155083063714,
+    "bear": false,
+    "high_vol": true,
+    "ret120": 0.43699150133565795,
+    "vol20": 0.017379407548024167,
+    "vol20_median250": 0.011621730874265442,
+    "momentum_slots": 8
+  },
+  {
+    "date": "2026-05-15",
+    "action": "trade",
+    "turnover": 0.126039636572474,
+    "bear": false,
+    "high_vol": true,
+    "ret120": 0.43002551687111945,
+    "vol20": 0.017332494809832615,
+    "vol20_median250": 0.011621730874265442,
+    "momentum_slots": 8
+  },
+  {
+    "date": "2026-05-18",
+    "action": "hold",
+    "turnover": 0.09189171114209596,
+    "bear": false,
+    "high_vol": true,
+    "ret120": 0.4303638850481979,
+    "vol20": 0.017570935741557773,
+    "vol20_median250": 0.011621730874265442,
+    "momentum_slots": 8
+  },
+  {
+    "date": "2026-05-19",
+    "action": "hold",
+    "turnover": 0.0978588620439823,
+    "bear": false,
+    "high_vol": true,
+    "ret120": 0.420350887034672,
+    "vol20": 0.01737495719499197,
+    "vol20_median250": 0.011621730874265442,
+    "momentum_slots": 8
+  },
+  {
+    "date": "2026-05-20",
+    "action": "trade",
+    "turnover": 0.12024113808528629,
+    "bear": false,
+    "high_vol": true,
+    "ret120": 0.4059594584927639,
+    "vol20": 0.018263634608338953,
+    "vol20_median250": 0.011621730874265442,
+    "momentum_slots": 8
+  },
+  {
+    "date": "2026-05-21",
+    "action": "hold",
+    "turnover": 0.06450116357357653,
+    "bear": false,
+    "high_vol": true,
+    "ret120": 0.4187561798063505,
+    "vol20": 0.018198365654808278,
+    "vol20_median250": 0.011621730874265442,
+    "momentum_slots": 8
+  },
+  {
+    "date": "2026-05-22",
+    "action": "hold",
+    "turnover": 0.04379134527231822,
+    "bear": false,
+    "high_vol": true,
+    "ret120": 0.45109572779556784,
+    "vol20": 0.0195894917943039,
+    "vol20_median250": 0.011621730874265442,
+    "momentum_slots": 8
+  },
+  {
+    "date": "2026-05-25",
+    "action": "hold",
+    "turnover": 0.07889686812887907,
+    "bear": false,
+    "high_vol": true,
+    "ret120": 0.4898139094391945,
+    "vol20": 0.019661463765062625,
+    "vol20_median250": 0.011621730874265442,
+    "momentum_slots": 8
+  },
+  {
+    "date": "2026-05-26",
+    "action": "hold",
+    "turnover": 0.08870516716962563,
+    "bear": false,
+    "high_vol": true,
+    "ret120": 0.5317923286563403,
+    "vol20": 0.019152600238495396,
+    "vol20_median250": 0.011621730874265442,
+    "momentum_slots": 8
+  },
+  {
+    "date": "2026-05-27",
+    "action": "hold",
+    "turnover": 0.08405609195531523,
+    "bear": false,
+    "high_vol": true,
+    "ret120": 0.49448094530098957,
+    "vol20": 0.018159033868439558,
+    "vol20_median250": 0.011621730874265442,
+    "momentum_slots": 8
+  },
+  {
+    "date": "2026-05-28",
+    "action": "trade",
+    "turnover": 0.14528489638455547,
+    "bear": false,
+    "high_vol": true,
+    "ret120": 0.5523405863328102,
+    "vol20": 0.01837636243561589,
+    "vol20_median250": 0.011621730874265442,
+    "momentum_slots": 8
+  },
+  {
+    "date": "2026-05-29",
+    "action": "hold",
+    "turnover": 0.030628790834996922,
+    "bear": false,
+    "high_vol": true,
+    "ret120": 0.5371729230741866,
+    "vol20": 0.01877961926004042,
+    "vol20_median250": 0.011621730874265442,
+    "momentum_slots": 8
+  },
+  {
+    "date": "2026-06-01",
+    "action": "freeze",
+    "bear": false,
+    "high_vol": true,
+    "ret120": 0.571433206889197,
+    "vol20": 0.021018394793996135,
+    "vol20_median250": 0.011621730874265442,
+    "momentum_slots": 8
+  },
+  {
+    "date": "2026-06-02",
+    "action": "freeze",
+    "bear": false,
+    "high_vol": true,
+    "ret120": 0.5559472851955226,
+    "vol20": 0.019112840007658293,
+    "vol20_median250": 0.011621730874265442,
+    "momentum_slots": 8
+  },
+  {
+    "date": "2026-06-03",
+    "action": "freeze",
+    "bear": false,
+    "high_vol": true,
+    "ret120": 0.548916138227671,
+    "vol20": 0.019088089921254388,
+    "vol20_median250": 0.011621730874265442,
+    "momentum_slots": 8
+  }
+]

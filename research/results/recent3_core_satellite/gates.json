@@ -1,0 +1,216 @@
+{
+  "candidates": {
+    "C1": {
+      "G0": {
+        "passed": true,
+        "windows": {
+          "W1": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          },
+          "W2": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          },
+          "W3": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          }
+        }
+      },
+      "G1": {
+        "passed": true,
+        "mean_delta": 0.07529155480994254,
+        "minimum_mean_delta": 0.01,
+        "wins": 3,
+        "required_wins": 2
+      },
+      "G2": {
+        "passed": true,
+        "w3_max_drawdown": 0.11181448410618666,
+        "w3_limit": 0.11789331533162263,
+        "mean_max_drawdown": 0.12647910039279867,
+        "mom20_mean_max_drawdown": 0.13952302773375266
+      },
+      "G3": {
+        "passed": true,
+        "min_as": 0.2002567112416487,
+        "threshold": 0.15,
+        "days_below_15pct": 0,
+        "rows": 24,
+        "status": "heuristic/UNVERIFIED"
+      },
+      "all_passed": true
+    },
+    "C2": {
+      "G0": {
+        "passed": true,
+        "windows": {
+          "W1": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          },
+          "W2": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          },
+          "W3": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          }
+        }
+      },
+      "G1": {
+        "passed": true,
+        "mean_delta": 0.027659213969527308,
+        "minimum_mean_delta": 0.01,
+        "wins": 3,
+        "required_wins": 2
+      },
+      "G2": {
+        "passed": false,
+        "w3_max_drawdown": 0.1352820189552849,
+        "w3_limit": 0.11789331533162263,
+        "mean_max_drawdown": 0.1366916900587656,
+        "mom20_mean_max_drawdown": 0.13952302773375266
+      },
+      "G3": {
+        "passed": true,
+        "min_as": 0.24570344279337233,
+        "threshold": 0.15,
+        "days_below_15pct": 0,
+        "rows": 24,
+        "status": "heuristic/UNVERIFIED"
+      },
+      "all_passed": false
+    },
+    "C3": {
+      "G0": {
+        "passed": true,
+        "windows": {
+          "W1": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          },
+          "W2": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          },
+          "W3": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          }
+        }
+      },
+      "G1": {
+        "passed": true,
+        "mean_delta": 0.07863409144949807,
+        "minimum_mean_delta": 0.01,
+        "wins": 3,
+        "required_wins": 2
+      },
+      "G2": {
+        "passed": true,
+        "w3_max_drawdown": 0.10799994378975675,
+        "w3_limit": 0.11789331533162263,
+        "mean_max_drawdown": 0.10784454025554657,
+        "mom20_mean_max_drawdown": 0.13952302773375266
+      },
+      "G3": {
+        "passed": true,
+        "min_as": 0.2521667786144,
+        "threshold": 0.15,
+        "days_below_15pct": 0,
+        "rows": 24,
+        "status": "heuristic/UNVERIFIED"
+      },
+      "all_passed": true
+    },
+    "C4": {
+      "G0": {
+        "passed": true,
+        "windows": {
+          "W1": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          },
+          "W2": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          },
+          "W3": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          }
+        }
+      },
+      "G1": {
+        "passed": true,
+        "mean_delta": 0.07793301116550493,
+        "minimum_mean_delta": 0.01,
+        "wins": 3,
+        "required_wins": 2
+      },
+      "G2": {
+        "passed": true,
+        "w3_max_drawdown": 0.060589314824367024,
+        "w3_limit": 0.11789331533162263,
+        "mean_max_drawdown": 0.12498792262299856,
+        "mom20_mean_max_drawdown": 0.13952302773375266
+      },
+      "G3": {
+        "passed": true,
+        "min_as": 0.308038736445085,
+        "threshold": 0.15,
+        "days_below_15pct": 0,
+        "rows": 24,
+        "status": "heuristic/UNVERIFIED"
+      },
+      "all_passed": true
+    }
+  },
+  "passing_candidates": [
+    "C1",
+    "C3",
+    "C4"
+  ],
+  "selected_candidate": "C3",
+  "final_verdict": "\u53ef\u66ff\u4ee3\u5019\u9078\uff08\u7531\u4f7f\u7528\u8005\u6c7a\u5b9a\u662f\u5426\u63db\uff09",
+  "automatic_strategy_change": false
+}

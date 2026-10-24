@@ -1,0 +1,7 @@
+已完成，**1,124／1,124 筆，驗證問題 0**；凍結雜湊、近期一致性與平行重播檢查均通過。
+
+- **結論：不建議集中版**
+  - K1：未過 G0、G4。
+  - K2：僅未過 G2，大贏率 22.10%＜24.57%。
+- Holdout log 僅追加 4 行；未執行 Git 寫入。
+- [完整報告](/Users/chrishsieh/Documents/dev/fintech_ETF/research/results/conc_tournament/CODEX_REPORT.md) 已記錄結果與收尾檢查修正、重跑經過。

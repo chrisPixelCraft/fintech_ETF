@@ -2,6 +2,7 @@
 import json
 import tempfile
 import unittest
+from unittest.mock import patch
 from pathlib import Path
 
 import numpy as np
@@ -95,7 +96,7 @@ class ColdStartTest(unittest.TestCase):
         as_of = market.calendar[-1]
         plain, _ = cold_start.choose(market, as_of, None)
         etf = active_share.EtfTop10('00980A', str(as_of.date()),
-                                    {symbol_to_ticker(s): .06 for s in plain[:10]})
+                                    {symbol_to_ticker(s): .038 for s in plain[:15]})
         names, dropped = cold_start.choose(market, as_of, {'00980A': etf})
         self.assertEqual(len(names), 25)
         self.assertTrue(dropped)
@@ -110,26 +111,37 @@ class ColdStartTest(unittest.TestCase):
 
 
 class RunDailyOfflineTest(unittest.TestCase):
+    def setUp(self):
+        self.strategy = patch.object(run_daily, 'STRATEGY', Path(__file__).parents[1] / 'production/strategy_mom20.json')
+        self.strategy.start()
+        self.addCleanup(self.strategy.stop)
+
     def test_two_consecutive_days(self):
         with tempfile.TemporaryDirectory() as tmp:
             first = run_daily.run('2026-09-01', offline=True, runs_dir=tmp)
             second = run_daily.run('2026-09-02', offline=True, runs_dir=tmp)
             for audit in (first, second):
                 self.assertEqual((audit['status'], audit['mode'], audit['validation_errors']),
-                                 (run_daily.READY, 'NORMAL', []))
+                                 (run_daily.SIMULATION, 'NORMAL', []))
+                plan_path = Path(audit['dplan'])
+                plan = json.loads(plan_path.read_text())
+                self.assertEqual(plan['schema_version'], '4.3')
+                self.assertEqual(plan['trade_date'], audit['trade_date'])
+                self.assertEqual(len(plan['orders']), audit['orders'])
             self.assertEqual(first['orders'], 25)
             book = SettledBook.load(Path(tmp) / 'state' / 'book.json')
             self.assertEqual(book.date, '2026-09-01')                       # day 1 settled before day 2
             self.assertEqual(len(book.holdings), 25)
             self.assertTrue((Path(tmp) / '2026-09-02' / 'audit.md').exists())
-            self.assertEqual((Path(tmp) / '2026-09-02' / 'status.txt').read_text().strip(), run_daily.READY)
+            self.assertEqual((Path(tmp) / '2026-09-02' / 'status.txt').read_text().strip(), run_daily.SIMULATION)
 
     def test_unreadable_holdings_fall_back_and_still_submit(self):
         with tempfile.TemporaryDirectory() as tmp:
             audit = run_daily.run('2026-09-01', holdings=str(Path(tmp) / 'missing.json'), offline=True,
                                   runs_dir=tmp)
-            self.assertEqual((audit['status'], audit['mode']), (run_daily.READY, 'COLD_START_FALLBACK'))
+            self.assertEqual((audit['status'], audit['mode']), (run_daily.SIMULATION, 'COLD_START_FALLBACK'))
             self.assertTrue(any('OFFICIAL_HOLDINGS_UNREADABLE' in r for r in audit['reasons']))
+            self.assertTrue(Path(audit['dplan']).is_file())
 
 
 if __name__ == '__main__':

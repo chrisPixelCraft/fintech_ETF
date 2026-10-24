@@ -1,0 +1,6 @@
+{
+  "production_runs/preflight_20261026/strategy_retest/corrected_nominal_daily.parquet": "fe3f91fa6e96aad89fff6bd8de9b768d31ff7897ac7b37b16a4494fec13de15d",
+  "production_runs/preflight_20261026/official_combined.csv": "28e5fd9d66106ee773382c1603ab213f9e9ffb974a03376c4554b9773114ccf5",
+  "production_runs/preflight_20261026/calendar_v2.json": "3953b366a8d0aa4a0c3d4ff4e59ad144f707d98b7596167405c2f07874769503",
+  "data/reference/universe_competition_20260731.csv": "42a29a23a139ed271c03bdce9799c9eb74808b43a4041417184c4d3ffc741166"
+}

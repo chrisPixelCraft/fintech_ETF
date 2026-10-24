@@ -1,0 +1,45 @@
+[
+  {
+    "date": "2026-04-30",
+    "action": "build",
+    "scored": 145
+  },
+  {
+    "date": "2026-05-06",
+    "action": "trim",
+    "names": [
+      "6274.TWO"
+    ]
+  },
+  {
+    "date": "2026-05-08",
+    "action": "rerank",
+    "turnover": 0.2696501022883198,
+    "scored": 145
+  },
+  {
+    "date": "2026-05-12",
+    "action": "rerank",
+    "turnover": 0.26881526529945166,
+    "scored": 145
+  },
+  {
+    "date": "2026-05-19",
+    "action": "rerank",
+    "turnover": 0.1287375580475614,
+    "scored": 145
+  },
+  {
+    "date": "2026-05-26",
+    "action": "rerank",
+    "turnover": 0.5257334879834146,
+    "scored": 145
+  },
+  {
+    "date": "2026-05-28",
+    "action": "trim",
+    "names": [
+      "2344.TW"
+    ]
+  }
+]

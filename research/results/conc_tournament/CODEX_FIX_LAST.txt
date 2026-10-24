@@ -1,0 +1,7 @@
+已完成修正，結果追加至[報告「Fix round 1」](research/results/conc_tournament/CODEX_PRODUCTION_REPORT.md)。
+
+- 100 項測試通過；W4／W5 報酬與 HOLD 日期完全一致。
+- T2 兩個交易日完成切換；72 份 D-Plan 有效、交割警告零。
+- 離線重跑成功：K2、20 筆委託。
+- 未變更參數或安全閘門，未執行 Git 寫入操作。
+- 初始快照曾暫寫 `/tmp`，已移入允許目錄並記錄偏差。

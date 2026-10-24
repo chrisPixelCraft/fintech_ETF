@@ -1,0 +1,43 @@
+{
+  "D-Plan_TEAM_042_2026-10-28.json": {
+    "schema_errors": []
+  },
+  "D-Plan_TEAM_043_2026-10-28.json": {
+    "schema_errors": []
+  },
+  "unit_tests": {
+    "command": ".venv/bin/python -m unittest discover -s tests -q",
+    "count": 84,
+    "failures": 0,
+    "seconds": 16.015,
+    "warning": "Existing ResourceWarning in tests/test_run_experiment.py:71"
+  },
+  "integrated": {
+    "episodes": 46,
+    "days": 1104,
+    "batches": 3,
+    "status": "CONSISTENCY_PASS",
+    "code_manifest_checked": 25
+  },
+  "independent_review": {
+    "focused_tests": 13,
+    "existing_active_share_tests": 4,
+    "blocking_findings": 0
+  },
+  "strategy_changed": false,
+  "live_readiness": "BLOCKED",
+  "live_blockers": [
+    "Complete dated top15 holdings for all required active ETFs",
+    "Organizer confirmation of top15 Active Share calculation"
+  ],
+  "skill_notes": {
+    "ask_matt": "Router applied; no tracker setup needed for scoped local verification",
+    "thinking_protocol": "Applied; user spelling Thinking-Protocal resolved to installed thinking-protocol",
+    "ponder_research": "Applied; incumbent retained, no new optimality claim",
+    "tuning_playbook_research": "Applied; frozen parameters, no holdout retuning",
+    "human_readable_docs": "Applied",
+    "hung_yi_lee": "Applied to concise result explanation; no lecture added",
+    "cc_codex_delegation": "Native agents used; no nested CLI or Claude role assumed; no commits/push",
+    "alphaxiv_mcp": "Unavailable in enabled tool list"
+  }
+}

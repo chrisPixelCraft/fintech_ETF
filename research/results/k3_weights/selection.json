@@ -1,0 +1,129 @@
+{
+  "selected_strategy": "K3w_05",
+  "selected_weight": [
+    0.25,
+    0.0,
+    0.75
+  ],
+  "boundary": true,
+  "smoothed_values": {
+    "K3w_00": {
+      "value": 0.18875502008032127,
+      "exact": "47/249"
+    },
+    "K3w_01": {
+      "value": 0.18313253012048192,
+      "exact": "76/415"
+    },
+    "K3w_02": {
+      "value": 0.16626506024096385,
+      "exact": "69/415"
+    },
+    "K3w_03": {
+      "value": 0.10120481927710843,
+      "exact": "42/415"
+    },
+    "K3w_04": {
+      "value": 0.0642570281124498,
+      "exact": "16/249"
+    },
+    "K3w_05": {
+      "value": 0.20120481927710843,
+      "exact": "167/830"
+    },
+    "K3w_06": {
+      "value": 0.1901893287435456,
+      "exact": "221/1162"
+    },
+    "K3w_07": {
+      "value": 0.12994836488812392,
+      "exact": "151/1162"
+    },
+    "K3w_08": {
+      "value": 0.0819277108433735,
+      "exact": "34/415"
+    },
+    "K3w_09": {
+      "value": 0.19518072289156627,
+      "exact": "81/415"
+    },
+    "K3w_10": {
+      "value": 0.15576592082616178,
+      "exact": "181/1162"
+    },
+    "K3w_11": {
+      "value": 0.10722891566265061,
+      "exact": "89/830"
+    },
+    "K3w_12": {
+      "value": 0.13855421686746988,
+      "exact": "23/166"
+    },
+    "K3w_13": {
+      "value": 0.10120481927710843,
+      "exact": "42/415"
+    },
+    "K3w_14": {
+      "value": 0.09036144578313253,
+      "exact": "15/166"
+    },
+    "K3w_15": {
+      "value": 0.18674698795180722,
+      "exact": "31/166"
+    }
+  },
+  "tie_break_trace": [
+    {
+      "step": "eligibility",
+      "remaining": [
+        "K3w_00",
+        "K3w_01",
+        "K3w_02",
+        "K3w_03",
+        "K3w_04",
+        "K3w_05",
+        "K3w_06",
+        "K3w_07",
+        "K3w_08",
+        "K3w_09",
+        "K3w_10",
+        "K3w_11",
+        "K3w_12",
+        "K3w_13",
+        "K3w_14",
+        "K3w_15"
+      ]
+    },
+    {
+      "step": "maximum_smoothed_tail_edge",
+      "value": 0.20120481927710843,
+      "exact": "167/830",
+      "remaining": [
+        "K3w_05"
+      ]
+    },
+    {
+      "step": "maximum_p_gain_10pp",
+      "value": 0.1144578313253012,
+      "remaining": [
+        "K3w_05"
+      ]
+    },
+    {
+      "step": "earliest_grid_order",
+      "selected": "K3w_05"
+    }
+  ],
+  "paired_bootstrap": {
+    "draws": 10000,
+    "seed": 0,
+    "unit": "paired window",
+    "difference_selected_minus_k2": 0.0963855421686747,
+    "percentile_95_ci": [
+      0.012048192771084338,
+      0.18072289156626506
+    ],
+    "interval": "95% percentile; linear quantiles"
+  },
+  "equal_weight_duplicate": false
+}

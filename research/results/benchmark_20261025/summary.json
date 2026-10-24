@@ -1,0 +1,428 @@
+{
+  "status": "COMPLETE",
+  "counts": {
+    "legacy_expected": 585,
+    "legacy_processed": 585,
+    "legacy_fallback": 0,
+    "legacy_remaining": 0,
+    "verification_calls": 585,
+    "verification_problems": 0,
+    "recent5_rows": 110,
+    "latest24_rows": 22,
+    "holdout40_rows": 640,
+    "holdout40_summary_rows": 16,
+    "reused_strategy_episodes": 120,
+    "benchmark_rows": 45
+  },
+  "elapsed_seconds": 410.3115204170008,
+  "runtimes": {
+    "W5": 54.835743416000696,
+    "W1_W4": 63.61623133300054,
+    "holdout_nonmodels": 16.784132332999434,
+    "holdout_autots_h5": 158.32038883300083,
+    "holdout_lgbm_D_lr0.01": 113.37310370800151
+  },
+  "asserts": {
+    "frozen_legacy_config_matches_saved_mom20": true,
+    "window_dates_and_ids": true,
+    "mom20:W5": {
+      "actual": -0.10124596758199833,
+      "expected": -0.10124596758199833,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom25:W5": {
+      "actual": -0.07248033705507262,
+      "expected": -0.07248033705507262,
+      "tolerance": 1e-09,
+      "passed": true
+    },
+    "mom10:W5": {
+      "actual": -0.042218951137949934,
+      "expected": -0.042218951137949934,
+      "tolerance": 1e-09,
+      "passed": true
+    },
+    "mom60:W5": {
+      "actual": -0.04735695357465164,
+      "expected": -0.04735695357465164,
+      "tolerance": 1e-09,
+      "passed": true
+    },
+    "residual20_0050:W5": {
+      "actual": -0.11261209290411844,
+      "expected": -0.11261209290411844,
+      "tolerance": 1e-09,
+      "passed": true
+    },
+    "residual20_ew:W5": {
+      "actual": -0.07927421319700534,
+      "expected": -0.07927421319700534,
+      "tolerance": 1e-09,
+      "passed": true
+    },
+    "residual120_h1:W5": {
+      "actual": 0.03576930158429614,
+      "expected": 0.03576930158429614,
+      "tolerance": 1e-09,
+      "passed": true
+    },
+    "tech_composite:W5": {
+      "actual": -0.05188646023536836,
+      "expected": -0.05188646023536836,
+      "tolerance": 1e-09,
+      "passed": true
+    },
+    "macd_combined:W5": {
+      "actual": -0.06330328666480478,
+      "expected": -0.06330328666480478,
+      "tolerance": 1e-09,
+      "passed": true
+    },
+    "tsmc_core_equal:W5": {
+      "actual": -0.07820869160625843,
+      "expected": -0.07820869160625843,
+      "tolerance": 1e-09,
+      "passed": true
+    },
+    "tsmc_formal:W5": {
+      "actual": -0.08649852998416963,
+      "expected": -0.08649852998416963,
+      "tolerance": 1e-09,
+      "passed": true
+    },
+    "autots_h5:W5": {
+      "actual": 0.007290724225008427,
+      "expected": 0.007290724225008427,
+      "tolerance": 1e-09,
+      "passed": true
+    },
+    "lgbm_D_lr0.01:W5": {
+      "actual": -0.07556349914939642,
+      "expected": -0.07556349914939642,
+      "tolerance": 1e-09,
+      "passed": true
+    },
+    "mom20:W1": {
+      "actual": 0.2119830727700791,
+      "expected": 0.2119830727700791,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:W2": {
+      "actual": 0.03245707283703769,
+      "expected": 0.03245707283703769,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:W3": {
+      "actual": -0.10000651253980919,
+      "expected": -0.10000651253980919,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:W4": {
+      "actual": -0.06758007827016821,
+      "expected": -0.06758007827016821,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2025_01": {
+      "actual": 0.0334305482768531,
+      "expected": 0.0334305482768531,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2025_01m": {
+      "actual": 0.05773258163031891,
+      "expected": 0.05773258163031891,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2025_02": {
+      "actual": 0.007200895818786801,
+      "expected": 0.007200895818786801,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2025_02m": {
+      "actual": -0.03803319939758254,
+      "expected": -0.03803319939758254,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2025_03": {
+      "actual": -0.15915089124694626,
+      "expected": -0.15915089124694626,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2025_03m": {
+      "actual": -0.162757889004169,
+      "expected": -0.162757889004169,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2025_04": {
+      "actual": -0.08219000449972846,
+      "expected": -0.08219000449972846,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2025_04m": {
+      "actual": 0.05711126404819855,
+      "expected": 0.05711126404819855,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2025_05": {
+      "actual": 0.12987200550614753,
+      "expected": 0.12987200550614753,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2025_05m": {
+      "actual": 0.16598023780142035,
+      "expected": 0.16598023780142035,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2025_06": {
+      "actual": 0.18560873525552157,
+      "expected": 0.18560873525552157,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2025_06m": {
+      "actual": 0.12375363691465213,
+      "expected": 0.12375363691465213,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2025_07": {
+      "actual": 0.14856617930177607,
+      "expected": 0.14856617930177607,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2025_07m": {
+      "actual": 0.2345990399364617,
+      "expected": 0.2345990399364617,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2025_08": {
+      "actual": 0.1530032493639546,
+      "expected": 0.1530032493639546,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2025_08m": {
+      "actual": 0.08432021300186321,
+      "expected": 0.08432021300186321,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2025_09": {
+      "actual": 0.09393632799821727,
+      "expected": 0.09393632799821727,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2025_09m": {
+      "actual": 0.16489756244177456,
+      "expected": 0.16489756244177456,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2025_10": {
+      "actual": 0.20902918752514754,
+      "expected": 0.20902918752514754,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2025_10m": {
+      "actual": 0.12685115721285012,
+      "expected": 0.12685115721285012,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2025_11": {
+      "actual": -0.010409800005385605,
+      "expected": -0.010409800005385605,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2025_11m": {
+      "actual": -0.017161753012663317,
+      "expected": -0.017161753012663317,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2025_12": {
+      "actual": 0.09805444357134419,
+      "expected": 0.09805444357134419,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2025_12m": {
+      "actual": 0.21548055409270628,
+      "expected": 0.21548055409270628,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2026_01": {
+      "actual": 0.22504524994582176,
+      "expected": 0.22504524994582176,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2026_01m": {
+      "actual": 0.2808312492335592,
+      "expected": 0.2808312492335592,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2026_02": {
+      "actual": 0.17654585344204698,
+      "expected": 0.17654585344204698,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2026_02m": {
+      "actual": 0.14777536283692605,
+      "expected": 0.14777536283692605,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2026_03": {
+      "actual": 0.04245151126041247,
+      "expected": 0.04245151126041247,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2026_03m": {
+      "actual": 0.3239019906164087,
+      "expected": 0.3239019906164087,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2026_04": {
+      "actual": 0.421518036334249,
+      "expected": 0.421518036334249,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2026_04m": {
+      "actual": 0.12165527175610036,
+      "expected": 0.12165527175610036,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2026_05": {
+      "actual": 0.12465992125447456,
+      "expected": 0.12465992125447456,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2026_05m": {
+      "actual": 0.15390717340935578,
+      "expected": 0.15390717340935578,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2026_06": {
+      "actual": 0.03831322337871934,
+      "expected": 0.03831322337871934,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2026_06m": {
+      "actual": -0.03163708381408514,
+      "expected": -0.03163708381408514,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2026_07": {
+      "actual": -0.1271605819119872,
+      "expected": -0.1271605819119872,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2026_07m": {
+      "actual": -0.12865254636444567,
+      "expected": -0.12865254636444567,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2026_08": {
+      "actual": 0.010734992962672107,
+      "expected": 0.010734992962672107,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "mom20:holdout_2026_08m": {
+      "actual": -0.016747031848147742,
+      "expected": -0.016747031848147742,
+      "tolerance": 1e-12,
+      "passed": true
+    },
+    "finite_results": true,
+    "recent_rows": 110,
+    "latest_rows": 22,
+    "holdout_rows": 640,
+    "legacy_accounted_for": true,
+    "protected_inputs_and_git_status_unchanged": true,
+    "holdout_log_append_only": true
+  },
+  "holdout_log_lines": [
+    "{\"utc\": \"2026-10-24T16:01:07.690410+00:00\", \"run_id\": \"mom20__holdout_benchmark_20261025\", \"config\": \"/Users/chrishsieh/Documents/dev/fintech_ETF/research/results/benchmark_20261025/run.py\", \"config_hash\": \"a1108c3be647036fd610d91f906a28deb807d2f761dcdd007d3974a7b13f149d\", \"git_commit\": \"f5958ebc537e431722fb9d7837571f440bd21276\", \"git_dirty\": true, \"argv\": [\"research/results/benchmark_20261025/run.py\"]}",
+    "{\"utc\": \"2026-10-24T16:01:07.690410+00:00\", \"run_id\": \"mom25__holdout_benchmark_20261025\", \"config\": \"/Users/chrishsieh/Documents/dev/fintech_ETF/research/results/benchmark_20261025/run.py\", \"config_hash\": \"a1108c3be647036fd610d91f906a28deb807d2f761dcdd007d3974a7b13f149d\", \"git_commit\": \"f5958ebc537e431722fb9d7837571f440bd21276\", \"git_dirty\": true, \"argv\": [\"research/results/benchmark_20261025/run.py\"]}",
+    "{\"utc\": \"2026-10-24T16:01:07.690410+00:00\", \"run_id\": \"mom10__holdout_benchmark_20261025\", \"config\": \"/Users/chrishsieh/Documents/dev/fintech_ETF/research/results/benchmark_20261025/run.py\", \"config_hash\": \"a1108c3be647036fd610d91f906a28deb807d2f761dcdd007d3974a7b13f149d\", \"git_commit\": \"f5958ebc537e431722fb9d7837571f440bd21276\", \"git_dirty\": true, \"argv\": [\"research/results/benchmark_20261025/run.py\"]}",
+    "{\"utc\": \"2026-10-24T16:01:07.690410+00:00\", \"run_id\": \"mom60__holdout_benchmark_20261025\", \"config\": \"/Users/chrishsieh/Documents/dev/fintech_ETF/research/results/benchmark_20261025/run.py\", \"config_hash\": \"a1108c3be647036fd610d91f906a28deb807d2f761dcdd007d3974a7b13f149d\", \"git_commit\": \"f5958ebc537e431722fb9d7837571f440bd21276\", \"git_dirty\": true, \"argv\": [\"research/results/benchmark_20261025/run.py\"]}",
+    "{\"utc\": \"2026-10-24T16:01:07.690410+00:00\", \"run_id\": \"residual20_0050__holdout_benchmark_20261025\", \"config\": \"/Users/chrishsieh/Documents/dev/fintech_ETF/research/results/benchmark_20261025/run.py\", \"config_hash\": \"a1108c3be647036fd610d91f906a28deb807d2f761dcdd007d3974a7b13f149d\", \"git_commit\": \"f5958ebc537e431722fb9d7837571f440bd21276\", \"git_dirty\": true, \"argv\": [\"research/results/benchmark_20261025/run.py\"]}",
+    "{\"utc\": \"2026-10-24T16:01:07.690410+00:00\", \"run_id\": \"residual20_ew__holdout_benchmark_20261025\", \"config\": \"/Users/chrishsieh/Documents/dev/fintech_ETF/research/results/benchmark_20261025/run.py\", \"config_hash\": \"a1108c3be647036fd610d91f906a28deb807d2f761dcdd007d3974a7b13f149d\", \"git_commit\": \"f5958ebc537e431722fb9d7837571f440bd21276\", \"git_dirty\": true, \"argv\": [\"research/results/benchmark_20261025/run.py\"]}",
+    "{\"utc\": \"2026-10-24T16:01:07.690410+00:00\", \"run_id\": \"residual120_h1__holdout_benchmark_20261025\", \"config\": \"/Users/chrishsieh/Documents/dev/fintech_ETF/research/results/benchmark_20261025/run.py\", \"config_hash\": \"a1108c3be647036fd610d91f906a28deb807d2f761dcdd007d3974a7b13f149d\", \"git_commit\": \"f5958ebc537e431722fb9d7837571f440bd21276\", \"git_dirty\": true, \"argv\": [\"research/results/benchmark_20261025/run.py\"]}",
+    "{\"utc\": \"2026-10-24T16:01:07.690410+00:00\", \"run_id\": \"tech_composite__holdout_benchmark_20261025\", \"config\": \"/Users/chrishsieh/Documents/dev/fintech_ETF/research/results/benchmark_20261025/run.py\", \"config_hash\": \"a1108c3be647036fd610d91f906a28deb807d2f761dcdd007d3974a7b13f149d\", \"git_commit\": \"f5958ebc537e431722fb9d7837571f440bd21276\", \"git_dirty\": true, \"argv\": [\"research/results/benchmark_20261025/run.py\"]}",
+    "{\"utc\": \"2026-10-24T16:01:07.690410+00:00\", \"run_id\": \"macd_combined__holdout_benchmark_20261025\", \"config\": \"/Users/chrishsieh/Documents/dev/fintech_ETF/research/results/benchmark_20261025/run.py\", \"config_hash\": \"a1108c3be647036fd610d91f906a28deb807d2f761dcdd007d3974a7b13f149d\", \"git_commit\": \"f5958ebc537e431722fb9d7837571f440bd21276\", \"git_dirty\": true, \"argv\": [\"research/results/benchmark_20261025/run.py\"]}",
+    "{\"utc\": \"2026-10-24T16:01:07.690410+00:00\", \"run_id\": \"tsmc_core_equal__holdout_benchmark_20261025\", \"config\": \"/Users/chrishsieh/Documents/dev/fintech_ETF/research/results/benchmark_20261025/run.py\", \"config_hash\": \"a1108c3be647036fd610d91f906a28deb807d2f761dcdd007d3974a7b13f149d\", \"git_commit\": \"f5958ebc537e431722fb9d7837571f440bd21276\", \"git_dirty\": true, \"argv\": [\"research/results/benchmark_20261025/run.py\"]}",
+    "{\"utc\": \"2026-10-24T16:01:07.690410+00:00\", \"run_id\": \"tsmc_formal__holdout_benchmark_20261025\", \"config\": \"/Users/chrishsieh/Documents/dev/fintech_ETF/research/results/benchmark_20261025/run.py\", \"config_hash\": \"a1108c3be647036fd610d91f906a28deb807d2f761dcdd007d3974a7b13f149d\", \"git_commit\": \"f5958ebc537e431722fb9d7837571f440bd21276\", \"git_dirty\": true, \"argv\": [\"research/results/benchmark_20261025/run.py\"]}",
+    "{\"utc\": \"2026-10-24T16:01:07.690410+00:00\", \"run_id\": \"autots_h5__holdout_benchmark_20261025\", \"config\": \"/Users/chrishsieh/Documents/dev/fintech_ETF/research/results/benchmark_20261025/run.py\", \"config_hash\": \"a1108c3be647036fd610d91f906a28deb807d2f761dcdd007d3974a7b13f149d\", \"git_commit\": \"f5958ebc537e431722fb9d7837571f440bd21276\", \"git_dirty\": true, \"argv\": [\"research/results/benchmark_20261025/run.py\"]}",
+    "{\"utc\": \"2026-10-24T16:01:07.690410+00:00\", \"run_id\": \"lgbm_D_lr0.01__holdout_benchmark_20261025\", \"config\": \"/Users/chrishsieh/Documents/dev/fintech_ETF/research/results/benchmark_20261025/run.py\", \"config_hash\": \"a1108c3be647036fd610d91f906a28deb807d2f761dcdd007d3974a7b13f149d\", \"git_commit\": \"f5958ebc537e431722fb9d7837571f440bd21276\", \"git_dirty\": true, \"argv\": [\"research/results/benchmark_20261025/run.py\"]}"
+  ],
+  "sources": [
+    "competition.backtest._benchmarks:repaired_market",
+    "new_replay:production_runs/preflight_20261026/strategy_retest/models/run_models.py",
+    "new_replay:production_runs/preflight_20261026/strategy_retest/momentum/run.py",
+    "new_replay:production_runs/preflight_20261026/strategy_retest/technical/run_retest.py",
+    "reuse:research/results/conc_tournament/results.csv",
+    "reuse:research/results/recent5_new/results.csv",
+    "reuse:research/results/recent5_v3/results.csv"
+  ],
+  "fallback_rows": [],
+  "workers": 8,
+  "blocker": "",
+  "independent_validation": {
+    "status": "PASS",
+    "numeric_consistency_checks": 58,
+    "verification_calls": 585,
+    "verification_problems": 0,
+    "output_rows": {
+      "recent5": 110,
+      "latest24": 22,
+      "holdout40": 640,
+      "holdout40_summary": 16
+    },
+    "unique_strategy_windows": true,
+    "finite_outputs": true,
+    "summary_statistics_recomputed": true,
+    "latest24_matches_recent5": true,
+    "protected_files_checked": 1412,
+    "repaired_market_hashes_unchanged": true,
+    "baseline_git_status_unchanged": true,
+    "holdout_log_prefix_unchanged": true,
+    "holdout_log_appended_lines": 13,
+    "executed_script_hash_matches_log": true,
+    "command_exit_code": 0
+  }
+}

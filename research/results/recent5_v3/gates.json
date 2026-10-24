@@ -1,0 +1,559 @@
+{
+  "candidates": {
+    "T1": {
+      "G0": {
+        "passed": true,
+        "completed": 5,
+        "required_complete": 5,
+        "verification_problems": 0,
+        "disqualifications": 0,
+        "windows": {
+          "W1": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "c1_warning_days": 0
+          },
+          "W2": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "c1_warning_days": 0
+          },
+          "W3": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "c1_warning_days": 0
+          },
+          "W4": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "c1_warning_days": 0
+          },
+          "W5": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "c1_warning_days": 0
+          }
+        }
+      },
+      "G1": {
+        "passed": false,
+        "wins": 2,
+        "required_wins": 4,
+        "mean_delta_vs_0050": 0.005863938670396895,
+        "minimum_mean_delta_exclusive": 0
+      },
+      "G2": {
+        "passed": true,
+        "mean_delta_vs_0050": 0.005863938670396895,
+        "c1_mean_delta_vs_0050": 0.009765464120576994,
+        "tolerance": 0.005,
+        "threshold": 0.004765464120576994
+      },
+      "G3": {
+        "passed": true,
+        "mean_max_drawdown": 0.07233927138646963,
+        "c1_mean_max_drawdown": 0.1029537453684902,
+        "max_mean_drawdown": 0.11295374536849019,
+        "crash_w5_compounded_return": -0.09100879343288648,
+        "c1_crash_w5_compounded_return": -0.1273840563156683,
+        "min_crash_return": -0.1373840563156683
+      },
+      "G4": {
+        "passed": true,
+        "min_as": 0.2805112167620525,
+        "threshold": 0.15,
+        "days_below_15pct": 0,
+        "rows": 24,
+        "status": "heuristic/UNVERIFIED"
+      },
+      "failing_gates": [
+        "G1"
+      ],
+      "all_passed": false
+    },
+    "T2": {
+      "G0": {
+        "passed": true,
+        "completed": 5,
+        "required_complete": 5,
+        "verification_problems": 0,
+        "disqualifications": 0,
+        "windows": {
+          "W1": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "c1_warning_days": 0
+          },
+          "W2": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "c1_warning_days": 0
+          },
+          "W3": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "c1_warning_days": 0
+          },
+          "W4": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "c1_warning_days": 0
+          },
+          "W5": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "c1_warning_days": 0
+          }
+        }
+      },
+      "G1": {
+        "passed": true,
+        "wins": 4,
+        "required_wins": 4,
+        "mean_delta_vs_0050": 0.004917590668356708,
+        "minimum_mean_delta_exclusive": 0
+      },
+      "G2": {
+        "passed": true,
+        "mean_delta_vs_0050": 0.004917590668356708,
+        "c1_mean_delta_vs_0050": 0.009765464120576994,
+        "tolerance": 0.005,
+        "threshold": 0.004765464120576994
+      },
+      "G3": {
+        "passed": true,
+        "mean_max_drawdown": 0.10006084748500685,
+        "c1_mean_max_drawdown": 0.1029537453684902,
+        "max_mean_drawdown": 0.11295374536849019,
+        "crash_w5_compounded_return": -0.12231866148538073,
+        "c1_crash_w5_compounded_return": -0.1273840563156683,
+        "min_crash_return": -0.1373840563156683
+      },
+      "G4": {
+        "passed": true,
+        "min_as": 0.2822452937052592,
+        "threshold": 0.15,
+        "days_below_15pct": 0,
+        "rows": 24,
+        "status": "heuristic/UNVERIFIED"
+      },
+      "failing_gates": [],
+      "all_passed": true
+    },
+    "T3": {
+      "G0": {
+        "passed": true,
+        "completed": 5,
+        "required_complete": 5,
+        "verification_problems": 0,
+        "disqualifications": 0,
+        "windows": {
+          "W1": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "c1_warning_days": 0
+          },
+          "W2": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "c1_warning_days": 0
+          },
+          "W3": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "c1_warning_days": 0
+          },
+          "W4": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "c1_warning_days": 0
+          },
+          "W5": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "c1_warning_days": 0
+          }
+        }
+      },
+      "G1": {
+        "passed": false,
+        "wins": 2,
+        "required_wins": 4,
+        "mean_delta_vs_0050": -0.002913385154727455,
+        "minimum_mean_delta_exclusive": 0
+      },
+      "G2": {
+        "passed": false,
+        "mean_delta_vs_0050": -0.002913385154727455,
+        "c1_mean_delta_vs_0050": 0.009765464120576994,
+        "tolerance": 0.005,
+        "threshold": 0.004765464120576994
+      },
+      "G3": {
+        "passed": true,
+        "mean_max_drawdown": 0.10695336253734504,
+        "c1_mean_max_drawdown": 0.1029537453684902,
+        "max_mean_drawdown": 0.11295374536849019,
+        "crash_w5_compounded_return": -0.131544768520521,
+        "c1_crash_w5_compounded_return": -0.1273840563156683,
+        "min_crash_return": -0.1373840563156683
+      },
+      "G4": {
+        "passed": true,
+        "min_as": 0.21676275727584357,
+        "threshold": 0.15,
+        "days_below_15pct": 0,
+        "rows": 24,
+        "status": "heuristic/UNVERIFIED"
+      },
+      "failing_gates": [
+        "G1",
+        "G2"
+      ],
+      "all_passed": false
+    }
+  },
+  "passing_candidates": [
+    "T2"
+  ],
+  "ranked_passing_candidates": [
+    "T2"
+  ],
+  "selected_candidates": [
+    "T2"
+  ],
+  "selected_candidate": "T2",
+  "final_verdict": "\u5019\u9078\u901a\u904e\uff0c\u7531\u4f7f\u7528\u8005\u6c7a\u5b9a\u662f\u5426\u53d6\u4ee3 C1",
+  "automatic_strategy_change": false,
+  "descriptive": {
+    "Mom20": {
+      "mean_delta_vs_0050_excluding_w1": -0.05896514970409189,
+      "w1_w2_delta_vs_0050": {
+        "W1": 0.026308158454695807,
+        "W2": 0.04686223495919206
+      },
+      "w1_w2_mean_delta_vs_0050": 0.036585196706943934,
+      "turnover_by_window": {
+        "W1": 3.288738731176496,
+        "W2": 3.5553709951488166,
+        "W3": 4.962754365150676,
+        "W4": 4.1655527748484555,
+        "W5": 3.9342784163033726
+      },
+      "costs_by_window": {
+        "W1": {
+          "costs": 8816729.210309772,
+          "fees": 4971449.58560191,
+          "taxes": 3845279.6247078623
+        },
+        "W2": {
+          "costs": 9134476.435558174,
+          "fees": 5122457.417778805,
+          "taxes": 4012019.017779369
+        },
+        "W3": {
+          "costs": 12051547.842484739,
+          "fees": 6573374.528552444,
+          "taxes": 5478173.313932298
+        },
+        "W4": {
+          "costs": 10796798.915752012,
+          "fees": 5943139.533305017,
+          "taxes": 4853659.382446995
+        },
+        "W5": {
+          "costs": 10162131.207086476,
+          "fees": 5640590.312031999,
+          "taxes": 4521540.895054476
+        }
+      },
+      "mean_turnover": 3.981339056525563,
+      "total_costs": 50961683.61119117
+    },
+    "C1": {
+      "mean_delta_vs_0050_excluding_w1": -0.013286285899270917,
+      "w1_w2_delta_vs_0050": {
+        "W1": 0.10197246419996864,
+        "W2": 0.0037030257486483364
+      },
+      "w1_w2_mean_delta_vs_0050": 0.05283774497430849,
+      "turnover_by_window": {
+        "W1": 0.9181183722056452,
+        "W2": 0.8891565800284839,
+        "W3": 0.991662030879839,
+        "W4": 0.9223860742827813,
+        "W5": 0.9203963074643166
+      },
+      "costs_by_window": {
+        "W1": {
+          "costs": 1308318.6803930444,
+          "fees": 1308318.6803930444,
+          "taxes": 0.0
+        },
+        "W2": {
+          "costs": 1267048.1265405896,
+          "fees": 1267048.1265405896,
+          "taxes": 0.0
+        },
+        "W3": {
+          "costs": 1473438.1050133326,
+          "fees": 1395660.752390623,
+          "taxes": 77777.35262270953
+        },
+        "W4": {
+          "costs": 1314400.1558529632,
+          "fees": 1314400.1558529632,
+          "taxes": 0.0
+        },
+        "W5": {
+          "costs": 1311564.7381366505,
+          "fees": 1311564.7381366505,
+          "taxes": 0.0
+        }
+      },
+      "mean_turnover": 0.9283438729722132,
+      "total_costs": 6674769.8059365805
+    },
+    "T1": {
+      "mean_delta_vs_0050_excluding_w1": 0.009635073361737051,
+      "w1_w2_delta_vs_0050": {
+        "W1": -0.009220600094963727,
+        "W2": 0.043120316527636815
+      },
+      "w1_w2_mean_delta_vs_0050": 0.016949858216336544,
+      "turnover_by_window": {
+        "W1": 1.7441672233252987,
+        "W2": 1.5500111602156843,
+        "W3": 1.3105136596849456,
+        "W4": 0.9069013772382367,
+        "W5": 2.160228726866337
+      },
+      "costs_by_window": {
+        "W1": {
+          "costs": 3914338.2969530113,
+          "fees": 2567038.8555729524,
+          "taxes": 1347299.4413800589
+        },
+        "W2": {
+          "costs": 3014086.256004407,
+          "fees": 2146617.964136949,
+          "taxes": 867468.2918674583
+        },
+        "W3": {
+          "costs": 2458182.73700238,
+          "fees": 1864856.5469789049,
+          "taxes": 593326.1900234753
+        },
+        "W4": {
+          "costs": 1292334.4625644872,
+          "fees": 1292334.4625644872,
+          "taxes": 0.0
+        },
+        "W5": {
+          "costs": 5264313.605481991,
+          "fees": 3191055.588825956,
+          "taxes": 2073258.0166560353
+        }
+      },
+      "mean_turnover": 1.5343644294661005,
+      "total_costs": 15943255.358006276
+    },
+    "T2": {
+      "mean_delta_vs_0050_excluding_w1": 0.00025978481291052957,
+      "w1_w2_delta_vs_0050": {
+        "W1": 0.023548814090141423,
+        "W2": 0.0063867972468100165
+      },
+      "w1_w2_mean_delta_vs_0050": 0.01496780566847572,
+      "turnover_by_window": {
+        "W1": 0.923967618648928,
+        "W2": 0.8883724030199726,
+        "W3": 0.9978235213821306,
+        "W4": 0.920935637208802,
+        "W5": 0.9204911401535523
+      },
+      "costs_by_window": {
+        "W1": {
+          "costs": 1316653.8565747226,
+          "fees": 1316653.8565747226,
+          "taxes": 0.0
+        },
+        "W2": {
+          "costs": 1265930.674303461,
+          "fees": 1265930.674303461,
+          "taxes": 0.0
+        },
+        "W3": {
+          "costs": 1494347.3300403124,
+          "fees": 1403043.8150476376,
+          "taxes": 91303.51499267478
+        },
+        "W4": {
+          "costs": 1312333.2830225432,
+          "fees": 1312333.2830225432,
+          "taxes": 0.0
+        },
+        "W5": {
+          "costs": 1311699.8747188114,
+          "fees": 1311699.8747188114,
+          "taxes": 0.0
+        }
+      },
+      "mean_turnover": 0.930318064082677,
+      "total_costs": 6700965.018659851
+    },
+    "T3": {
+      "mean_delta_vs_0050_excluding_w1": -0.017575488212012685,
+      "w1_w2_delta_vs_0050": {
+        "W1": 0.05573502707441347,
+        "W2": -0.01401107069763563
+      },
+      "w1_w2_mean_delta_vs_0050": 0.02086197818838892,
+      "turnover_by_window": {
+        "W1": 1.219314783893825,
+        "W2": 1.086599633345676,
+        "W3": 1.2483942733784603,
+        "W4": 0.9262341555185772,
+        "W5": 1.3309761284493287
+      },
+      "costs_by_window": {
+        "W1": {
+          "costs": 2255442.8553890423,
+          "fees": 1772617.265669768,
+          "taxes": 482825.58971927443
+        },
+        "W2": {
+          "costs": 1788770.960140218,
+          "fees": 1524331.8790889345,
+          "taxes": 264439.0810512835
+        },
+        "W3": {
+          "costs": 2221986.3829833036,
+          "fees": 1761710.9454089662,
+          "taxes": 460275.43757433764
+        },
+        "W4": {
+          "costs": 1319883.671613973,
+          "fees": 1319883.671613973,
+          "taxes": 0.0
+        },
+        "W5": {
+          "costs": 2645487.2310794387,
+          "fees": 1962410.2297178581,
+          "taxes": 683077.0013615806
+        }
+      },
+      "mean_turnover": 1.1623037949171735,
+      "total_costs": 10231571.101205975
+    }
+  },
+  "t1_filter_counts": {
+    "W1": [
+      {
+        "date": "2026-04-30",
+        "action": "build",
+        "passed_filter": 24,
+        "from_filter": 24,
+        "filled_by_large": 0
+      },
+      {
+        "date": "2026-05-12",
+        "action": "rescreen",
+        "turnover": 0.4326178100783603,
+        "passed_filter": 25,
+        "from_filter": 24,
+        "filled_by_large": 0
+      }
+    ],
+    "W2": [
+      {
+        "date": "2026-06-04",
+        "action": "build",
+        "passed_filter": 25,
+        "from_filter": 24,
+        "filled_by_large": 0
+      },
+      {
+        "date": "2026-06-12",
+        "action": "rescreen",
+        "turnover": 0.3348522308896082,
+        "passed_filter": 37,
+        "from_filter": 24,
+        "filled_by_large": 0
+      }
+    ],
+    "W3": [
+      {
+        "date": "2026-07-09",
+        "action": "build",
+        "passed_filter": 39,
+        "from_filter": 24,
+        "filled_by_large": 0
+      },
+      {
+        "date": "2026-07-14",
+        "action": "rescreen",
+        "turnover": 0.22872455412764553,
+        "passed_filter": 34,
+        "from_filter": 24,
+        "filled_by_large": 0
+      }
+    ],
+    "W4": [
+      {
+        "date": "2026-08-13",
+        "action": "build",
+        "passed_filter": 54,
+        "from_filter": 24,
+        "filled_by_large": 0
+      }
+    ],
+    "W5": [
+      {
+        "date": "2026-09-16",
+        "action": "build",
+        "passed_filter": 42,
+        "from_filter": 24,
+        "filled_by_large": 0
+      },
+      {
+        "date": "2026-10-13",
+        "action": "rescreen",
+        "turnover": 0.6788762538144203,
+        "passed_filter": 38,
+        "from_filter": 24,
+        "filled_by_large": 0
+      }
+    ]
+  }
+}

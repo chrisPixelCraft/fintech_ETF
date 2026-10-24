@@ -2,14 +2,14 @@
 # Daily production entry point (docs/production_spec.md section 11).
 #
 #   ./run_daily.sh                                   # trade date = today (Taipei)
-#   ./run_daily.sh 2026-10-27 --holdings ~/Downloads/holdings.json
+#   ./run_daily.sh <T> --datapack <DataPack.json> --etf-holdings <etf_top15.csv> [--rank N]
 #   ./run_daily.sh 2026-10-27 --offline              # dry run on the local snapshot, no network
 #
 # Run between 05:00 and 08:55 Taipei on trade date T. Output: production_runs/<T>/
 #   D-Plan_<team>_<T>.json  -> upload this file (submission is manual, P-U2)
 #   audit.md / audit.json   -> what was decided and why
-#   status.txt              -> READY_TO_SUBMIT or EMERGENCY_REVIEW_REQUIRED
-# Exit code 0 = ready to submit, 2 = a person must look at audit.md.
+#   status.txt              -> READY_TO_SUBMIT, SIMULATION_ONLY, or EMERGENCY_REVIEW_REQUIRED
+# Exit code 0 = ready to submit; code 2 includes simulation-only and blocked runs.
 set -euo pipefail
 cd "$(dirname "$0")"
 

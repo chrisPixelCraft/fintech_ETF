@@ -1,0 +1,51 @@
+[
+  {
+    "date": "2026-07-09",
+    "action": "build",
+    "confirmed": 73,
+    "filled_by_score": 0
+  },
+  {
+    "date": "2026-07-14",
+    "action": "rerank",
+    "turnover": 0.232314791099125,
+    "confirmed": 74,
+    "filled_by_score": 0
+  },
+  {
+    "date": "2026-07-16",
+    "action": "trim",
+    "names": [
+      "1303.TW",
+      "5483.TWO"
+    ]
+  },
+  {
+    "date": "2026-07-21",
+    "action": "rerank",
+    "turnover": 0.24833503039484614,
+    "confirmed": 69,
+    "filled_by_score": 0
+  },
+  {
+    "date": "2026-07-24",
+    "action": "trim",
+    "names": [
+      "6505.TW"
+    ]
+  },
+  {
+    "date": "2026-07-28",
+    "action": "rerank",
+    "turnover": 0.18697477167053767,
+    "confirmed": 66,
+    "filled_by_score": 0
+  },
+  {
+    "date": "2026-08-04",
+    "action": "rerank",
+    "turnover": 0.5222743559548193,
+    "confirmed": 78,
+    "filled_by_score": 0
+  }
+]

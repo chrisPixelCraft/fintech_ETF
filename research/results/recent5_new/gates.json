@@ -1,0 +1,561 @@
+{
+  "candidates": {
+    "S1": {
+      "G0": {
+        "passed": true,
+        "windows": {
+          "W1": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          },
+          "W2": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          },
+          "W3": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          },
+          "W4": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          },
+          "W5": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          }
+        }
+      },
+      "G1": {
+        "passed": false,
+        "mean_delta_vs_0050": -0.02618536301785255,
+        "minimum_mean_delta_exclusive": 0,
+        "wins": 1,
+        "required_wins": 3
+      },
+      "G2": {
+        "passed": true,
+        "mean_delta_vs_mom20": 0.015725125054481804,
+        "minimum_mean_delta": 0.01,
+        "wins": 3,
+        "required_wins": 3
+      },
+      "G3": {
+        "passed": true,
+        "mean_max_drawdown": 0.1219729208198318,
+        "mom20_mean_max_drawdown": 0.1244472992609057,
+        "worst_terminal_return": -0.04318979824441249,
+        "mom20_worst_terminal_return": -0.10124596758199833
+      },
+      "G4": {
+        "passed": true,
+        "min_as": 0.363374099323507,
+        "threshold": 0.15,
+        "days_below_15pct": 0,
+        "rows": 24,
+        "status": "heuristic/UNVERIFIED"
+      },
+      "failing_gates": [
+        "G1"
+      ],
+      "all_passed": false
+    },
+    "S2": {
+      "G0": {
+        "passed": true,
+        "windows": {
+          "W1": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          },
+          "W2": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          },
+          "W3": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          },
+          "W4": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          },
+          "W5": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          }
+        }
+      },
+      "G1": {
+        "passed": false,
+        "mean_delta_vs_0050": -0.008960493468049502,
+        "minimum_mean_delta_exclusive": 0,
+        "wins": 2,
+        "required_wins": 3
+      },
+      "G2": {
+        "passed": true,
+        "mean_delta_vs_mom20": 0.03294999460428485,
+        "minimum_mean_delta": 0.01,
+        "wins": 4,
+        "required_wins": 3
+      },
+      "G3": {
+        "passed": true,
+        "mean_max_drawdown": 0.10218833578802526,
+        "mom20_mean_max_drawdown": 0.1244472992609057,
+        "worst_terminal_return": -0.06106105723900768,
+        "mom20_worst_terminal_return": -0.10124596758199833
+      },
+      "G4": {
+        "passed": true,
+        "min_as": 0.20794475463669723,
+        "threshold": 0.15,
+        "days_below_15pct": 0,
+        "rows": 24,
+        "status": "heuristic/UNVERIFIED"
+      },
+      "failing_gates": [
+        "G1"
+      ],
+      "all_passed": false
+    },
+    "C1": {
+      "G0": {
+        "passed": true,
+        "windows": {
+          "W1": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          },
+          "W2": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          },
+          "W3": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          },
+          "W4": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          },
+          "W5": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          }
+        }
+      },
+      "G1": {
+        "passed": true,
+        "mean_delta_vs_0050": 0.009765464120576994,
+        "minimum_mean_delta_exclusive": 0,
+        "wins": 3,
+        "required_wins": 3
+      },
+      "G2": {
+        "passed": true,
+        "mean_delta_vs_mom20": 0.051675952192911344,
+        "minimum_mean_delta": 0.01,
+        "wins": 4,
+        "required_wins": 3
+      },
+      "G3": {
+        "passed": true,
+        "mean_max_drawdown": 0.1029537453684902,
+        "mom20_mean_max_drawdown": 0.1244472992609057,
+        "worst_terminal_return": -0.03452319803679671,
+        "mom20_worst_terminal_return": -0.10124596758199833
+      },
+      "G4": {
+        "passed": true,
+        "min_as": 0.2002567112416487,
+        "threshold": 0.15,
+        "days_below_15pct": 0,
+        "rows": 24,
+        "status": "heuristic/UNVERIFIED"
+      },
+      "failing_gates": [],
+      "all_passed": true
+    },
+    "C2": {
+      "G0": {
+        "passed": true,
+        "windows": {
+          "W1": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          },
+          "W2": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          },
+          "W3": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          },
+          "W4": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          },
+          "W5": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          }
+        }
+      },
+      "G1": {
+        "passed": false,
+        "mean_delta_vs_0050": -0.027286739939372008,
+        "minimum_mean_delta_exclusive": 0,
+        "wins": 2,
+        "required_wins": 3
+      },
+      "G2": {
+        "passed": true,
+        "mean_delta_vs_mom20": 0.014623748132962345,
+        "minimum_mean_delta": 0.01,
+        "wins": 4,
+        "required_wins": 3
+      },
+      "G3": {
+        "passed": true,
+        "mean_max_drawdown": 0.11578307452424566,
+        "mom20_mean_max_drawdown": 0.1244472992609057,
+        "worst_terminal_return": -0.08104636744840288,
+        "mom20_worst_terminal_return": -0.10124596758199833
+      },
+      "G4": {
+        "passed": true,
+        "min_as": 0.24570344279337233,
+        "threshold": 0.15,
+        "days_below_15pct": 0,
+        "rows": 24,
+        "status": "heuristic/UNVERIFIED"
+      },
+      "failing_gates": [
+        "G1"
+      ],
+      "all_passed": false
+    },
+    "C3": {
+      "G0": {
+        "passed": true,
+        "windows": {
+          "W1": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          },
+          "W2": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          },
+          "W3": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          },
+          "W4": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          },
+          "W5": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          }
+        }
+      },
+      "G1": {
+        "passed": false,
+        "mean_delta_vs_0050": -0.0002756198644085606,
+        "minimum_mean_delta_exclusive": 0,
+        "wins": 3,
+        "required_wins": 3
+      },
+      "G2": {
+        "passed": true,
+        "mean_delta_vs_mom20": 0.04163486820792579,
+        "minimum_mean_delta": 0.01,
+        "wins": 4,
+        "required_wins": 3
+      },
+      "G3": {
+        "passed": true,
+        "mean_max_drawdown": 0.09117417052222385,
+        "mom20_mean_max_drawdown": 0.1244472992609057,
+        "worst_terminal_return": -0.02660807811010979,
+        "mom20_worst_terminal_return": -0.10124596758199833
+      },
+      "G4": {
+        "passed": true,
+        "min_as": 0.2521667786144,
+        "threshold": 0.15,
+        "days_below_15pct": 0,
+        "rows": 24,
+        "status": "heuristic/UNVERIFIED"
+      },
+      "failing_gates": [
+        "G1"
+      ],
+      "all_passed": false
+    },
+    "C4": {
+      "G0": {
+        "passed": true,
+        "windows": {
+          "W1": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          },
+          "W2": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          },
+          "W3": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          },
+          "W4": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          },
+          "W5": {
+            "complete": true,
+            "verify_problems": 0,
+            "disqualified": false,
+            "warning_days": 0,
+            "mom20_warning_days": 0
+          }
+        }
+      },
+      "G1": {
+        "passed": false,
+        "mean_delta_vs_0050": -0.03928724882666812,
+        "minimum_mean_delta_exclusive": 0,
+        "wins": 1,
+        "required_wins": 3
+      },
+      "G2": {
+        "passed": false,
+        "mean_delta_vs_mom20": 0.002623239245666231,
+        "minimum_mean_delta": 0.01,
+        "wins": 3,
+        "required_wins": 3
+      },
+      "G3": {
+        "passed": true,
+        "mean_max_drawdown": 0.12075296970883305,
+        "mom20_mean_max_drawdown": 0.1244472992609057,
+        "worst_terminal_return": -0.044952180198027936,
+        "mom20_worst_terminal_return": -0.10124596758199833
+      },
+      "G4": {
+        "passed": true,
+        "min_as": 0.308038736445085,
+        "threshold": 0.15,
+        "days_below_15pct": 0,
+        "rows": 24,
+        "status": "heuristic/UNVERIFIED"
+      },
+      "failing_gates": [
+        "G1",
+        "G2"
+      ],
+      "all_passed": false
+    }
+  },
+  "passing_candidates": [
+    "C1"
+  ],
+  "selected_candidate": "C1",
+  "closest_candidates": [],
+  "closest_definition": "Fewest failing gates; ties all listed (descriptive only).",
+  "new_windows_descriptive": {
+    "Mom20": {
+      "windows": {
+        "W1": {
+          "delta_vs_0050": 0.026308158454695807,
+          "delta_vs_mom20": 0.0
+        },
+        "W2": {
+          "delta_vs_0050": 0.04686223495919206,
+          "delta_vs_mom20": 0.0
+        }
+      },
+      "mean_delta_vs_0050": 0.036585196706943934,
+      "mean_delta_vs_mom20": 0.0
+    },
+    "C1": {
+      "windows": {
+        "W1": {
+          "delta_vs_0050": 0.10197246419996864,
+          "delta_vs_mom20": 0.07566430574527283
+        },
+        "W2": {
+          "delta_vs_0050": 0.0037030257486483364,
+          "delta_vs_mom20": -0.043159209210543725
+        }
+      },
+      "mean_delta_vs_0050": 0.05283774497430849,
+      "mean_delta_vs_mom20": 0.016252548267364553
+    },
+    "C2": {
+      "windows": {
+        "W1": {
+          "delta_vs_0050": 0.04626904531587872,
+          "delta_vs_mom20": 0.019960886861182914
+        },
+        "W2": {
+          "delta_vs_0050": 0.017042446854238946,
+          "delta_vs_mom20": -0.029819788104953115
+        }
+      },
+      "mean_delta_vs_0050": 0.031655746085058833,
+      "mean_delta_vs_mom20": -0.004929450621885101
+    },
+    "C3": {
+      "windows": {
+        "W1": {
+          "delta_vs_0050": 0.0442458983175571,
+          "delta_vs_mom20": 0.01793773986286129
+        },
+        "W2": {
+          "delta_vs_0050": 0.0011965617874655221,
+          "delta_vs_mom20": -0.04566567317172654
+        }
+      },
+      "mean_delta_vs_0050": 0.02272123005251131,
+      "mean_delta_vs_mom20": -0.013863966654432625
+    },
+    "C4": {
+      "windows": {
+        "W1": {
+          "delta_vs_0050": -0.12817594842627034,
+          "delta_vs_mom20": -0.15448410688096614
+        },
+        "W2": {
+          "delta_vs_0050": -0.019336495428025402,
+          "delta_vs_mom20": -0.06619873038721746
+        }
+      },
+      "mean_delta_vs_0050": -0.07375622192714787,
+      "mean_delta_vs_mom20": -0.1103414186340918
+    },
+    "S1": {
+      "windows": {
+        "W1": {
+          "delta_vs_0050": -0.030987012768832978,
+          "delta_vs_mom20": -0.057295171223528785
+        },
+        "W2": {
+          "delta_vs_0050": -0.021567343912393455,
+          "delta_vs_mom20": -0.06842957887158552
+        }
+      },
+      "mean_delta_vs_0050": -0.026277178340613216,
+      "mean_delta_vs_mom20": -0.06286237504755715
+    },
+    "S2": {
+      "windows": {
+        "W1": {
+          "delta_vs_0050": 0.09946532347510062,
+          "delta_vs_mom20": 0.07315716502040481
+        },
+        "W2": {
+          "delta_vs_0050": 0.018183360613868382,
+          "delta_vs_mom20": -0.02867887434532368
+        }
+      },
+      "mean_delta_vs_0050": 0.0588243420444845,
+      "mean_delta_vs_mom20": 0.022239145337540567
+    }
+  },
+  "final_verdict": "\u53ef\u66ff\u4ee3\u5019\u9078\uff08\u7531\u4f7f\u7528\u8005\u6c7a\u5b9a\u662f\u5426\u63db\uff09",
+  "automatic_strategy_change": false
+}

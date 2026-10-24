@@ -1,0 +1,35 @@
+{
+  "episode_id": "W2",
+  "split": "recent_diagnostic",
+  "start": "2026-06-04",
+  "end": "2026-07-08",
+  "sessions": 24,
+  "complete": true,
+  "terminal_nav": 1032073689.4782616,
+  "terminal_return": 0.03207368947826161,
+  "max_drawdown": 0.08420730881231953,
+  "dividend_credit": 6519786.692,
+  "turnover": 4.027811285481917,
+  "costs": 10411645.021127313,
+  "fees": 5742301.877818903,
+  "taxes": 4669343.143308409,
+  "warning_days": 0,
+  "disqualified": false,
+  "unfilled_orders": 0,
+  "envelope_breaches": 1,
+  "fill_sources": {
+    "official_vwap": 251
+  },
+  "plan_status": {
+    "REPAIRED": 1,
+    "OK": 23
+  },
+  "quality_flag_days": 0,
+  "mean_holdings": 25.0,
+  "mean_cash_ratio": 0.07076090436575178,
+  "decide_seconds": 0.13271762599651993,
+  "benchmark_0050_return": -0.014405162122154369,
+  "equal_weight_universe_return": -0.01891459854676056,
+  "verification_problems": [],
+  "runtime_seconds": 0.22714491700025974
+}

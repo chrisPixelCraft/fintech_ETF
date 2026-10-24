@@ -1,5 +1,7 @@
 # 怎麼跑
 
+現行規則與提交缺口見 [v4.3 核對](rules_v43.md)。目前 AS 官方算法未確認，live 會阻擋；offline 只輸出 `SIMULATION_ONLY`。
+
 ## 第一次設定
 
 需要 Python 3.12 和 [uv](https://docs.astral.sh/uv/)。
@@ -22,20 +24,50 @@ uv pip install --python .venv/bin/python -r requirements.txt
 
 ```bash
 # 交易日 T 的 05:00–08:55（台北）
-./run_daily.sh 2026-10-26                                    # 首日，不用持股檔
-./run_daily.sh 2026-10-27 --holdings <後台匯出的持股檔>      # 之後每天
+./run_daily.sh <交易日> --datapack <後台資料包.json> --etf-holdings <完整ETF前15大.csv> --rank <組內排名>
 
 # 不連網試跑（用本地資料）
-./run_daily.sh 2026-09-24 --offline
+./run_daily.sh 2026-10-26 --offline
 ```
 
 - 輸出在 `production_runs/<T>/`
   - 上傳 `D-Plan_*.json`
   - 原因寫在 `audit.md`
-- 結束碼 0：可以上傳
-- 結束碼 2：先讀 `audit.md`
+- 結束碼 0：僅 `READY_TO_SUBMIT`
+- 結束碼 2：讀 `audit.md`
+  - `SIMULATION_ONLY` 不能上傳
+  - 缺官方 AS 算法會阻擋
 - 狀態與處理方式
   - 見 [production_spec.md](production_spec.md) 第 14 節
+
+## 凍結策略與排名
+
+`production/strategy.json` 使用 tournament；回滾設定為 `production/strategy_mom20.json`。
+
+| 項目 | 規則 |
+|---|---|
+| K2 | 10 核心 × 8.5% + 12 填充 × (10%/12)，共 22 檔 |
+| T2 | 2330：23.5%；另 24 檔共 71.5% |
+| 切換 | day_index ≥ 12、剩餘 > 3 日、rank ≤ 6 |
+| 鎖定 | 切換後固定 T2 |
+| 缺排名 | 保持模式；記錄 `RANK_MISSING` |
+
+- `--rank N`：T−1 19:00 組內排名。
+- Live 狀態：`production_runs/state/tournament.json`。
+- Offline 狀態：`production_runs/<T>/state/tournament.json`。
+- 合法 D-Plan 保存狀態，含 HOLD。
+- K2 breach 重試 `k2_target`；HOLD 不撤銷目標。
+- T2 保存切換日目標，逐日選最大可行換倉步驟。
+- Audit：`SWITCH_STEP:k/len`；不可行則 HOLD。
+
+## 輔助資料
+
+- 歷史資料：`data/hybrid/{flows,revenue}.csv`。
+- 增量快取：`data/production_aux/{flows,revenue}.csv`。
+- Live 補抓 TWSE／TPEx 投信與 MOPS 營收。
+- Offline 使用最新本地快照；不連網。
+- 缺 T−1 投信或應有營收月份，走既有 fallback。
+- 營收月 m：m+1 月 11 日起可用。
 
 ## 隊號與首日
 
@@ -49,10 +81,10 @@ uv pip install --python .venv/bin/python -r requirements.txt
 ## 常用指令
 
 ```bash
-# 跑測試（71 個）
+# 跑完整測試
 .venv/bin/python -m unittest discover -s tests -q
 
-# 跑一個實驗：正式策略 Mom20，dev 切分，取 6 個窗口
+# 跑一個實驗：正式策略 tournament，dev 切分，取 6 個窗口
 PYTHONHASHSEED=0 .venv/bin/python -m research.run_experiment \
     --config production/strategy.json --split dev --episodes 6 --workers 6
 
@@ -63,7 +95,7 @@ PYTHONHASHSEED=0 .venv/bin/python -m research.run_experiment \
 PYTHONHASHSEED=0 .venv/bin/python -m production.replay --split holdout --episodes all
 ```
 
-- `run_experiment` 只跑 momentum、basket
+- `run_experiment` 支援 tournament、momentum、basket
   - 其他策略在 legacy
 - `momentum_20d.json` 是較早的 dev 基準
   - 投入 88%、只有月初窗口，不等於正式策略

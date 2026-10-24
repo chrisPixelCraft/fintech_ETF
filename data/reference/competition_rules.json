@@ -63,7 +63,7 @@
   "portfolio": {
     "minimum_positions": 20,
     "maximum_positions": 30,
-    "limits_denominator": "end_of_day_NAV",
+    "limits_denominator": "end_of_day_nav_tradable_excluding_receivable_entitlements",
     "general_stock_max_weight": 0.1,
     "ticker_max_weights": {
       "2330": 0.25
@@ -84,7 +84,7 @@
   },
   "execution": {
     "order_sizing_price": "previous trading day official close",
-    "order_sizing_nav": "previous trading day NAV",
+    "order_sizing_nav": "previous settlement DataPack account.nav_tradable",
     "target_shares_formula": "floor(target_weight * previous_nav / previous_close / 1000) * 1000",
     "order_shares_formula": "target_shares - actual_current_shares",
     "execution_price": "trade_date_turnover_twd / trade_date_share_volume",
@@ -106,9 +106,9 @@
     ],
     "guide_url": "https://esun-ai-challenge.tw/api/events/fundaiagent/attachments/12/download/",
     "guide_section": "⑥ orders — 實際委託",
-    "guide_sha256": "7e17f4685c76568da2999719e7aeaeba71fba90f1073752a42e37f357c2bd839",
+    "guide_sha256": "52cd02ae900b9ae9f4d5ff1cdebf9d1b66ce62651d389a9ba65a8e7147f9fa49",
     "schema_url": "https://esun-ai-challenge.tw/api/events/fundaiagent/attachments/11/download/",
-    "schema_sha256": "b4703cbb2387065d3612d799018cac0b8671f49305bcb63fe3c518f8bc89b95f"
+    "schema_sha256": "2f48c2db0bb8df87fb0169d75f2ac9d0c210189a8469c4a8fc807eba1df499ce"
   },
   "corporate_actions": {
     "splits_and_stock_dividends": "adjust shares or cash to actual market events",
@@ -121,11 +121,10 @@
   },
   "active_share": {
     "formula": "0.5 * sum_i(abs(w_portfolio_i - w_benchmark_i))",
-    "portfolio_top_n": 10,
-    "benchmark_top_n": 10,
-    "minimum": 0.2,
+    "portfolio_top_n": 15,
+    "benchmark_top_n": 15,
+    "minimum": 0.15,
     "breach_operator": "<",
-    "consecutive_breach_days_for_direct_disqualification": 2,
     "benchmark_list_reference_date": "2026-09-11",
     "benchmark_count": 30,
     "benchmark_list": [
@@ -263,7 +262,12 @@
     "source_pages": [
       8,
       10
-    ]
+    ],
+    "rule_source": "user-provided updated restrictions; supersedes legacy PDF top10/20%",
+    "official_method_confirmed": false,
+    "legacy_consecutive_breach_days_for_direct_disqualification": 2,
+    "consecutive_breach_days_for_direct_disqualification": null,
+    "top15_renormalization_defined": false
   },
   "violations": {
     "max_warnings_per_day": 1,
@@ -281,7 +285,7 @@
     "passive_weight_drift_grace_trading_days": 5,
     "passive_drift_warning_day": 6,
     "active_buy_caused_weight_breach": "immediate_warning",
-    "active_share_breach": "separate direct disqualification after two consecutive days; not three-warning policy",
+    "active_share_breach": "Updated threshold/top-N supplied by user; current penalty not re-confirmed. Legacy PDF: 2 consecutive days, direct disqualification.",
     "source_pages": [
       9,
       10
@@ -310,7 +314,7 @@
     },
     {
       "id": "active_share_definition",
-      "fact": "top10 weights normalization, union, cash and holdings lag omitted",
+      "fact": "top15 normalization, union, cash, holdings lag and updated penalty need organizer clarification",
       "required_for_official_certification": "organizer clarification plus dated historical benchmark holdings"
     },
     {
@@ -332,5 +336,17 @@
     "A static list published in September may be used only as a labeled retrospective contest-universe diagnostic before publication.",
     "Historical benchmark holdings must be as-of published data, not today holdings retroactively inserted.",
     "A pretrade checker uses known prices; posttrade settlement checker detects violations from unknown price movement."
-  ]
+  ],
+  "rule_update_20261024": {
+    "source": "User-provided updated trading restrictions and organizer v4.3 attachments",
+    "active_share_source": "user_message: portfolio top15 and benchmark top15, minimum 0.15; newer formal rule PDF not attached",
+    "supersedes_active_share": {
+      "portfolio_top_n": 10,
+      "benchmark_top_n": 10,
+      "minimum": 0.2
+    },
+    "official_method_confirmed": false,
+    "dplan_version": "4.3",
+    "datapack_version_note": "DataPack examples use 3.0; independent of D-Plan version"
+  }
 }

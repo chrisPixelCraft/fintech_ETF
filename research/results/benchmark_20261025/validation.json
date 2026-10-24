@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "numeric_consistency_checks": 58,
+  "verification_calls": 585,
+  "verification_problems": 0,
+  "output_rows": {
+    "recent5": 110,
+    "latest24": 22,
+    "holdout40": 640,
+    "holdout40_summary": 16
+  },
+  "unique_strategy_windows": true,
+  "finite_outputs": true,
+  "summary_statistics_recomputed": true,
+  "latest24_matches_recent5": true,
+  "protected_files_checked": 1412,
+  "repaired_market_hashes_unchanged": true,
+  "baseline_git_status_unchanged": true,
+  "holdout_log_prefix_unchanged": true,
+  "holdout_log_appended_lines": 13,
+  "executed_script_hash_matches_log": true,
+  "command_exit_code": 0
+}

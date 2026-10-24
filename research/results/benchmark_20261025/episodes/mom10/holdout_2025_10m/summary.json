@@ -1,0 +1,36 @@
+{
+  "episode_id": "holdout_2025_10m",
+  "split": "holdout",
+  "start": "2025-10-15",
+  "end": "2025-11-18",
+  "sessions": 24,
+  "complete": true,
+  "terminal_nav": 1056373307.9467297,
+  "terminal_return": 0.05637330794672968,
+  "max_drawdown": 0.04580844137111251,
+  "dividend_credit": 0.0,
+  "turnover": 5.357752233942538,
+  "costs": 15044584.817692425,
+  "fees": 8014995.171123999,
+  "taxes": 7029589.646568425,
+  "warning_days": 0,
+  "disqualified": false,
+  "unfilled_orders": 0,
+  "envelope_breaches": 0,
+  "fill_sources": {
+    "official_vwap": 158,
+    "proxy_hlc3": 6
+  },
+  "plan_status": {
+    "REPAIRED": 2,
+    "OK": 22
+  },
+  "quality_flag_days": 0,
+  "mean_holdings": 25.0,
+  "mean_cash_ratio": 0.04730588953242265,
+  "decide_seconds": 0.14972195799964538,
+  "benchmark_0050_return": -0.004118616093208072,
+  "equal_weight_universe_return": 0.03747558013217335,
+  "verification_problems": [],
+  "runtime_seconds": 0.24708508399999118
+}

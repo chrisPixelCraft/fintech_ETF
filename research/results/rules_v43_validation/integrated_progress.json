@@ -1,0 +1,108 @@
+[
+  {
+    "split": "dev",
+    "elapsed_seconds": 1.361466332999953,
+    "selected": [
+      "dev_2019_01",
+      "dev_2020_06",
+      "dev_2021_11m"
+    ],
+    "status": "CONSISTENCY_PASS",
+    "checks": {
+      "all days normal path": true,
+      "every D-Plan validates": true,
+      "target weights identical": true,
+      "orders identical": true,
+      "holdings identical": true,
+      "cash and NAV within 1e-06": true
+    },
+    "days": 72,
+    "episodes": 3,
+    "max_nav_diff": 0.0,
+    "max_cash_diff": 0.0,
+    "failing_days": []
+  },
+  {
+    "split": "validation",
+    "elapsed_seconds": 1.484258666000187,
+    "selected": [
+      "validation_2022_01",
+      "validation_2023_06",
+      "validation_2024_11m"
+    ],
+    "status": "CONSISTENCY_PASS",
+    "checks": {
+      "all days normal path": true,
+      "every D-Plan validates": true,
+      "target weights identical": true,
+      "orders identical": true,
+      "holdings identical": true,
+      "cash and NAV within 1e-06": true
+    },
+    "days": 72,
+    "episodes": 3,
+    "max_nav_diff": 0.0,
+    "max_cash_diff": 0.0,
+    "failing_days": []
+  },
+  {
+    "split": "holdout",
+    "elapsed_seconds": 20.006535041999996,
+    "selected": [
+      "holdout_2025_01",
+      "holdout_2025_01m",
+      "holdout_2025_02",
+      "holdout_2025_02m",
+      "holdout_2025_03",
+      "holdout_2025_03m",
+      "holdout_2025_04",
+      "holdout_2025_04m",
+      "holdout_2025_05",
+      "holdout_2025_05m",
+      "holdout_2025_06",
+      "holdout_2025_06m",
+      "holdout_2025_07",
+      "holdout_2025_07m",
+      "holdout_2025_08",
+      "holdout_2025_08m",
+      "holdout_2025_09",
+      "holdout_2025_09m",
+      "holdout_2025_10",
+      "holdout_2025_10m",
+      "holdout_2025_11",
+      "holdout_2025_11m",
+      "holdout_2025_12",
+      "holdout_2025_12m",
+      "holdout_2026_01",
+      "holdout_2026_01m",
+      "holdout_2026_02",
+      "holdout_2026_02m",
+      "holdout_2026_03",
+      "holdout_2026_03m",
+      "holdout_2026_04",
+      "holdout_2026_04m",
+      "holdout_2026_05",
+      "holdout_2026_05m",
+      "holdout_2026_06",
+      "holdout_2026_06m",
+      "holdout_2026_07",
+      "holdout_2026_07m",
+      "holdout_2026_08",
+      "holdout_2026_08m"
+    ],
+    "status": "CONSISTENCY_PASS",
+    "checks": {
+      "all days normal path": true,
+      "every D-Plan validates": true,
+      "target weights identical": true,
+      "orders identical": true,
+      "holdings identical": true,
+      "cash and NAV within 1e-06": true
+    },
+    "days": 960,
+    "episodes": 40,
+    "max_nav_diff": 0.0,
+    "max_cash_diff": 0.0,
+    "failing_days": []
+  }
+]

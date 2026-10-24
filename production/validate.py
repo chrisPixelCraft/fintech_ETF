@@ -50,6 +50,8 @@ def validate(plan: dict, *, holdings: dict, close: pd.Series, nav: float, cash: 
     errors = schema_errors(plan)
     if errors:
         return errors
+    if not np.isfinite(nav) or nav <= 0 or not np.isfinite(cash) or cash < 0:
+        return ['ACCOUNT_TRUTH: nav must be positive and cash nonnegative/finite']
     tickers = ticker_map()
     symbol = {t: s for t, s in tickers.items()}
     held = {symbol_to_ticker(s): q for s, q in holdings.items() if q > 0}
@@ -94,6 +96,8 @@ def validate(plan: dict, *, holdings: dict, close: pd.Series, nav: float, cash: 
 
     signed = {}
     by_decision = {}
+    if len({o['ticker'] for o in plan['orders']}) != len(plan['orders']):
+        errors.append('ORDER_PAIRING:DUPLICATE_TICKER')
     for o in plan['orders']:
         by_decision.setdefault(o['decision_ref'], []).append(o)
         signed[o['ticker']] = o['shares'] if o['side'] == 'BUY' else -o['shares']
@@ -130,6 +134,12 @@ def validate(plan: dict, *, holdings: dict, close: pd.Series, nav: float, cash: 
     if (intent == 'increase' and net <= 0) or (intent == 'reduce' and net >= 0) or \
             (intent == 'hold' and abs(net) > HOLD_TOLERANCE * nav):
         errors.append(f'C12:POSTURE {intent} vs net {net / nav:+.4f} NAV')
+
+    funding = [d for d in dec.values() if d.get('funding_for')]
+    if funding:
+        removed_proceeds = sum(-signed.get(d['ticker'], 0) * px.get(d['ticker'], 0) for d in funding)
+        if cash_after - removed_proceeds / nav >= low:
+            errors.append('C14:FUNDING_WITHOUT_CASH_GAP')
 
     after = {t: held.get(t, 0.) + signed.get(t, 0) for t in set(held) | set(signed)}
     after = {t: q for t, q in after.items() if q > 0}

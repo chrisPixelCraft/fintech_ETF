@@ -1,0 +1,4 @@
+- 已保存[執行報告](research/results/k3_weights/CODEX_K2B_REPORT.md)。
+- 101 項測試通過；W4/W5 完全一致；強制切換通過。
+- **驗收受阻**：offline 沿用既存目標，仍為 20 檔，未達 22 檔；依 brief 停止，未修改重試規則。
+- 未 commit、push、branch 或 merge。

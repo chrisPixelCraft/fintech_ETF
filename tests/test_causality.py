@@ -1,4 +1,4 @@
-"""Future-corruption test on the production strategy's decision path (Mom20, production/strategy.json).
+"""Future-corruption test on the production strategy's decision path (Mom20, production/strategy_mom20.json).
 
 Everything dated after D-1 is overwritten with noise; every decision up to and
 including day D must be bit-identical, while the corrupted run's later ledger
@@ -18,7 +18,7 @@ from research.run_experiment import build_strategy
 from tests.synthetic import synthetic_market
 
 RULES = load_rules()
-PRODUCTION = json.loads((ROOT / 'production/strategy.json').read_text())
+PRODUCTION = json.loads((ROOT / 'production/strategy_mom20.json').read_text())
 
 
 class Recorder:

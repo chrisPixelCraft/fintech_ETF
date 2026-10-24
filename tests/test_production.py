@@ -16,7 +16,7 @@ from production.state import SettledBook, initial_book, load_official_holdings, 
 from production.validate import validate
 
 RULES = load_rules()
-STRATEGY = json.loads((ROOT / 'production/strategy.json').read_text())
+STRATEGY = json.loads((ROOT / 'production/strategy_mom20.json').read_text())
 IDENTITY = dplan.Identity('TEAM_UNSET', 'test')
 COLD = tuple(json.loads((ROOT / 'production/cold_start.json').read_text())['symbols'])
 
@@ -51,23 +51,23 @@ class ActiveShareTest(unittest.TestCase):
 
     def test_formula_and_normalisation(self):
         portfolio = {f'{1000 + i}': .04 for i in range(25)}
-        disjoint = self.etf({f'{2000 + i}': .05 for i in range(10)})
-        self.assertAlmostEqual(active_share.active_share(portfolio, disjoint), .5 * (.4 + .5))   # raw < normalised
-        same = self.etf({f'{1000 + i}': .04 for i in range(10)})
+        disjoint = self.etf({f'{2000 + i}': .05 for i in range(15)})
+        self.assertAlmostEqual(active_share.active_share(portfolio, disjoint), .5 * (.6 + .75))   # raw < normalised
+        same = self.etf({f'{1000 + i}': .04 for i in range(15)})
         self.assertAlmostEqual(active_share.active_share(portfolio, same), 0.)
 
     def test_near_ties_resolve_toward_overlap(self):
         portfolio = {f'{1000 + i}': .04 for i in range(25)}
-        etf = self.etf({f'{1000 + i}': .05 for i in range(15, 25)})           # names ranked 16-25 by ticker
+        etf = self.etf({f'{1000 + i}': .05 for i in range(10, 25)})           # names ranked 11-25 by ticker
         top = active_share.worst_case_top10(portfolio, etf.weights)
         self.assertEqual(set(top), set(etf.weights))                            # all within the tie band
 
     def test_status(self):
         w = {f'{1000 + i}': .04 for i in range(25)}
         self.assertEqual(active_share.check(w, None, ['00981A'], '2026-10-27').status, active_share.UNVERIFIED)
-        overlap = {'00981A': self.etf({f'{1000 + i}': .04 for i in range(10)})}
+        overlap = {'00981A': self.etf({f'{1000 + i}': .04 for i in range(15)})}
         self.assertEqual(active_share.check(w, overlap, ['00981A'], '2026-10-27').status, active_share.INVALID)
-        far = {'00981A': self.etf({f'{2000 + i}': .05 for i in range(10)})}
+        far = {'00981A': self.etf({f'{2000 + i}': .05 for i in range(15)})}
         self.assertEqual(active_share.check(w, far, ['00981A'], '2026-10-27').status, active_share.PASS)
         self.assertEqual(active_share.check(w, far, ['00981A', '00982A'], '2026-10-27').status,
                          active_share.UNVERIFIED)                              # a required ETF is missing
@@ -75,7 +75,7 @@ class ActiveShareTest(unittest.TestCase):
 
     def test_repair_drops_overlap_and_keeps_rules(self):
         scores = pd.Series({f'{1000 + i}.TW': float(100 - i) for i in range(40)})
-        etfs = {'00981A': self.etf({f'{1000 + i}': .05 for i in range(10)})}
+        etfs = {'00981A': self.etf({f'{1000 + i}': .05 for i in range(15)})}
 
         def build(sc):
             top = sc.sort_values(ascending=False).index[:25]
@@ -204,7 +204,7 @@ class EngineTest(unittest.TestCase):
 
     def test_active_share_repair_in_normal_path(self):
         normal = engine.run_day(self.inp())
-        top = sorted(normal.target, key=lambda s: (-normal.target[s], s))[:10]
+        top = sorted(normal.target, key=lambda s: (-normal.target[s], s))[:15]
         etfs = {'00981A': active_share.EtfTop10('00981A', str(self.day.date()),
                                                 {s.split('.')[0]: .05 for s in top})}
         inp = self.inp(etfs=etfs, required_etfs=('00981A',))

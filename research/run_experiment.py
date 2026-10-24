@@ -40,7 +40,7 @@ from research.baselines import BasketConfig, BasketStrategy, MomentumConfig, Mom
 RUNS = ROOT / 'research/runs'
 HOLDOUT_LOG = ROOT / 'research/holdout_access_log.jsonl'
 LEGACY_KINDS = ('autots', 'lgbm', 'hybrid', 'macd', 'tsmc', 'technical', 'momv2')
-CONFIG_KEYS = {'name', 'description', 'strategy', 'params', 'execution', 'planner', 'episodes', 'data'}
+CONFIG_KEYS = {'name', 'description', 'strategy', 'params', 'execution', 'planner', 'episodes', 'data', 'portfolio'}
 
 _MARKET: MarketData | None = None
 _RULES: CompetitionRules | None = None
@@ -82,6 +82,9 @@ def build_strategy(config: dict, rules: CompetitionRules):
     kind = config['strategy']
     if kind == 'momentum':
         return MomentumStrategy(MomentumConfig.from_dict(params), rules)
+    if kind == 'tournament':
+        from production.tournament import TournamentBacktest
+        return TournamentBacktest(rules)
     if kind == 'basket':
         return BasketStrategy(BasketConfig.from_dict(params), rules)
     if kind in LEGACY_KINDS:

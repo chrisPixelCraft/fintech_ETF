@@ -1,0 +1,17 @@
+[
+  {
+    "date": "2026-09-16",
+    "action": "build",
+    "passed_filter": 42,
+    "from_filter": 24,
+    "filled_by_large": 0
+  },
+  {
+    "date": "2026-10-13",
+    "action": "rescreen",
+    "turnover": 0.6788762538144203,
+    "passed_filter": 38,
+    "from_filter": 24,
+    "filled_by_large": 0
+  }
+]

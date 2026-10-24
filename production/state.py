@@ -1,14 +1,14 @@
 """Portfolio state: the organizer's settled holdings (source of truth) and the local shadow ledger.
 
-The organizer reports holdings but not NAV or cash (D-Plan guide ⑥), so NAV
-and cash come from the local ledger, which settles exactly like the backtest
-(competition.ledger.settle). The two are reconciled before every decision;
-a mismatch is never resolved silently in favour of the local book.
+DataPack cash, tradable shares and nav_tradable are authoritative. Receivable
+cash and shares never increase the trading budget. Legacy holdings-only
+exports remain readable for reconciliation, but cannot establish account truth.
 """
 from __future__ import annotations
 
 import csv
 import json
+import math
 from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
@@ -45,9 +45,12 @@ class SettledBook:
     marks: dict = field(default_factory=dict)        # symbol -> last valid close
     cap_ages: dict = field(default_factory=dict)
     warnings: int = 0
+    nav_tradable: float | None = None                 # official DataPack denominator, when supplied
 
     @property
     def nav(self) -> float:
+        if self.nav_tradable is not None:
+            return self.nav_tradable
         return self.cash + sum(q * self.marks[s] for s, q in self.holdings.items())
 
     def to_ledger(self) -> ledger.Book:
@@ -110,7 +113,11 @@ def load_official_holdings(path: Path | str, universe_path: Path | str = UNIVERS
             rows = list(csv.DictReader(handle))
     else:
         raw = json.loads(path.read_text())
+        if isinstance(raw, dict) and raw.get('doc_type') == 'DataPack':
+            return load_datapack(path, universe_path=universe_path).holdings
         raw = raw.get('holdings', raw) if isinstance(raw, dict) and 'holdings' in raw else raw
+        if raw is None:
+            raise ValueError('Official holdings are unavailable, not an empty portfolio')
         rows = [dict(ticker=k, shares=v) for k, v in raw.items()] if isinstance(raw, dict) else raw
     mapping, holdings = ticker_map(universe_path), {}
     for row in rows:
@@ -121,7 +128,7 @@ def load_official_holdings(path: Path | str, universe_path: Path | str = UNIVERS
         if ticker not in mapping:
             raise ValueError(f'Holding {ticker} is outside the 150-stock universe')
         quantity = float(str(shares).replace(',', ''))
-        if quantity < 0:
+        if not math.isfinite(quantity) or quantity < 0 or not quantity.is_integer():
             raise ValueError(f'Negative holding {ticker}')
         if quantity > SHARE_TOL:
             holdings[mapping[ticker]] = holdings.get(mapping[ticker], 0.) + quantity
@@ -149,3 +156,65 @@ def reconcile(official: dict, local: dict) -> Reconciliation:
     different = {s: (official[s], local[s]) for s in set(official) & set(local)
                  if abs(official[s] - local[s]) > SHARE_TOL}
     return Reconciliation(not (only_official or only_local or different), only_official, only_local, different)
+
+
+def load_datapack(path: Path | str, *, team_id: str | None = None, trade_date: str | None = None,
+                  expected_as_of: str | None = None, initial_trade_date: str | None = None, universe_path: Path | str = UNIVERSE_PATH) -> SettledBook:
+    """Parse account truth using the v4.3 guide; DataPack has its own version (e.g. 3.0)."""
+    raw = json.loads(Path(path).read_text())
+    if not isinstance(raw, dict) or raw.get('doc_type') != 'DataPack':
+        raise ValueError('Expected an official DataPack')
+    for field, expected in (('team_id', team_id), ('trade_date', trade_date)):
+        if expected is not None and raw.get(field) != expected:
+            raise ValueError(f'DataPack {field} mismatch: {raw.get(field)!r} != {expected!r}')
+    trade = pd.Timestamp(raw['trade_date'])
+    missing = raw.get('missing')
+    if not isinstance(missing, list) or missing:
+        raise ValueError(f'DataPack incomplete: missing={missing!r}')
+    account, rows = raw.get('account'), raw.get('holdings')
+    if not isinstance(account, dict) or not isinstance(rows, list):
+        raise ValueError('DataPack settlement unavailable: account/holdings are not populated')
+
+    def number(value, label, *, integer=False):
+        if isinstance(value, bool) or not isinstance(value, (int, float)) or not math.isfinite(value) or value < 0:
+            raise ValueError(f'Invalid DataPack {label}: {value!r}')
+        if integer and int(value) != value:
+            raise ValueError(f'Invalid DataPack integer {label}: {value!r}')
+        return float(value)
+
+    cash = number(account.get('cash'), 'cash')
+    nav = number(account.get('nav_tradable'), 'nav_tradable')
+    if nav <= 0:
+        raise ValueError('DataPack nav_tradable must be positive')
+    mapping, holdings, marks, seen = ticker_map(universe_path), {}, {}, set()
+    for row in rows:
+        ticker = row.get('code')
+        if ticker not in mapping or ticker in seen:
+            raise ValueError(f'Unknown or duplicate DataPack code: {ticker!r}')
+        seen.add(ticker)
+        shares = number(row.get('shares'), f'{ticker}.shares', integer=True)
+        number(row.get('receivable_shares', 0), f'{ticker}.receivable_shares', integer=True)
+        if shares > 0:
+            price = number(row.get('close_price'), f'{ticker}.close_price')
+            if price <= 0:
+                raise ValueError(f'DataPack held stock {ticker} has no usable close')
+            holdings[mapping[ticker]], marks[mapping[ticker]] = shares, price
+    count = number(account.get('holdings_count'), 'holdings_count', integer=True)
+    if count != len(holdings):
+        raise ValueError('DataPack holdings_count must count shares > 0 only')
+    computed = cash + sum(holdings[s] * marks[s] for s in holdings)
+    if not math.isclose(computed, nav, rel_tol=1e-8, abs_tol=.01):
+        raise ValueError('DataPack nav_tradable disagrees with cash + tradable holdings')
+    as_of = raw.get('as_of_date')
+    if as_of is None:
+        if initial_trade_date is not None and raw['trade_date'] != initial_trade_date:
+            raise ValueError('Null as_of_date is only valid on the initial trading day')
+        if holdings or not math.isclose(cash, nav):
+            raise ValueError('Null as_of_date requires a genuine initial all-cash account')
+    else:
+        date = pd.Timestamp(as_of)
+        if date >= trade or (expected_as_of is not None and as_of != expected_as_of):
+            raise ValueError(f'DataPack as_of_date mismatch: {as_of!r}')
+    return SettledBook(date=as_of or str((trade - pd.Timedelta(days=1)).date()), holdings=holdings,
+                       cash=cash, receivable=number(account.get('receivable_cash', 0), 'receivable_cash'),
+                       marks=marks, nav_tradable=nav)
