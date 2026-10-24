@@ -1,6 +1,6 @@
 # v4.3 規則與操作
 
-2026-10-24：Mom20 維持凍結；完整 ETF 前15大與 Active Share 官方算法仍缺，尚不可正式提交。
+2026-10-25：策略維持凍結；live AS 新增最低30%的 heuristic gate，其他安全關卡不變。
 
 ## 現行限制
 
@@ -48,13 +48,13 @@ order_shares = target_shares − official_current_shares
 ## 執行與狀態
 
 ```bash
-./run_daily.sh <T> --datapack <DataPack.json> --etf-holdings <etf_top15.csv>
+./run_daily.sh <T> --datapack <DataPack.json>
 
 # 僅用歷史快取試跑
 ./run_daily.sh 2026-09-24 --offline
 ```
 
-ETF CSV：`etf,as_of,ticker,weight`，weight 為基金權重。每檔 required ETF 須完整15檔、日期與數值有效；MoneyDJ 僅前10大，只供診斷。
+ETF CSV：`etf,as_of,ticker,weight`，weight 為基金權重。可提供完整前15大；未提供時 live 自動抓取 MoneyDJ 前10大。全部 required ETF（目前30檔）須齊全、數值有效、未逾7日，每檔至少10筆；任一抓取失敗即阻擋。
 
 | 狀態 | 意義 |
 |---|---|
@@ -62,7 +62,7 @@ ETF CSV：`etf,as_of,ticker,weight`，weight 為基金權重。每檔 required E
 | `EMERGENCY_REVIEW_REQUIRED` | 缺資料或未確認；不輸出可提交檔 |
 | `READY_TO_SUBMIT` | 正式真值及所有關卡通過 |
 
-AS 的 `min(raw, normalised)` 與 near-tie band 僅為篩選假設。即使 heuristic `PASS`，`official_method_confirmed` 仍 false；live 阻擋，無繞過旗標。
+AS 的 `min(raw, normalised)` 與 near-tie band 僅為篩選假設。最終持倉 `minimum` 有限且 ≥30%，並符合上述資料條件時，live gate 記 `HEURISTIC_TOP10_PASS`，保留 `ACTIVE_SHARE_METHOD_UNCONFIRMED` 作資訊原因；否則記 `BLOCKED` 與失敗條件。設定見 `production/settings.json:live_active_share`。官方方法確認後，既有通過路徑記 `OFFICIAL_PASS`。
 
 planner 整張化／估費後、validation 轉 fallback 後皆重驗 AS。失敗重跑將前次管線 D-Plan 移至 `superseded/`，避免誤用。
 

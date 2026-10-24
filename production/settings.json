@@ -7,5 +7,10 @@
  "require_official_holdings": false,
  "require_official_note": "P-U1: the organizer holdings API address and auth are unknown; pass --holdings <export> each day",
  "active_etf_list": "data/reference/tuning_2nd_active_etf_readiness.csv",
- "runs_dir": "production_runs"
+ "runs_dir": "production_runs",
+ "live_active_share": {
+  "heuristic_min": 0.30,
+  "allow_top_n": 10,
+  "source": "MoneyDJ top-10 auto-fetch"
+ }
 }

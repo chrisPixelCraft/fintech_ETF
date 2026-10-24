@@ -1,8 +1,8 @@
 # Production：現行策略與舊版規格
 
-**2026-10-24：現行策略為凍結 tournament；DataPack 已接入，官方 AS 算法與完整前15大資料未齊，live 阻擋。安全閘門以 [v4.3 核對](rules_v43.md) 為準。**
+**2026-10-25：現行策略為凍結 tournament；DataPack 已接入，live AS 可依 MoneyDJ 前10大、最低30%的 heuristic gate 通過。安全閘門以 [v4.3 核對](rules_v43.md) 為準。**
 
-第 0–1 節為現行策略與狀態；第 2 節起為舊規劃及歷史紀錄。前10大／20%、自行重建官方現金、僅靠 holdings 匯出、UNVERIFIED 可 READY 等舊描述已失效。
+第 0–1 節為現行策略與狀態；第 2 節起為舊規劃及歷史紀錄。前10大／20%、自行重建官方現金、僅靠 holdings 匯出、無條件 UNVERIFIED 可 READY 等舊描述已失效；現行 heuristic 例外見第1節。
 
 ## 0. 正式策略：K2 → T2
 
@@ -29,7 +29,7 @@
 ## 1. 切換、資料與保存
 
 ```bash
-./run_daily.sh <T> --datapack <DataPack.json> --etf-holdings <top15.csv> --rank N
+./run_daily.sh <T> --datapack <DataPack.json> --rank N
 ./run_daily.sh 2026-10-26 --offline
 ```
 
@@ -86,7 +86,13 @@ T2 換倉規則：
 
 缺 T−1 任一交易所投信、應有營收月或刷新失敗，記錄 degraded 原因並走既有 fallback。Offline 帳本存當日資料夾，不改 live。
 
-Live 須官方 DataPack；AS 算法未確認，阻擋 `READY_TO_SUBMIT`。Offline 為 `SIMULATION_ONLY`，shell 結束碼 2。
+Live 須官方 DataPack。未提供 `--etf-holdings` 時自動抓取 MoneyDJ 前10大；亦可提供完整前15大 CSV。
+
+最終整張化、扣費後持倉及 validation fallback 均適用同一 AS gate：全部 required ETF（目前30檔）齊全、`missing/invalid_data/stale` 為空、未逾7日，每檔至少10筆，`minimum` 有限且 ≥30%。任一抓取失敗或條件未達即阻擋。
+
+門檻讀取 `production/settings.json:live_active_share`（`heuristic_min=0.30`、`allow_top_n=10`）。通過記 `active_share_gate=HEURISTIC_TOP10_PASS` 與 `ACTIVE_SHARE_HEURISTIC_PASS:top10:min=<4dp>:closest=<etf>`，保留 `ACTIVE_SHARE_METHOD_UNCONFIRMED` 作資訊原因；失敗記 `BLOCKED` 與失敗條件。官方方法確認後，既有通過路徑記 `OFFICIAL_PASS`。
+
+AS checker 的前15大、15%官方門檻、20%內部門檻及7日新鮮度不變；其他安全關卡仍須通過才為 `READY_TO_SUBMIT`。Offline 為 `SIMULATION_ONLY`，shell 結束碼 2。
 
 ## 2. 優先級
 
@@ -254,7 +260,7 @@ Momentum 做 alpha；合規層做投影，Active Share 不進訊號學習：
 - 寫 unit tests
 - 加入 production replay
 
-算法未確認須標 `ACTIVE_SHARE_UNVERIFIED`，不可視為 PASS。
+算法未確認不能視為官方 PASS；現行 live heuristic gate 另見第1節。
 
 ## 8. End-to-End 一致性 Gate
 

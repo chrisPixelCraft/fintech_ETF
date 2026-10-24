@@ -20,6 +20,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import subprocess
 import traceback
 from dataclasses import replace
@@ -162,6 +163,45 @@ def audit_md(audit: dict) -> str:
     return '\n'.join(lines)
 
 
+def live_active_share_gate(report: dict, etfs: dict | None, settings: dict, fetch_failures=()) -> tuple[str, list]:
+    """Evaluate the live-only policy against the engine's planned-book report."""
+    status = report.get('status')
+    if report.get('official_method_confirmed', False) and status not in (None, active_share.UNVERIFIED, active_share.INVALID):
+        return 'OFFICIAL_PASS', []
+    policy = settings['live_active_share']
+    required = etf_holdings_module.required()
+    etfs = etfs or {}
+    failures = []
+    for field in ('missing', 'invalid_data', 'stale'):
+        if report.get(field):
+            failures.append(f'{field}=' + ','.join(report[field]))
+    absent = sorted(e for e in required if e not in etfs or e not in report.get('by_etf', {}))
+    if absent:
+        failures.append('required_missing=' + ','.join(absent))
+    failed_fetches = sorted(set(fetch_failures) & set(required))
+    if failed_fetches:
+        failures.append('fetch_failed=' + ','.join(failed_fetches))
+    short = sorted(e for e in required if e in etfs and len(etfs[e].weights) < policy['allow_top_n'])
+    if short:
+        failures.append(f"holdings_below_{policy['allow_top_n']}=" + ','.join(short))
+    minimum = report.get('minimum')
+    if minimum is None or not math.isfinite(minimum) or minimum < policy['heuristic_min']:
+        failures.append(f"minimum={minimum}:required>={policy['heuristic_min']:.4f}")
+    return ('BLOCKED', failures) if failures else ('HEURISTIC_TOP10_PASS', [])
+
+
+def record_active_share_gate(audit: dict, report: dict, gate: str, failures: list) -> None:
+    audit['active_share_gate'] = gate
+    audit['active_share_gate_failures'] = failures
+    if not report.get('official_method_confirmed', False):
+        audit['reasons'].append('ACTIVE_SHARE_METHOD_UNCONFIRMED')
+    if gate == 'HEURISTIC_TOP10_PASS':
+        audit['reasons'].append(f"ACTIVE_SHARE_HEURISTIC_PASS:top10:min={report['minimum']:.4f}:closest={report.get('closest_etf')}")
+    elif gate == 'BLOCKED':
+        audit['reasons'].append(f"LIVE_ACTIVE_SHARE_BLOCKED:{report.get('status')}")
+        audit['reasons'].extend('LIVE_ACTIVE_SHARE_CONDITION_FAILED:' + reason for reason in failures)
+
+
 def run(trade_date: str, holdings: str | None = None, etf_holdings: str | None = None, offline: bool = False,
         runs_dir: str | None = None, datapack: str | None = None, rank: int | None = None) -> dict:
     started = datetime.now(dplan.TAIPEI)
@@ -187,6 +227,8 @@ def run(trade_date: str, holdings: str | None = None, etf_holdings: str | None =
     audit = dict(trade_date=str(trade.date()), started=dplan.stamp(started), code_version=code_version(),
                  status=BLOCKED, mode=engine.EMERGENCY, reasons=[], validation_errors=[], orders=0,
                  active_share={}, state_source='local', reconciliation='NOT_CHECKED', prev_date=None, rank=rank)
+    if not offline:
+        audit.update(active_share_gate='BLOCKED', active_share_gate_failures=['NOT_EVALUATED'])
     try:
         if rank is not None and (isinstance(rank, bool) or not isinstance(rank, int) or rank < 1):
             raise ValueError('rank must be a positive integer')
@@ -254,13 +296,11 @@ def run(trade_date: str, holdings: str | None = None, etf_holdings: str | None =
             audit.update(tournament_mode=result.tournament['mode'], rank=rank,
                          switched=result.tournament['switched'], tournament_action=result.tournament['action'],
                          tournament_step={k: v for k, v in result.tournament.items() if k.startswith('step_')})
-        as_status = result.active_share.get('status')
-        live_gate = not offline and as_status in (None, active_share.UNVERIFIED, active_share.INVALID)
-        if not offline and not result.active_share.get('official_method_confirmed', False):
-            live_gate = True
-            audit['reasons'].append('ACTIVE_SHARE_METHOD_UNCONFIRMED')
-        if live_gate:
-            audit['reasons'].append(f'LIVE_ACTIVE_SHARE_BLOCKED:{as_status}')
+        gate, gate_failures = ('OFFICIAL_PASS', []) if offline else live_active_share_gate(
+            result.active_share, etfs, settings, audit.get('etf_fetch', {}).get('failures', ()))
+        live_gate = not offline and gate == 'BLOCKED'
+        if not offline and (live_gate or not result.submittable):
+            record_active_share_gate(audit, result.active_share, gate, gate_failures)
         if result.submittable and not live_gate:
             plan, errors = build_and_validate(inp, result, identity, started, rules)
             if errors and result.mode != engine.HOLD and book.holdings:
@@ -273,9 +313,12 @@ def run(trade_date: str, holdings: str | None = None, etf_holdings: str | None =
             audit['active_share'] = result.active_share
             audit['plan_status'], audit['plan_audit'] = result.plan.status, result.plan.audit
             final_as = result.active_share
-            if not offline and (final_as.get('status') in (None, active_share.UNVERIFIED, active_share.INVALID)
-                                or not final_as.get('official_method_confirmed', False)):
-                errors = errors + ['LIVE_ACTIVE_SHARE_BLOCKED_AFTER_VALIDATION']
+            if not offline:
+                gate, gate_failures = live_active_share_gate(
+                    final_as, etfs, settings, audit.get('etf_fetch', {}).get('failures', ()))
+                record_active_share_gate(audit, final_as, gate, gate_failures)
+                if gate == 'BLOCKED':
+                    errors = errors + ['LIVE_ACTIVE_SHARE_BLOCKED_AFTER_VALIDATION']
             audit['validation_errors'] = errors
             if not errors:
                 path = dplan.write(plan, out)

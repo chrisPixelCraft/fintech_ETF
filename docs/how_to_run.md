@@ -1,6 +1,6 @@
 # 怎麼跑
 
-AS 官方算法未確認，live 阻擋提交；offline 僅為 `SIMULATION_ONLY`。規則與缺口見 [v4.3 核對](rules_v43.md)。
+Live 可依 MoneyDJ 前10大 heuristic 通過 AS gate：全部 required ETF 齊全、有效、未逾7日，每檔至少10筆，最終持倉最低 AS 有限且 ≥30%；否則阻擋。Offline 僅為 `SIMULATION_ONLY`。規則與缺口見 [v4.3 核對](rules_v43.md)。
 
 ## 第一次設定
 
@@ -23,7 +23,7 @@ uv pip install --python .venv/bin/python -r requirements.txt
 
 ```bash
 # 交易日 T 的 05:00–08:55（台北）
-./run_daily.sh <交易日> --datapack <後台資料包.json> --etf-holdings <完整ETF前15大.csv> --rank <組內排名>
+./run_daily.sh <交易日> --datapack <後台資料包.json> --rank <組內排名>
 
 # 不連網試跑（用本地資料）
 ./run_daily.sh 2026-10-26 --offline
@@ -35,6 +35,8 @@ uv pip install --python .venv/bin/python -r requirements.txt
 - 結束碼 0：僅 `READY_TO_SUBMIT`
 - 結束碼 2：讀 `audit.md`
 	- `SIMULATION_ONLY` 禁上傳
+
+`--etf-holdings <CSV>` 可提供完整前15大；未提供時 live 自動抓取 MoneyDJ 前10大。門檻來自 `production/settings.json` 的 `live_active_share`。通過記錄 `HEURISTIC_TOP10_PASS`，並保留 `ACTIVE_SHARE_METHOD_UNCONFIRMED`；其他安全關卡仍須通過。
 
 狀態處理見 [production_spec.md](production_spec.md) 第 14 節。
 
