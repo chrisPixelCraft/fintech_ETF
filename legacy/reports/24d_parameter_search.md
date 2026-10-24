@@ -1,8 +1,8 @@
 # 24D parameter search
 
-`COMPETITION_UNIVERSE_STRESS_TEST`; `BLOCK_READY` / `BLOCK_SUBMISSION`. Return statistics condition on measured-valid complete episodes; valid/requested counts retain failures and incomplete returns stay null. Formal compliance has **0 confirmed episodes**; `ACTIVE_SHARE_NOT_VERIFIED`. Full assumptions and the inherited parameter-selection confound are in the [main report](24d_strategy_summary.md).
+`COMPETITION_UNIVERSE_STRESS_TEST`; `BLOCK_READY` / `BLOCK_SUBMISSION`. Returns use measured-valid complete episodes; counts retain failures, incomplete returns stay null. Formal compliance: **0 confirmed episodes**, `ACTIVE_SHARE_NOT_VERIFIED`. Assumptions and inherited selection confound: [main report](24d_strategy_summary.md).
 
-**number_of_candidates_evaluated: 28.** Selected research candidate: `x0352_daily_baseline`. The final choice is limited to this saved neighborhood; the final holdout is not a selection input.
+**NO_ELIGIBLE_CANDIDATE**; **number_of_candidates_evaluated: 28.** `x0352_daily_baseline` is the research fallback within this saved neighborhood; final holdout did not select it.
 
 ## Development candidates
 
@@ -46,14 +46,14 @@
 | validation | coarse_019_volume_low_0p6 | 24/35 | 4 | 3.38% | 3.71% | -1.74% | -6.78% | -10.35% |
 | validation | coarse_024_one_day_chase_return_0p05 | 24/35 | 4 | 3.10% | 3.67% | -2.27% | -5.86% | -10.57% |
 
-The validation shortlist contains diagnostic fallback entries when development eligibility fails; shortlist membership does not mean a candidate passed the development gate.
+Shortlisting may use diagnostic fallbacks after development eligibility fails; membership does not establish a development PASS.
 
 
-The exact candidate definitions, selection ordering, thresholds, purged episodes and recorded chronology are in [candidates.csv](../outputs/24d/candidates.csv) and [final_selection.json](../outputs/24d/final_selection.json). No unpublished refinement or holdout-driven parameter change is implied.
+Definitions, ordering, thresholds, purges and chronology: [candidates.csv](../outputs/24d/candidates.csv), [final_selection.json](../outputs/24d/final_selection.json). No unpublished refinement or holdout-driven changes.
 
-Recorded decision: **NO_ELIGIBLE_CANDIDATE**. Required measured pass threshold: 100.00%. A diagnostic candidate is not an eligible winner when no candidate meets this threshold.
+**NO_ELIGIBLE_CANDIDATE**: none met the 100.00% measured-pass threshold; diagnostic candidates are not eligible winners.
 
-The frozen implementation did not use P10 as a ranking key; P10 is shown as a descriptive sensitivity metric. The report preserves that recorded ordering and does not retroactively claim the recommended P10 ordering was applied.
+P10 is descriptive only: the frozen ranking omitted it, despite the recommendation. Recorded ordering is preserved.
 
 ## Cold-start behavior of every searched candidate
 
@@ -88,7 +88,7 @@ The frozen implementation did not use P10 as a ranking key; P10 is shown as a de
 | development | coarse_026_cash_guard_ratio_0p1 | 90.79% | 91.04% | 91.22% | 20 / 20 / 21 | 119 / 119 / 112 | 112/119 | 1 |
 | development | coarse_027_cash_guard_ratio_0p14 | 90.77% | 90.37% | 87.58% | 20 / 20 / 21 | 119 / 119 / 112 | 112/119 | 1 |
 
-Medians use observed days; time-to-valid uses reached episodes, with reached/requested shown separately. A 20-name count alone does not establish a valid portfolio.
+Medians use observed days; time-to-valid uses reached episodes, with reached/requested separate. Holding 20 names alone does not establish validity.
 
 ## Zero, one and two daily replacements
 
@@ -101,11 +101,11 @@ Medians use observed days; time-to-valid uses reached episodes, with reached/req
 | validation | 1 | not evaluated | N/A | N/A | N/A | N/A | N/A |
 | validation | 2 | 23/35 | 3.09% | -1.59% | 5.24% | 249.79% | 0.61% |
 
-Replacement 2 is an additive post-freeze diagnostic, not a revision of the frozen candidate search. Return, risk and fee medians condition on each candidate’s valid subset; coverage is compared on all requested windows. Replacement 1 was not evaluated on validation, so no 1-versus-2 validation claim is available. Two replacements did not improve validation coverage or its conditional median relative to the baseline; it is not adopted.
+Replacement 2 is a post-freeze diagnostic, not a search revision. Return/risk/fee medians use each candidate’s valid subset; coverage uses all requested windows. Validation did not test replacement 1, so 1-versus-2 cannot be claimed. Two replacements improved neither validation coverage nor conditional median versus baseline; not adopted.
 
 ## Full-denominator penalty diagnostic
 
-The saved policy assigns a fixed negative score to each failed episode. These penalty scores are **not realized portfolio returns**; they make failed-episode exclusions visible.
+Failed episodes receive fixed negative penalty scores to expose exclusions; these are **not realized portfolio returns**.
 
 | Set | Candidate | All requested | Score assigned per failure | Mean score | Median score |
 | --- | --- | --- | --- | --- | --- |
@@ -115,7 +115,7 @@ The saved policy assigns a fixed negative score to each failed episode. These pe
 
 ## Walk-forward evidence
 
-The walk-forward policy may choose different candidates by year using prior-year episodes only; this is family robustness evidence, not the fixed final strategy’s return.
+Walk-forward may change candidates yearly using prior-year episodes only: family robustness evidence, not fixed-strategy return.
 
 | Measured valid / requested | Median | P25 | P10 | Worst | Median MDD |
 | --- | --- | --- | --- | --- | --- |
@@ -148,12 +148,12 @@ The walk-forward policy may choose different candidates by year using prior-year
 | 2023 | x0352_daily_baseline | 2022-12-31 | 155 | 11 | NO_ELIGIBLE_BASELINE_DIAGNOSTIC |
 | 2024 | x0352_daily_baseline | 2023-12-31 | 167 | 11 | NO_ELIGIBLE_BASELINE_DIAGNOSTIC |
 
-The additive 2025 walk-forward diagnostic uses training ending 2024-12-31; frozen-family choice `x0352_daily_baseline`, decision **NO_ELIGIBLE_BASELINE_DIAGNOSTIC**. It is included in the policy summary above and cannot revise the fixed selection.
+The added 2025 walk-forward diagnostic trains through 2024-12-31: `x0352_daily_baseline`, **NO_ELIGIBLE_BASELINE_DIAGNOSTIC**. Included above; cannot revise fixed selection.
 
 
 ## Full-family post-freeze diagnostics
 
-**30 configurations × 200 starts = 6000 attempted episodes**. This includes 28 searched configurations, the additive replacement-2 parameter set and the simple-momentum sanity reference; it does not expand the frozen search or authorize a new winner. The periods include previously exposed development, validation and recent data.
+**30 configurations × 200 starts = 6000 attempts**: 28 searched sets, replacement-2 diagnostic and simple-momentum reference. Previously exposed development, validation and recent periods are included; this neither expands frozen search nor authorizes a winner.
 
 | Set | Candidate | Measured valid / requested | Incomplete | Median | Mean | P25 | P10 | Worst |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -188,11 +188,11 @@ The additive 2025 walk-forward diagnostic uses training ending 2024-12-31; froze
 | 2010–2026 monthly diagnostic | diagnostic_replacement_2 | 134/200 | 13 | 2.52% | 3.04% | -1.18% | -4.92% | -14.96% |
 | 2010–2026 monthly diagnostic | simple_momentum_reference | 137/200 | 13 | 2.32% | 2.93% | -1.23% | -5.19% | -14.10% |
 
-Every configuration’s full mean/median/tails, best/worst, positive/loss rates, MDD, turnover, trade counts, validity and cold-start denominators are available in [full_period_summary.csv](../outputs/24d_diagnostics/full_period_summary.csv); per-episode fees, evidence and original ledger lineage are in [monthly_all_candidates.csv](../outputs/24d_diagnostics/monthly_all_candidates.csv). Top-tail removal and symmetric-trim medians remain conditional on valid episodes; a symmetric trim leaves the median unchanged by construction.
+[full_period_summary.csv](../outputs/24d_diagnostics/full_period_summary.csv): mean/median/tails, best/worst, positive/loss rates, MDD, turnover, trades, validity and cold-start denominators. [monthly_all_candidates.csv](../outputs/24d_diagnostics/monthly_all_candidates.csv): episode fees, evidence and ledger lineage. Tail-removal/trimmed medians use valid episodes; symmetric trimming preserves the median by construction.
 
 ## Continuous books across all fixed configurations
 
-Each book has one initial cash allocation. DQ or incomplete books have no full-horizon return; forensic partial values do not establish long-horizon performance.
+Each book starts with one cash allocation. DQ/incomplete full-horizon returns stay null; forensic partial values are not long-horizon performance.
 
 | Candidate | Observed / requested sessions | Observed end | Book status | LONG_HORIZON_RETURN | Forensic partial return (not full horizon) |
 | --- | --- | --- | --- | --- | --- |

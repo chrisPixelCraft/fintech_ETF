@@ -1,6 +1,6 @@
 # Main table
 
-由 `python -m momv2.main_figure` 產生；Δ = 和 Mom20 在同一個 24 日窗口的報酬差，95% CI 為配對 bootstrap。
+由 `python -m momv2.main_figure` 產生；Δ = 24 日窗口對 Mom20 報酬差；95% CI：配對 bootstrap。
 
 | 方法 | 類型 | 2015–2026 Δ（95% CI） | 2025–2026 平均 | 2025–2026 Δ（95% CI） | 2025–2026 勝率 | 周轉 | 結論 |
 |---|---|---:|---:|---:|---:|---:|---|

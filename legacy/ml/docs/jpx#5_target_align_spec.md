@@ -2,1471 +2,266 @@
 
 ## 0. Goal
 
-只研究一件事：
+只比較 150 檔 → Top25 的 target formulation：A Raw Return、B Relative Alpha、C Execution-Aligned Relative Alpha。共用 features、LightGBM、training、Top25、portfolio、planner、ledger、episodes，差異歸因於 target。
 
-> **對 150 檔 → Top25 的 task，LightGBM 到底應該預測什麼？**
+## 1. Research Questions
 
-比較三種 target：
+依序檢驗 Relative Alpha 是否勝 Raw Return、成交時間對齊是否再改善，以及改善來自 signal quality、rank stability、turnover 或無實質改善。
 
-```text
-A. Raw Return
-B. Relative Alpha
-C. Execution-Aligned Relative Alpha
-```
+## 2. Hard Scope
 
-全部共用：
+2.1 僅改 target definition / audit / tests、diagnostics/reporting。
 
-```text
-Same Features
-Same LightGBM
-Same Training
-Same Top25
-Same Portfolio
-Same Planner
-Same Ledger
-Same Episodes
-```
+2.2 Freeze LightGBM parameters、features、lookback、refit cadence、portfolio、turnover gate、planner、execution、cost model、episode set。
 
-因此結果可以直接 attribution 到 **target formulation**。
+2.3 禁止新增 features、JPX5 features、LightGBMRanker、XGBoost、Optuna、parameter tuning、SOX / ADR / 夜盤、法人、sector features、regime、TopK-drop、score smoothing、portfolio optimizer、ensemble。看結果後不得擴 scope。
 
----
+## 3. Existing Baseline
 
-# 1. Research Questions
+分支 `claude/recent-window` 已完成 JPX2 LightGBM Raw Return：70 dev episodes，2019–2021，month_start + mid_month。Momentum +3.41%、Raw LGBM +3.15%、AutoTS +2.99%；沿用 benchmark。
 
-依序回答：
+## 4. Architecture
 
-1. **Relative Alpha 是否優於 Raw Return？**
-2. **把 label 對齊真正成交時間後，是否再改善？**
-3. 改善來自：
-   - signal quality
-   - rank stability
-   - turnover
-   - 還是沒有實質改善？
+沿用 `lgbm_strategy/`：features.py 只算 features；新增 targets.py 只算 labels；dataset.py 合併 features + matured labels；model.py 不知 target semantics；strategy.py 只 orchestration。不建第二套 LightGBM。
 
----
+## 5. Target Modes
 
-# 2. Hard Scope
+Config 增加 `target_mode`，僅 raw_return / relative_alpha / execution_alpha；不用散落的 `if alpha_v2...`。
 
-## 2.1 本輪只允許改
+## 6. Target A — Raw Return
+
+CONTROL：完全重現 JPX2 baseline。Feature origin `t`：
 
 ```text
-target definition
-target audit
-target tests
-diagnostics/reporting
-```
-
-## 2.2 完全 Freeze
-
-```text
-LightGBM parameters
-features
-lookback
-refit cadence
-portfolio
-turnover gate
-planner
-execution
-cost model
-episode set
-```
-
-## 2.3 禁止
-
-```text
-新 features
-JPX5 features
-LightGBMRanker
-XGBoost
-Optuna
-parameter tuning
-
-SOX / ADR / 夜盤
-法人
-sector features
-regime
-
-TopK-drop
-score smoothing
-portfolio optimizer
-ensemble
-```
-
-不要看到結果後臨時增加 scope。
-
----
-
-# 3. Existing Baseline
-
-Branch：
-
-```text
-claude/recent-window
-```
-
-已完成：
-
-```text
-JPX2 LightGBM Raw Return
-70 dev episodes
-2019–2021
-month_start + mid_month
-```
-
-結果：
-
-```text
-Momentum     +3.41%
-Raw LGBM     +3.15%
-AutoTS       +2.99%
-```
-
-這些結果作 baseline，不要重新設計 benchmark。
-
----
-
-# 4. Architecture
-
-不要建立第二套 LightGBM。
-
-沿用：
-
-```text
-lgbm_strategy/
-├── features.py
-├── dataset.py
-├── model.py
-└── strategy.py
-```
-
-新增：
-
-```text
-lgbm_strategy/
-└── targets.py
-```
-
-目標：
-
-```text
-features.py
-→ 只算 features
-
-targets.py
-→ 只算 labels
-
-dataset.py
-→ features + matured labels
-
-model.py
-→ 完全不懂 target semantics
-
-strategy.py
-→ orchestration only
-```
-
----
-
-# 5. Target Modes
-
-Config 增加：
-
-```text
-target_mode
-```
-
-只允許：
-
-```text
-raw_return
-relative_alpha
-execution_alpha
-```
-
-不要用散落的 `if alpha_v2...`。
-
----
-
-# 6. Target A — Raw Return
-
-必須完全重現現有 JPX2 baseline。
-
-對 feature origin `t`：
-
-\[
-r*{i,t}^{(h)}
-=
-\frac{P*{i,t+h}}{P\_{i,t}}-1
-\]
-
-設定：
-
-```text
+r*{i,t}^{(h)} = P*{i,t+h} / P_{i,t} -1
 horizon = 10
 ```
 
-用途：
+## 7. Target B — Relative Alpha
 
 ```text
-CONTROL
+r_{i,t}^{10} = 個股 forward return
+r*{m,t}^{10} = (1 / N_t) × Σ_i r*{i,t}^{10}
+alpha*{i,t} = r*{i,t}^{10} - r_{m,t}^{10}
 ```
 
----
+7.1 Market mean 只用 competition 150 stocks 中 finite matured forward labels；不用 0050、Top25、feature_ready subset、future holdings。
 
-# 7. Target B — Relative Alpha
+7.2 Finite labels < 20 時整個 origin date target invalid；
 
-先計算：
+7.3 測試每個有效 origin 的 mean(relative_alpha) ≈ 0。
 
-\[
-r\_{i,t}^{10}
-\]
+## 8. Target C — Execution-Aligned Relative Alpha
 
-再算該日期股票池平均：
-
-\[
-r*{m,t}^{10}
-=
-\frac{1}{N_t}
-\sum_i r*{i,t}^{10}
-\]
-
-最後：
-
-\[
-\alpha*{i,t}
-=
-r*{i,t}^{10}
-
-- r\_{m,t}^{10}
-  \]
-
-  ***
-
-## 7.1 Market Universe
-
-market mean 只使用：
+目前 target 起於 D-1 close；真實 PnL 起於 D 日成交（08:55 前決策）。改為 Feature origin = D-1、Entry = D execution price、Exit = D+10 execution price：
 
 ```text
-competition 150 stocks
-+
-finite matured forward labels
-```
-
-不要使用：
-
-```text
-0050
-Top25
-feature_ready subset
-future holdings
-```
-
----
-
-## 7.2 Coverage
-
-若：
-
-```text
-finite labels < 20
-```
-
-則：
-
-```text
-整個 origin date target invalid
-```
-
-不要用極小 cross-section 算 alpha。
-
----
-
-## 7.3 Invariant
-
-每個有效 origin：
-
-```text
-mean(relative_alpha) ≈ 0
-```
-
-必須 test。
-
----
-
-# 8. Target C — Execution-Aligned Relative Alpha
-
-這是本 study 最重要的新實驗。
-
-目前：
-
-```text
-feature at D-1
-↓
-target 從 D-1 close 開始
-```
-
-但真實比賽：
-
-```text
-D-1 information
-↓
-08:55 前決策
-↓
-D 日成交
-↓
-PnL 才真正開始
-```
-
-因此 target 應改成：
-
-```text
-Feature origin = D-1
-Entry          = D execution price
-Exit           = D+10 execution price
-```
-
-公式：
-
-\[
-r^{exec}_{i,t}
-=
-\frac{X_{i,t+1+h}}
-{X\_{i,t+1}}
--1
-\]
-
-其中：
-
-```text
+r^{exec}_{i,t} = X_{i,t+1+h} / X_{i,t+1} - 1
 t = feature date
 t+1 = actual next trading session / execution date
 h = 10
 X = historical execution price
 ```
 
----
+## 9. Execution Price
 
-# 9. Execution Price
+與 backtest 共用 price source：execution.mode = auto、proxy = hlc3。Official_vwap 存在則 X = official_vwap，否則 X = HLC3 proxy；HLC3 = (High+Low+Close)/3。
 
-**必須和目前 backtest execution semantics 使用同一套 price source。**
+## 10. Critical Rule — Single Source of Truth
 
-不要重新發明 label price。
+`targets.py` reuse competition execution helper，不重寫 official VWAP fallback 或 HLC3。必須 backtest execution price == training execution-label price。
 
-使用：
+## 11. Historical Coverage Limitation
 
-```text
-execution.mode = auto
-proxy = hlc3
-```
+2019–2021 DEV 幾乎無 official VWAP，execution_alpha ≈ HLC3-proxy-aligned target；2025–2026 大部分有，才近似 actual competition execution-aligned target。前段只驗證 simulator execution semantics，不得宣稱驗證官方 VWAP target。
 
-歷史 execution price：
+## 12. Label Timeline
 
-```text
-if official_vwap exists:
-    X = official_vwap
-else:
-    X = HLC3 proxy
-```
+Raw / Relative：feature t → t+10 label end。Execution：feature t → trade t+1 → t+1+10 label end；maturity 晚 1 session。
 
-其中：
+## 13. Label Maturity
 
-\[
-HLC3 = (High+Low+Close)/3
-\]
+Decision day `D` 的 training labels 須 label_end <= D-1；execution target 須 origin + 1 + horizon <= D-1。違反 FAIL HARD；禁止 silent drop/fallback 隱藏 leakage。
 
----
+## 14. Features
 
-# 10. Critical Rule — Single Source of Truth
-
-不要在 `targets.py` 自己重新實作：
+沿用 JPX2，不新增 R2、R5、ADV rank、stock ID、sector：
 
 ```text
-official VWAP fallback logic
-HLC3 calculation rules
+Open High Low Close Volume
+return_20 return_40 return_60
+volatility_20 volatility_40 volatility_60
+MA_gap_20 MA_gap_40 MA_gap_60
 ```
 
-應抽取 / reuse competition execution 已有 helper。
+## 15. Model
 
-目標：
-
-```text
-backtest execution price
-==
-training execution-label price
-```
-
-同一 semantics。
-
----
-
-# 11. Historical Coverage Limitation
-
-必須在報告明確區分：
-
-## 2019–2021 DEV
-
-幾乎沒有 official VWAP：
-
-```text
-execution_alpha
-≈ HLC3-proxy-aligned target
-```
-
-## 2025–2026
-
-official VWAP 大部分存在：
-
-```text
-execution_alpha
-≈ actual competition execution-aligned target
-```
-
-因此禁止聲稱：
-
-> 2019–2021 已驗證官方 VWAP target。
-
-正確說法：
-
-> 驗證的是「與 simulator execution semantics 對齊」。
-
----
-
-# 12. Label Timeline
-
-### Raw / Relative Alpha
-
-```text
-feature t
-│
-├──────────────→ t+10
-│                 label end
-```
-
-### Execution Alpha
-
-```text
-feature t
-│
-└─ trade t+1
-      │
-      └──────────→ t+1+10
-                    label end
-```
-
-所以 execution target 的 maturity 比原 target 晚 **1 session**。
-
----
-
-# 13. Label Maturity
-
-Decision day `D`：
-
-所有 training label 必須：
-
-```text
-label_end <= D-1
-```
-
-Execution target：
-
-```text
-origin + 1 + horizon <= D-1
-```
-
-任何 violation：
-
-```text
-FAIL HARD
-```
-
-禁止 silent drop/fallback 隱藏 leakage。
-
----
-
-# 14. Features
-
-**完全不改。**
-
-沿用 JPX2：
-
-```text
-Open
-High
-Low
-Close
-Volume
-
-return_20
-return_40
-return_60
-
-volatility_20
-volatility_40
-volatility_60
-
-MA_gap_20
-MA_gap_40
-MA_gap_60
-```
-
-禁止新增：
-
-```text
-R2
-R5
-ADV rank
-stock ID
-sector
-```
-
-那些是下一階段。
-
----
-
-# 15. Model
-
-**完全不改 `model.py` semantics。**
+`model.py` semantics 不變，不 tuning：
 
 ```text
 LightGBMRegressor
-
-objective = regression
-boosting = gbdt
-
-learning_rate = 0.005
-n_estimators = 3000
-
-early_stopping = 300
-validation metric = Pearson
-
-random_state = 2026
-n_jobs = 1
-```
-
-不要 tuning。
-
----
-
-# 16. Training
-
-保持：
-
-```text
-lookback = 750 sessions
-refit_every = 5
-```
-
-每次 refit：
-
-```text
-D-1 cutoff
-↓
-find matured labels
-↓
-latest ≤750 origins
-↓
-chronological train/validation
-↓
-purge horizon overlap
-↓
-fit
-```
-
----
-
-# 17. Validation Split
-
-保持現在 implementation：
-
-```text
-Earlier ~80%
-→ train
-
-purge
-→ horizon gap
-
-Latest ~20%
-→ validation
-```
-
-禁止 random split。
-
----
-
-# 18. Prediction
-
-不論 target mode：
-
-```text
-D-1 features
-↓
-LightGBM score
-↓
-descending cross-sectional rank
-↓
-Top25
-```
-
-不需要：
-
-```text
-score normalization
-rank transform
-calibration
-```
-
-本輪只比較 target。
-
----
-
-# 19. Portfolio
-
-完全 freeze：
-
-```text
-n_holdings = 25
-keep_rank = 35
-
-weighting = equal
-invested = 0.88
-cap_scale = 0.9
-
-rebalance_threshold = 0.10
-freeze_last_days = 3
-```
-
-禁止因 LGBM turnover 高而改。
-
----
-
-# 20. Configs
-
-建立：
-
-```text
-research/configs/
-├── baseline_lgbm_raw.json
-├── baseline_lgbm_alpha.json
-└── baseline_lgbm_execution_alpha.json
-```
-
-除了：
-
-```text
-target_mode
-```
-
-其他 LightGBM / portfolio config 必須 identical。
-
----
-
-# 21. Parity Gate
-
-在跑任何新 experiment 前：
-
-```text
-target_mode = raw_return
-```
-
-重跑 3–6 個既有 episode。
-
-必須與舊 JPX2：
-
-```text
-training rows
-predictions
-target weights
-episode return
-```
-
-一致。
-
-如果不一致：
-
-```text
-STOP
-```
-
-先修 parity。
-
----
-
-# 22. Unit Tests
-
-至少：
-
-```text
-tests/test_lgbm_targets.py
-```
-
-更新：
-
-```text
-test_lgbm_dataset.py
-test_lgbm_causality.py
-test_lgbm_strategy.py
-```
-
----
-
-# 23. Required Target Tests
-
-## Raw parity
-
-舊 target bit-identical / numerical-identical。
-
-## Alpha zero mean
-
-```text
-mean(alpha_t) ≈ 0
-```
-
-## Execution price parity
-
-對抽樣日期：
-
-```text
-label execution price
-==
-backtest execution price helper
-```
-
-## Timeline
-
-確認：
-
-```text
-raw label_end = t+h
-execution label_end = t+1+h
-```
-
-## Missing VWAP
-
-確認 fallback：
-
-```text
-official_vwap NaN
-→ exactly same HLC3 logic
-```
-
----
-
-# 24. Causality
-
-建立 dataset A。
-
-建立 dataset B，只改：
-
-```text
-D 之後資料
-```
-
-例如：
-
-```text
-multiply
-shuffle
-delete
-replace
-```
-
-必須：
-
-```text
-features identical
-matured labels identical
-training rows identical
-predictions identical
-weights identical
-```
-
----
-
-# 25. Future Execution Corruption Test
-
-Execution target 特別增加：
-
-修改：
-
-```text
-execution price after D-1
-```
-
-不得影響 D decision。
-
-因為那些 labels 尚未 mature。
-
----
-
-# 26. Determinism
-
-同一：
-
-```text
-data
-config
-seed
-```
-
-必須：
-
-```text
-targets identical
-best_iteration identical
-predictions identical
-weights identical
-```
-
----
-
-# 27. Diagnostics — Target
-
-每個 refit 記：
-
-```text
-target_mode
-
-target_mean
-target_std
-
-cross_section_count
-label_start
-label_end
-
-official_vwap_share
-proxy_hlc3_share
-```
-
----
-
-# 28. Diagnostics — Model
-
-沿用：
-
-```text
-best_iteration
-train_pearson
-validation_pearson
-n_train_rows
-n_validation_rows
-```
-
-不要用它作最終 selection。
-
----
-
-# 29. Diagnostics — Rank Stability
-
-每個 decision day 記：
-
-```text
-Top25 overlap previous day
-Top35 overlap
-entries
-exits
-one-way turnover
-```
-
-核心：
-
-\[
-Overlap*t
-=
-\frac{|Top25_t\cap Top25*{t-1}|}{25}
-\]
-
-只做 diagnosis。
-
----
-
-# 30. Experiment Stage 0
-
-```text
-ALL unit tests
-ALL causality tests
-ALL parity tests
-```
-
-全部 PASS 才進 backtest。
-
----
-
-# 31. Stage 1 — Smoke
-
-相同 6 dev episodes：
-
-```text
-Momentum
-Raw LGBM
-Alpha LGBM
-Execution Alpha LGBM
-AutoTS
-```
-
-Smoke 只檢查：
-
-```text
-correctness
-runtime
-no warnings
-no disqualification
-```
-
-禁止從 6 episodes tuning。
-
----
-
-# 32. Stage 2 — Full DEV
-
-使用完全相同：
-
-```text
-2019–2021
-70 episodes
-month_start + mid_month
-```
-
-不得新增 / 移除窗口。
-
----
-
-# 33. Primary Comparison
-
-優先順序：
-
-### Q1
-
-```text
-Relative Alpha
-vs
-Raw Return
-```
-
-回答：
-
-> 去 market component 是否有效？
-
-### Q2
-
-```text
-Execution Alpha
-vs
-Relative Alpha
-```
-
-回答：
-
-> 對齊真正成交區間是否有效？
-
-### Q3
-
-```text
-Execution Alpha
-vs
-Momentum
-```
-
-回答：
-
-> 最後能不能真正勝過 baseline？
-
----
-
-# 34. Metrics
-
-每個 strategy：
-
-```text
-Mean 24D return
-Median 24D return
-
-P25
-P10
-Worst
-
-Mean MDD
-
-Turnover
-Transaction cost
-
-Warnings
-Disqualification
-```
-
----
-
-# 35. Paired Metrics
-
-每組 comparison 必須：
-
-```text
-paired mean Δ
-paired median Δ
-win rate
-bootstrap 95% CI
-```
-
-不要只比較 aggregate mean。
-
----
-
-# 36. Signal / Cost 分開
-
-報告分兩層：
-
-## Signal
-
-```text
-paired gross/net result
-rank stability
-validation Pearson
-Top25 overlap
-```
-
-## Cost
-
-```text
-turnover
-cost
-entries/exits
-```
-
-禁止只看到：
-
-```text
-cost difference > net gap
-```
-
-就宣稱：
-
-> 沒成本一定會贏。
-
-除非真的跑 counterfactual。
-
----
-
-# 37. Success Logic
-
-## Relative Alpha Wins Raw
-
-若：
-
-```text
-mean Δ > 0
-AND
-median Δ > 0
-```
-
-輸出：
-
-```text
-RELATIVE_ALPHA_SUPPORTED
-```
-
----
-
-## Execution Alignment Wins Alpha
-
-若：
-
-```text
-Execution Alpha
-vs Alpha
-
-mean Δ > 0
-AND
-median Δ > 0
-```
-
-輸出：
-
-```text
-EXECUTION_ALIGNMENT_SUPPORTED
-```
-
----
-
-# 38. Final DEV Gate
-
-只有最佳 target：
-
-```text
-paired mean Δ vs Momentum > 0
-AND
-paired median Δ vs Momentum > 0
-AND
-no worse disqualification
-```
-
-才輸出：
-
-```text
-PASS_TARGET_STUDY
-```
-
-並進 Validation。
-
----
-
-# 39. Interesting Failure Case
-
-如果：
-
-```text
-Execution Alpha > Raw LGBM
-但
-Execution Alpha < Momentum
-```
-
-輸出：
-
-```text
-TARGET_IMPROVED_MODEL_STILL_WEAK
-```
-
-下一階段才研究：
-
-```text
-JPX5 features
-or
-Learning-to-Rank
-```
-
-不要立刻 tuning。
-
----
-
-# 40. If All Fail
-
-若三個 LGBM targets 都沒明顯改善：
-
-```text
-STOP_TARGET_FORMULATION
+objective = regression; boosting = gbdt
+learning_rate = 0.005; n_estimators = 3000
+early_stopping = 300; validation metric = Pearson
+random_state = 2026; n_jobs = 1
 ```
 
-結論：
+## 16. Training
 
-> 問題不只在 target。
+Lookback = 750 sessions、refit_every = 5。每次 D−1 cutoff → matured labels → latest ≤750 origins → chronological train/validation → purge horizon overlap → fit。
 
-下一個合理方向：
-
-```text
-JPX5 behavioral features
-or
-direct ranking objective
-```
+## 17. Validation Split
 
----
+維持 Earlier ~80% train → purge horizon gap → Latest ~20% validation，禁止 random split。
 
-# 41. Validation
+## 18. Prediction
 
-只有：
+所有 mode：D-1 features → LightGBM score → descending cross-sectional rank → Top25。不加 score normalization、rank transform、calibration。
 
-```text
-PASS_TARGET_STUDY
-```
+## 19. Portfolio
 
-才跑：
+Freeze，不因 LGBM turnover 高而改：
 
 ```text
-2022–2024
+n_holdings = 25; keep_rank = 35
+weighting = equal; invested = 0.88; cap_scale = 0.9
+rebalance_threshold = 0.10; freeze_last_days = 3
 ```
-
-設定 frozen。
-
-不得因 validation 改 target。
-
----
-
-# 42. Holdout
 
-只有 freeze 後：
+## 20. Configs
 
-```text
-2025–2026/09
-```
+建立 research/configs/baseline_lgbm_raw.json、research/configs/baseline_lgbm_alpha.json、research/configs/baseline_lgbm_execution_alpha.json。除 `target_mode` 外，LightGBM / portfolio config identical。
 
-正式跑一次。
+## 21. Parity Gate
 
-此階段 official VWAP coverage 高，因此特別報：
+新 experiment 前用 target_mode = raw_return 重跑 3–6 個既有 episode；training rows、predictions、target weights、episode return 須與舊 JPX2 一致，否則 STOP，先修 parity。
 
-```text
-official execution-label share
-```
+## 22. Unit Tests
 
----
+新增 tests/test_lgbm_targets.py；更新 test_lgbm_dataset.py、test_lgbm_causality.py、test_lgbm_strategy.py。
 
-# 43. Automation
+## 23. Required Target Tests
 
-Agent one-shot：
+- Raw target：bit-identical / numerical-identical。
+- Alpha：mean(alpha_t) ≈ 0。
+- 抽樣日期：label execution price == backtest execution price helper。
+- Timeline：raw label_end = t+h；execution label_end = t+1+h。
+- Official_vwap NaN：exactly same HLC3 fallback logic。
 
-```text
-inspect existing target/execution helpers
-↓
-minimal target abstraction
-↓
-raw parity
-↓
-tests
-↓
-smoke
-↓
-70 DEV episodes × 3 target modes
-↓
-paired comparison
-↓
-decision gate
-↓
-if PASS → validation
-↓
-freeze
-↓
-if allowed → holdout
-↓
-report
-```
+## 24. Causality
 
----
+Dataset B 僅 multiply / shuffle / delete / replace dataset A 的 D 之後資料；features、matured labels、training rows、predictions、weights 須 identical。
 
-# 44. Long Jobs
+## 25. Future Execution Corruption Test
 
-耗時 backtest 必須：
+改 D-1 之後 execution price 不得影響 D decision：相關 labels 尚未 mature。
 
-```text
-CLI / shell
-resumable
-parallel where safe
-```
+## 26. Determinism
 
-Agent 不應長時間：
+同 data / config / seed 的 targets、best_iteration、predictions、weights 須 identical。
 
-```text
-tail logs
-poll every few seconds
-load full ledgers into context
-```
+## 27. Diagnostics — Target
 
----
+每個 refit 記 target_mode、target_mean、target_std、cross_section_count、label_start、label_end、official_vwap_share、proxy_hlc3_share。
 
-# 45. Token Efficiency
+## 28. Diagnostics — Model
 
-Agent正常只讀：
+沿用 best_iteration、train_pearson、validation_pearson、n_train_rows、n_validation_rows；不作最終 selection。
 
-```text
-summary.json
-comparison.csv
-target_diagnostics.csv
-model_diagnostics.csv
-failures.md
-```
+## 29. Diagnostics — Rank Stability
 
-只有 failure 才深入：
+每日記 Top25 overlap previous day、Top35 overlap、entries、exits、one-way turnover。Overlap*t = |Top25_t ∩ Top25*{t-1}| / 25，只供 diagnosis。
 
-```text
-ledger
-orders
-per-day prediction
-```
+## 30. Experiment Stage 0
 
----
+ALL unit / causality / parity tests PASS 才 backtest。
 
-# 46. Clean Code
+## 31. Stage 1 — Smoke
 
-要求：
+同 6 dev episodes 跑 Momentum、Raw LGBM、Alpha LGBM、Execution Alpha LGBM、AutoTS；僅查 correctness、runtime、no warnings、no disqualification，不 tuning。
 
-```text
-single responsibility
-pure target functions where possible
-explicit target_mode enum
-type hints
-dataclass config
-deterministic sorting
-explicit NaN handling
-fail loudly
-```
+## 32. Stage 2 — Full DEV
 
----
+固定 2019–2021、70 episodes、month_start + mid_month，不增減窗口。
 
-## 禁止
+## 33. Primary Comparison
 
-```text
-duplicated execution logic
-magic offsets
-target_v2 / final_target names
-large orchestrator functions
-hidden future access
-silent fallback
-unrelated refactor
-```
+依序：Q1 Relative Alpha vs Raw Return（去 market component）；Q2 Execution Alpha vs Relative Alpha（成交區間對齊）；Q3 Execution Alpha vs Momentum（能否勝 baseline）。
 
----
+## 34. Metrics
 
-# 47. Naming
+每策略報 Mean / Median 24D return、P25、P10、Worst、Mean MDD、Turnover、Transaction cost、Warnings、Disqualification。
 
-使用：
+## 35. Paired Metrics
 
-```text
-RawReturnTarget
-RelativeAlphaTarget
-ExecutionAlphaTarget
-
-entry_session
-exit_session
-execution_price
-market_forward_return
-relative_alpha
-```
+每組報 paired mean Δ、paired median Δ、win rate、bootstrap 95% CI，不只 aggregate mean。
 
-避免：
+## 36. Signal / Cost 分開
 
-```text
-v2
-new
-tmp
-special_case
-```
+Signal 報 paired gross/net result、rank stability、validation Pearson、Top25 overlap；Cost 報 turnover、cost、entries/exits。未跑 counterfactual，不得因 cost difference > net gap 宣稱「沒成本一定贏」。
 
----
+## 37. Success Logic
 
-# 48. Output
+Relative Alpha vs Raw 的 mean Δ > 0 且 median Δ > 0 → RELATIVE_ALPHA_SUPPORTED；Execution Alpha vs Alpha 同門檻 → EXECUTION_ALIGNMENT_SUPPORTED。
 
-```text
-research/results/target_alignment/
-├── summary.md
-├── summary.json
-├── comparison.csv
-├── target_diagnostics.csv
-├── model_diagnostics.csv
-└── failures.md
-```
+## 38. Final DEV Gate
 
----
+最佳 target 對 Momentum 的 paired mean Δ > 0、paired median Δ > 0、no worse disqualification 全成立，才 PASS_TARGET_STUDY → Validation。
 
-# 49. summary.md
+## 39. Interesting Failure Case
 
-只需四段：
+Execution Alpha > Raw LGBM 但 < Momentum → TARGET_IMPROVED_MODEL_STILL_WEAK。JPX5 features / Learning-to-Rank 留待下階段，不立即 tuning。
 
-## Decision
+## 40. If All Fail
 
-```text
-PASS_TARGET_STUDY
-TARGET_IMPROVED_MODEL_STILL_WEAK
-STOP_TARGET_FORMULATION
-```
+三 targets 均無明顯改善 → STOP_TARGET_FORMULATION，問題不只 target；下一方向為 JPX5 behavioral features / direct ranking objective。
 
-## Main Table
+## 41. Validation
 
-```text
-Momentum
-Raw LGBM
-Alpha LGBM
-Execution Alpha LGBM
-AutoTS
-```
+僅 PASS_TARGET_STUDY 才跑 2022–2024；設定 frozen，不因 validation 改 target。
 
-columns：
+## 42. Holdout
 
-```text
-Mean
-Median
-Δ vs Momentum
-Win Rate
-P10
-Worst
-MDD
-Turnover
-Cost
-```
+Freeze 後才正式跑 2025–2026/09 一次；特別報 official execution-label share（VWAP coverage 高）。
 
-## Target Comparison
+## 43. Automation
 
-```text
-Raw → Alpha
-Alpha → Execution Alpha
-```
+One-shot：inspect target/execution helpers → minimal target abstraction → raw parity → tests → smoke → 70 DEV episodes × 3 target modes → paired comparison → gate → if PASS validation → freeze → if allowed holdout → report。
 
-## Next Action
+## 44. Long Jobs
 
-最多 3 行。
+耗時 backtest 用 CLI / shell、resumable、安全處 parallel；不長時間 tail logs、隔幾秒 poll 或將 full ledgers 載入 context。
 
----
+## 45. Token Efficiency
 
-# 50. Git Hygiene
+正常只讀 summary.json、comparison.csv、target_diagnostics.csv、model_diagnostics.csv、failures.md；failure 才查 ledger、orders、per-day prediction。
 
-不要 commit：
+## 46. Clean Code
 
-```text
-run folders
-model binaries
-full ledgers
-prediction dumps
-cache
-long logs
-```
+Single responsibility、盡量 pure target functions、explicit target_mode enum、type hints、dataclass config、deterministic sorting、explicit NaN handling、fail loudly。
 
-只 commit：
+禁止 duplicated execution logic、magic offsets、target_v2 / final_target names、large orchestrator functions、hidden future access、silent fallback、unrelated refactor。
 
-```text
-source
-tests
-configs
-small reports
-comparison tables
-```
+## 47. Naming
 
----
+用 RawReturnTarget、RelativeAlphaTarget、ExecutionAlphaTarget、entry_session、exit_session、execution_price、market_forward_return、relative_alpha；避免 v2、new、tmp、special_case。
 
-# 51. Definition of Done
+## 48. Output
 
-```text
-[ ] target abstraction implemented
-
-[ ] raw parity PASS
-[ ] relative alpha mean ≈ 0
-[ ] execution-price parity PASS
-[ ] maturity timeline PASS
-[ ] causality PASS
-[ ] determinism PASS
-
-[ ] same features
-[ ] same LightGBM
-[ ] same portfolio
-[ ] same 70 DEV episodes
-
-[ ] Raw complete
-[ ] Alpha complete
-[ ] Execution Alpha complete
-
-[ ] paired comparisons complete
-[ ] turnover diagnostics complete
-[ ] target diagnostics complete
-
-[ ] summary generated
-[ ] no holdout before freeze
-[ ] no unrelated refactor
-```
+research/results/target_alignment/ 內輸出 summary.md、summary.json、comparison.csv、target_diagnostics.csv、model_diagnostics.csv、failures.md。
 
----
+## 49. summary.md
 
-# 52. Final Principle
+僅四段：Decision（PASS_TARGET_STUDY / TARGET_IMPROVED_MODEL_STILL_WEAK / STOP_TARGET_FORMULATION）；Main Table（Momentum / Raw LGBM / Alpha LGBM / Execution Alpha LGBM / AutoTS，欄位 Mean、Median、Δ vs Momentum、Win Rate、P10、Worst、MDD、Turnover、Cost）；Target Comparison（Raw → Alpha、Alpha → Execution Alpha）；Next Action 最多 3 行。
 
-本 study 只回答：
+## 50. Git Hygiene
 
-```text
-What should the model predict?
-```
+只 commit source、tests、configs、small reports、comparison tables；不 commit run folders、model binaries、full ledgers、prediction dumps、cache、long logs。
 
-而不是：
+## 51. Definition of Done
 
-```text
-How do we make LightGBM more complicated?
-```
+Target abstraction、raw parity、alpha zero mean、execution-price parity、maturity timeline、causality、determinism PASS；同 features / LightGBM / portfolio / 70 DEV episodes；Raw / Alpha / Execution Alpha 完成；paired comparisons、turnover / target diagnostics、summary 完成；holdout 不早於 freeze，無 unrelated refactor。
 
-順序固定：
+## 52. Final Principle
 
-```text
-Raw Return
-→ remove market component
-→ align with actual execution
-→ only then change features/model/portfolio
-```
+只問 What should the model predict?，不問 How do we make LightGBM more complicated?。固定 Raw Return → remove market component → align with actual execution → 才改 features/model/portfolio。

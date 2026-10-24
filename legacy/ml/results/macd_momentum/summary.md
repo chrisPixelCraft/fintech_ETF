@@ -1,11 +1,13 @@
 # MACD Momentum：Mom20 前 40 名內用多尺度標準化 MACD 重排
 
-- 規則寫死於 [docs/macd_momentum_spec.md](../../docs/macd_momentum_spec.md)
-- 276 個 24 日窗口，逐窗口和 Mom20（資料自 2013）配對
+**三尺度 MACD 重排：STOP。**
+- 規則： [docs/macd_momentum_spec.md](../../docs/macd_momentum_spec.md)
 
-## 三尺度 MACD 重排：**STOP**
+276 個 24 日窗口，與 Mom20 逐窗（資料自 2013）配對
 
-- ✗ mean Δ > +0.5%，✗ CI 下界 > 0，✗ median Δ ≥ 0，✗ ≥ 3 段 Δ > 0，✗ 去掉前 3 大後 > +0.25%，✓ 周轉 ≤ 1.5 倍，✗ 多出成本 < mean Δ，✓ 失格、警告不增加
+未過：mean Δ > +0.5%、CI 下界 > 0、median Δ ≥ 0、≥ 3 段 Δ > 0、去掉前 3 大後 > +0.25%、多出成本 < mean Δ。
+
+通過：周轉 ≤ 1.5 倍、失格／警告不增加。
 
 ## 大表
 
@@ -19,6 +21,6 @@
 
 ## 診斷（只解釋）
 
-- 前 40 名內 MACD 分數與 Mom20 的平均 Spearman 相關：+0.21
-- Mom20 最差 10 個窗口的平均 Δ：+0.36%
-- 去掉 Δ 最大 3 個窗口後的平均 Δ：-0.30%
+- 前 40 名 MACD／Mom20 平均 Spearman：+0.21
+- Mom20 最差 10 窗平均 Δ：+0.36%
+- 去掉 Δ 最大 3 窗後平均 Δ：-0.30%

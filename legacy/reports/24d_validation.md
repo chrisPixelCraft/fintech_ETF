@@ -1,8 +1,8 @@
 # Validation results
 
-`COMPETITION_UNIVERSE_STRESS_TEST`; `BLOCK_READY` / `BLOCK_SUBMISSION`. Return statistics condition on measured-valid complete episodes; valid/requested counts retain failures and incomplete returns stay null. Formal compliance has **0 confirmed episodes**; `ACTIVE_SHARE_NOT_VERIFIED`. Full assumptions and the inherited parameter-selection confound are in the [main report](24d_strategy_summary.md).
+`COMPETITION_UNIVERSE_STRESS_TEST`; `BLOCK_READY` / `BLOCK_SUBMISSION`. Returns use measured-valid complete episodes; counts retain failures, incomplete returns stay null. Formal compliance: **0 confirmed episodes**, `ACTIVE_SHARE_NOT_VERIFIED`. Assumptions and inherited selection confound: [main report](24d_strategy_summary.md).
 
-Validation uses 2020-01-02–2022-11-01 starts; last episode ends 2022-12-02. The recorded decision is **NO_ELIGIBLE_CANDIDATE**; the required measured pass rate is **100.00%** in both development and validation. Validation ranks the development shortlist; no holdout result may alter that choice.
+**NO_ELIGIBLE_CANDIDATE**: development and validation require **100.00%** measured pass. Validation starts 2020-01-02–2022-11-01, ending 2022-12-02; it ranks the development shortlist without holdout feedback.
 
 | Set | Candidate | Measured valid / requested | Incomplete | Median | Mean | P25 | P10 | Worst |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |

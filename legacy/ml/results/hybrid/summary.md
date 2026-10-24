@@ -1,9 +1,8 @@
 # Hybrid 評估：2015–2024（只跑一次）
 
-- 窗口：236 個 24 日窗口（月初＋月中），資料自 2014-01-01 起
-- 規則寫死於 [docs/hybrid_spec.md](../../docs/hybrid_spec.md)
+**STOP：兩版均未過平均增益與成本門檻。**
 
-**STOP**
+236 個月初／月中 24 日窗口，資料自 2014-01-01 起；凍結規則：[docs/hybrid_spec.md](../../docs/hybrid_spec.md)。
 
 | 策略 | 平均 | 中位數 | 配對平均 Δ | 配對中位數 Δ | 95% CI | 勝率 | P10 | 最差 | 周轉 | 成本 | 失格 |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
@@ -13,12 +12,13 @@
 
 ## 通過條件
 
-- hybrid_v2A：✗ mean_delta > +0.5%，✓ median_delta >= 0，✓ no extra disqualification，✗ extra cost < mean_delta
-- hybrid_v2B：✗ mean_delta > +0.5%，✓ median_delta >= 0，✓ no extra disqualification，✗ extra cost < mean_delta
+兩版相同：✗ mean_delta > +0.5%，✓ median_delta >= 0，✓ no extra disqualification，✗ extra cost < mean_delta。
 
-## Panic 診斷（只報告，不用於任何選擇）
+## Panic 診斷：只報告，不選擇
 
-- hybrid_v2A：panic 日 1667 天，含 panic 日的窗口 149 個；這些窗口的 Δ 平均 +0.42%、中位數 +0.07%
-- hybrid_v2B：panic 日 1667 天，含 panic 日的窗口 149 個；這些窗口的 Δ 平均 +0.39%、中位數 +0.01%
+平常日 Hybrid = Mom20，差異全來自 panic 日。兩版均有 1667 panic 日、149 個含 panic 日窗口：
 
-- 平常日 Hybrid 就是 Mom20，差異全部來自 panic 日
+| 版本 | 窗口 Δ 平均 | 中位數 |
+|---|---:|---:|
+| hybrid_v2A | +0.42% | +0.07% |
+| hybrid_v2B | +0.39% | +0.01% |

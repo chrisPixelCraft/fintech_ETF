@@ -1,12 +1,10 @@
 # LightGBM target alignment study
 
-- **資料**：dev 2019-01-01 起，month_start + mid_month，五個策略同一組窗口逐窗口配對；三個 LightGBM 只差 target
-- **Parity**：PASS（6 窗口的報酬、交易、持股、委託、訓練資料 audit、模型與預測 log 與 JPX2 完全相同）
-- **Execution price**：2019–2021 dev 完全沒有官方 VWAP，execution_alpha 用的是 HLC3 proxy；這裡驗證的是「與 simulator 成交語意對齊」，不是官方 VWAP target
+**STOP_TARGET_FORMULATION**：三個 target 對動能以 Raw LGBM 最佳，沒有明顯改善；Validation、Holdout 均未執行（dev gate 未過）。
 
-## Decision
+Dev 自 2019-01-01，month_start + mid_month；五策略同窗口配對，三個 LightGBM 只差 target。Parity PASS：6 窗口的報酬、交易、持股、委託、訓練 audit、模型與預測 log 完全同 JPX2。
 
-**STOP_TARGET_FORMULATION**；三個 target 中對動能最好的是 Raw LGBM
+2019–2021 dev 無官方 VWAP；execution_alpha 使用 HLC3 proxy，只驗 simulator 成交語意，非官方 VWAP target。
 
 ## Main Table（70 個 dev 窗口）
 
@@ -20,10 +18,14 @@
 
 ## Target Comparison
 
-- Raw → Alpha（Q1）：平均 Δ -0.04%，中位數 Δ -0.05%，勝率 47%，95% CI -0.53% ~ +0.45%（70 窗口）
-- Alpha → Execution Alpha（Q2）：平均 Δ -0.24%，中位數 Δ -0.14%，勝率 47%，95% CI -0.66% ~ +0.15%（70 窗口）
-- Execution Alpha − Momentum（Q3）：平均 Δ -0.53%，中位數 Δ -0.57%，勝率 46%，95% CI -1.42% ~ +0.36%（70 窗口）
-- Execution Alpha − Raw：平均 Δ -0.28%，中位數 Δ -0.16%，勝率 47%，95% CI -0.83% ~ +0.29%（70 窗口）
+70 窗口配對：
+
+| 比較 | 平均 Δ | 中位數 Δ | 勝率 | 95% CI |
+|---|---:|---:|---:|---|
+| Raw → Alpha（Q1） | -0.04% | -0.05% | 47% | -0.53% ~ +0.45% |
+| Alpha → Execution Alpha（Q2） | -0.24% | -0.14% | 47% | -0.66% ~ +0.15% |
+| Execution Alpha − Momentum（Q3） | -0.53% | -0.57% | 46% | -1.42% ~ +0.36% |
+| Execution Alpha − Raw | -0.28% | -0.16% | 47% | -0.83% ~ +0.29% |
 
 | Target | Validation Pearson | Top25 日重疊 | 進場/日 | 周轉 | 成本 | 官方 VWAP label 比例 |
 |---|---:|---:|---:|---:|---:|---:|
@@ -35,8 +37,4 @@
 
 ## Next Action
 
-- 三種 target 都沒有明顯改善：問題不只在 target
-- 下一個方向：JPX5 behavioral features 或直接 ranking objective
-- 不調參、不改 portfolio、不換 horizon
-
-- Validation：未執行（dev gate 未通過）；Holdout：未執行
+問題不只 target；下一方向為 JPX5 behavioral features 或直接 ranking objective。本輪不調參、不改 portfolio、不換 horizon。

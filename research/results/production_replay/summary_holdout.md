@@ -1,16 +1,10 @@
 # Production replay：一致性 gate
 
-- 期間：holdout，40 個 24 日窗口、共 960 個交易日
-- 每天：T−1 資料 → engine → D-Plan → 驗證 → 從 D-Plan 讀回委託 → shadow ledger 結算
-- 同一窗口另跑 `competition.backtest.run_episode`，逐日比對
+**CONSISTENCY_PASS：NAV、現金最大差均 0 元。**
 
-**CONSISTENCY_PASS**
+Holdout：40 個 24 日窗口，共 960 交易日。每日以 T−1 資料執行 engine → D-Plan → 驗證 → 讀回委託 → shadow ledger，另跑 `competition.backtest.run_episode` 逐日核對。
 
 - ✓ all days normal path
 - ✓ every D-Plan validates
-- ✓ target weights identical
-- ✓ orders identical
-- ✓ holdings identical
+- ✓ target weights / orders / holdings identical
 - ✓ cash and NAV within 1e-06
-
-- NAV 最大差 0 元，現金最大差 0 元

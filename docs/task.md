@@ -1,21 +1,11 @@
 # 任務定義：AI CUP 2026 玉山 ETF 初賽
 
-> **2026-10-24 更新：本頁保留舊版規格與歷史紀錄。現行規則以 [v4.3 核對](rules_v43.md) 為準。**
-> 前10大／20%、自行重建官方現金、僅靠 holdings 匯出、UNVERIFIED 可 READY 的舊描述均已失效。
-> 本輪已接 DataPack；官方 AS 算法與完整前15大資料未齊，live 會阻擋。
+> **2026-10-24：本頁為舊規格與歷史紀錄；現行以 [v4.3 核對](rules_v43.md) 為準。**
+> 前10大／20%、自行重建官方現金、僅靠 holdings 匯出、UNVERIFIED 可 READY 均失效。已接 DataPack；官方 AS 算法與完整前15大資料未齊，live 阻擋。
 
-本文只整理 AutoTS 主線真正需要的競賽事實，並從目標函數重新 formulate 問題。不引用 V3/V4/V5 的策略設計。
+本文由目標函數定義 AutoTS 主線，不引用 V3/V4/V5 策略。規則以 `official_docs/` 原始 PDF、schema、指南為準；衝突／缺漏標 **UNRESOLVED**。資料於 2026-09-24 以 `.venv/bin/python` 載入驗證。
 
-- 規則以官方原始檔為準
-  - `official_docs/` 內 PDF、schema、指南
-  - 衝突或缺漏標為 **UNRESOLVED**
-- 資料事實皆實際載入驗證
-  - 2026-09-24 以 `.venv/bin/python` 讀取
-- 引用格式
-  - `辦法 pN` = `official_docs/AI CUP 2026玉山人工智慧公開挑戰賽_比賽辦法.pdf` 第 N 頁
-  - `指南 Lx` = `official_docs/D-Plan_撰寫指南.md` 行號
-  - `schema` = `official_docs/D-Plan.schema.json`
-  - `rules.json` = `data/reference/competition_rules.json`
+引用：`辦法 pN` = `official_docs/AI CUP 2026玉山人工智慧公開挑戰賽_比賽辦法.pdf` 第 N 頁；`指南 Lx` = `official_docs/D-Plan_撰寫指南.md` 行號；`schema` = `official_docs/D-Plan.schema.json`；`rules.json` = `data/reference/competition_rules.json`。
 
 ## 一頁摘要
 
@@ -37,39 +27,21 @@
 
 ## 1. 允許股票池
 
-**Fact：** 投資與交易標的限 2026-07 底市值排名之上市前 100 + 上櫃前 50，共 150 檔（辦法 p8 六(七)）。
+**Fact：** 限 2026-07 底市值上市前 100、上櫃前 50，共 150 檔（辦法 p8 六(七)）。`data/reference/universe_competition_20260731.csv` 150 列（TWSE 100、TPEX 50），與 `official_docs/玉山挑戰賽_投資組合及交易標的_150檔清單_v1.pdf` 逐碼一致。
 
-- 清單檔 `data/reference/universe_competition_20260731.csv`
-  - 150 列：TWSE 100、TPEX 50
-  - 與官方 PDF 150 檔代號逐一比對一致
-  - PDF：`official_docs/玉山挑戰賽_投資組合及交易標的_150檔清單_v1.pdf`
-- 持有清單外股票即警告（辦法 p9 六(十四)(5)）
-- `0050.TW` 不在池內
-  - 只當日曆參考
-- 3718 中光電投控有代號變更
-  - 前身 `5371.TWO`
-  - 自 2026-09-03 改為 3718
-  - 見 `data/reference/tuning_2nd_official_coverage.csv`
-- 清單於 2026-09-18 發布
-  - 用於歷史回測有成分前視偏誤
-  - 見 rules.json L61
+池外持股警告（辦法 p9 六(十四)(5)）。`0050.TW` 不在池內，僅作日曆參考。3718 中光電投控自 2026-09-03 由 `5371.TWO` 改碼，見 `data/reference/tuning_2nd_official_coverage.csv`。名單 2026-09-18 發布，回測有成分前視偏誤（rules.json L61）。
 
-### Active Share 限制
+### Active Share 限制（舊規格）
 
-**Fact：** 投組前 10 大持股與任一檔主動型 ETF 前 10 大的 Active Share 不得 <20%；連續 2 交易日違反可直接取消資格，不走三次警告（辦法 p8 六(十三)、p10 註2；rules.json L122-129）。
+**Fact：** 投組前 10 大對任一主動 ETF 前 10 大 Active Share 不得 <20%；連續 2 日可取消資格，不走三次警告（辦法 p8 六(十三)、p10 註2；rules.json L122-129）。
 
-- 公式 `AS = 1/2 × Σ|Wi(投組) − Wi(Benchmark)|`
-- Benchmark 為 30 檔主動 ETF
-  - 清單以 2026-09-11 證交所列表為準
-  - 見 `official_docs/玉山挑戰賽_主動型ETF列表_v1.pdf`
-- 本地無 ETF 逐日持股權重
-  - `data/reference/tuning_2nd_active_etf_readiness.csv` 全為 `NOT_ACQUIRED`
-- **UNRESOLVED：** top10 是否正規化
-- **UNRESOLVED：** 聯集、現金、持股資料延遲的算法
+`AS = 1/2 × Σ|Wi(投組) − Wi(Benchmark)|`。Benchmark 為 2026-09-11 證交所列表的 30 檔（`official_docs/玉山挑戰賽_主動型ETF列表_v1.pdf`）。本地無逐日權重，`data/reference/tuning_2nd_active_etf_readiness.csv` 全 `NOT_ACQUIRED`。
+
+**UNRESOLVED：** top10 正規化、聯集、現金、持股延遲算法。
 
 ## 2. 本地歷史資料
 
-**結論：** 價格歷史夠長（2009 起），但官方成交均價只覆蓋 2025 以後；外生變數只從 2024 開始。
+**結論：** 價格自 2009 起；官方均價主要自 2025 起，外生變數自 2024 起。
 
 | 資料集 | 路徑 | 期間 | 覆蓋 | 用途 |
 |---|---|---|---|---|
@@ -83,29 +55,30 @@
 | 公司行動 | `data/extended/processed/official_corporate_actions.csv` | 2024-01-04 → 2026-09-21 | 149 檔、505 筆 | 除權息、分割 |
 | 日內 1H | `data/extended/processed/hourly_canonical.csv` | 2024-10-01 → 2026-09-21 | 151 symbols | 不建議用 |
 
-### Yahoo 日線欄位與調整方式
+### Yahoo 日線與調整
 
-**Fact：** 欄位為 `date, symbol, open, high, low, close, adj_close, volume, dividend, split_ratio, split, future_split_factor, vendor_repaired, valid_price, tradable, action_neutral_return, quality_flags, valid_for_research`。
+**Fact：** 欄位 `date, symbol, open, high, low, close, adj_close, volume, dividend, split_ratio, split, future_split_factor, vendor_repaired, valid_price, tradable, action_neutral_return, quality_flags, valid_for_research`。
 
-- `close` 是**名目價**
-  - 反推未來分割，未做股利調整
-  - 可當收盤 / NAV 估值
-  - 規則見 `metadata.json` 的 `share_convention`
-- `adj_close` 僅供稽核
-  - 含未來股利資訊
-  - 禁用於訊號或成交（`src/yahoo_daily.py:31`）
-- `action_neutral_return` 是還原報酬
-  - `(close×split + dividend) / 前收 − 1`
-  - 可作 AutoTS 報酬序列
-- 品質旗標
-  - 663 列 `INVALID_OHLCV_OR_ACTION`
-  - 13 列 `ACTION_NEUTRAL_RETURN_GT_30PCT`
-- Yahoo 無成交金額
-  - 不能算官方均價
+- `close` 為名目價。
+	- 反推未來分割。
+	- 未調股利。
+	- 可估收盤／NAV。
+	- 見 `metadata.json` 的 `share_convention`。
+- `adj_close` 僅供稽核。
+	- 含未來股利。
+	- 禁作訊號／成交。
+	- 見 `src/yahoo_daily.py:31`。
+- `action_neutral_return` 為還原報酬。
+	- `(close×split + dividend) / 前收 − 1`，可作 AutoTS 序列。
+- 品質旗標：
+	- 663 列 `INVALID_OHLCV_OR_ACTION`。
+	- 13 列 `ACTION_NEUTRAL_RETURN_GT_30PCT`。
 
-### 150 檔歷史長度
+Yahoo 無成交金額，不能算官方均價。
 
-以 `valid_price & volume>0` 的首日統計：
+### 歷史長度
+
+依 `valid_price & volume>0` 首日：
 
 | 首日不晚於 | 檔數 |
 |---|---|
@@ -116,79 +89,37 @@
 | 2024-01-01 | 144 |
 | 2025-01-01 | 148 |
 
-- 全 150 檔皆有資料只從 2026-09-03 起
-  - 3718 在 Yahoo 只有 15 列
-  - 5371 前身資料在官方池 daily.csv
-  - 2024-01-02 → 2026-08-21
-- 晚上市名單
-  - 7734、7751、7750、7769、7828
-  - 7828 Yahoo 始於 2025-05-08
-  - 官方池始於 2026-04-22
-  - **UNRESOLVED：** 早段是否為興櫃價
-- **Inference：** AutoTS 必須處理不等長序列
+全 150 檔覆蓋自 2026-09-03 起；Yahoo 3718 僅 15 列，前身 5371 在官方池 daily.csv 有 2024-01-02 → 2026-08-21。晚上市：7734、7751、7750、7769、7828；7828 Yahoo 自 2025-05-08、官方池自 2026-04-22。
+
+**UNRESOLVED：** 早段是否興櫃價。**Inference：** AutoTS 須處理不等長序列。
 
 ### 官方成交均價覆蓋
 
-**Fact：** `daily.csv` 的 `execution_vwap` 依來源重算一致（`official_turnover / execution_volume` 最大相對誤差 4.4e-16）。
+**Fact：** `daily.csv` 的 `execution_vwap` 與 `official_turnover / execution_volume` 重算一致，最大相對誤差 4.4e-16。
 
-| 年 | 均價覆蓋率 | 主要來源 |
+| 年 | 覆蓋率 | 來源 |
 |---|---|---|
 | 2024 | 20.0% | FinMind 對官方交叉驗證 |
 | 2025 | 99.3% | TWSE / TPEx / FinMind |
 | 2026（至 09-21） | 99.3% | TWSE / TPEx |
 
-- 2025-01-02 → 2026-09-21 共 417 sessions
-  - 約 17 個不重疊 24 日 episode
-- 0.34% 均價落在 H–L 範圍外
-  - 屬資料品質旗標
-- 2025 前沒有本地官方均價
-  - 回測只能用 proxy
-  - 需明確標示 proxy
-- `outputs/v4`、`outputs/v5` 本地不存在
-  - 舊官方均價快取未保留
-- 均價與開盤、收盤的差距
-  - |VWAP/open − 1| 中位數 0.97%
-  - |VWAP/close − 1| 中位數 0.53%
-  - **Inference：** open proxy 誤差不可忽略
+2025-01-02 → 2026-09-21 共 417 sessions，約 17 個不重疊 24 日 episode。0.34% 均價在 H–L 外，保留品質旗標。2025 前無本地官方均價，須標 proxy；`outputs/v4`、`outputs/v5` 不存在，舊均價快取未留。
+
+|VWAP/open − 1| 中位數 0.97%，|VWAP/close − 1| 中位數 0.53%。**Inference：** open proxy 誤差不可忽略。
 
 ### 交易日曆
 
-- `data/yahoo_daily/v3_20260923/calendar_v2.json`
-  - 4,330 sessions，2009-01-05 → 2026-09-23
-  - 0050 觀測加廣度規則
-  - 標示為研究 proxy，非官方日曆
-- **已解決（U1）：** 以 10/26 為首日
-  - 主辦方指定 10/26
-  - 10/26–11/27 共 25 個平日
-  - 辦法寫 24 交易日
-  - 休市表列 10/26 補假
-  - 休市時自動跳過
-  - 見 [UNRESOLVED 總表](#unresolved-總表) U1
+`data/yahoo_daily/v3_20260923/calendar_v2.json`：4,330 sessions，2009-01-05 → 2026-09-23；0050 觀測加廣度規則，為研究 proxy，非官方日曆。
+
+**已解決（U1）：** 主辦指定 10/26；10/26–11/27 有 25 平日，辦法稱 24 交易日，休市表列 10/26 補假。首日設 10/26，休市自動跳過；見 [UNRESOLVED 總表](#unresolved-總表) U1。
 
 ## 3. 每日資訊截止點
 
-**Fact：** 交易日 T 的 D-Plan 須在 T 日 08:55 前繳交（辦法 p7 六(三)）。
+**Fact：** T 日 D-Plan 於 08:55 前交（辦法 p7 六(三)）。**UNRESOLVED：** 開窗為前一日曆日 19:30（辦法）或 T 日 05:00（schema）；採共同區間 05:00–08:55（`docs/v2_double_check_rules.md` L99）。
 
-- **UNRESOLVED：** 開窗時間
-  - 辦法：前一**日曆日** 19:30
-  - schema 根描述：T 日 05:00
-  - rules/v2 文件採共同區間 05:00–08:55
-  - 見 `docs/v2_double_check_rules.md` L99
-- 決策時可知
-  - T−1 收盤價、成交量、成交金額
-  - T−1 主辦方結算持股與 NAV
-  - 美股收盤（約台北 04:00–05:00）
-  - 台指期夜盤（至 05:00）
-- 決策時不可知
-  - T 日任何價格
-  - T 日成交均價
-- 定股數只能用 T−1 收盤與 T−1 NAV
-  - 指南 L225-230；rules.json L86-89
-- 持股以系統結算為準
-  - `GET /api/portfolio/holdings/`
-  - 指南 L241-252
-- 外生資料要有 `available_at`
-  - 須早於 T 日 08:55
+決策可用 T−1 價量、成交金額、主辦結算持股／NAV、美股收盤（台北約 04:00–05:00）、台指期夜盤（至 05:00）；禁用 T 日任何價格及均價。外生資料須 `available_at` 早於 T 日 08:55。
+
+定股數僅用 T−1 收盤與 NAV（指南 L225-230；rules.json L86-89）；持股以系統 `GET /api/portfolio/holdings/` 為準（指南 L241-252）。
 
 ## 4. 投資組合限制
 
@@ -204,103 +135,40 @@
 
 ### 違規處理
 
-**Fact：** 當日任一違規記一次警告，當日交易無效並以前一日投組計算淨值；累積 3 次取消資格（辦法 p9 六(十四)）。
+**Fact：** 每日任一違規記一次警告，當日交易無效、沿用前日投組算 NAV；累積 3 次取消資格（辦法 p9 六(十四)）。事由：漏交 D-Plan、現金負或 >25%、檔數不在 20–30、單股超限、池外股票、抽檢決策與交易不一致。
 
-- 警告事由
-  - 未繳交 D-Plan
-  - 現金為負或 >25%
-  - 檔數不在 20–30
-  - 單股超限
-  - 持有池外股票
-  - 決策與交易不一致（抽檢）
-- 超限分主動與被動
-  - 加碼造成：當日警告
-  - 價格漂移：5 交易日內減碼
-  - 第 6 日仍超限才警告
-  - 辦法 p10 註3
-- **UNRESOLVED：** 現金 25% 邊界
-  - p8 寫「小於 25%」
-  - p9 寫「超過 25%」
-  - 安全做法：嚴格 <25%
-- **Inference：** 首日即須建倉
-  - 起始 100% 現金
-  - 首日結算需 ≥75% 持股、≥20 檔
-  - 否則首日即警告
+主動加碼超限當日警告；價格漂移超限有 5 交易日減碼，第 6 日才警告（辦法 p10 註3）。**UNRESOLVED：** p8 要現金 <25%，p9 寫 >25% 才警告；安全採嚴格 <25%。
+
+**Inference：** 首日 100% 現金，結算即須 ≥75% 持股、≥20 檔，否則警告。
 
 ## 5. 交易成本
 
-- 手續費買賣各 0.1425%
-- 賣出證交稅 0.3%
-- 從現金扣除
-  - 辦法 p8 六(十一)
-- 單趟換股成本約 0.585%
-  - 0.1425% × 2 + 0.3%
-- 首日建倉成本
-  - 約 0.1425% × 投入部位
-- **UNRESOLVED：** 費用取整、最低手續費
-  - rules.json L97-98 為 null
-- 官方未計滑價與衝擊
-  - 成交量上限未規定
+買賣各 0.1425% 手續費，賣出稅 0.3%，扣現金（辦法 p8 六(十一)）。換股約 0.585% = 0.1425% × 2 + 0.3%；首日成本約 0.1425% × 部位。
+
+**UNRESOLVED：** 費用取整、最低費（rules.json L97-98 為 null）。官方未計滑價／衝擊，無成交量上限。
 
 ## 6. 成交與結算
 
-**Fact：** 當日委託設定為全數成交，成交價一律為該股當日成交均價（辦法 p7 六(四)、p8 六(五)）。
+**Fact：** 委託全數按 T 日均價成交（辦法 p7 六(四)、p8 六(五)）；均價 = 成交金額 ÷ 股數（指南 L231；rules.json L90）。股數於 T−1 固定，不隨成交價重算，均價偏離可能使現金為負。
 
-- 均價 = 成交金額 ÷ 成交股數
-  - 指南 L231
-  - rules.json L90
-- 股數在 T−1 已固定
-  - 成交價變動不會重算股數
-  - 現金可能因均價偏離而為負
-- NAV = Σ 持股 × 當日收盤 + 現金
-  - 辦法 p6 五
-- 除權息與分割由主辦方調整股數
-  - 辦法 p8 六(十二)
-- 現金股利延後入帳
-  - 賽期累積，期末才加入 NAV
-  - 不可在除息日動用
-  - 辦法 p10 註1
-- 價格保護
-  - 台股漲跌幅 ±10%
-  - 均價必落在區間內
-  - 新上市前 5 日例外
-- **UNRESOLVED：** 無成交價時
-  - 辦法稱全數成交
-  - 指南 L243-244 稱可能未成交
-  - 安全做法：不捏造價格
-- **UNRESOLVED：** 零股權益如何處理
-  - 股票股利產生零股
-  - 官方公式未定義零股持股
-  - rules.json L322
-- **UNRESOLVED：** 同日買賣順序
-  - 賣出價款能否同日支應買進
-  - `funding_for` 暗示可以
-  - 現金以日終結算判定
+NAV = Σ 持股 × 當日收盤 + 現金（辦法 p6 五）。主辦調整除權息／分割股數（辦法 p8 六(十二)）；現金股利期末才加 NAV，除息日不能動用（辦法 p10 註1）。台股 ±10% 保護涵蓋均價，新上市前 5 日例外。
 
-### 本地可用的執行價
+**UNRESOLVED：** 無價時辦法稱全成交、指南 L243-244 稱可能未成交，採不捏造價格。股票股利零股與官方持股公式未定（rules.json L322）。同日買賣順序、賣款支應買進未明；`funding_for` 暗示可用，現金按日終判定。
+
+### 本地執行價
 
 | 模式 | 來源 | 期間 | 狀態 |
 |---|---|---|---|
 | 官方均價 | `daily.csv` 的 `execution_vwap` | 2025-01 → 2026-09-21 | 可用，覆蓋 99% |
 | 官方均價 | 同上 | 2024 | 覆蓋 20% |
-| 官方均價即時抓取 | `scripts/v4_build_execution_data.py` | 任意日 | 需網路，TWSE MI_INDEX / TPEx dailyQuotes |
-| open proxy | Yahoo `open` | 2009 起 | 研究 proxy，需標示 |
+| 即時官方均價 | `scripts/v4_build_execution_data.py` | 任意日 | 需網路；TWSE MI_INDEX / TPEx dailyQuotes |
+| open proxy | Yahoo `open` | 2009 起 | 研究 proxy，須標示 |
 
 ## 7. D-Plan 要求
 
-**Fact：** 每交易日一份 JSON，schema v4.0，必填 12 個頂層欄位（schema `required`）。
+**Fact：** 每日 JSON、schema v4.0，12 個頂層必填（schema `required`）：`schema_version="4.0"`、`doc_type="D-Plan"`、`team_id`、`trade_date`、`sources`、`observations`、`market_view`、`inferences`、`decisions`、`no_trade_decisions`、`orders`、`agent_metadata`。
 
-- 頂層欄位
-  - `schema_version="4.0"`、`doc_type="D-Plan"`
-  - `team_id`、`trade_date`
-  - `sources`、`observations`
-  - `market_view`、`inferences`
-  - `decisions`、`no_trade_decisions`
-  - `orders`、`agent_metadata`
-- 檔名 `D-Plan_<team_id>_<trade_date>.json`
-  - 指南 L34-36
-- 時間一律 `+08:00`
-  - 指南 L32
+檔名 `D-Plan_<team_id>_<trade_date>.json`（指南 L34-36）；時間 `+08:00`（指南 L32）。
 
 ### 語意檢查
 
@@ -316,79 +184,25 @@
 | C14 | `funding_for` 必須真有缺口 | 拒收 | schema `decision.funding_for` |
 | 覆蓋 | 昨日每檔持股出現在 decisions 或 no_trade 擇一 | 拒收 | 指南 L180-182 |
 
-- C12 細節
-  - `increase` 需淨買超
-  - `reduce` 需淨賣超
-  - `hold` 需 |淨流向| ≤2% NAV
-  - 現金比需落在 `target_cash_pct_range`
-  - 以 T−1 收盤估算
-  - 指南 L150-162
-- action 語意
-  - BUY：原持股 0
-  - ADD：加碼
-  - TRIM：減碼仍留部位
-  - SELL_ALL：出清
-  - 指南 L198-205
-- `target_weight` 需能反推股數
-  - 宣告權重經 floor 公式得到的股數必須等於實際委託
-- **UNRESOLVED：** C2、C12 違反是拒收或警告
-  - schema 寫拒收
-  - 反例檔 `_NOTE` 寫僅警示
-  - 本地應採拒收
-- **UNRESOLVED：** 官方驗證器 `verify_dplan.py` 未釋出
+C12：`increase` 淨買超、`reduce` 淨賣超、`hold` |淨流向| ≤2% NAV；以 T−1 收盤估，現金比須在 `target_cash_pct_range`（指南 L150-162）。Action：BUY 原持股 0、ADD 加碼、TRIM 減碼留倉、SELL_ALL 出清（指南 L198-205）。`target_weight` 經 floor 必須反推出實際委託股數。
 
-### 每日必須產生
+**UNRESOLVED：** C2/C12，schema 寫拒收、反例 `_NOTE` 寫警示；本地採拒收。官方 `verify_dplan.py` 未釋出。
 
-- sources：實際引用的資料來源
-- observations：只寫可核對事實與數字
-- market_view：regime、stance、posture
-- inferences：事實 → 個股結論
-- decisions + no_trade_decisions：覆蓋所有持股
-- orders：由 decisions 機械推導
-- agent_metadata：`code_version` 對應當日程式
-  - 改參數即改版
-  - 指南 L285-288
+### 每日產物與一次性文件
 
-### 賽前一次性文件
+Sources 實際引用；observations 僅可核對事實／數字；market_view 含 regime、stance、posture；inferences 從事實推個股結論；decisions + no_trade_decisions 覆蓋持股；orders 機械推導。`code_version` 對應當日程式，改參數須改版（指南 L285-288）。
 
-- ETF 投資策略說明文件
-  - 10/21–10/26 繳交
-  - 名稱以「主動」開頭，≤20 字
-  - 主題 ≤50 字；理念 100–300 字
-  - 辦法 p2 二(七)；`docs/v2_double_check_rules.md` L118
-- 每日 D-Plan 須與說明文件一致
-  - 指南 L58-59、L298
+ETF 策略說明於 10/21–10/26 交；名稱以「主動」起、≤20 字，主題 ≤50 字、理念 100–300 字（辦法 p2 二(七)；`docs/v2_double_check_rules.md` L118）。每日 D-Plan 須一致（指南 L58-59、L298）。
 
 ## 8. 評估期間
 
-- 初賽 2026-10-26 → 2026-11-27
-  - 辦法 p2 二(七)、p11
-- 官方稱扣除例假日共 24 交易日
-  - 辦法 p4 四(三)
-- 最終 NAV 以 11/27 收盤計算
-  - 辦法 p6 五
-- 首個交易日以 10/26 為準
-  - 見 U1
+初賽 2026-10-26 → 2026-11-27（辦法 p2 二(七)、p11），官方稱 24 交易日（p4 四(三)）；11/27 收盤計最終 NAV（p6 五）。首日按 10/26（U1）。
 
 ## 9. 最終目標與計分
 
-- 初賽排名：最終 NAV 越高越好
-  - 同 NAV 比 MDD，較低者勝
-  - 辦法 p6 五
-- 各組前 6 名進複賽
-  - 學生組、社會組分開
-  - 辦法 p2 二(八)
-- 總成績 = 初賽分 + 複賽分
-  - 初賽分 = 隊伍 NAV ÷ Σ 晉級隊 NAV
-  - 複賽分 = 募資額 ÷ Σ 募資額
-  - 辦法 p6-7
-- 期末 NAV 含累積現金股利
-  - 辦法 p10 註1
-- **Inference：** 目標是相對排名
-  - 前 6 名是錦標賽式目標
-  - 最大化期望 NAV 與最大化進前 6 機率不同
-  - 後者可能偏好較高變異
-  - 這是策略判斷，需使用者決定
+最終 NAV 高者勝，同分比低 MDD（辦法 p6 五）；學生組、社會組各前 6 名晉級（p2 二(八)）。總分 = 初賽分 + 複賽分；初賽分 = 隊伍 NAV ÷ Σ 晉級隊 NAV，複賽分 = 募資額 ÷ Σ 募資額（p6-7）。期末 NAV 含累積股利（p10 註1）。
+
+**Inference：** 進前 6 是相對排名目標，與最大化期望 NAV 不同，可能偏好高變異；需使用者決定。
 
 ## 10. 每日繳交流程
 
@@ -403,111 +217,40 @@
 | T 09:00–13:30 | 以 T 日均價全數成交 | 辦法 p8 六(五) |
 | T 晚間 | 結算、檢查違規、更新 NAV | 辦法 p8-9 |
 
-- 每日步驟
-  - 查系統持股與 T−1 NAV
-  - 更新 T−1 資料並驗證
-  - 產生預測與目標權重
-  - 套用限制，推導 orders
-  - 產生並驗證 D-Plan
-  - 輸出 `READY_TO_SUBMIT` 或 `BLOCK_SUBMISSION`
-- **UNRESOLVED：** 同日多次繳交以哪次為準
-  - 辦法只明說 11/27 採最後一次
-- **UNRESOLVED：** 非 LLM 管線是否算「AI Agent」
-  - 辦法 p7 六(一) 要求 Agent 自主決策
-  - `model_provider` 可填 `other`
-  - D-Plan 需自然語言 logic
+步驟：查持股／T−1 NAV → 更新驗證 T−1 資料 → 預測／權重 → 限制／orders → 產生驗證 D-Plan → `READY_TO_SUBMIT` 或 `BLOCK_SUBMISSION`。
 
----
+**UNRESOLVED：** 同日多次繳交僅明定 11/27 用最後一次。非 LLM 管線是否算 AI Agent 需確認：辦法 p7 六(一) 要求自主決策，`model_provider` 可 `other`，D-Plan 仍需自然語言 logic。
 
 ## 11. 從目標重新 formulate
 
-### 決策變數
+### 變數、資訊與轉移
 
-每個交易日 t（t = 1…24），在 T 日 08:55 前選擇目標權重向量 `w_t`，定義於 150 檔上。
+每日 t = 1…24，於 T 日 08:55 前在 150 檔選 `w_t`。官方委託公式：`q_i,t = floor(w_i,t × V_{t−1} / C_i,{t−1} / 1000) × 1000 − h_i,{t−1}`；`V` = NAV、`C` = 收盤、`h` = 股數；另宣告 `net_exposure_intent`、`target_cash_pct_range`。
 
-- 委託由官方公式機械決定
-  - `q_i,t = floor(w_i,t × V_{t−1} / C_i,{t−1} / 1000) × 1000 − h_i,{t−1}`
-  - `V` 為 NAV，`C` 為收盤，`h` 為股數
-- 另需宣告 posture
-  - `net_exposure_intent`
-  - `target_cash_pct_range`
+`I_t` = T−1 價量／結算帳本及 T 日截止前外生資料，禁含 T 日價格；須 `available_at < T 08:55`。
 
-### 資訊集
+- 成交 `h_t = h_{t−1} + q_t`，再套公司行動。
+- 現金 `c_t = c_{t−1} − Σ q × P^avg_t − 費稅`。
+- 估值 `V_t = Σ h_t × C_t + c_t`。
+- 股利另計 `D_t`，期末加入。
 
-`I_t` = T−1 收盤前所有價量、T−1 結算帳本、T 日 08:55 前已發布的外生資料。
+結算限制：`20 ≤ |{i : h_i,t > 0}| ≤ 30`、`h_i,t × C_i,t / V_t ≤ 0.10`（2330 為 0.25）、`0 ≤ c_t < 0.25 × V_t`、`i ∈ U150`。違規當日交易作廢、記警告。
 
-- 不含 T 日任何價格
-- 所有外生變數需有 `available_at < T 08:55`
+目標：最大化 `V_24 + D_24`；`h_0 = 0`、`c_0 = V_0 = 10 億`，同分最小化 MDD。
 
-### 狀態轉移
+### 預測含意
 
-- 成交：`h_t = h_{t−1} + q_t`，再套公司行動
-- 現金：`c_t = c_{t−1} − Σ q × P^avg_t − 費稅`
-- 估值：`V_t = Σ h_t × C_t + c_t`
-- 股利另計 `D_t`，期末加入
+**Evidence：** T 日均價成交、未來收盤估值、T−1 收盤定股數。**Interpretation：** 決策報酬為 `C_{t+h−1} / P^avg_t − 1`。**Conclusion：** 預測 T 均價 → 未來收盤，非 T−1 → T close-to-close。
 
-### 限制（於 t 日結算檢查）
+現金 <25% 鎖定 ≥75% 曝險；普通單股 ≤10% 至少需 8 檔才滿倉，實際規則 ≥20 檔。**Inference：** alpha 主要來自橫斷面選股，擇時僅 0–25% 現金空間。
 
-- `20 ≤ |{i : h_i,t > 0}| ≤ 30`
-- `h_i,t × C_i,t / V_t ≤ 0.10`（2330 為 0.25）
-- `0 ≤ c_t < 0.25 × V_t`
-- `i ∈ U150`
-- 違規則當日交易作廢並記警告
+換股預期超額須跨 0.585% 成本；**Inference：** 1 日 horizon 難覆蓋。剩餘 `24 − t + 1` 日，期末不清倉、末段成本難回收。首日須一天配置 ≥75%，選股影響最大。
 
-### 目標
+### 驗證含意與待決事項
 
-最大化 `V_24 + D_24`，起點 `h_0 = 0`、`c_0 = V_0 = 10 億`；同分時最小化 MDD。
+Episode 模擬完整 24 session：全現金、相同定股數／成交／費稅／違規。官方均價 2025-01 → 2026-09 約 17 個不重疊窗口，可增滾動起點；2009 起較早期須標 open／其他 proxy。涵蓋多市場狀態及 10–11 月類比。
 
-### 對預測目標的含意
-
-**Evidence：** 成交在 T 日均價，估值在後續收盤；股數由 T−1 收盤固定。
-**Interpretation：** 一筆 t 日決策的報酬是 `C_{t+h−1} / P^avg_t − 1`，不是 close-to-close。
-**Conclusion：** 預測目標應以「T 日均價 → 未來收盤」定義，而非預測 T−1 收盤到 T 收盤。
-
-- 市場曝險大多被規則鎖定
-  - 現金 <25% → 持股 ≥75%
-  - 單股 ≤10% → 至少 8 檔才滿倉
-  - 實際須 ≥20 檔
-- **Inference：** 主要 alpha 來自選股
-  - 預測重點是橫斷面相對報酬
-  - 大盤擇時只剩 0–25% 現金空間
-- 換股需跨越成本門檻
-  - 單趟約 0.585%
-  - 預期超額報酬需大於此值
-  - **Inference：** 1 日 horizon 難覆蓋成本
-- 剩餘期間逐日縮短
-  - 第 t 日剩 `24 − t + 1` 日
-  - 期末不需清倉
-  - 最後幾日換股成本難回收
-- 首日為強制建倉日
-  - 必須一天內配置 ≥75%
-  - 首日選股品質影響最大
-
-### 對驗證設計的含意
-
-- Episode 應模擬整個賽局
-  - 24 個連續 session
-  - 全現金起始
-  - 同樣的定股數、成交、費稅、違規規則
-- 可用官方均價的 episode
-  - 2025-01 → 2026-09
-  - 約 17 個不重疊窗口
-  - 可做滾動起點增加樣本
-- 較早期間只能用 proxy
-  - Yahoo 價格 2009 起
-  - 執行價需用 open 或其他 proxy
-  - 結果需標為 proxy
-- 需涵蓋多種市場狀態
-  - 另保留 10–11 月季節類比窗口
-- 已知偏誤
-  - 2026 名單回溯套用，有存活者偏誤
-  - 2010 年後資料已被舊策略看過
-  - **Hypothesis：** 需在 AutoTS 調參前先凍結一段 holdout
-
-### 待使用者決定
-
-- 目標是最大化期望 NAV，或最大化進前 6 機率
-- 最終 holdout 窗口的選擇與凍結時點
+2026 名單回套有存活偏誤，2010 後資料已被舊策略看過。**Hypothesis：** AutoTS 調參前應凍結 holdout。使用者須選期望 NAV 或前 6 機率，並決定 holdout 窗口與凍結時點。
 
 ## UNRESOLVED 總表
 

@@ -1,12 +1,14 @@
 # Technical Momentum：Mom20 前 40 名內用技術指標重排
 
-- 規則寫死於 [docs/technical_momentum_spec.md](../../docs/technical_momentum_spec.md)
+**Composite：STOP。**
+- 規則： [docs/technical_momentum_spec.md](../../docs/technical_momentum_spec.md)
 - Retrospective causal stress test：2015-01 到 2026-09，所有期間都已看過
-- 276 個 24 日窗口，逐窗口和 Mom20 配對；組合層與 production 相同
 
-## Composite：**STOP**
+276 個 24 日窗口，與 Mom20 逐窗配對；組合層與 production 相同
 
-- ✗ mean Δ > +0.5%，✗ CI 下界 > 0，✗ median Δ ≥ 0，✗ ≥ 3 段 Δ > 0，✗ 去掉前 3 大後 > +0.25%，✗ 周轉 ≤ 1.5 倍，✗ 多出成本 < mean Δ，✓ 失格、警告不增加
+未過：mean Δ > +0.5%、CI 下界 > 0、median Δ ≥ 0、≥ 3 段 Δ > 0、去掉前 3 大後 > +0.25%、周轉 ≤ 1.5 倍、多出成本 < mean Δ。
+
+通過：失格／警告不增加。
 
 ## 大表
 
@@ -40,5 +42,5 @@
 | abn_volume | +2.62% | -0.37% | -0.17% | -0.64% ~ -0.10% | 47% | -6.05% | 4.75 | 1.25% | +0.03% | -0.68% | +0.18% | -1.73% | -0.14% | -1.16% | +0.30 |
 | pv_corr | +2.49% | -0.50% | -0.33% | -0.74% ~ -0.26% | 40% | -6.71% | 4.91 | 1.30% | -0.31% | -0.75% | -0.15% | -1.11% | -0.39% | -0.87% | +0.22 |
 
-- 單一指標與族群只是診斷，不觸發任何決策
-- Composite 去掉 Δ 最大的 3 個窗口後：-1.07%
+- 單指標、族群只供診斷
+- Composite 去掉 Δ 最大 3 窗後：-1.07%

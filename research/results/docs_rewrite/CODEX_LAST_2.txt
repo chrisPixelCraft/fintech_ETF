@@ -1,0 +1,5 @@
+已完成 27 份文件重寫，總字數減少 **19.0%**。
+
+- Fidelity：**27/27 通過，failing 0**
+- 僅寫入允許路徑，未進行 Git 寫入操作
+- [完整報告與逐檔字數](research/results/docs_rewrite/CODEX_REPORT_2.md)

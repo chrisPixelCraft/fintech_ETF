@@ -1,0 +1,158 @@
+{
+ "docs/task.md": {
+  "old_chars": 13190,
+  "new_chars": 11279,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/docs/README.md": {
+  "old_chars": 1982,
+  "new_chars": 1796,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/docs/v4_master_spec.md": {
+  "old_chars": 6796,
+  "new_chars": 5296,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/docs/v5_spec.md": {
+  "old_chars": 12620,
+  "new_chars": 10187,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/ml/README.md": {
+  "old_chars": 8015,
+  "new_chars": 7594,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/ml/docs/h1_residual_spec.md": {
+  "old_chars": 3474,
+  "new_chars": 2737,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/ml/docs/infra_reuse_map.md": {
+  "old_chars": 20177,
+  "new_chars": 17559,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/ml/docs/jpx#5_target_align_spec.md": {
+  "old_chars": 13419,
+  "new_chars": 9705,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/ml/docs/lgbm_v2_daily_spec.md": {
+  "old_chars": 1943,
+  "new_chars": 1435,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/ml/docs/macd_momentum_spec.md": {
+  "old_chars": 2804,
+  "new_chars": 2328,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/ml/docs/residual_fixes_spec.md": {
+  "old_chars": 3873,
+  "new_chars": 3102,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/ml/docs/tsmc_core_spec.md": {
+  "old_chars": 3260,
+  "new_chars": 2599,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/ml/results/all_experiments.md": {
+  "old_chars": 11156,
+  "new_chars": 9439,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/ml/results/data_usage/failures.md": {
+  "old_chars": 56,
+  "new_chars": 36,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/ml/results/data_usage/summary.md": {
+  "old_chars": 1403,
+  "new_chars": 1328,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/ml/results/lgbm_jpx2/summary.md": {
+  "old_chars": 1152,
+  "new_chars": 1020,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/ml/results/lgbm_v2_daily/pure_test.md": {
+  "old_chars": 694,
+  "new_chars": 674,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/ml/results/macd_momentum/summary.md": {
+  "old_chars": 1362,
+  "new_chars": 1332,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/ml/results/target_alignment/failures.md": {
+  "old_chars": 56,
+  "new_chars": 36,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/ml/results/technical_momentum/summary.md": {
+  "old_chars": 4401,
+  "new_chars": 4373,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/ml/results/tsmc_core/summary.md": {
+  "old_chars": 1789,
+  "new_chars": 1766,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/reports/24d_expansion.md": {
+  "old_chars": 5616,
+  "new_chars": 5227,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/reports/24d_round4.md": {
+  "old_chars": 2120,
+  "new_chars": 1853,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/reports/24d_strategy_summary.md": {
+  "old_chars": 9078,
+  "new_chars": 7184,
+  "missing": {},
+  "broken_links": []
+ },
+ "research/results/momentum_sweep/summary.md": {
+  "old_chars": 2226,
+  "new_chars": 2216,
+  "missing": {},
+  "broken_links": []
+ },
+ "research/results/rules_v43_validation/summary.md": {
+  "old_chars": 2273,
+  "new_chars": 2039,
+  "missing": {},
+  "broken_links": []
+ }
+}

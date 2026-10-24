@@ -1,8 +1,8 @@
 # x0352 daily baseline
 
-`COMPETITION_UNIVERSE_STRESS_TEST`; `BLOCK_READY` / `BLOCK_SUBMISSION`. Return statistics condition on measured-valid complete episodes; valid/requested counts retain failures and incomplete returns stay null. Formal compliance has **0 confirmed episodes**; `ACTIVE_SHARE_NOT_VERIFIED`. Full assumptions and the inherited parameter-selection confound are in the [main report](24d_strategy_summary.md).
+`COMPETITION_UNIVERSE_STRESS_TEST`; `BLOCK_READY` / `BLOCK_SUBMISSION`. Returns use measured-valid complete episodes; counts retain failures, incomplete returns stay null. Formal compliance: **0 confirmed episodes**, `ACTIVE_SHARE_NOT_VERIFIED`. Assumptions and inherited selection confound: [main report](24d_strategy_summary.md).
 
-The frozen x0352 parameters are transferred to daily indicators; the 4H availability gate is removed. Signals retain the 10/30-day returns, EMA 10/30 and 100/200, MACD 8/21/5, volume/risk filters and portfolio rules. The approximate score weights are 44% short return, 11% long return, 18% volume and 9% each MACD, medium trend and long trend. These reports describe the saved engine run, not a reproduction of the legacy long-horizon return.
+Frozen x0352 uses daily indicators without the 4H availability gate. Retained: 10/30-day returns, EMA 10/30 and 100/200, MACD 8/21/5, volume/risk filters and portfolio rules. Approximate weights: short return 44%, long return 11%, volume 18%, MACD/medium/long trend 9% each. This saved engine run does not reproduce legacy long-horizon return.
 
 | Set | Candidate | Measured valid / requested | Incomplete | Median | Mean | P25 | P10 | Worst |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -24,7 +24,7 @@ The frozen x0352 parameters are transferred to daily indicators; the 4H availabi
 | validation | x0352_daily_baseline | 24/35 | 17.37% | 9.87% | 9.88% | 114.5 | 2.58% | 3.40% | 2 |
 | holdout | x0352_daily_baseline | 18/23 | 19.36% | 9.09% | 7.81% | 116.5 | 4.47% | 5.94% | 1 |
 
-Top-tail removal discards ceil(5% × valid episodes), capped to leave more than half the sample. Symmetric trimming leaves the sample median unchanged by construction; it is reported for completeness, not evidence of improved robustness.
+Top-tail removal discards ceil(5% × valid episodes), leaving more than half. Symmetric trimming preserves the median by construction; it does not prove robustness.
 
 ## Cold-start deployment
 
@@ -34,7 +34,7 @@ Top-tail removal discards ceil(5% × valid episodes), capped to leave more than 
 | validation | x0352_daily_baseline | 90.91% | 89.53% | 89.38% | 20 / 20 / 21 | 35 / 35 / 31 | 31/35 | 1 |
 | holdout | x0352_daily_baseline | 90.71% | 90.02% | 89.27% | 20 / 20 / 20.5 | 23 / 23 / 22 | 22/23 | 1 |
 
-Invested fractions and holding counts are medians among observations available on each day; observed counts expose early stops. Time to valid portfolio is conditional on reaching all measured portfolio checks, including holding count, cash, caps, stale quotes and odd shares; unreached episodes remain in the denominator. Formal Active Share remains unknown.
+Daily invested/holding medians use available observations; counts reveal early stops. Time-to-valid uses episodes reaching all checks: holdings, cash, caps, stale quotes and odd shares. Unreached episodes stay in denominators. Formal Active Share is unknown.
 
 
 ## Monthly episodes by start year
@@ -67,7 +67,7 @@ Invested fractions and holding counts are medians among observations available o
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | all_200_monthly_starts | x0352_daily_baseline | 137/200 | 38.29% | 6.59% | 8.70% | 113 | 2.22% | 2.74% | 7 |
 
-The following book starts once and carries its holdings forward; it is not a compound return of cash-reset episodes. Disqualification stops the book and leaves the full-horizon return null.
+This continuous book starts once and carries holdings; it does not compound cash-reset episodes. Disqualification stops it; full-horizon return stays null.
 
 | Candidate | Observed / requested sessions | Observed end | Book status | LONG_HORIZON_RETURN | Forensic partial return (not full horizon) |
 | --- | --- | --- | --- | --- | --- |

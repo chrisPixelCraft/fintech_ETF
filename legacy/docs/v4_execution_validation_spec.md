@@ -2,340 +2,90 @@
 
 ## 1. Goal
 
-建立一套不能靠 hindsight 自欺的 V4 evaluation harness。
+建立防 hindsight 的 V4 evaluation harness：**Correct simulator first. Strategy tuning second.**
 
-核心原則：
+## 2. Phase 0 — Rebuild Execution
 
-> Correct simulator first. Strategy tuning second.
-
----
-
-# 2. Phase 0 — Rebuild Execution
-
-第一個工作不是 tune V4。
-
-先實作：
-
-```text
-src/v4_execution.py
-src/v4_ledger.py
-```
-
-canonical historical execution：
+先實作 src/v4_execution.py、src/v4_ledger.py，再調 V4。Canonical historical execution：
 
 \[
-AveragePrice_t
-=
-TradingValue_t / TradingVolume_t
+AveragePrice_t = TradingValue_t / TradingVolume_t
 \]
 
----
+## 3. Historical Data
 
-# 3. Historical Data
+Signal 可沿用 Yahoo daily history；canonical execution 優先使用 TWSE / TPEx official daily trading value + volume，按上市／上櫃分流。
 
-Signal data 可以繼續使用 Yahoo daily history。
-
-但 canonical execution price 優先使用：
+Cached normalized table 欄位：
 
 ```text
-TWSE official daily trading value + volume
-TPEx official daily trading value + volume
+date, symbol, open, high, low, close, volume, trading_value
+average_execution_price, source, quality_flags
 ```
 
-依上市／上櫃正確分流。
+官方資料不足須標 official_execution_available = false，不得 silent fallback。可另供 proxy_execution，但報告須分開。
 
-建立 cached normalized table：
+## 4. Execution Comparison
 
-```text
-date
-symbol
-open
-high
-low
-close
-volume
-trading_value
-average_execution_price
-source
-quality_flags
-```
+Phase 0 固定 V3 signal 與全部 strategy parameter，只比較 V3 + Open proxy 與 V3 + official average execution，量出舊結論受 Open 假設的影響，再進 Phase 1。
 
-如果官方 data 不完整：
+輸出 return difference、MDD difference、turnover、cash violations、weight violations、ranking changes、per-trade execution-price difference。
 
-```text
-official_execution_available = false
-```
+## 5. Historical Episode Design
 
-不得 silent fallback。
+每窗 initial cash NT$1B、initial holdings 0、length 24 trading sessions。
 
-可以另外提供：
+| 切分 | 期間 | 用途 |
+|---|---|---|
+| Development | 2010–2018 | 開發 |
+| Validation | 2019–2022 | 驗證 |
+| Historical holdout | 2023–2024 | 凍結後評估 |
+| Recent stress | 2025–latest complete pre-competition history | 僅 diagnostic |
+| Seasonal diagnostic | historical late-Oct → late-Nov 24-session analogues | 僅 diagnostic |
 
-```text
-proxy_execution
-```
+Seasonal / recent 不得反覆選 parameter。
 
-但 report 必須明確分開。
+## 6. Rolling Episodes
 
----
+增加 rolling-start stress test，但 overlapping windows != independent samples。報告須註明，不能當樣本量暴增。
 
-# 4. Execution Comparison
+## 7. Search Protocol
 
-Phase 0 固定 V3 signal，不改任何 strategy parameter。
+Staged search，不直接全域 brute-force：
 
-只比較：
+- Stage A — Execution
+	- 固定 V3 strategy。
+- Stage B — Architecture
+	- 比較 Momentum、Adaptive、Direct。
+- Stage C — Horizon
+	- 搜尋 3/5/10/20/30/60D。
+- Stage D — Rotation / Portfolio
+	- holding count、replacement budget、replacement margin、cash target、risk penalty。
+- Stage E — Model / Ensemble
+	- expert weighting、confidence weighting、forecast models。
+- Stage F — Local Refinement
+	- validation 前選少數 architecture neighborhoods，僅一次 bounded local search，隨後 freeze。
 
-```text
-V3 + Open proxy
-vs
-V3 + official average execution
-```
+## 8. No Daily Retuning in Live Competition
 
-輸出：
+正式流程：update data → run frozen architecture → 按預定歷史規則 adaptive model selection → generate target → generate D-Plan → submit。
 
-```text
-return difference
-MDD difference
-turnover
-cash violations
-weight violations
-ranking changes
-per-trade execution-price difference
-```
+Frozen code 已定義的 model state、rolling statistics、adaptive ensemble weight update 可更新。禁止人工看昨日競賽結果後改參重跑；除非建立符合 competition policy 的新 version。
 
-回答：
+## 9. Primary Metrics
 
-> V3 過去的結論有多少來自 Open execution assumption？
+每個完整 episode 計 terminal 24D return 的 median、mean、P25、P10、worst、positive-return rate，另計 maximum drawdown、turnover、transaction cost、Day-1 / Day-3 / Day-5 invested ratio。
 
-完成後才進 Phase 1。
+## 10. Feasibility Metrics
 
----
+獨立列 complete_episode_rate、measured_compliance_pass_rate、cash violation days、weight-cap violation days、holding-count violation days、odd-lot issues、missing execution-price days、unfilled days、no-valid-plan days。
 
-# 5. Historical Episode Design
+報告須列 PASS / attempted，不得只算 PASS episodes 報酬而隱藏 failures。
 
-每個 episode：
+## 11. Selection Order
 
-```text
-initial cash:
-NT$1B
+依序排序，避免單一極端 bull-market episode 決定 winner：
 
-initial holdings:
-0
-
-length:
-24 trading sessions
-```
-
-至少保留：
-
-### Development
-
-```text
-2010–2018
-```
-
-### Validation
-
-```text
-2019–2022
-```
-
-### Historical holdout
-
-```text
-2023–2024
-```
-
-### Recent stress
-
-```text
-2025–latest complete pre-competition history
-```
-
-### Seasonal diagnostic
-
-```text
-historical late-Oct → late-Nov 24-session analogues
-```
-
-Seasonal / recent 只能 diagnostic。
-
-不得用來反覆選 parameter。
-
----
-
-# 6. Rolling Episodes
-
-增加 rolling-start stress test。
-
-但：
-
-```text
-overlapping windows != independent samples
-```
-
-report 中必須明確標示。
-
-不可把大量 overlapping windows 當成樣本量暴增。
-
----
-
-# 7. Search Protocol
-
-採 staged search。
-
-不要直接 brute-force 所有東西。
-
-## Stage A — Execution
-
-固定 V3 strategy。
-
-## Stage B — Architecture
-
-比較：
-
-```text
-Momentum
-Adaptive
-Direct
-```
-
-## Stage C — Horizon
-
-搜尋：
-
-```text
-3/5/10/20/30/60D
-```
-
-## Stage D — Rotation / Portfolio
-
-搜尋：
-
-```text
-holding count
-replacement budget
-replacement margin
-cash target
-risk penalty
-```
-
-## Stage E — Model / Ensemble
-
-才調：
-
-```text
-expert weighting
-confidence weighting
-forecast models
-```
-
-## Stage F — Local Refinement
-
-只對 validation 前已選定的少數 architecture neighborhoods 做一次 bounded local search。
-
-之後 freeze。
-
----
-
-# 8. No Daily Retuning in Live Competition
-
-正式 competition：
-
-```text
-update data
-↓
-run frozen architecture
-↓
-adaptive model selection using its predefined historical rule
-↓
-generate target
-↓
-generate D-Plan
-↓
-submit
-```
-
-允許：
-
-```text
-model state update
-rolling statistics update
-adaptive ensemble weight update
-```
-
-前提是這些機制已在 frozen code 中定義。
-
-禁止：
-
-```text
-human sees yesterday's competition result
-→ changes parameter
-→ reruns
-```
-
-除非正式建立新的 version，並符合 competition policy。
-
----
-
-# 9. Primary Metrics
-
-每個完整 episode 計算：
-
-```text
-terminal 24D return
-median
-mean
-P25
-P10
-worst
-positive-return rate
-
-maximum drawdown
-
-turnover
-
-transaction cost
-
-Day-1 invested ratio
-Day-3 invested ratio
-Day-5 invested ratio
-```
-
----
-
-# 10. Feasibility Metrics
-
-獨立計算：
-
-```text
-complete_episode_rate
-
-measured_compliance_pass_rate
-
-cash violation days
-weight-cap violation days
-holding-count violation days
-odd-lot issues
-missing execution-price days
-unfilled days
-no-valid-plan days
-```
-
-不要只對 PASS episodes 算報酬然後隱藏 failures。
-
-報告同時列：
-
-```text
-PASS / attempted
-```
-
----
-
-# 11. Selection Order
-
-候選 ranking：
-
-```text
 1. canonical data/execution availability
 2. measured competition feasibility
 3. median 24D return
@@ -345,72 +95,26 @@ PASS / attempted
 7. mean
 8. turnover / cost
 9. architecture simplicity
-```
 
-不要因一個極端 bull-market episode 選 winner。
+## 12. Statistical Robustness
 
----
+測 parameter neighborhood stability、different start dates、bull / bear / sideways regimes、high / low volatility、sector leadership changes。若只有 exactly 5D、margin 0.075、lambda 0.31 好而附近全失效，標 FRAGILE，不採用。
 
-# 12. Statistical Robustness
+## 13. Alpha vs Compliance Reporting
 
-至少測：
-
-```text
-parameter neighborhood stability
-different start dates
-bull / bear / sideways regimes
-high / low volatility
-sector leadership changes
-```
-
-如果最好的參數只有：
-
-```text
-exactly 5D
-exactly margin 0.075
-exactly lambda 0.31
-```
-
-而附近全部失效：
-
-```text
-mark as FRAGILE
-```
-
-不要採用。
-
----
-
-# 13. Alpha vs Compliance Reporting
-
-每個候選輸出：
-
-```text
-alpha_status
-compliance_status
-```
-
-例如：
+每候選分列 alpha_status、compliance_status，不能混同。例如：
 
 ```text
 alpha_status = PROMISING
 compliance_status = BLOCK_MISSING_OFFICIAL_EXECUTION
-```
 
-或：
-
-```text
 alpha_status = REJECTED
 compliance_status = PASS_MEASURED
 ```
 
-兩者不得混為一談。
+## 14. Required Tests
 
----
-
-# 14. Required Tests
-
-新增至少：
+至少新增：
 
 ```text
 tests/test_v4_causality.py
@@ -422,59 +126,9 @@ tests/test_v4_episode.py
 tests/test_v4_reproducibility.py
 ```
 
-重點測：
+驗證未來資料不改過去 decision、turnover / volume 正確、orders 的 shares % 1000 == 0、現金不負、持股 20–30、weight cap 及 buy commission / sell commission / sell tax 正確。相同 config + data hash 須 same output hash。
 
-### Causality
-
-修改未來資料不得改變過去 decision。
-
-### Execution
-
-確認：
-
-```text
-turnover / volume
-```
-
-計算正確。
-
-### Board lot
-
-所有 orders：
-
-```text
-shares % 1000 == 0
-```
-
-### Cash
-
-不得 negative。
-
-### Holdings
-
-20–30。
-
-### Weight cap
-
-正確。
-
-### Cost
-
-buy commission、sell commission、sell tax 正確。
-
-### Reproducibility
-
-相同 config + data hash：
-
-```text
-same output hash
-```
-
----
-
-# 15. Required Scripts
-
-新增：
+## 15. Required Scripts
 
 ```text
 scripts/v4_build_execution_data.py
@@ -487,9 +141,7 @@ scripts/v4_verify.py
 scripts/v4_report.py
 ```
 
----
-
-# 16. Required Configs
+## 16. Required Configs
 
 ```text
 config/v4_study.json
@@ -498,25 +150,9 @@ config/v4_adaptive_search.json
 config/v4_direct_search.json
 ```
 
-最後 frozen candidate：
+Frozen candidate 存 configs/v4_final.json；無合格者輸出 NO_V4_WINNER，不硬選。
 
-```text
-configs/v4_final.json
-```
-
-如果沒有合格候選：
-
-```text
-NO_V4_WINNER
-```
-
-不要硬產生 winner。
-
----
-
-# 17. Required Reports
-
-至少：
+## 17. Required Reports
 
 ```text
 reports/v4_execution_comparison.md
@@ -528,139 +164,54 @@ reports/v4_validation.md
 reports/v4_final.md
 ```
 
-`v4_final.md` 必須回答：
+`v4_final.md` 必答：
 
-```text
 1. Open → official-average execution 改變多少？
-
 2. Momentum baseline 表現？
-
-3. Adaptive 是否真的提升？
-
+3. Adaptive 是否提升？
 4. Direct optimizer 是否提升？
-
-5. Confidence 有沒有價值？
-
-6. Regime 有沒有價值？
-
-7. Daily rotation 的 optimal region 在哪？
-
-8. Portfolio optimizer 是否勝過 equal weight？
-
-9. 哪些 component 沒用？
-
-10. 哪些結果只在 recent regime 有效？
-
+5. Confidence 有無價值？
+6. Regime 有無價值？
+7. Daily rotation 的 optimal region？
+8. Portfolio optimizer 是否勝 equal weight？
+9. 哪些 component 無效？
+10. 哪些只在 recent regime 有效？
 11. Lower tail 如何？
-
 12. Compliance failure 最大來源？
+13. 有無 stable V4 candidate？
+14. 能否正式產出 D-Plan？
 
-13. 是否存在 stable V4 candidate？
-
-14. 是否可正式產出 D-Plan？
-```
-
----
-
-# 18. Execution Order for Codex
+## 18. Execution Order for Codex
 
 嚴格依序：
 
-```text
 1. Inspect entire current repo.
-
 2. Read official competition documents.
-
 3. Preserve all V2/V3 frozen evidence.
-
 4. Implement V4 official-average execution data layer.
-
-5. Reproduce V3 under both Open and new execution.
-
+5. Reproduce V3 under Open and new execution.
 6. Verify accounting and causal correctness.
-
 7. Implement shared V4 features.
-
 8. Implement V4-Momentum.
-
 9. Run bounded Momentum study.
-
 10. Implement V4-Adaptive.
-
 11. Run bounded Adaptive study.
-
 12. Implement V4-Direct.
-
 13. Run bounded Direct study.
-
 14. Run common validation comparison.
-
 15. Freeze architecture before holdout.
-
 16. Run historical holdout.
-
 17. Run recent / seasonal stress tests.
-
 18. Run ablations.
-
 19. Independently verify artifacts.
-
 20. Produce final report.
-```
 
----
+## 19. Stop Conditions
 
-# 19. Stop Conditions
+Execution data unreliable、causal test fails、ledger mismatch、audit fails、validation improvement disappears 或 parameter neighborhood fragile 時，停搜並保留 evidence；不得以更多 brute-force 掩蓋工程問題。
 
-停止 search 並保留現有 evidence，如果：
+## 20. Final Definition of Done
 
-```text
-execution data is unreliable
-causal test fails
-ledger mismatch exists
-audit fails
-validation improvement disappears
-parameter neighborhood is fragile
-```
+完成須具備 correct execution、causal strategy、bounded research、clear ablation、robust 24D evidence、competition-compatible portfolio、reproducible artifacts，而非只找到最高歷史報酬。
 
-不要用更多 brute-force search 掩蓋工程問題。
-
----
-
-# 20. Final Definition of Done
-
-V4 完成不是：
-
-```text
-found highest historical return
-```
-
-而是：
-
-```text
-correct execution
-+
-causal strategy
-+
-bounded research
-+
-clear ablation
-+
-robust 24D evidence
-+
-competition-compatible portfolio
-+
-reproducible artifacts
-```
-
-最終只在 evidence 支持時建立：
-
-```text
-configs/v4_final.json
-```
-
-否則明確輸出：
-
-```text
-NO_V4_WINNER
-```
+Evidence 支持才建立 configs/v4_final.json，否則 NO_V4_WINNER。

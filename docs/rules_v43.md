@@ -1,6 +1,6 @@
 # v4.3 規則與操作
 
-2026-10-24 已接入新版文件。正式候選維持凍結的 Mom20；目前不能宣稱可以正式提交，因完整 ETF 前15大資料與 Active Share 官方算法仍缺。
+2026-10-24：Mom20 維持凍結；完整 ETF 前15大與 Active Share 官方算法仍缺，尚不可正式提交。
 
 ## 現行限制
 
@@ -19,11 +19,11 @@
 | Active Share | 前15大對各 ETF 前15大；不得低於15% |
 | D-Plan | v4.3；上傳後須送出繳交 |
 
-Active Share 的「15大／15%」採用本次使用者提供的新規則。儲存庫舊辦法仍寫10大／20%，因此新門檻的來源明記為本次更新，沒有冒充新版正式規章。舊規章的連續兩日失格條款也未被當作新版已確認條款。
+前 15 大／15% 來自本次使用者更新，並非已確認的新版正式規章。舊辦法為10大／20%；其連續兩日失格條款也未確認適用新版。
 
 ## 每日真值
 
-從後台「文件繳交」下載 DataPack。`account.cash`、`account.nav_tradable`、`holdings[].shares` 為正式輸入；本地帳本只供離線研究。`aum`、應收配息與應收配股不可增加可交易額度。
+後台「文件繳交」下載 DataPack：正式輸入為 `account.cash`、`account.nav_tradable`、`holdings[].shares`。本地帳本僅供離線研究；`aum`、應收配息／配股不增加交易額度。
 
 - `null` 代表未齊
 	- 不當作空手
@@ -34,7 +34,7 @@ Active Share 的「15大／15%」採用本次使用者提供的新規則。儲�
 - 價格衝突則阻擋
 	- 不混用舊價格
 
-DataPack 有自己的版本，規格書範例為 `3.0`；不能因 D-Plan 是 `4.3` 就拒絕它。
+DataPack 獨立版本；範例 `3.0` 不因 D-Plan 為 `4.3` 而被拒絕。
 
 目標股數與委託：
 
@@ -43,7 +43,7 @@ target_shares = floor(target_weight × account.nav_tradable / previous_close / 1
 order_shares = target_shares − official_current_shares
 ```
 
-估算使用前日官方收盤價；成交價是當日均價。費用從現金扣除，成交後的實際比例仍可能變動。
+前日官方收盤價估算、當日均價成交；費用扣現金，成交後比例可能改變。
 
 ## 執行與狀態
 
@@ -54,7 +54,7 @@ order_shares = target_shares − official_current_shares
 ./run_daily.sh 2026-09-24 --offline
 ```
 
-ETF CSV 欄位為 `etf,as_of,ticker,weight`；weight 為基金權重。每檔 required ETF 至少須有完整15檔，還須檢查日期及有效數值。既有 MoneyDJ 抓取器只有前10大，保留作診斷，不能滿足新版覆蓋需求。
+ETF CSV：`etf,as_of,ticker,weight`，weight 為基金權重。每檔 required ETF 須完整15檔、日期與數值有效；MoneyDJ 僅前10大，只供診斷。
 
 | 狀態 | 意義 |
 |---|---|
@@ -62,19 +62,17 @@ ETF CSV 欄位為 `etf,as_of,ticker,weight`；weight 為基金權重。每檔 re
 | `EMERGENCY_REVIEW_REQUIRED` | 缺資料或未確認；不輸出可提交檔 |
 | `READY_TO_SUBMIT` | 正式真值及所有關卡通過 |
 
-目前 AS 的 `min(raw, normalised)` 與 near-tie band 只是內部篩選假設。報告即使顯示 heuristic `PASS`，`official_method_confirmed` 仍為 false，live 不會放行。沒有新增可繞過此關卡的旗標。
+AS 的 `min(raw, normalised)` 與 near-tie band 僅為篩選假設。即使 heuristic `PASS`，`official_method_confirmed` 仍 false；live 阻擋，無繞過旗標。
 
-AS 會在 planner 整張化與費用估算後重算，validation 轉 fallback 後也再次檢查。失敗重跑會把前次由管線產生的 D-Plan 移到 `superseded/`，避免誤用舊輸出。
+planner 整張化／估費後、validation 轉 fallback 後皆重驗 AS。失敗重跑將前次管線 D-Plan 移至 `superseded/`，避免誤用。
 
 ## 原始依據
 
-| 來源 | 位置 |
-|---|---|
-| 新門檻 | 本次使用者訊息：前15大／15% |
-| 帳戶真值 | [DataPack規格](../official_docs/DataPack_規格書_v4.3.md) §2.1–2.6 |
-| 公式與提交 | [D-Plan指南](../official_docs/D-Plan_撰寫指南_v4.3.md) §⑤–⑦ |
-| 結構驗證 | [官方schema](../official_docs/D-Plan.schema_v4.3.json) |
-| 操作流程 | [後台說明](../official_docs/2026%20Agent%20基金經理人競賽後台操作說明.pdf) §4–5 |
-| 本輪驗證 | [測試報告](../research/results/rules_v43_validation/summary.md) |
+- 新門檻：使用者更新：前15大／15%
+- 帳戶真值：[DataPack規格](../official_docs/DataPack_規格書_v4.3.md) §2.1–2.6
+- 公式與提交：[D-Plan指南](../official_docs/D-Plan_撰寫指南_v4.3.md) §⑤–⑦
+- 結構驗證：[官方schema](../official_docs/D-Plan.schema_v4.3.json)
+- 操作流程：[後台說明](../official_docs/2026%20Agent%20基金經理人競賽後台操作說明.pdf) §4–5
+- 本輪驗證：[測試報告](../research/results/rules_v43_validation/summary.md)
 
-策略說明書期間為10/21–10/26；名稱須以「主動」開頭且20字內，主題50字內、理念100–300字。此要求與150檔、30檔ETF名單的新舊PDF抽取文字一致，沒有因檔名 v1-1 就假定名單新增。
+策略說明書：10/21–10/26；名稱以「主動」開頭、20字內，主題50字內、理念100–300字。要求及150檔／30檔ETF名單的新舊PDF文字一致；v1-1 檔名不代表新增名單。

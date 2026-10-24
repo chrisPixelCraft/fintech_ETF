@@ -1,0 +1,4 @@
+- 已改寫 26 份，fidelity 檢查 **0 失敗**。
+- 總字數減少 **15.41%**，未全面達到 25–40% 目標，已記錄偏差。
+- 僅寫入允許路徑，未執行 Git 寫入操作。
+- [完成報告](research/results/docs_rewrite/CODEX_REPORT_3.md)

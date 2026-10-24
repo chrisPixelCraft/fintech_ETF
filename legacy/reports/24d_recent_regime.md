@@ -1,8 +1,8 @@
 # Recent-regime stress test
 
-`COMPETITION_UNIVERSE_STRESS_TEST`; `BLOCK_READY` / `BLOCK_SUBMISSION`. Return statistics condition on measured-valid complete episodes; valid/requested counts retain failures and incomplete returns stay null. Formal compliance has **0 confirmed episodes**; `ACTIVE_SHARE_NOT_VERIFIED`. Full assumptions and the inherited parameter-selection confound are in the [main report](24d_strategy_summary.md).
+`COMPETITION_UNIVERSE_STRESS_TEST`; `BLOCK_READY` / `BLOCK_SUBMISSION`. Returns use measured-valid complete episodes; counts retain failures, incomplete returns stay null. Formal compliance: **0 confirmed episodes**, `ACTIVE_SHARE_NOT_VERIFIED`. Assumptions and inherited selection confound: [main report](24d_strategy_summary.md).
 
-These post-freeze 2025–2026 episodes are stress evidence only and cannot alter the selected parameters. The inherited x0352 baseline was previously selected using 2025–2026 data, so this is not an untouched holdout for that baseline.
+Post-freeze 2025–2026 stress evidence cannot change parameters. x0352 selection previously used 2025–2026 data; this is not its untouched holdout.
 
 Observed starts: 2025-01-02–2026-08-03 starts; last episode ends 2026-09-03.
 
@@ -25,7 +25,7 @@ Observed starts: 2025-01-02–2026-08-03 starts; last episode ends 2026-09-03.
 
 ## Separate 2024 / 2025 / 2026 regimes
 
-These are descriptive calendar-year groupings of all monthly comparison episodes; they do not replace the purged holdout denominator.
+Calendar-year groups describe all monthly comparison episodes; the purged holdout denominator remains unchanged.
 
 | Set | Candidate | Measured valid / requested | Incomplete | Median | Mean | P25 | P10 | Worst |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |

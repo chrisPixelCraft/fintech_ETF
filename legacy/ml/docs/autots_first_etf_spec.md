@@ -1,731 +1,70 @@
 # AutoTS-First ETF Competition Spec
 
-## 0. Core Instruction
+**以 AutoTS 建立新策略主線，對齊 ETF competition，再形成可自動執行的 daily workflow。**可讀取及 reuse 正確的 V3 / V4 / V5 資料、規則、工具、ledger、D-Plan 與回測設施；不延續或修補其 strategy design，也不受舊 naming、architecture、assumptions 限制。
 
-這次不要延續、整理、修補或比較既有的 V3 / V4 / V5 strategy architecture。
+## 0–3. 任務與 AutoTS
 
-**直接把 AutoTS 當作新的核心方法。**
-
-目標：
-
-> 深入使用 AutoTS，針對本 ETF competition task 做 task-specific adaptation / tuning，建立一套新的 AutoTS-based strategy，最後整理成清楚、可自動執行的 daily workflow。
-
-既有 V3 / V4 / V5：
-
-- 可以讀，了解目前 repo 有哪些資料、規則、工具、ledger、D-Plan、回測資源。
-- 可以 reuse 已經正確的 competition infrastructure。
-- **不要沿用它們的 strategy design。**
-- **不要受它們的 method naming / architecture / assumptions 綁住。**
-- 不需要證明新方法是 V3/V4/V5 的延伸。
-
-這是一條新的主線：
-
-```text
-AutoTS
-→ adapt to ETF competition
-→ tune / validate
-→ portfolio construction
-→ competition constraints
-→ D-Plan
-→ daily automation
-```
-
----
-
-# 1. First: Understand the Task
-
-先完整閱讀目前 `fintech_ETF` repository 與官方 competition docs。
-
-只整理出本 task 真正需要的：
-
-```text
-1. allowed universe
-2. available historical data
-3. daily information cutoff
-4. portfolio constraints
-5. transaction costs
-6. execution / settlement rules
-7. D-Plan requirements
-8. evaluation period
-9. final competition objective
-10. daily submission workflow
-```
-
-不要先研究 V3/V4/V5 是怎麼設計策略的。
-
-先重新從 competition objective formulate 問題。
-
-核心問題：
-
-> 給定決策日前可取得的所有資料，如何利用 AutoTS 預測未來相對表現，並建立符合競賽規則、最大化短期 terminal NAV 的 portfolio？
-
----
-
-# 2. AutoTS Is the Main Model
-
-Upstream:
-
-```text
-https://github.com/winedarksea/AutoTS
-```
-
-直接使用 AutoTS codebase。
-
-可以：
-
-```text
-fork AutoTS
-or
-clone AutoTS
-or
-install AutoTS and maintain our patches
-```
-
-選擇最適合長期修改與重現的方法。
-
-如果需要改 AutoTS：
-
-- 可以直接改 source
-- 可以新增 models
-- 可以改 validation
-- 可以改 metric
-- 可以改 ensemble
-- 可以改 model selection
-- 可以改 search space
-- 可以新增 competition-specific wrapper
-
-AutoTS 是這個新 strategy 的核心，不只是其中一個 expert。
-
----
-
-# 3. Deeply Read AutoTS
-
-不要只調 API。
-
-深入理解 codebase，至少涵蓋：
+**0.** 主線：AutoTS → task adaptation / tuning / validation → portfolio construction → competition constraints → D-Plan → daily automation。
+**1.** 先讀 `fintech_ETF` 與官方文件，依 competition objective 重新定義問題，不先研究舊策略設計。釐清 10 項：1. allowed universe；2. available historical data；3. daily information cutoff；4. portfolio constraints；5. transaction costs；6. execution / settlement；7. D-Plan requirements；8. evaluation period；9. final objective；10. daily submission workflow。問題是：如何用決策前資料及 AutoTS 預測相對表現，建立合規、最大化短期 terminal NAV 的 portfolio？
+**2.** 直接使用 upstream codebase：https://github.com/winedarksea/AutoTS。可 fork、clone，或 install 後維護 patches，選擇利於長期修改與重現的方式。AutoTS 是 primary model，非單一 expert；必要時可改 source、models、validation、metric、ensemble、model selection、search space 或 competition-specific wrapper。
+**3.** 不只調 API；先讀以下路徑、relevant transforms / preprocessing，再追 input → preprocessing → candidates → fit → validation → scoring → selection → ensemble → interval → forecast：
 
 ```text
 autots/evaluator/auto_ts.py
 autots/evaluator/auto_model.py
 autots/evaluator/validation.py
 autots/evaluator/metrics.py
-
 autots/models/model_list.py
 autots/models/ensemble.py
 autots/models/mlensemble.py
 autots/models/sklearn.py
 autots/models/statsmodels.py
 autots/models/basics.py
-
 autots/templates/general.py
-
-relevant transforms / preprocessing
 production_example.py
 ```
 
-追完整流程：
+## 4–9. Task Adaptation
 
-```text
-input series
-→ preprocessing / transform
-→ model candidates
-→ fitting
-→ validation
-→ scoring
-→ model selection
-→ ensemble
-→ prediction interval
-→ forecast
-```
+**4.** Fine-tune 指完整調整 search、validation、selection、scoring、ensemble，不只是改參數。
 
-理解之後再決定哪些地方要針對 ETF task 修改。
+**4.1 Target：**比較 price、next-day return、3-day return、5-day return、10-day return、24-day return、relative return、cross-sectional rank、excess return vs market，依 portfolio decision 選擇，不預設 raw price 最好。
 
----
+**4.2 Horizon：**比較 1D、3D、5D、10D、24D；可 multi-horizon forecast 再組成 portfolio score。
 
-# 4. Task-Specific Adaptation
+**4.3 Input：**研究 close price、adjusted close、returns、log returns、relative strength、volume-derived signals、market-relative series。若有幫助，可加 market / sector index、US market overnight、SOX、Nasdaq、FX、volatility、breadth、volume、other causal signals；所有資料遵守 decision-time causality。
 
-這裡的「fine-tune AutoTS」不是只改幾個參數。
+**5.** 建 competition-aware walk-forward：historical cutoff → train → predict → portfolio → competition execution → result。必須 strictly chronological、no leakage、多 regimes、多 24-trading-day episodes；不能只用 generic validation 或 MAE / RMSE / SMAPE 決定模型。
+**6.** 設計 task-specific scoring，評估 terminal NAV、return、drawdown、turnover、transaction cost、ranking / direction quality、forecast uncertainty、portfolio stability。例如 forecast + cross-sectional rank + direction + portfolio return − instability − turnover penalty；形式由實驗決定，禁止 final holdout tuning。
+**7.** 先讀 model zoo，再建立有界金融日線 pool；比較 naive baselines、statistical、regression / sklearn、multivariate、ensemble、relevant deep models，依 evidence 篩選。Pool 須能每日執行、有 regime 多樣性，並勝過簡單 baseline；不無限暴搜。
+**8.** 測 single best、weighted、horizontal、mosaic ensemble、per-series best model。150 檔未必適合同一模型；檢驗每股最佳模型與隨 regime 自動選模是否有用。
+**9.** 每股輸出 expected return、forecast uncertainty、confidence；使用 prediction interval 或其他 uncertainty estimate。配置考慮 risk-adjusted forecast strength，而非只取 highest forecast。
 
-意思是：
+## 10–14. Portfolio、研究與 Daily Workflow
 
-> 把 AutoTS 的 search / validation / model selection / scoring / ensemble 針對我們的 competition objective 做完整 task adaptation。
-
-至少研究以下部分。
-
----
-
-## 4.1 Prediction Target
-
-不要預設 forecast raw stock price 就是最好。
-
-系統性比較：
-
-```text
-price
-next-day return
-3-day return
-5-day return
-10-day return
-24-day return
-relative return
-cross-sectional rank
-excess return vs market
-```
-
-找到最適合 portfolio decision 的 target。
-
----
-
-## 4.2 Forecast Horizon
-
-AutoTS 原本是 generic forecasting。
-
-我們要針對短期 ETF competition。
-
-比較：
-
-```text
-1D
-3D
-5D
-10D
-24D
-```
-
-可以是：
-
-```text
-multi-horizon forecast
-```
-
-再組合成 portfolio score。
-
----
-
-## 4.3 Input Series
-
-研究 AutoTS 是否應預測：
-
-```text
-close price
-adjusted close
-returns
-log returns
-relative strength
-volume-derived signals
-market-relative series
-```
-
-如果 exogenous regressors 有幫助，也可加入：
-
-```text
-market index
-sector index
-US market overnight
-SOX
-Nasdaq
-FX
-volatility
-breadth
-volume
-other causal signals
-```
-
-所有資料必須符合 decision-time causality。
-
----
-
-# 5. Validation Must Match the Competition
-
-這是最重要的 adaptation 之一。
-
-不要使用 generic forecasting validation 就直接決定模型。
-
-建立 competition-aware walk-forward validation：
-
-```text
-historical cutoff
-→ train
-→ predict
-→ construct portfolio
-→ simulate competition execution
-→ measure result
-```
-
-validation 必須：
-
-```text
-strictly chronological
-no leakage
-multiple market regimes
-multiple 24-trading-day episodes
-```
-
-最終模型選擇不能只看：
-
-```text
-MAE
-RMSE
-SMAPE
-```
-
-而要看 forecasting 是否真的改善 portfolio。
-
----
-
-# 6. Competition-Aware Objective
-
-AutoTS 原本主要優化 forecast accuracy。
-
-我們真正 care：
-
-```text
-terminal NAV
-return
-drawdown
-turnover
-transaction cost
-ranking quality
-direction quality
-forecast uncertainty
-portfolio stability
-```
-
-設計一個 task-specific scoring system。
-
-例如研究：
-
-```text
-forecast score
-+
-cross-sectional rank score
-+
-direction score
-+
-portfolio return score
--
-instability penalty
--
-turnover penalty
-```
-
-實際形式交給實驗決定。
-
-不要在 final holdout 上 tuning。
-
----
-
-# 7. AutoTS Search Space
-
-不要直接讓 AutoTS 無限制暴力搜尋所有模型。
-
-先深入理解 model zoo，再針對金融日線建立 task-specific model pool。
-
-至少比較：
-
-```text
-naive baselines
-statistical models
-regression / sklearn models
-multivariate models
-ensemble models
-relevant deep models
-```
-
-然後用 evidence 決定保留哪些。
-
-目標：
-
-```text
-small enough to run daily
-diverse enough to adapt to regime
-strong enough to outperform simple baseline
-```
-
----
-
-# 8. Ensemble
-
-AutoTS 的 ensemble 是核心。
-
-深入測試：
-
-```text
-single best model
-weighted ensemble
-horizontal ensemble
-mosaic ensemble
-per-series best model
-```
-
-因為 150 檔股票可能完全不適合同一個 forecasting model。
-
-需要回答：
-
-> 是否應該每支股票都有自己的最佳模型？
-
-以及：
-
-> 是否可以讓 model selection 隨時間 regime 自動改變？
-
----
-
-# 9. Uncertainty
-
-使用 AutoTS prediction interval 或其他 uncertainty estimate。
-
-每支股票至少輸出：
-
-```text
-expected return
-forecast uncertainty
-confidence
-```
-
-portfolio 不應只看：
-
-```text
-highest forecast
-```
-
-而應考慮：
-
-```text
-risk-adjusted forecast strength
-```
-
----
-
-# 10. Portfolio Construction
-
-AutoTS 負責 forecasting。
-
-接著把 forecast 轉成正式 portfolio。
-
-基本流程：
-
-```text
-AutoTS forecasts
-→ expected return / rank / confidence
-→ select candidates
-→ determine weights
-→ apply competition constraints
-→ target portfolio
-```
-
-必須遵守官方規則。
-
-例如目前官方限制若為：
-
-```text
-allowed universe
-20–30 holdings
-cash constraint
-single-name caps
-board-lot orders
-no short
-no day trading
-```
-
-全部以 repo 中最新官方文件為準。
-
-**不得為了讓 AutoTS 表現更好而放寬 competition rules。**
-
----
-
-# 11. End-to-End Backtest
-
-不能只測 forecast accuracy。
-
-必須建立完整：
-
-```text
-historical data
-→ AutoTS fit
-→ forecast
-→ portfolio
-→ orders
-→ execution
-→ fees / tax
-→ ledger
-→ NAV
-```
-
-backtest。
-
-這才是最終 method evaluation。
-
----
-
-# 12. Automated Tuning
-
-Agent 可以自動探索：
-
-```text
-forecast target
-forecast horizon
-lookback
-model list
-transform list
-validation method
-number of validations
-ensemble type
-metric weighting
-portfolio mapping
-confidence threshold
-rebalance threshold
-```
-
-但必須：
-
-```text
-bounded search
-chronological validation
-experiment logging
-reproducible configs
-```
-
-不要無限暴力搜尋直到某段歷史資料看起來最好。
-
----
-
-# 13. Build an Autonomous Research Loop
-
-建立 Agent 可以反覆執行的研究流程：
-
-```text
-read latest experiment state
-→ propose next experiment
-→ run AutoTS training / search
-→ backtest
-→ compare
-→ reject or keep
-→ update experiment registry
-```
-
-每個 experiment 要保存：
-
-```text
-config
-data cutoff
-git commit
-AutoTS version / fork commit
-metrics
-portfolio result
-runtime
-result status
-```
-
-Agent 可以自行跑大量實驗。
-
-Human 主要處理：
-
-```text
-objective
-high-level method choice
-exceptions
-final acceptance
-```
-
----
-
-# 14. Daily Production Workflow
-
-最終目標是每天只有一條 canonical command，例如：
+**10.** AutoTS forecasts → expected return / rank / confidence → candidates → weights → constraints → target portfolio。以 repo 最新官方文件為準，包括 allowed universe、20–30 holdings、cash constraint、single-name caps、board-lot orders、no short、no day trading；不得為績效放寬規則。
+**11.** 最終 evaluation 必須 end-to-end：historical data → fit → forecast → portfolio → orders → execution → fees / tax → ledger → NAV，不能只測 forecast accuracy。
+**12.** 可自動探索 forecast target / horizon、lookback、model / transform list、validation method / count、ensemble type、metric weighting、portfolio mapping、confidence / rebalance threshold；必須 bounded search、chronological validation、experiment logging、reproducible configs，不能無限搜尋直到某段歷史最好。
+**13.** Autonomous loop：read latest state → propose experiment → train/search → backtest → compare → reject/keep → update registry。每次保存 config、data cutoff、git commit、AutoTS version / fork commit、metrics、portfolio result、runtime、result status。Agent 可大量執行；Human 保留 objective、high-level method choice、exceptions、final acceptance。
+**14.** 每日一條 canonical command，例如：
 
 ```bash
 python daily_agent.py --date YYYY-MM-DD
 ```
 
-自動執行：
+自動 update causal data → validate data → load/update models → forecast → portfolio → constraints → decisions → D-Plan → schema / portfolio validation → final files。重要資訊缺失 fail closed；結果只能 READY_TO_SUBMIT 或 BLOCK_SUBMISSION。
 
-```text
-update causal data
-→ validate data
-→ load / update AutoTS models
-→ generate forecast
-→ generate portfolio
-→ apply competition constraints
-→ generate decisions
-→ generate D-Plan
-→ validate schema
-→ validate portfolio
-→ output final files
-```
+## 15–18. Repository 與文件
 
-最後只能得到：
+**15.** Active code 以新 workflow 為中心，不圍繞 V3 / V4 / V5、round1 / round2 / round3。目錄可依 codebase 調整：autots_strategy/、competition/、data/、research/、daily/、tests/、docs/。舊版留 archive / legacy，保留 evidence，不當 README 主角。
+**16.** 建 `docs/method.md`，按 Problem → Data → Prediction target → AutoTS adaptation → Validation → Model search → Ensemble → Uncertainty → Portfolio construction → Competition execution → Daily workflow 描述現行方法，不寫版本流水帳。
+**17.** 若改 AutoTS source，建 docs/autots_changes.md，記 upstream commit、our fork commit、files changed、why changed、task-specific behavior、license / attribution。
+**18.** Root `README.md` 優先順序：1. Project goal；2. Current AutoTS-based method；3. Architecture；4. Research execution；5. Daily agent execution；6. Competition constraints；7. Verification；8. Legacy archive。歷史一句即可：Previous strategy generations are retained under legacy/archive for reproducibility.
 
-```text
-READY_TO_SUBMIT
-```
+## 19–20. 驗收與 Git
 
-或：
-
-```text
-BLOCK_SUBMISSION
-```
-
-任何重要資訊缺失都 fail closed。
-
----
-
-# 15. Repository Cleanup
-
-整理 repo 時，以新的 AutoTS-first workflow 為中心。
-
-不要再讓目錄結構圍繞：
-
-```text
-V3
-V4
-V5
-round1
-round2
-round3
-```
-
-新的 active code 應該清楚呈現：
-
-```text
-autots_strategy/
-competition/
-data/
-research/
-daily/
-tests/
-docs/
-```
-
-具體名稱可以依現有 codebase 調整。
-
-舊 V3/V4/V5：
-
-```text
-保留
-archive / legacy
-不要刪 evidence
-不要讓它們成為 README 主角
-```
-
----
-
-# 16. Method Documentation
-
-整理一份新的：
-
-```text
-docs/method.md
-```
-
-不要用版本流水帳寫。
-
-直接描述目前真正的方法：
-
-```text
-Problem
-↓
-Data
-↓
-Prediction target
-↓
-AutoTS adaptation
-↓
-Validation
-↓
-Model search
-↓
-Ensemble
-↓
-Uncertainty
-↓
-Portfolio construction
-↓
-Competition execution
-↓
-Daily workflow
-```
-
-讓任何人只讀這份就知道現在策略是怎麼工作的。
-
----
-
-# 17. AutoTS Modification Log
-
-如果改 AutoTS source，建立：
-
-```text
-docs/autots_changes.md
-```
-
-記錄：
-
-```text
-upstream commit
-our fork commit
-files changed
-why changed
-task-specific behavior
-license / attribution
-```
-
-避免之後不知道我們到底改過什麼。
-
----
-
-# 18. README
-
-最後重新整理 root `README.md`。
-
-README 不要再用 V3/V4/V5 歷史當主結構。
-
-首頁優先呈現：
-
-```text
-1. Project goal
-2. Current AutoTS-based method
-3. Architecture
-4. How to run research
-5. How to run daily agent
-6. Competition constraints
-7. Verification
-8. Legacy archive
-```
-
-歷史策略只需要一句：
-
-```text
-Previous strategy generations are retained under legacy/archive for reproducibility.
-```
-
----
-
-# 19. Definition of Done
-
-完成時應該具備：
-
-- [ ] AutoTS 是新的 primary forecasting method
-- [ ] 已深入讀 AutoTS codebase
-- [ ] 已針對 ETF task 修改 / tune AutoTS
-- [ ] prediction target 經過實驗選擇
-- [ ] validation 對齊 competition horizon
-- [ ] model search 有 bounded task-specific space
-- [ ] ensemble 已實驗
-- [ ] uncertainty 可輸出
-- [ ] forecast 可轉成 competition portfolio
-- [ ] end-to-end backtest 可重現
-- [ ] daily workflow 可執行
-- [ ] competition rules 不被放寬
-- [ ] V3/V4/V5 不再限制新 architecture
-- [ ] legacy evidence 保留
-- [ ] `docs/method.md` 完整
-- [ ] README 已整理
-- [ ] tests / verification 已執行
-
----
-
-# 20. Git
-
-完成所有 implementation、tests、method documentation 與 README 後：
+**19.** Done：AutoTS 為 primary forecasting method，已深入讀碼及 task adaptation；target 經實驗選擇，validation 對齊 horizon；bounded search、ensemble 實驗、uncertainty 輸出完成；能轉成合規 portfolio、重現 end-to-end backtest、執行 daily workflow；不放寬規則；V3/V4/V5 不限制新 architecture，legacy evidence 保留；method、README 完整，tests / verification 已執行。
+**20.** 完成 implementation、tests、method、README 後先驗證：
 
 ```bash
 git diff --check
@@ -733,16 +72,7 @@ git status
 python -m unittest discover -s tests -q
 ```
 
-確認沒有：
-
-```text
-secrets
-API keys
-temporary artifacts
-unrelated changes
-```
-
-然後：
+確認無 secrets、API keys、temporary artifacts、unrelated changes，再依原規格執行：
 
 ```bash
 git add -A
@@ -758,16 +88,4 @@ git reset --hard
 git clean -fd
 ```
 
-完成後回報：
-
-```text
-1. AutoTS changes
-2. Final method
-3. Best validated configuration
-4. Backtest / validation summary
-5. Daily workflow
-6. Known limitations
-7. branch
-8. commit
-9. push status
-```
+完成回報：1. AutoTS changes；2. Final method；3. Best validated configuration；4. Backtest / validation summary；5. Daily workflow；6. Known limitations；7. branch；8. commit；9. push status。

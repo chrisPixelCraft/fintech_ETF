@@ -1,0 +1,152 @@
+{
+ "docs/how_to_run.md": {
+  "old_chars": 3335,
+  "new_chars": 3218,
+  "missing": {},
+  "broken_links": []
+ },
+ "docs/production_spec.md": {
+  "old_chars": 11004,
+  "new_chars": 10577,
+  "missing": {},
+  "broken_links": []
+ },
+ "docs/strategy.md": {
+  "old_chars": 5659,
+  "new_chars": 5441,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/docs/rules.md": {
+  "old_chars": 876,
+  "new_chars": 789,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/docs/v2_double_check_rules.md": {
+  "old_chars": 7289,
+  "new_chars": 6878,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/docs/v3_tuning.md": {
+  "old_chars": 9615,
+  "new_chars": 6962,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/docs/v4_execution_validation_spec.md": {
+  "old_chars": 7518,
+  "new_chars": 6248,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/ml/docs/autots_internals.md": {
+  "old_chars": 26664,
+  "new_chars": 20839,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/ml/docs/final_test_plan.md": {
+  "old_chars": 1852,
+  "new_chars": 1549,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/ml/docs/hybrid_spec.md": {
+  "old_chars": 4140,
+  "new_chars": 3921,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/ml/docs/technical_momentum_spec.md": {
+  "old_chars": 5363,
+  "new_chars": 4900,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/ml/results/h1_residual/summary.md": {
+  "old_chars": 3745,
+  "new_chars": 3707,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/ml/results/hybrid/summary.md": {
+  "old_chars": 1028,
+  "new_chars": 900,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/ml/results/lgbm_alpha/summary.md": {
+  "old_chars": 1382,
+  "new_chars": 1347,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/ml/results/mom25_report/summary.md": {
+  "old_chars": 717,
+  "new_chars": 670,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/ml/results/residual_fixes/summary.md": {
+  "old_chars": 2570,
+  "new_chars": 2275,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/reports/24d_failure_analysis.md": {
+  "old_chars": 4840,
+  "new_chars": 3690,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/reports/24d_holdout.md": {
+  "old_chars": 3069,
+  "new_chars": 2607,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/reports/24d_round3.md": {
+  "old_chars": 6048,
+  "new_chars": 5641,
+  "missing": {},
+  "broken_links": []
+ },
+ "legacy/reports/comparison.md": {
+  "old_chars": 2561,
+  "new_chars": 2405,
+  "missing": {},
+  "broken_links": []
+ },
+ "research/execution_proxy_calibration.md": {
+  "old_chars": 2014,
+  "new_chars": 1808,
+  "missing": {},
+  "broken_links": []
+ },
+ "research/results/final_test/summary.md": {
+  "old_chars": 14605,
+  "new_chars": 14553,
+  "missing": {},
+  "broken_links": []
+ },
+ "research/results/production_replay/summary_holdout.md": {
+  "old_chars": 388,
+  "new_chars": 331,
+  "missing": {},
+  "broken_links": []
+ },
+ "research/results/recent24_strategies/summary.md": {
+  "old_chars": 3642,
+  "new_chars": 3422,
+  "missing": {},
+  "broken_links": []
+ },
+ "research/results/rules_v43_validation/baseline.md": {
+  "old_chars": 4898,
+  "new_chars": 4023,
+  "missing": {},
+  "broken_links": []
+ }
+}

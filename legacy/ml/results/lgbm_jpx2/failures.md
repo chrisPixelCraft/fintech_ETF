@@ -1,9 +1,3 @@
 # Failures
 
-## smoke
-
-- 無
-
-## full
-
-- 無
+smoke、full：均無。

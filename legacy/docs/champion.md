@@ -1,468 +1,80 @@
 # Champion Strategies Reference
 
-> Purpose: provide a compact research reference for designing the next ETF/short-horizon competition strategy.  
-> This document summarizes successful approaches from M6 Financial Forecasting Competition and ETF Global Portfolio Challenge, with emphasis on ideas that may transfer to a 24-trading-day, long-only, daily-decision competition.
+For a 24-trading-day, long-only, daily-decision competition, test horizon-aligned forecasts, relative ranks, confidence, allocation and regime exposure under the same execution simulator and validation protocol. These are transferable ideas, not proof that any architecture beats the existing momentum baseline.
 
----
+## 1. M6 Investment Winner — Colin Catlin / AutoTS
 
-# 1. M6 Investment Winner — Colin Catlin / AutoTS
-
-## Competition setting
-
-M6 used 100 real assets, including stocks and ETFs, with portfolio decisions updated every four weeks.
-
-Colin Catlin won the **Investment Decision** category using AutoTS.
-
-## Core pipeline
+Colin Catlin won **Investment Decision** using AutoTS. M6 covered 100 stocks and ETFs; portfolios updated every four weeks.
 
 ```text
-Historical prices
-↓
-Recent/relevant history
-↓
-Aggregate daily data to competition horizon
-↓
-Generate many forecasting candidates
-↓
-Cross-validation
-↓
-Genetic search
-↓
-Model / ensemble selection
-↓
-Forecast next competition period
-↓
-Point / Upper / Lower forecast
-↓
-Expected return + uncertainty
-↓
-Cross-sectional normalization
-↓
-Portfolio weights
+Historical prices → recent/relevant history → aggregate to competition horizon
+→ forecasting candidates → cross-validation → genetic search
+→ model/ensemble selection → next-period Point / Upper / Lower forecasts
+→ expected return + uncertainty → cross-sectional normalization → weights
 ```
 
-## Key idea 1 — Align forecast horizon with competition horizon
-
-The model does not need to predict every intermediate daily path if the competition ultimately evaluates performance over a fixed short horizon.
-
-General principle:
-
-```text
-Competition objective
-↓
-Choose matching prediction horizon
-```
-
-For a ~24-trading-day competition, useful targets may include:
-
-```text
-1D
-5D
-10D
-20D
-remaining-competition return
-```
-
-rather than only next-day return.
-
----
-
-## Key idea 2 — Predict a distribution, not only one number
-
-AutoTS produced:
-
-```text
-Lower forecast
-Point forecast
-Upper forecast
-```
-
-Conceptually:
-
-\[
-L_i,\quad P_i,\quad U_i
-\]
-
-The official competition approach used a hinge-style forecast based on the interval:
+- Match the forecast to the competition horizon: compare 1D, 5D, 10D, 20D and remaining-competition return, rather than assuming daily-path prediction is necessary.
+- Separate signal strength from confidence. AutoTS supplied Lower, Point and Upper forecasts, conceptually \(L_i, P_i, U_i\). The official hinge-style forecast used:
 
 \[
 \hat P_i = \frac{U_i + L_i}{2}
 \]
 
-Then convert the forecasted price into expected return.
-
-Key lesson:
-
-> Signal strength and signal confidence are different quantities.
-
-A strategy can use:
+Convert that price into expected return. A possible adaptation is:
 
 \[
 Alpha_i = ExpectedReturn_i \times Confidence_i
 \]
 
-instead of using expected return alone.
+- Agreement raises conviction: `Lower > 0`, `Point > 0`, `Upper > 0` is stronger than `Lower < 0`, `Point > 0`, `Upper > 0`. Estimate confidence through ensemble dispersion, intervals, sign agreement, historical residual distributions or calibration.
+- Select models adaptively through cross-validation over preprocessing, hyperparameters and ensembles. One fixed EMA, momentum horizon or ML model need not dominate every regime.
+- Fit with recent history, rolling windows or recency weighting when useful; old regimes may differ. Long history still supports robustness testing.
+- Keep extra features only with out-of-sample improvement: external macro variables were tested and discarded when CV showed no value.
+- Humans design constraints and verify; models execute frozen logic. Discretionary overrides can destroy a validated edge.
 
----
+## 2. M6 Investment #2 — ATA Method
 
-## Key idea 3 — Agreement / confidence
+ATA predicts **relative ranking probabilities**, rather than exact future returns:
 
-A strong case:
-
-```text
-Lower > 0
-Point > 0
-Upper > 0
-```
-
-All forecasts agree on the direction.
-
-A weaker case:
-
-```text
-Lower < 0
-Point > 0
-Upper > 0
-```
-
-The expected direction is positive, but uncertainty is high.
-
-General principle:
-
-```text
-Model agreement ↑
-→ conviction ↑
-
-Model disagreement ↑
-→ confidence ↓
-```
-
-This can be implemented through:
-
-- ensemble dispersion
-- prediction intervals
-- sign agreement
-- historical residual distributions
-- calibrated confidence
-
----
-
-## Key idea 4 — Adaptive model selection
-
-There was no assumption that one forecasting model would always dominate.
-
-The process was closer to:
-
-```text
-Model pool
-+
-preprocessing
-+
-hyperparameters
-+
-ensembles
-↓
-cross-validation
-↓
-automatic selection
-```
-
-Different market periods may favor different models.
-
-Important implication:
-
-> Do not assume one fixed EMA, momentum horizon, or ML model should remain optimal across every regime.
-
----
-
-## Key idea 5 — Recent data may matter more than very old data
-
-The approach emphasized relatively recent market history rather than assuming all historical data is equally useful.
-
-Reason:
-
-```text
-old market regime
-≠
-current market regime
-```
-
-Long history can still help with robustness testing, but model fitting may benefit from recency weighting or rolling windows.
-
----
-
-## Key idea 6 — More features are not automatically better
-
-External macro variables were tested, but extra features were not kept when cross-validation did not show added value.
-
-General principle:
-
-> Add features only when they improve out-of-sample evidence.
-
-Not:
-
-```text
-more data
-=
-better model
-```
-
----
-
-## Key idea 7 — Avoid discretionary overrides
-
-Manual overrides can destroy a systematically validated edge.
-
-Preferred structure:
-
-```text
-Human:
-design system
-define constraints
-verify
-
-Model:
-execute frozen decision logic
-```
-
----
-
-# 2. M6 Investment #2 — ATA Method
-
-This approach was structurally very different from the AutoTS winner.
-
-Instead of predicting exact future returns, it focused heavily on **relative ranking probabilities**.
-
-## Step 1 — Daily cross-sectional ranking
-
-For every day, rank all assets by daily return.
-
-Example with 100 assets:
-
-```text
-Rank 1–20
-Rank 21–40
-Rank 41–60
-Rank 61–80
-Rank 81–100
-```
-
----
-
-## Step 2 — Build recent rank-frequency features
-
-For each asset, count how often it appears in each rank bucket over a recent rolling window.
-
-Example:
-
-```text
-Top 20:       5 times
-21–40:        8 times
-41–60:        2 times
-61–80:        1 time
-Bottom 20:    4 times
-```
-
-This asks:
-
-> How consistently has this asset been a relative market leader?
-
-rather than only:
-
-> How much has this asset risen?
-
----
-
-## Step 3 — Forecast future rank distribution
-
-Forecast the future probability of each rank bucket.
-
-Conceptually:
+1. Rank daily returns across all assets. For 100 assets, use buckets 1–20, 21–40, 41–60, 61–80 and 81–100.
+2. Count recent rolling bucket frequencies. Example: Top 20 = 5 times; 21–40 = 8; 41–60 = 2; 61–80 = 1; Bottom 20 = 4. This measures persistent relative leadership, beyond price appreciation.
+3. Forecast the future distribution:
 
 \[
 P(Rank_1), P(Rank_2), ..., P(Rank_5)
 \]
 
-This converts the problem into:
+4. Compare ATA variants; agreement strengthens conviction, as with AutoTS.
+5. Select consistently top-ranked assets for a long-only portfolio. Original M6 short positions do not transfer.
 
-> Which assets are most likely to remain among the strongest relative performers?
+## 3. M6 High-Ranking Method — Ai / Liu / Lin
 
----
-
-## Step 4 — Multi-model consensus
-
-Different ATA variants were compared.
-
-Assets favored by multiple variants received stronger conviction.
-
-This shares an important principle with AutoTS:
+Separate prediction from allocation:
 
 ```text
-single-model prediction
-<
-multi-model agreement
+Features → prediction model → expected opportunity → portfolio optimizer → weights
 ```
 
----
+Prediction estimates expected opportunity, relative return, rank or probability using robust feature selection/extraction, denoising autoencoders, neural models and return-ranking prediction. Allocation separately decides names, count, weights and worthwhile turnover through risk-constrained, Differential Evolution style optimization. A forecast score need not imply equal weights.
 
-## Step 5 — Portfolio construction
+## 4. Single-Stage Portfolio Optimization
 
-The transferable part is:
+This later M6-data research is **not an M6 winning submission**. Test it independently; superiority is unproven.
 
 ```text
-forecast relative-rank distribution
-↓
-find consistently top-ranked assets
-↓
-long-only selection
+Standard: market data → return forecast → portfolio optimization
+Alternative: market data → direct portfolio optimization → weights
 ```
 
-The original M6 setup allowed short positions, but that part does not transfer to a long-only competition.
+Possible formulations: penalized regression, constrained direct weights, AutoML over portfolio objectives and direct utility maximization. The question is whether precise individual-stock forecasts are necessary for a strong short-horizon portfolio.
 
----
+## 5. ETF Global Portfolio Challenge — Regime Lessons
 
-# 3. M6 High-Ranking Method — Ai / Liu / Lin
+Short contests allow rebalancing, and winners often benefited from a dominant regime/theme: volatility products, semiconductor bear products, energy, commodities or emerging markets. Complete algorithms are generally unpublished; portfolio behavior is the strongest available evidence.
 
-This method is useful mainly because it separates two problems that are often incorrectly merged.
+Transfer regime detection → leading theme/sector → exposure tilt → updates as leadership changes. The instruments, leverage and volatility-product concentration may depend on the original rules; they need not transfer. Equal sector weights at all times are only one alternative.
 
-## Problem A — Prediction
-
-Estimate:
-
-```text
-expected opportunity
-relative return
-rank
-probability
-```
-
-## Problem B — Portfolio construction
-
-Decide:
-
-```text
-which names to hold
-how many names
-how much weight per name
-how much turnover is worth paying for
-```
-
-Pipeline:
-
-```text
-Features
-↓
-Prediction model
-↓
-Expected opportunity
-↓
-Portfolio optimizer
-↓
-Final weights
-```
-
-## Prediction side
-
-Their work used ideas such as:
-
-- robust feature selection
-- denoising autoencoder
-- neural models
-- return-ranking prediction
-
-## Portfolio side
-
-Portfolio weights were optimized separately using a Differential Evolution style search.
-
-Core lesson:
-
-> Stock selection and position sizing are separate optimization problems.
-
-A forecast score should not automatically imply equal-weight allocation.
-
----
-
-# 4. Single-Stage Portfolio Optimization
-
-This is not an M6 winning submission, but a later research direction built on M6 data.
-
-It questions the standard pipeline:
-
-```text
-Market data
-↓
-Return forecast
-↓
-Portfolio optimization
-```
-
-and instead tests:
-
-```text
-Market data
-↓
-Direct portfolio optimization
-↓
-Weights
-```
-
-Possible formulations include:
-
-- penalized regression
-- constrained direct weight optimization
-- AutoML over portfolio objectives
-- direct utility maximization
-
-Important research question:
-
-> Is accurate individual-stock return forecasting actually necessary for a good short-horizon portfolio?
-
-This should be treated as an independent experimental branch rather than assumed superior.
-
----
-
-# 5. ETF Global Portfolio Challenge — Short-Horizon Regime Lessons
-
-ETF Global competitions are useful because the horizon is short and participants can rebalance during the contest.
-
-Unlike M6, complete winning algorithms are generally not published, so the strongest evidence comes from winner portfolio behavior.
-
-## Common winner pattern
-
-Short-horizon winners often benefited from correctly identifying a dominant market regime or theme.
-
-Examples included concentration in:
-
-- volatility products
-- semiconductor bear products
-- energy
-- commodities
-- emerging markets
-
-The exact instruments often do **not** transfer to other competitions.
-
-The transferable lesson is:
-
-```text
-detect dominant regime
-↓
-identify leading theme / sector
-↓
-tilt exposure
-↓
-update when regime changes
-```
-
-rather than:
-
-```text
-all sectors
-always equally weighted
-```
-
----
-
-# 6. Shared Patterns Across Successful Methods
+## 6. Shared Patterns
 
 | Pattern | AutoTS Winner | ATA #2 | Ai / Liu / Lin | ETF Global |
 |---|---:|---:|---:|---:|
@@ -475,346 +87,41 @@ always equally weighted
 | Regime / theme awareness | Implicit | Implicit | Partial | ✅ |
 | Risk-aware allocation | Partial | Diversification | ✅ | Mixed |
 
----
 
-# 7. Most Important Design Questions for the Next Strategy
+## 7. Design Questions to Test
 
-Before designing the next version, answer these experimentally.
+1. Target: next-day, 5D, 10D, 20D or remaining-competition return?
+2. Exact return \(E[r_i]\) or relative rank \(P(i \in TopK)\)? Ranking may be easier and more robust; test it.
+3. Expected return alone or return + uncertainty + confidence?
+4. Fixed weighted scores or ensemble consensus, agreement and adaptive weights?
+5. Full history, recent rolling history, recency weights or multiple training windows? Old history may not represent the current regime.
+6. Top-N equal weights or prediction followed by a constrained optimizer?
+7. Should market breadth, cross-sectional dispersion, volatility, index momentum, sector leadership or overnight/global signals change risk/cash targets, sector tilts, turnover budgets or ensemble weights?
 
-## 1. What should the prediction target be?
+## 8. Transfer Limits
 
-Candidates:
+- Adapt long/short methods to long-only construction.
+- Transfer regime awareness rather than copying leveraged ETF concentration.
+- First-place probability and expected terminal wealth can differ. For final NAV / total return, prioritize expected terminal NAV, risk, execution and constraints over adversarial leaderboard positioning.
 
-```text
-next-day return
-5D return
-10D return
-20D return
-remaining-competition return
-```
+## 9. Independent Strategy Families
 
-Do not assume next-day prediction is the correct objective.
+| Family | Pipeline / purpose | Inspiration |
+|---|---|---|
+| A — Short-Horizon Momentum | 3D / 5D / 10D / 20D momentum, trend, volume, volatility, controlled rotation; interpretable baseline | Simple baseline |
+| B — Adaptive Forecast Ensemble | Experts → walk-forward CV → adaptive ensemble → return + uncertainty → optimizer | AutoTS; confidence/agreement |
+| C — Relative Rank Forecasting | Cross-sectional ranks → rolling frequencies → future rank distribution → Top-K probability → portfolio | ATA |
+| D — Forecast + Portfolio Optimization | Return/rank prediction → risk-aware optimizer | Ai / Liu / Lin |
+| E — Direct Portfolio Optimization | Features → direct portfolio objective → weights | Single-stage research |
+| F — Regime-Aware Strategy | Market/sector regime → risk budget, alpha weights, sector exposure, turnover budget | ETF Global winner behavior |
 
----
+## 10. Exploration Rule
 
-## 2. Exact return or relative rank?
+Derive competing architectures from the competition objective, causal data availability, execution rules, constraints and out-of-sample evidence. Do not assume momentum is structurally correct. Compare all families under the same simulator and validation protocol; the method details and limits are above.
 
-Compare:
+## 11. Source References
 
-\[
-E[r_i]
-\]
-
-against:
-
-\[
-P(i \in TopK)
-\]
-
-Relative ranking may be easier and more robust than precise return prediction.
-
----
-
-## 3. Should the model output confidence?
-
-Compare:
-
-```text
-expected return only
-```
-
-vs.
-
-```text
-expected return
-+
-uncertainty
-+
-confidence
-```
-
----
-
-## 4. Should multiple signals require agreement?
-
-Compare:
-
-```text
-fixed weighted score
-```
-
-vs.
-
-```text
-ensemble
-consensus
-agreement
-adaptive weighting
-```
-
----
-
-## 5. How much historical data should be used?
-
-Compare:
-
-```text
-full history
-rolling recent history
-recency-weighted history
-multiple training windows
-```
-
-Do not assume the oldest data still reflects the current regime.
-
----
-
-## 6. Should stock selection and weight allocation be separated?
-
-Compare:
-
-```text
-Top-N + equal weight
-```
-
-against:
-
-```text
-prediction
-↓
-constrained portfolio optimizer
-```
-
----
-
-## 7. Should market regime explicitly affect the portfolio?
-
-Possible regime inputs:
-
-```text
-market breadth
-cross-sectional dispersion
-volatility
-index momentum
-sector leadership
-overnight/global signals
-```
-
-Possible outputs:
-
-```text
-risk budget
-cash target
-sector tilt
-turnover budget
-ensemble weights
-```
-
----
-
-# 8. What Should NOT Be Copied Directly
-
-## Do not copy short-selling logic
-
-Some M6 approaches use long/short portfolios.
-
-A long-only competition needs a different construction.
-
----
-
-## Do not copy leveraged ETF concentration
-
-ETF Global winners sometimes benefited from leveraged or volatility products.
-
-That edge may be specific to their rules and universe.
-
-Transfer the **regime-detection idea**, not necessarily the instrument.
-
----
-
-## Do not optimize leaderboard-gaming behavior
-
-Some competition strategies may optimize the probability of finishing first rather than expected terminal wealth.
-
-For a competition whose primary objective is final NAV / total return, prioritize:
-
-```text
-expected terminal NAV
-+
-risk
-+
-execution
-+
-constraints
-```
-
-not adversarial leaderboard positioning.
-
----
-
-# 9. Recommended Solution Space for Agent Exploration
-
-The next strategy should not assume the existing momentum baseline is structurally correct.
-
-At minimum, explore these independent families:
-
-## Family A — Short-Horizon Momentum
-
-```text
-3D / 5D / 10D / 20D momentum
-trend
-volume
-volatility
-controlled rotation
-```
-
-Purpose:
-
-> simple, interpretable baseline.
-
----
-
-## Family B — Adaptive Forecast Ensemble
-
-```text
-multiple forecasting experts
-↓
-walk-forward validation
-↓
-adaptive ensemble
-↓
-expected return + uncertainty
-↓
-portfolio optimizer
-```
-
-Inspired primarily by:
-
-- M6 AutoTS winner
-- agreement/confidence forecasting
-
----
-
-## Family C — Relative Rank Forecasting
-
-```text
-cross-sectional rank
-↓
-rolling rank-frequency features
-↓
-future rank distribution
-↓
-Top-K probability
-↓
-portfolio construction
-```
-
-Inspired by:
-
-- M6 ATA method
-
----
-
-## Family D — Forecast + Portfolio Optimization
-
-```text
-return/rank prediction
-↓
-risk-aware portfolio optimizer
-```
-
-Inspired by:
-
-- Ai / Liu / Lin
-
----
-
-## Family E — Direct Portfolio Optimization
-
-```text
-features
-↓
-direct portfolio objective
-↓
-weights
-```
-
-Inspired by:
-
-- single-stage portfolio research
-
----
-
-## Family F — Regime-Aware Strategy
-
-```text
-market / sector regime
-↓
-change risk budget
-change alpha weights
-change sector exposure
-change turnover budget
-```
-
-Inspired by:
-
-- ETF Global short-horizon winner behavior
-
----
-
-# 10. Compact Reference for an Agent
-
-```text
-Study these strategy families before designing the next strategy:
-
-1. M6 Investment Winner — Colin Catlin / AutoTS
-   - horizon-aligned forecasting
-   - automated model search
-   - walk-forward CV
-   - genetic optimization
-   - ensembles
-   - probabilistic upper / point / lower forecasts
-   - confidence / agreement
-   - dynamically changing best models
-
-2. M6 Investment #2 — ATA
-   - daily cross-sectional return ranks
-   - recent rank-frequency distributions
-   - forecast future rank probabilities
-   - select assets consistently predicted to be top-ranked
-
-3. M6 Ai / Liu / Lin
-   - separate prediction from portfolio allocation
-   - robust feature extraction
-   - risk-constrained portfolio optimization
-   - Differential Evolution style optimization
-
-4. Single-stage M6 research
-   - test direct data → portfolio optimization
-   - do not assume precise individual-return prediction is required
-
-5. ETF Global winners
-   - short contests are regime-sensitive
-   - sector/theme leadership can dominate
-   - allow portfolio exposure to tilt when leadership is strong
-
-Do not assume the existing momentum baseline is structurally correct.
-
-Derive the next strategy from:
-competition objective
-+ causal data availability
-+ execution rules
-+ portfolio constraints
-+ out-of-sample evidence.
-
-Test competing architectures under the same execution simulator and validation protocol.
-```
-
----
-
-# 11. Source References
-
-## M6 / AutoTS
+### M6 / AutoTS
 
 - Colin Catlin, *Winning the M6 Financial Forecasting Decision Category*  
   https://syllepsis.live/2023/04/03/winning-the-m6-financial-forecasting-decision-category/
@@ -822,22 +129,22 @@ Test competing architectures under the same execution simulator and validation p
 - M6 / AutoTS paper  
   https://www.sciencedirect.com/science/article/pii/S016920702500072X
 
-## ATA
+### ATA
 
 - *ATA method's performance in the M6 competition*  
   https://www.researchgate.net/publication/381912928_ATA_method_s_performance_in_the_M6_competition
 
-## Prediction + Portfolio Optimization
+### Prediction + Portfolio Optimization
 
 - Ai / Liu / Lin M6 work  
   https://www.sciencedirect.com/science/article/abs/pii/S0169207024000359
 
-## Direct Portfolio Optimization
+### Direct Portfolio Optimization
 
 - Single-stage portfolio optimization on M6 data  
   https://www.sciencedirect.com/science/article/pii/S0169207024000918
 
-## ETF Global
+### ETF Global
 
 - ETF Global competition archive / winner writeups  
   https://blog.etfg.com/

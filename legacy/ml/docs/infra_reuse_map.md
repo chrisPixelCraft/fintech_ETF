@@ -1,16 +1,10 @@
 # Competition Infrastructure Reuse Map
 
-This map covers competition **infrastructure** only: data, calendar, execution, rule checks, planner, ledger, episodes, and D-Plan. Strategy code (V3 features and scores, V5 selection and regime) stays in legacy. Task facts are in [docs/task.md](../../../docs/task.md).
+**Extract infrastructure; rewrite the strategy-coupled ledger.** Keep V3 features/scores and V5 selection/regime in legacy. Scope: data, calendar, execution, rule checks, planner, ledger, episodes, D-Plan. Task facts: [docs/task.md](../../../docs/task.md).
 
-- Inspected on 2026-09-24 at `HEAD 0363e41`
-- Tests were run with the concurrently built `.venv`
-  - Python 3.12.10, pandas 3.0.6
-  - The pinned stack is Python 3.10 with pandas 2.0.3 (`requirements.txt`)
-- Recommendation labels
-  - **EXTRACT**: copy to `competition/` as-is
-  - **EXTRACT+CHANGE**: copy with the listed edits
-  - **REWRITE**: port the semantics, not the code
-  - **LEGACY**: leave it; reuse ideas at most
+Inspected 2026-09-24 at `HEAD 0363e41`. Tests used the concurrently built `.venv`: Python 3.12.10 / pandas 3.0.6, versus pinned Python 3.10 / pandas 2.0.3 (`requirements.txt`).
+
+Labels: **EXTRACT** = copy unchanged to `competition/`; **EXTRACT+CHANGE** = copy with listed edits; **REWRITE** = port semantics; **LEGACY** = leave code, reuse ideas at most.
 
 ## Summary
 
@@ -35,26 +29,20 @@ This map covers competition **infrastructure** only: data, calendar, execution, 
 | 17 | Portfolio math helpers | `src/v5_portfolio.py:145-197` | EXTRACT (two functions, optional) | indirect |
 | 18 | Independent audit | `scripts/v5_verify.py:203` | LEGACY; port the idea into tests | n/a |
 
-`tests/test_double_check.py` shows 5/9 failures here with `AssertionError: 2025-01-08: wrong next session` from `scripts/audit_double_check.py:145`. That audit script is legacy. The failure probably comes from the pandas 3 environment, but this was not confirmed on the pinned stack.
+`tests/test_double_check.py`: 5/9 failures, `AssertionError: 2025-01-08: wrong next session` at legacy `scripts/audit_double_check.py:145`. Pandas 3 is the suspected cause, unconfirmed on the pinned stack.
 
 ## 1. Rules and universe config
 
-- `data/reference/competition_rules.json`
-  - Machine-readable limits, fees, execution formulas, warnings and scoring
-  - Page citations and an explicit `unresolved` list
-- `data/reference/universe_competition_20260731.csv`
-  - 150 rows; matches the official PDF code by code
-  - Columns: `ticker, name, market, yahoo_symbol, reference_date, attachment_created_at, source_page, source_url`
-- Caveats
-  - `source_document.path` points to `~/Downloads`; use `official_docs/` instead
-  - `yahoo_daily.load_metadata` checks the universe file's SHA256, so do not edit the CSV
-- Recommendation: **EXTRACT**
-  - Load both through one frozen `CompetitionRules` object
-  - Today, every module re-declares `min_count`, `max_weight`, `commission` and so on in its own config dict
+**EXTRACT** into one frozen `CompetitionRules` object; modules currently redeclare `min_count`, `max_weight`, `commission` in config dicts.
+
+- `data/reference/competition_rules.json`: limits, fees, execution formulas, warnings, scoring, page citations and `unresolved` list.
+- `data/reference/universe_competition_20260731.csv`: 150 rows matching the official PDF code by code; columns `ticker, name, market, yahoo_symbol, reference_date, attachment_created_at, source_page, source_url`.
+- Replace `source_document.path` (`~/Downloads`) with `official_docs/`.
+- Do not edit the CSV: `yahoo_daily.load_metadata` checks its SHA256.
 
 ## 2–3. Yahoo daily loader and acquisition
 
-**Path:** `src/yahoo_daily.py` (234 lines). It imports no other `src` module.
+`src/yahoo_daily.py`: 234 lines, no other `src` imports or strategy assumptions.
 
 | Function | Signature | Guarantee |
 |---|---|---|
@@ -69,29 +57,21 @@ This map covers competition **infrastructure** only: data, calendar, execution, 
 | `calendar_amendment` | `(cache_dir=None, write=False) -> dict` | Deterministic calendar; verified against sources |
 | `load_calendar` | `(cache_dir=None) -> list[str]` | Returns `calendar_v2` sessions |
 
-- Script `scripts/download_yahoo_daily.py`
-  - `acquire(cache_dir=DEFAULT_CACHE, end=None, attempts=3)`
-  - Immutable, resumable snapshot per directory
-  - A new `end` requires a new directory
-- Tests: `tests/test_yahoo_daily.py`, 9 tests
-  - They import `yfinance` at module level
-  - They fail in the new `.venv` only because `yfinance` is not installed
-- Strategy assumptions: none
-- Edits needed (**EXTRACT+CHANGE**)
-  - `ROOT = parents[1]` is depth-sensitive; pass paths explicitly
-  - `DEFAULT_CACHE` depends on today's date; make it an argument
-  - Add an as-of accessor (for example `history_until(daily, date)`)
-    - There is currently no decision-time filter
-  - Expose `action_neutral_return` as the return series for AutoTS
-  - Daily production needs an incremental T−1 update
-    - The current design is a full snapshot per day
-  - Map `5371.TWO` to 3718
-    - Yahoo has only 15 rows under 3718
-- Dependencies: `yfinance==0.2.66`, `pyarrow` (`requirements-yahoo.txt`)
+`scripts/download_yahoo_daily.py`: `acquire(cache_dir=DEFAULT_CACHE, end=None, attempts=3)` creates immutable, resumable snapshots; a new `end` needs a new directory.
+
+`tests/test_yahoo_daily.py`: 9 tests; module-level `yfinance` import fails solely because the new `.venv` lacks it. Dependencies: `yfinance==0.2.66`, `pyarrow` (`requirements-yahoo.txt`).
+
+**EXTRACT+CHANGE**:
+
+- Replace depth-sensitive `ROOT = parents[1]` and date-dependent `DEFAULT_CACHE` with explicit arguments.
+- Add as-of access, e.g. `history_until(daily, date)`; no decision-time filter exists.
+- Expose `action_neutral_return` for AutoTS.
+- Add incremental T−1 production updates; current design snapshots the full history daily.
+- Map `5371.TWO` to 3718: Yahoo has only 15 rows for 3718.
 
 ## 4–6. Official execution prices
 
-**Path:** `src/v4_execution.py` (160 lines). No `src` imports.
+**EXTRACT** `src/v4_execution.py` unchanged: 160 lines, no `src` imports or strategy assumptions. Constants: `OFFICIAL_DAILY_AVERAGE`, `DAILY_OPEN_RESEARCH_PROXY`. Tests: `tests/test_v4_execution.py`, 11/11 OK.
 
 | Function | Signature | Guarantee |
 |---|---|---|
@@ -102,42 +82,22 @@ This map covers competition **infrastructure** only: data, calendar, execution, 
 | `resolve_execution_prices` | `(table, date, symbols, mode, proxy_open=None) -> Series` | `official_average` or `open_proxy`; missing stays NaN, no fallback |
 | `content_sha256` | `(bytes) -> str` | Raw response hash |
 
-- Constants `OFFICIAL_DAILY_AVERAGE`, `DAILY_OPEN_RESEARCH_PROXY`
-- Tests: `tests/test_v4_execution.py`, 11/11 OK
-- Strategy assumptions: none
-- Recommendation: **EXTRACT** as-is
-- Fetcher `scripts/v4_build_execution_data.py`
-  - `build_execution_data(dates, universe_path, output, workers=2, timeout=25) -> dict`
-  - Resumable gzip raw cache and manifest
-  - Missing rows are explicit `MISSING_OFFICIAL_ROW`
-  - **EXTRACT+CHANGE**
-    - Make the output path configurable (`outputs/v4` is absent)
-    - Also emit the official close for sizing
-    - Needed daily for T−1 closes
-- Data asset `data/tuning_2nd/official_universe/processed/daily.csv`
-  - Columns include `execution_vwap, official_turnover, execution_volume, vwap_source, price_source`
-  - VWAP coverage: 2024 is 20%; 2025 and 2026 are 99.3%
-  - `vwap_source` mixes TWSE, TPEx and FinMind
-    - FinMind rows are validated against official data, but they are not an exchange tape
-  - Use it read-only as the historical execution table
-    - Convert it to the `v4_execution.COLUMNS` schema with an adapter
+**EXTRACT+CHANGE** fetcher `scripts/v4_build_execution_data.py`:
+
+- `build_execution_data(dates, universe_path, output, workers=2, timeout=25) -> dict`: resumable gzip raw cache and manifest; missing rows are `MISSING_OFFICIAL_ROW`.
+- Configure output (`outputs/v4` absent); emit official close for daily T−1 sizing.
+
+**EXTRACT**, read-only asset `data/tuning_2nd/official_universe/processed/daily.csv`: `execution_vwap, official_turnover, execution_volume, vwap_source, price_source`. Coverage: 2024 20%; 2025/2026 99.3%. `vwap_source` mixes TWSE, TPEx, FinMind; validated FinMind rows are not exchange tape. Adapt to `v4_execution.COLUMNS`.
 
 ## 7. Calendar
 
-- `calendar_v2.json`
-  - 4,330 sessions, 2009-01-05 → 2026-09-23
-  - Policy: 0050 observations ∪ days with ≥20 valid stocks
-  - Self-labelled as a research proxy
-- The 2026-10-26 → 11-27 contest calendar does not exist in the repo
-  - There are 25 weekdays against the 24 sessions the rules state
-  - It must come from the official TWSE 2026 holiday table
-- Recommendation
-  - **EXTRACT** the loader for historical sessions
-  - Add a separate, versioned `contest_calendar.json` built from the official holiday source
+**EXTRACT** historical loader: `calendar_v2.json`, 4,330 sessions, 2009-01-05 → 2026-09-23. Policy: 0050 observations ∪ days with ≥20 valid stocks; explicitly a research proxy.
+
+Contest calendar 2026-10-26 → 11-27 is absent: 25 weekdays vs stated 24 sessions. Add versioned `contest_calendar.json` from the official TWSE 2026 holiday table.
 
 ## 8–9. Planner and D-Plan weight serializer
 
-**Path:** `src/v5_planner.py` (360 lines). It turns D−1 target weights into whole-lot orders that pass the hard rules.
+**EXTRACT+CHANGE** `src/v5_planner.py` (360 lines): D−1 target weights → whole-lot orders satisfying hard rules.
 
 | Function | Signature | Guarantee |
 |---|---|---|
@@ -147,31 +107,16 @@ This map covers competition **infrastructure** only: data, calendar, execution, 
 | `is_whole_lot` | `(quantity, lot=1000) -> bool` | Tolerance 1e-6 |
 | `Plan` | dataclass `(orders, target_shares, status, reason, audit)` | `status` is one of `OK`, `REPAIRED`, `HOLD_FALLBACK`, `INFEASIBLE` |
 
-- Repair order
-  - formula → no-trade band → caps → count → worst-case funding → cash ceiling top-up
-- Every emitted order must round-trip `representable_weight`
-  - This guarantees the D-Plan C2 formula reproduces the order
-- Tests: `tests/test_v5_planner.py`, 13/13 OK
-  - Covers formula, caps, count, cash, costs, odd lots and split float residue
-- Dependency problem
-  - It imports `src.official_deep_tuning.representable_weight`
-  - That module imports `backtest_v2, tuning_2nd, tuning_a_deep` and `official_v2_review`
-  - `official_v2_review` imports `compliance_planner, tuning_2nd` at module load
-  - This pulls the whole legacy strategy tree
-- Policy defaults, not rules (keep them tunable and documented)
-  - `rebalance_band=.005`
-  - `cash_ratio_margin=.005`
-  - `odd_lot_mode='hold'`, the U7 assumption
-  - `buy_price_buffer=1.10` and `sell_price_buffer=.90` match the ±10% daily limit; keep them
-- Recommendation: **EXTRACT+CHANGE**
-  - Inline `whole_lots` and `representable_weight` from `src/official_v2_review.py:20-43`
-    - Both are pure `Decimal` code
-  - Inline the float-residue wrapper from `src/official_deep_tuning.py:24-35`
-  - Read `DEFAULTS` from `CompetitionRules`
-- Serializer contract (`representable_weight(target, price, nav, cap) -> float`)
-  - Picks the midpoint of the same target-lot bin, capped at `cap`
-  - Raises `DPLAN_ODD_TARGET_UNREPRESENTABLE` on odd targets
-  - Raises `DPLAN_WEIGHT_ROUNDTRIP_FAILED` if the floor does not recover `target`
+Repair order: formula → no-trade band → caps → count → worst-case funding → cash ceiling top-up. Every order round-trips `representable_weight` for D-Plan C2. `tests/test_v5_planner.py`: 13/13 OK; formula, caps, count, cash, costs, odd lots, split float residue.
+
+Dependency problem: `src.official_deep_tuning.representable_weight` imports `backtest_v2, tuning_2nd, tuning_a_deep` and `official_v2_review`; the latter imports `compliance_planner, tuning_2nd` at load time, pulling legacy strategies.
+
+- Inline pure `Decimal` functions `whole_lots` and `representable_weight` from `src/official_v2_review.py:20-43`.
+- Inline float-residue wrapper from `src/official_deep_tuning.py:24-35`; load `DEFAULTS` from `CompetitionRules`.
+- Document tunable policies: `rebalance_band=.005`, `cash_ratio_margin=.005`, `odd_lot_mode='hold'` (U7 assumption).
+- Retain `buy_price_buffer=1.10` / `sell_price_buffer=.90` for ±10% limits.
+
+Serializer `representable_weight(target, price, nav, cap) -> float` selects the target-lot bin midpoint capped at `cap`. Odd targets raise `DPLAN_ODD_TARGET_UNREPRESENTABLE`; failed floor recovery of `target` raises `DPLAN_WEIGHT_ROUNDTRIP_FAILED`.
 
 ## 10–11. Rule checks and the stress envelope
 
@@ -182,98 +127,50 @@ This map covers competition **infrastructure** only: data, calendar, execution, 
 | `cap_state` | `src/double_check_ledger.py:23` | `(holdings, prices, nav, previous_ages, bought, config, baseline_holdings=None, baseline_cash=None) -> (ages, active, passive)` | Uses a no-trade counterfactual to separate active from passive breaches |
 | `stress_violations` | `src/compliance_planner.py:123` | `(orders, holdings, cash, ranked, config, *, cash_ceiling=None, allow_mixed=False) -> list[str]` | Closed-form worst corners for cash, cash ratio and per-name concentration |
 
-- `rule_check`, `warning_reasons` and `cap_state` are pure functions
-  - Their modules import strategy code at load time
-  - Copy the functions; do not import the modules
-- `stress_violations` needs edits
-  - It reads prices from a `ranked` frame's `close`; change it to a price mapping
-  - It rejects mixed buy/sell by default, which is a V3 policy
-    - The rules allow same-day funding (`funding_for`)
-  - `_guard` ceiling `.25 − cash_guard_headroom(.02)` is a policy value
-- The rest of `compliance_planner.py` is **LEGACY**
-  - `make_plan_v2` and `_buy_plan` depend on `score/entry_ok/exit/target_count`
-  - `cash_guard_ratio=.16` is a strategy parameter
+Copy pure `rule_check`, `warning_reasons`, `cap_state`, not their strategy-importing modules.
+
+**EXTRACT+CHANGE** `stress_violations`: replace `ranked` frame’s `close` with a price mapping. Mixed buy/sell rejection is V3 policy; rules allow same-day `funding_for`. `_guard` ceiling `.25 − cash_guard_headroom(.02)` is also policy.
+
+Remaining `compliance_planner.py`: **LEGACY**. `make_plan_v2` / `_buy_plan` depend on `score/entry_ok/exit/target_count`; `cash_guard_ratio=.16` is a strategy parameter.
 
 ## 12–13. Ledger and metrics
 
-**Path:** `src/v4_ledger.py`, `run_ledger(daily, universe, config, requested_calendar, planner, execution_prices, execution_volumes, execution_mode)`.
+**REWRITE** `src/v4_ledger.py` as strategy-free `competition/ledger.py`. Existing API: `run_ledger(daily, universe, config, requested_calendar, planner, execution_prices, execution_volumes, execution_mode)`.
 
-Semantics that are correct and must be kept:
+Preserve semantics:
 
-- Orders are fixed at D−1; only fills read execution prices
-- Pending orders execute sells first (`src/v4_ledger.py:86`)
-- A missing price leaves the order unfilled and logs a warning
-  - It never fabricates a price
-- Fees and tax use official rates on the fill notional
-- Corporate actions apply before fills
-  - Splits scale shares
-  - Cash dividends accrue to `receivable`
-- A settlement violation rolls back that day's trades
-  - It keeps corporate entitlements
-  - It adds one warning; three warnings stop the run
-- Active and passive caps use a 5-session grace
-- The terminal dividend credit is added only to final NAV
+- Fix orders at D−1; only fills read execution prices. Execute sells first (`src/v4_ledger.py:86`).
+- Missing prices leave orders unfilled with warnings; never fabricate prices. Apply official fees/tax to fill notional.
+- Apply corporate actions before fills: splits scale shares; cash dividends accrue to `receivable`.
+- Settlement violations roll back trades, retain corporate entitlements and add one warning; three warnings stop the run.
+- Active/passive caps use 5-session grace; terminal dividend credit enters final NAV only.
 
-Why it cannot be extracted as-is:
+Coupling prevents extraction:
 
-- It imports `strategy_24d._score`, a V3 strategy scorer
-  - `v5_episode` swaps it through `FunctionType` global rebinding
-- It requires V3 panel columns
-  - `signal_available`, `source_symbol`, `ready`
-- The planner callback has the V3 signature
-  - `(ranked, holdings, cash, nav, c, buy_phase, selected)`
-  - It includes the V3 `SELL_THEN_WAIT_SETTLEMENT` two-phase concept
-- It requires `research_shadow=True`
-  - It hard-codes `BLOCK_SUBMISSION` status strings
-- It pulls `_settings`, `_cap`, `_metrics` and `_safe_meta` from `backtest_v2`
-- Its tests go through `v4_baseline.run_episode` with a `strategy_24d` fixture
-  - `tests/test_v4_ledger.py:5-8`
+- `strategy_24d._score` is swapped by `v5_episode` using `FunctionType` global rebinding.
+- Requires V3 columns `signal_available`, `source_symbol`, `ready` and planner `(ranked, holdings, cash, nav, c, buy_phase, selected)` with `SELL_THEN_WAIT_SETTLEMENT` two-phase logic.
+- Requires `research_shadow=True`, hardcodes `BLOCK_SUBMISSION`, imports `_settings`, `_cap`, `_metrics`, `_safe_meta` from `backtest_v2`.
+- Tests use `v4_baseline.run_episode` and `strategy_24d` fixtures (`tests/test_v4_ledger.py:5-8`).
 
-Recommendation: **REWRITE** as `competition/ledger.py` with a strategy-free step API. For example:
+Proposed API: `Book(holdings, cash, nav, receivable, cap_ages, warnings)`; `settle(book, orders, exec_prices, bars_t, rules) -> (Book, DayRecord)`.
 
-- `Book(holdings, cash, nav, receivable, cap_ages, warnings)`
-- `settle(book, orders, exec_prices, bars_t, rules) -> (Book, DayRecord)`
-- Port the four `test_v4_ledger` cases
-  - Build them on synthetic bars instead of the V3 fixture
-- Port the penalty cases from `tests/test_double_check.py`
-  - VWAP-shock rollback
-  - Terminal dividend not tradable
-  - Sale fees creating an active cap
-- Metrics: copy `backtest_v2._metrics` (`src/backtest_v2.py:186`)
-  - Replace fields that assume V3 snapshots
-  - `infeasible_signal_days` reads `plan_reason`
+Port four `test_v4_ledger` cases to synthetic bars. Port `tests/test_double_check.py` penalties: VWAP-shock rollback, terminal dividend not tradable, sale-fee-induced active cap.
+
+**EXTRACT+CHANGE** metrics `backtest_v2._metrics` (`src/backtest_v2.py:186`): replace V3 snapshot fields; `infeasible_signal_days` reads `plan_reason`.
 
 ## 14–15. Episodes
 
-- Registry: `scripts/v5_data.py`
-  - `load_calendar(path)` at L75
-  - `_window(dates, start, length)` at L82
-  - `build_registry(study, dates)` at L91
-  - `requested_dates(episodes)` at L135
-  - Pure and deterministic
-  - Monthly anchors and a seasonal Oct-26 anchor
-- Splits: `config/v5_study.json`
-  - Development 2010–2018 (108 episodes)
-  - Validation 2019–2022 (48)
-  - Retrospective holdout 2023–2024 (24), labelled "not pristine"
-  - Seasonal Oct-26 anchors 2010–2025 (16)
-  - Recent months from 2025
-- Recommendation: **EXTRACT+CHANGE**
-  - Move the functions into `competition/episodes.py`
-  - Tag each episode by execution mode
-    - Official VWAP exists only for 2025+
-    - Earlier episodes are proxy
-  - Define new AutoTS splits and freeze a holdout before tuning
-- Runner: `src/v5_episode.py` and `src/v4_baseline.py` are **LEGACY**
-  - `_bind()` rebinds function globals to inject planners
-  - It needs V3 config keys (`deep_feature_params`, `warmup_sessions`)
-- Ideas worth keeping
-  - Strategy contract: `generate_weights(decision_date, panel, portfolio_state, competition_state) -> DataFrame[target_weight]`
-  - A disqualified episode keeps only a forensic return (`normalize_episode_result`)
+**EXTRACT+CHANGE** registry `scripts/v5_data.py`: pure, deterministic `load_calendar(path)` L75, `_window(dates, start, length)` L82, `build_registry(study, dates)` L91, `requested_dates(episodes)` L135. Monthly and seasonal Oct-26 anchors.
+
+`config/v5_study.json`: development 2010–2018 (108), validation 2019–2022 (48), retrospective holdout 2023–2024 (24; not pristine), seasonal Oct-26 2010–2025 (16), recent months from 2025.
+
+Move functions to `competition/episodes.py`; tag official VWAP (2025+) vs earlier proxy episodes. Define AutoTS splits and freeze holdout before tuning.
+
+Runners `src/v5_episode.py`, `src/v4_baseline.py`: **LEGACY**. `_bind()` rebinds globals; requires V3 `deep_feature_params`, `warmup_sessions`. Keep ideas: `generate_weights(decision_date, panel, portfolio_state, competition_state) -> DataFrame[target_weight]`; disqualified episodes retain forensic returns only (`normalize_episode_result`).
 
 ## 16. D-Plan generation and validation
 
-**Fact:** no D-Plan builder or validator exists in the working tree. This clone contains one commit, so `d613b75` is not local. The files exist on GitHub under that commit.
+**EXTRACT+CHANGE after recovery.** No builder/validator in working tree; clone has one commit, no local `d613b75`. Files exist on GitHub at that commit:
 
 | File at `d613b75` | Size | Content |
 |---|---|---|
@@ -283,54 +180,32 @@ Recommendation: **REWRITE** as `competition/ledger.py` with a strategy-free step
 | `tests/test_daily_auto.py` | 21.2 KB | Semantic D-Plan tests |
 | `tests/test_daily_compliance_state.py` | 2.4 KB | Cap-age tests |
 
-Key signatures, read from the raw GitHub file:
+Signatures read from raw GitHub:
 
-- `derive_orders(plan, state) -> dict(orders, derivations)`
-  - Exact `Decimal` floor formula against actual held shares
-  - Enforces action consistency (BUY/ADD/TRIM/SELL_ALL)
-  - Rejects zero-delta decisions, overselling and odd-lot deltas
-- `project_orders(state, orders) -> dict`
-  - T−1 close estimate of cash, NAV, weights, net flow, fees and tax
-  - Input for the C12 posture check
-- `validate_plan(plan, state, *, checked_at=None, filename=None, schema_path=SCHEMA, evidence_root=ROOT) -> dict`
-  - `jsonschema` `Draft202012Validator` with `FormatChecker`
-  - Sequential IDs, the reference chain and holdings coverage
-  - C2, C12 (2% hold tolerance), C14 funding gap, filename, Taipei time
-- Recommendation: **EXTRACT+CHANGE** after recovery
-  - Recover with `git fetch origin d613b75` or the raw GitHub URLs
-  - Remove the hard-coded `submission_status='BLOCK_SUBMISSION'` in `finish()`
-  - Replace `evidence_root` and `official_reference.json` coupling with `CompetitionRules`
-  - Keep `Active Share` as `UNKNOWN` until U4 is resolved
-- `jsonschema==4.20.0` is already pinned in `requirements.txt`
+- `derive_orders(plan, state) -> dict(orders, derivations)`: exact `Decimal` floor against actual holdings; BUY/ADD/TRIM/SELL_ALL consistency; rejects zero-delta decisions, overselling, odd-lot deltas.
+- `project_orders(state, orders) -> dict`: T−1 close estimates of cash, NAV, weights, net flow, fees/tax for C12 posture.
+- `validate_plan(plan, state, *, checked_at=None, filename=None, schema_path=SCHEMA, evidence_root=ROOT) -> dict`: `jsonschema` `Draft202012Validator` / `FormatChecker`; sequential IDs, reference chain, holdings coverage, C2, C12 (2% hold tolerance), C14 funding gap, filename, Taipei time.
+
+Recover via `git fetch origin d613b75` or raw GitHub URLs. Remove `submission_status='BLOCK_SUBMISSION'` in `finish()`; replace `evidence_root` / `official_reference.json` coupling with `CompetitionRules`. Keep `Active Share` `UNKNOWN` until U4 resolves. `jsonschema==4.20.0` already pinned in `requirements.txt`.
 
 ## 17–18. Optional helpers
 
-- `src/v5_portfolio.py`
-  - `cap_fill(preference, budget, caps) -> Series` at L145
-    - Capped proportional water-filling
-  - `risk_aware_weights(mu, variance, budget, caps, floor, lam) -> ndarray` at L171
-    - Separable mean-variance with box constraints (KKT bisection)
-  - Both are neutral math; **EXTRACT** only if the AutoTS mapping needs them
-  - `construct`, `select_names`, `regime_table` and `regime_at` are strategy; **LEGACY**
-- `scripts/v5_verify.py`
-  - `reconstruct(location, record, tolerance=1.0)` rebuilds cash, fees, lots, caps and NAV from ledger CSVs
-  - It is an independent verifier pattern
-  - Port the idea into ledger tests rather than the script
+From `src/v5_portfolio.py`, **EXTRACT** neutral math only if AutoTS mapping needs it:
+
+- `cap_fill(preference, budget, caps) -> Series` L145: capped proportional water-filling.
+- `risk_aware_weights(mu, variance, budget, caps, floor, lam) -> ndarray` L171: separable mean-variance with box constraints, KKT bisection.
+
+`construct`, `select_names`, `regime_table`, `regime_at`: strategy, **LEGACY**.
+
+`scripts/v5_verify.py`: `reconstruct(location, record, tolerance=1.0)` independently rebuilds cash, fees, lots, caps, NAV from CSVs. Port this verification pattern into ledger tests, not the script.
 
 ## Do not carry over
 
-- V3 feature panel and scoring
-  - `strategy_24d.build_features`, `_score`, `backtest.compute_features`, `score_candidates`
-- V3 entry/exit flags, `target_count` and the two-phase sell-then-buy flow
-- The 4H/1H intraday requirement (`hourly_canonical.csv`)
-- Tuned parameters
-  - x0352, `configs/competition_24d_final.json`, `cash_guard_ratio=.16`
-- V5 construction policy
-  - `cap_headroom=.01`, `n=22`, rotation buffer, regime overlay
-  - These may be re-derived for AutoTS, but not inherited
-- Source-patching adapters
-  - `official_v2_review.isolated_planner`, `run_guard`
-  - `v5_episode._bind`
+- V3 scoring: `strategy_24d.build_features`, `_score`, `backtest.compute_features`, `score_candidates`; entry/exit flags, `target_count`, two-phase sell-then-buy.
+- 4H/1H requirement (`hourly_canonical.csv`).
+- Tuned x0352, `configs/competition_24d_final.json`, `cash_guard_ratio=.16`.
+- V5 `cap_headroom=.01`, `n=22`, rotation buffer, regime overlay; re-derive for AutoTS if needed.
+- Source-patching adapters `official_v2_review.isolated_planner`, `run_guard`, `v5_episode._bind`.
 
 ## Proposed `competition/` layout
 
@@ -346,13 +221,8 @@ Key signatures, read from the raw GitHub file:
 | `competition/episodes.py` | #14 |
 | `competition/dplan.py` | #16 (recovered) plus a D-Plan builder |
 
-Dependency direction: `rules` ← everything else. `planner` and `ledger` must never import forecasting or strategy code.
+Dependency: `rules` ← everything else. `planner` / `ledger` must never import forecasting or strategy code.
 
 ## Environment notes
 
-- The new `.venv` differs from the pinned stack
-  - It has pandas 3.0.6 and numpy 2.5.3
-  - `requirements.txt` pins pandas 2.0.3 and numpy 1.24.4
-  - Re-run the extracted module tests on the stack you choose
-- `yfinance` is absent from the new `.venv`
-- No `pytest`; the tests use `unittest` (`python -m unittest tests.<name>`)
+New `.venv`: pandas 3.0.6 / numpy 2.5.3; `requirements.txt`: pandas 2.0.3 / numpy 1.24.4. Re-run extracted tests on the chosen stack. No `yfinance` or `pytest`; tests use `unittest` (`python -m unittest tests.<name>`).

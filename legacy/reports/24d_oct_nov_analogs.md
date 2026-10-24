@@ -1,8 +1,8 @@
 # October–November analogues
 
-`OCT_NOV_ANALOG` starts on the first observed session on or after October 26 and lasts 24 sessions. This small seasonal sample is secondary evidence, not an optimization target.
+`OCT_NOV_ANALOG`: first observed session on/after October 26, then 24 sessions. Small seasonal sample: secondary evidence only, never an optimization target.
 
-`COMPETITION_UNIVERSE_STRESS_TEST`; `BLOCK_READY` / `BLOCK_SUBMISSION`. Return statistics condition on measured-valid complete episodes; valid/requested counts retain failures and incomplete returns stay null. Formal compliance has **0 confirmed episodes**; `ACTIVE_SHARE_NOT_VERIFIED`. Full assumptions and the inherited parameter-selection confound are in the [main report](24d_strategy_summary.md).
+`COMPETITION_UNIVERSE_STRESS_TEST`; `BLOCK_READY` / `BLOCK_SUBMISSION`. Returns use measured-valid complete episodes; counts retain failures, incomplete returns stay null. Formal compliance: **0 confirmed episodes**, `ACTIVE_SHARE_NOT_VERIFIED`. Assumptions and inherited selection confound: [main report](24d_strategy_summary.md).
 
 | Set | Candidate | Measured valid / requested | Incomplete | Median | Mean | P25 | P10 | Worst |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |

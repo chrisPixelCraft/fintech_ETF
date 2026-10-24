@@ -1,13 +1,6 @@
 # Legacy 封存
 
-這裡放正式策略以外的所有舊研究。正式策略是 20 日動能（Mom20），每天由根目錄 `./run_daily.sh` 跑，程式在 `production/`。
-
-- 這裡的結果都是歷史證據
-  - 不是新的績效
-- 內容只搬位置，沒改寫
-- 分兩個時期
-  - V1–V5：規則式策略
-  - ML：AutoTS、LightGBM、Hybrid、動能改良
+正式策略已改為 K2＋排行榜切換（見 [docs/strategy.md](../docs/strategy.md)），由根目錄 `./run_daily.sh` 執行 `production/`；20 日動能 Mom20 為前一版正式策略。本區封存 V1–V5 規則策略與 ML（AutoTS、LightGBM、Hybrid、動能改良），結果僅為歷史證據。封存時只搬位置，未改內容。
 
 ## 各時期一覽
 
@@ -19,26 +12,21 @@
 | V5 | • 參考冠軍策略<br>• 設計四族策略 | • 官方資料沒下載齊<br>• 沒跑出結果 | [docs/](docs/README.md) |
 | ML | • AutoTS、LightGBM<br>• Hybrid、每日 v2<br>• 動能改良 8 項 | • 全部沒贏 Mom20<br>  ↳ 最終測試最佳 −1.17%<br>• 動能改良也沒換掉 | [ml/README.md](ml/README.md) |
 
-- V1–V5 規格與報告
-  - [docs/README.md](docs/README.md)、[reports/](reports/)
-- v2 回放規則與資料
-  - [docs/rules.md](docs/rules.md)、[docs/data.md](docs/data.md)
-- 正式提交一律 `BLOCK_SUBMISSION`
-  - 指 V1–V5 各版
+V1–V5 正式提交均為 `BLOCK_SUBMISSION`。規格／報告：[docs/README.md](docs/README.md)、[reports/](reports/)；v2 回放：[規則](docs/rules.md)、[資料](docs/data.md)。
 
 ## V1–V5
 
 ### 目錄
 
-- `src/`、`scripts/`、`tests/`：程式與測試
-  - V3：`scripts/run_24d.py`、`tune_24d.py`、`expand_24d*.py`
-  - V4：`scripts/v4_*.py`
-  - V5：`scripts/v5_*.py`
+- `src/`、`scripts/`、`tests/`
+	- V3：`scripts/run_24d.py`、`tune_24d.py`、`expand_24d*.py`
+	- V4：`scripts/v4_*.py`
+	- V5：`scripts/v5_*.py`
 - `config/`、`configs/`：設定與凍結候選
-- `reports/`：各輪報告
-- `outputs/`：只留測試要用的檔案
-- `data`：指向 `../data` 的 symlink
-  - 舊路徑與雜湊鍵名不必改
+- `reports/`：報告
+- `outputs/`：測試必要檔案
+- `data` → `../data` symlink
+	- 保留舊路徑與雜湊鍵
 - `requirements*.txt`：Python 3.10 套件
 
 ### 執行測試
@@ -50,33 +38,23 @@ cd legacy
 python -m unittest discover -s tests -q
 ```
 
-- 共 295 個測試
-  - 292 通過
-  - 2 略過：V5 快取未建
-  - 1 失敗：搬移前就有
-- 失敗的是 `test_report_24d`
-  - macOS `/var` 與 `/private/var` 不一致
+295 個測試：292 通過、2 略過（V5 快取未建）、1 搬移前既有失敗 `test_report_24d`（macOS `/var`、`/private/var` 差異）。
 
-### 已知限制
+### 限制
 
-- 完整重驗需要原始輸出
-  - v2 發行清單、V3 各輪
-  - 這些輸出不在目前版本
-- 發行清單以 `legacy/` 為根
-  - `official_docs/` 等已不在原位
-- 經 `data` 的雜湊檢查會失敗
-  - 驗證器拒絕根目錄外 symlink
-  - 刻意不放寬
+重驗所需 v2 發行清單與 V3 各輪原始輸出不在目前版本。發行清單以 `legacy/` 為根，`official_docs/` 等已搬離；經 `data` 的雜湊檢查會因根外 symlink 被拒絕，刻意不放寬。
 
 ### 完整證據
 
-- `main` 只有一個起始提交，舊歷史存在 tag 裡
-  - `archive/pre-cleanup`：整理前的完整歷史
-  - `archive/v1-v4-evidence`：`2769f876`
-  - `archive/docs-index-d613b75`：`d613b75`
-  - 取得：`git fetch origin tag archive/pre-cleanup`
+`main` 僅一個起始提交；舊歷史存於 tags：
 
-V1–V4 完整輸出、帳本與官方原始快取在提交 [`2769f876`](https://github.com/chrisPixelCraft/fintech_ETF/tree/2769f876ec4b9795ce5d8cc4e64b8274da58099c)。報告中指向 `outputs/` 的連結請在該版本查看。
+- `archive/pre-cleanup`：整理前完整歷史
+- `archive/v1-v4-evidence`：`2769f876`
+- `archive/docs-index-d613b75`：`d613b75`
+
+取得：`git fetch origin tag archive/pre-cleanup`。
+
+V1–V4 輸出、帳本與官方快取見 [`2769f876`](https://github.com/chrisPixelCraft/fintech_ETF/tree/2769f876ec4b9795ce5d8cc4e64b8274da58099c)；`outputs/` 連結須在該版查看。
 
 ## ML 時期
 

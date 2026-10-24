@@ -1,7 +1,6 @@
 # Residual 修正：一張大表
 
-- 規則寫死於 [docs/residual_fixes_spec.md](../../docs/residual_fixes_spec.md)
-- **探索性**：所有期間都已看過；production 維持 Mom20
+**進 shadow：ew20；production 維持 Mom20。** 全期已看過，屬探索性研究；凍結規則：[docs/residual_fixes_spec.md](../../docs/residual_fixes_spec.md)。
 
 ## 1. 報酬與配對差距
 
@@ -37,11 +36,11 @@
 
 ## 3. 判定（spec 第 6 節）
 
-- ew20：✓ 全期 Δ(對 mom) > 0，✓ 每段 Δ(對 mom) ≥ −0.5%，✓ 2025–2026 Δ 優於原 residual
-- ind20：✗ 全期 Δ(對 mom) > 0，✓ 每段 Δ(對 mom) ≥ −0.5%，✓ 2025–2026 Δ 優於原 residual
-- shrink20：✗ 全期 Δ(對 mom) > 0，✓ 每段 Δ(對 mom) ≥ −0.5%，✓ 2025–2026 Δ 優於原 residual
-- ew25：✓ 全期 Δ(對 mom) > 0，✓ 每段 Δ(對 mom) ≥ −0.5%，✓ 2025–2026 Δ 優於原 residual
-- ind25：✗ 全期 Δ(對 mom) > 0，✓ 每段 Δ(對 mom) ≥ −0.5%，✓ 2025–2026 Δ 優於原 residual
-- shrink25：✗ 全期 Δ(對 mom) > 0，✓ 每段 Δ(對 mom) ≥ −0.5%，✓ 2025–2026 Δ 優於原 residual
+六版皆 ✓ 每段 Δ(對 mom) ≥ −0.5%，✓ 2025–2026 Δ 優於原 residual。全期 Δ(對 mom) > 0：
 
-**進 shadow：ew20**
+| 結果 | 版本 |
+|---|---|
+| ✓ | ew20、ew25 |
+| ✗ | ind20、shrink20、ind25、shrink25 |
+
+選 ew20 進 shadow。

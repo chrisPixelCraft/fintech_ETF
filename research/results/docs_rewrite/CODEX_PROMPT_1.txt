@@ -1,0 +1,1 @@
+Execute research/results/docs_rewrite/TASK_BRIEF_1.md exactly. The working directory is the repository root. Write only to its allowed paths. Invoke the installed human-readable-docs skill before editing Markdown. Do not commit, push, branch, or merge. Save the result in research/results/docs_rewrite/CODEX_REPORT_1.md (overwrite the pilot report for shard 1).

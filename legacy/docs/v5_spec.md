@@ -1,18 +1,12 @@
 # V5 Study Spec — Champion-Inspired Families
 
-This spec is **predeclared before any V5 result exists**. Changing a gate, split, or grid after results are seen requires a new version and a written reason.
+**Predeclared before V5 results.** Post-result gate/split/grid changes require a new version and written reason. Contest: 2026-10-26 → 2026-11-27 (24 sessions); prospectus due 10/21.
 
-Sources:
+Sources: ideas `docs/champion.md`; rules `docs/v4_master_spec.md` §3–5 and `official_docs/D-Plan_撰寫指南.md`; Stage-1 execution `src/v4_execution.py`, `src/v4_ledger.py`, `src/v4_baseline.py`.
 
-- Strategy ideas: `docs/champion.md`
-- Hard competition rules: `docs/v4_master_spec.md` §3–5, `official_docs/D-Plan_撰寫指南.md`
-- Execution: the Stage-1 simulator (`src/v4_execution.py`, `src/v4_ledger.py`, `src/v4_baseline.py`)
+## 1. Binding V4 lessons
 
-The competition runs 2026-10-26 → 2026-11-27 (24 sessions). The prospectus is due 10/21.
-
-## 1. What V4 taught us (binding)
-
-V4 ended `NO_V4_WINNER` (commit `72163500`, `reports/v4_final.md` in history). V5 must not repeat these defects:
+V4: `NO_V4_WINNER` (commit `72163500`, historical `reports/v4_final.md`).
 
 | V4 defect | V5 rule |
 |---|---|
@@ -28,29 +22,23 @@ V4 ended `NO_V4_WINNER` (commit `72163500`, `reports/v4_final.md` in history). V
 
 ## 2. Episodes
 
-Each episode: NT$1B initial cash, zero holdings, 24 sessions, official-average execution, official-close sizing.
+NT$1B cash, zero holdings, 24 sessions; official-average fills, official-close sizing. Monthly anchor: first session on/after the 1st.
 
-- The anchor is the first session on or after the 1st of each month.
-- **development**: 2010-01 … 2018-12 (108)
-- **validation**: 2019-01 … 2022-12 (48)
-- **holdout_retrospective**: 2023-01 … 2024-12 (24)
-  - This holdout is not pristine: V3 was tuned on it, and V4 viewed its Jan/Jul windows
-  - It can reject a candidate; it cannot certify one
-- **diagnostic_seasonal**: the session nearest Oct 26, 2010–2025 (16)
-- **diagnostic_recent**: monthly anchors 2025-01 … latest complete 24-session window
+- **development**: 2010-01 … 2018-12 (108).
+- **validation**: 2019-01 … 2022-12 (48).
+- **holdout_retrospective**: 2023-01 … 2024-12 (24). V3 tuning/V4 Jan/Jul exposure makes it non-pristine: may reject, cannot certify.
+- **diagnostic_seasonal**: nearest session to Oct 26, 2010–2025 (16).
+- **diagnostic_recent**: monthly, 2025-01 … latest complete 24-session window.
 
-Consecutive monthly episodes overlap by about 3 sessions. Uncertainty uses a block bootstrap by calendar quarter.
+Monthly episodes overlap about 3 sessions; use calendar-quarter block bootstrap.
 
 ## 3. Shared interfaces
 
-All code lives in the `v5_*` namespace (`src/`, `scripts/`, `config/`, `configs/`, `tests/`, `reports/`, `outputs/v5/`).
+Namespace `v5_*`: `src/`, `scripts/`, `config/`, `configs/`, `tests/`, `reports/`, `outputs/v5/`.
 
 ### 3.1 Features — `src/v5_features.py`
 
-- `build_features(daily)` returns the long panel (`date`, `symbol`, …, `feature_ready`)
-  - Restored from V4, where it passed future-corruption tests
-- `history_at(panel, t)` returns the last cross-section dated strictly before `t`
-- Family-specific features are computed inside each family module from this panel.
+`build_features(daily)` returns long panel (`date`, `symbol`, …, `feature_ready`), restored from V4’s future-corruption-tested implementation. `history_at(panel, t)` returns the last cross-section strictly before `t`. Compute family features inside family modules.
 
 ### 3.2 Signals — one module per family
 
@@ -62,9 +50,7 @@ def score_table(panel, decision_dates, config) -> pd.DataFrame:
     (training labels must have matured by t-1)."""
 ```
 
-- Scores are precomputed once for every study decision date and shared by all episodes. Walk-forward models refit at most every 5 sessions.
-- Causality contract: `score_table(panel.loc[panel.date < T], dates<=T)` must equal `score_table(panel, …)` restricted to dates ≤ T, **bit-identical**. Every family's tests must check this with non-uniform future corruption (random per-symbol factors, shuffles, deletions).
-- Determinism: fixed seeds; the same inputs give the same hash.
+Precompute scores once per decision date, shared across episodes; refit walk-forward models at most every 5 sessions. Require **bit-identical** `score_table(panel.loc[panel.date < T], dates<=T)` and `score_table(panel, …)` restricted to dates ≤ T. Test every family with random per-symbol future factors, shuffles and deletions. Fix seeds; identical inputs must yield identical hashes.
 
 ### 3.3 Construction — `src/v5_portfolio.py`
 
@@ -72,7 +58,7 @@ def score_table(panel, decision_dates, config) -> pd.DataFrame:
 def construct(scores_t, rows_prev, portfolio_state, config) -> pd.Series  # target_weight by symbol
 ```
 
-Constraints before planning: long only, 20–30 names, normal ≤ 10%, 2330 ≤ 25%, cash target in [0, 25%).
+Before planning: long only, 20–30 names, normal ≤ 10%, 2330 ≤ 25%, cash [0, 25%).
 
 ### 3.4 Planner — `src/v5_planner.py`
 
@@ -81,18 +67,15 @@ def plan(target_weight, prev_close, prev_nav, holdings, cash, config) -> Plan
 # Plan: orders {symbol: signed shares, multiple of 1000}, target_shares, status, reason, audit
 ```
 
-- `target_shares = floor(w × prev_nav / prev_close / 1000) × 1000` (official formula)
-- Repairs holding count, caps, and cash; never produces negative cash.
+`target_shares = floor(w × prev_nav / prev_close / 1000) × 1000`; repair count/caps/cash, never negative cash.
 
-### 3.5 Episode runner — `src/v5_episode.py`
+### 3.5 Runner — `src/v5_episode.py`
 
-- Wraps the sealed Stage-1 ledger the way the V4 adapter did (`git show 72163500:src/v4_stage2_episode.py`).
-- Pipeline: strategy → weights → planner → orders → official execution → ledger.
-- Every failure is preserved. A disqualified episode keeps only a forensic return.
+Wrap sealed Stage-1 ledger as V4 did (`git show 72163500:src/v4_stage2_episode.py`): strategy → weights → planner → orders → official execution → ledger. Preserve failures; disqualified returns are forensic only.
 
 ## 4. Families
 
-Every family uses the same construction default for its selection grid: `topn_equal`, `N ∈ {22, 26}`, and a buffer rotation rule. Each family's grid has **at most 12 distinct configurations**.
+Shared grid default: `topn_equal`, `N ∈ {22, 26}`, buffer rotation. Each family: **≤12 distinct configurations**.
 
 | Family | Source idea | Core mechanism |
 |---|---|---|
@@ -101,131 +84,82 @@ Every family uses the same construction default for its selection grid: `topn_eq
 | C `rank` | M6 ATA | • daily rank buckets (quintiles)<br>• rank-frequency windows<br>• P(top quintile over h) |
 | E `direct` | single-stage | • linear score fitted to trailing portfolio utility<br>• L2 penalty, walk-forward refit |
 
-Family D (prediction + optimizer) and Family F (regime) are **portfolio-layer treatments**, tested in §6 on top of each family winner.
+D (prediction + optimizer) and F (regime) are portfolio-layer treatments on family winners (§6).
 
 ### A — momentum
 
-- Grid: blend ∈ {short (R5,R10,R20), long (R20,R60)} × trend filter ∈ {off, on} × N ∈ {22, 26} × rotation ∈ {never, buffer 2N}
-  - That is 16 combinations; drop the 4 with `short + filter off + buffer` to reach 12, as declared here
+Blend {short (R5,R10,R20), long (R20,R60)} × trend filter {off,on} × N {22, 26} × rotation {never,buffer 2N}: 16 combinations. Predeclared exclusion of 4 `short + filter off + buffer` leaves 12.
 
 ### B — ensemble
 
-- Experts: momentum R5 / R20 / R60, reversal −R3, trend `price_ema20`, and a ridge model on standardized features.
-- Targets use horizon h ∈ {10, 20}. `remaining` is an ablation.
-- Walk-forward weighting: trailing rank-IC over the last `W` decision dates whose labels have matured.
-  - W ∈ {60, 250}
-  - Weights are bounded to [0, 0.5], then renormalized
-- Interval: `lower`/`upper` are the point forecast plus residual quantiles q10/q90 over the trailing window.
-- Point forecast `P = (U + L) / 2` (hinge).
-- Confidence is the share of {L, P, U} and of experts that agree in sign.
-- Score variants: `P` vs `P × confidence`.
-- Grid: h (2) × W (2) × score (2) × N (1 = 22) + 4 rotation variants on the best-declared default = 12.
+Experts: R5/R20/R60 momentum, −R3 reversal, `price_ema20` trend, ridge on standardized features. Horizon h ∈ {10, 20}; `remaining` is an ablation.
+
+Weight by trailing rank-IC on `W` matured-label decision dates, W ∈ {60, 250}; bound [0, 0.5], then renormalize. `lower`/`upper` = point forecast + trailing residual q10/q90; hinge `P = (U + L) / 2`. Confidence: sign-agreement shares across {L,P,U} and experts. Scores: `P` or `P × confidence`.
+
+Grid: h (2) × W (2) × score (2) × N (1 = 22), plus 4 rotation variants on best-declared default = 12.
 
 ### C — rank
 
-- Daily cross-sectional return rank into quintiles (on the D-1 and earlier universe).
-- Features: the share of days in each quintile over windows {10, 20, 60}.
-- Model: logistic regression (numpy IRLS, L2) predicting P(top quintile of h-day forward return), with h ∈ {10, 20}.
-  - Trained walk-forward on a trailing window of matured labels, T ∈ {250, 750}
-- Consensus: the average probability across the three window-variants.
-  - `agreement` is the count of variants placing the name in their own top N
-- Grid: h (2) × T (2) × score ∈ {mean p, mean p × agreement/3} (2) + 4 rotation / N variants = 12.
+Daily return quintiles on D-1/earlier universe; features are quintile day shares over {10, 20, 60}. Logistic regression (numpy IRLS, L2) predicts P(top quintile of h-day forward return), h ∈ {10, 20}; walk-forward on trailing matured labels T ∈ {250, 750}.
+
+Consensus: three window-variants’ mean probability; `agreement` counts variants placing a name in their top N. Grid: h (2) × T (2) × score {mean p,mean p × agreement/3} (2), plus 4 rotation/N variants = 12.
 
 ### E — direct
 
-- Standardized feature vector: R5, R20, R60, `price_ema20`, `volume_ratio`, `vol20`, `momentum_quality`, `drawdown20`.
-- Score is `x·w`. `w` maximizes trailing mean top-N soft-portfolio return − λ‖w‖² over T sessions, refit every 20 sessions.
-  - Deterministic gradient ascent, fixed initialization
-- Grid: T ∈ {250, 750} × λ ∈ {0.1, 1.0} × h ∈ {10, 20} + 4 rotation / N variants = 12.
+Standardized R5,R20,R60,`price_ema20`,`volume_ratio`,`vol20`,`momentum_quality`,`drawdown20`; score `x·w`. Fit `w` to trailing mean top-N soft-portfolio return − λ‖w‖² over T sessions; deterministic gradient ascent, fixed initialization, refit every 20 sessions.
+
+Grid: T {250, 750} × λ {0.1, 1.0} × h {10, 20}, plus 4 rotation/N variants = 12.
 
 ## 5. Corporate-action odd lots
 
-A stock dividend can leave a holding that is not a multiple of 1000. V4 declared this `INFEASIBLE` and froze the book.
+Stock dividends can leave shares not divisible by 1000; V4 froze as `INFEASIBLE`. Treat odd remainders as legacy: sell board lots while retaining remainder, or hold it; retain NAV/cap accounting.
 
-- The planner must treat an odd remainder as a legacy position.
-  - It may sell the board-lot part and keep the odd remainder
-  - Or it holds the remainder, which still counts toward NAV and caps
-- The rule adopted must cite `official_docs/` or `data/reference/competition_rules.json`.
-- If the documents are silent, record the assumption as `ASSUMPTION_ODD_LOT` in every result.
-  - Classify these days separately from strategy-caused failures.
-- The simulator's accounting is not modified.
+Cite the rule from `official_docs/` or `data/reference/competition_rules.json`. If silent, mark every result `ASSUMPTION_ODD_LOT`; separate these days from strategy failures. Do not change simulator accounting.
 
 ## 6. Protocol
 
-1. **S0 — Infrastructure verification**
-   - Unit tests pass
-   - V3 baseline parity through the V5 runner on 3 episodes
-   - Causality tests for every family
-2. **S1 — Development**
-   - Run every family grid on all 108 development episodes
-   - Choose one winner per family by the §7 ranking
-   - Record the one-axis neighbourhood of each winner
-3. **S2 — Portfolio-layer ablations (development only)**, on each family winner:
-   - construction ∈ {`topn_equal`, `score_bounded` (∝ score rank, caps respected), `risk_aware` (mean − λ·diag-variance, λ fixed at 1)}
-   - regime overlay ∈ {off, on}
-     - Breadth plus market volatility from the D-1 panel
-     - `risk_off` raises cash to 10% and cuts the rotation budget to 0
-   - A treatment is kept only if its development median Δ ≥ 0 and its P25 Δ ≥ −0.5pp against the plain winner
-4. **Validation**
-   - Run the 4 frozen family candidates and `A0_V3` on 48 episodes
-5. **Freeze** — write `outputs/v5/study/freeze.json`, hash-chained in `events.jsonl`.
-   - The preferred candidate is the best validation median that passes §7
-6. **Holdout_retrospective and diagnostics** — run only after the freeze.
+1. **S0 — Infrastructure:** unit/causality tests; V3 parity through V5 runner on 3 episodes.
+2. **S1 — Development:** all family grids on 108 episodes; one winner per family by §7; record one-axis neighbours.
+3. **S2 — Development-only portfolio ablations**, per family winner:
+	- Construction: `topn_equal`, `score_bounded` (score-rank proportional, capped), `risk_aware` (mean − λ·diag-variance, λ = 1).
+	- Regime off/on: D-1 breadth/market volatility; `risk_off` raises cash to 10%, rotation budget to 0.
+	- Keep only if median Δ ≥ 0 and P25 Δ ≥ −0.5pp vs plain winner.
+4. **Validation:** 4 frozen candidates plus `A0_V3`, 48 episodes.
+5. **Freeze:** `outputs/v5/study/freeze.json`, hash-chained in `events.jsonl`; prefer highest validation median passing §7.
+6. **Holdout_retrospective and diagnostics:** after freeze only.
 
 ## 7. Ranking and gates
 
-Ranking order: feasibility → median → P25 → P10 → worst / MDD → mean → turnover / cost → simplicity (A < E < C < B).
+Rank: feasibility → median → P25 → P10 → worst/MDD → mean → turnover/cost → simplicity (A < E < C < B).
 
-A candidate is `STABLE_CANDIDATE` only if **all** of the following hold:
+`STABLE_CANDIDATE` requires all:
 
-- **Feasibility (validation + holdout)**
-  - complete ≥ 95% of attempted
-  - measured PASS ≥ 90%
-  - `ASSUMPTION_ODD_LOT` days reported separately
-- **Validation vs `A0_V3`**, paired on both-complete episodes:
-  - median Δ ≥ 0
-  - own P25 ≥ V3 P25 − 1.0pp
-  - own P10 ≥ V3 P10 − 1.5pp
-- **Complexity is earned**
-  - A family other than A must have a paired median Δ ≥ 0 against the A winner on validation
-  - Otherwise the A winner is preferred
-- **Holdout does not reverse**
-  - paired median Δ vs V3 ≥ −0.5pp
-- **Stability**
-  - At least 2 one-axis neighbours, each feasible
-  - Each neighbour's development median must be within 1.0pp of the winner
+- Validation + holdout: complete ≥ 95%, measured PASS ≥ 90%; report `ASSUMPTION_ODD_LOT` days separately.
+- Validation vs `A0_V3`, paired both-complete: median Δ ≥ 0; own P25 ≥ V3 P25 − 1.0pp; own P10 ≥ V3 P10 − 1.5pp.
+- Complexity: non-A validation paired median Δ vs A winner ≥ 0; otherwise prefer A.
+- Holdout paired median Δ vs V3 ≥ −0.5pp.
+- ≥2 feasible one-axis neighbours, each development median within 1.0pp of winner.
 
-Outcomes:
+If passed, write `configs/v5_final.json`; keep `submission_status = BLOCK_SUBMISSION` until live D-Plan certification. Otherwise `NO_V5_WINNER`. No post-holdout candidate swaps; recent/seasonal windows never select candidates.
 
-- If a candidate passes, write `configs/v5_final.json` with `submission_status = BLOCK_SUBMISSION` until the live D-Plan path is certified.
-- Otherwise the result is `NO_V5_WINNER`.
+## 8. Limitations — declare in every report
 
-The preferred candidate cannot be swapped after holdout. Recent and seasonal windows are never used to select a candidate.
-
-## 8. Known limitations (declare in every report)
-
-- **Survivorship bias:** the 2026-07-31 universe is applied back to 2010. Absolute returns are inflated; paired comparisons are less affected. Momentum tilts are likely the most exposed.
-- **Unrecorded capital reductions:** 387 adjacent-session moves exceed the price limit (V4 audit). These distort returns for every family.
-- **Market impact at NT$1B:** not modelled beyond official-average fills.
+- **Survivorship:** 2026-07-31 universe back to 2010 inflates absolute returns; paired comparisons less affected, momentum likely most exposed.
+- **Unrecorded capital reductions:** V4 audit’s 387 adjacent-session moves exceed price limits, distorting every family.
+- **NT$1B market impact:** unmodelled beyond official-average fills.
 
 ## 9. Outputs
 
-- `outputs/v5/data/`: execution cache covering every episode session, with repo-relative manifest paths
-- `outputs/v5/scores/<family>/<config_id>.parquet` and a hash manifest
-- `outputs/v5/study/`: `events.jsonl`, `candidates.json`, per-episode results, `freeze.json`, `manifest.json`, and `verification.json`
-- `reports/v5_final.md`: answers the 7 design questions in `docs/champion.md` §7, with evidence
+- `outputs/v5/data/`: all episode sessions’ execution cache; repo-relative manifest paths.
+- `outputs/v5/scores/<family>/<config_id>.parquet` plus hash manifest.
+- `outputs/v5/study/`: `events.jsonl`, `candidates.json`, per-episode results, `freeze.json`, `manifest.json`, `verification.json`.
+- `reports/v5_final.md`: evidence-backed answers to 7 questions in `docs/champion.md` §7.
 
-## 10. Amendments (declared before any study result)
+## 10. Pre-result amendments
 
-Both amendments were made on 2026-09-24, after integration checks and before any episode return was computed.
+Declared 2026-09-24 after integration checks, before episode returns:
 
-1. **The feature panel is restricted to the study session calendar** (`calendar_v2`, the same calendar the ledger uses).
-   - Six off-calendar dates (for example the Saturday make-up day 2016-01-30) had vendor rows but zero `feature_ready` names.
-   - `history_at` would take such a date as D-1 and leave every family with no scores.
-2. **`development_2010_01` and `development_2010_02` are excluded for every candidate.**
-   - Ensemble (h20) scores start 2010-01-13; Direct scores start 2010-02-26.
-   - Keeping them would fail those families for warm-up reasons only.
-   - The exclusion list lives in `config/v5_grids.json` (`excluded_episodes`), which is hash-bound into the study inputs.
-   - Development therefore has 106 episodes.
+1. Restrict feature panel to study session calendar (`calendar_v2`, same as ledger). Six off-calendar dates, e.g. Saturday make-up 2016-01-30, had vendor rows but zero `feature_ready` names; `history_at` would pick them as D-1, leaving all families without scores.
+2. Exclude `development_2010_01` / `development_2010_02` for all candidates. Ensemble h20 starts 2010-01-13; Direct starts 2010-02-26, so keeping these causes warm-up-only failures. Hash-bound `config/v5_grids.json` (`excluded_episodes`) records exclusions; development now 106 episodes.
 
-Pre-result design repair to Family B: sign agreement for `confidence` is computed on cross-sectional excess forecasts (value minus the date's median). With raw forecasts, the market-level intercept made most confidence values 0.889, so the confidence ablation would have measured nothing.
+Family B pre-result repair: `confidence` sign agreement uses cross-sectional excess forecasts (value − date median). Raw forecasts’ market intercept made most confidence 0.889, rendering the ablation uninformative.

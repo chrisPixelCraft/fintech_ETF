@@ -1,10 +1,8 @@
 # LightGBM-v2 每日排名：2025-2026/09
 
-- 窗口：40 個 24 日窗口，與 Mom20 逐窗口配對；規則見 docs/lgbm_v2_daily_spec.md
-- 2025–2026 純測試：只跑一次，只報告
-- **注意**：run after the 2015-2024 STOP at the user's request (spec section 7); does not change the STOP
+**STOP**（本期條件亦未過）。2025–2026 純測試只跑一次、只報告：run after the 2015-2024 STOP at the user's request (spec section 7); does not change the STOP。
 
-**STOP**（本期間通過條件）
+40 個 24 日窗口與 Mom20 配對；規則：docs/lgbm_v2_daily_spec.md。
 
 | 策略 | 平均 | 中位數 | 配對平均 Δ | 配對中位數 Δ | 95% CI | 勝率 | P10 | 最差 | 周轉 | 成本 | 失格 |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|

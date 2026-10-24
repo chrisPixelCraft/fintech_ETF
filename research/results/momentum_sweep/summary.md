@@ -1,7 +1,8 @@
 # P1 Momentum 小實驗
 
-- DEV：2019–2021 月初＋月中窗口；組合固定為 production 設定（投入 95%）
-- 比較對象：mom20（逐窗口配對）
+**Validation FAIL，維持 Mom20，停止搜尋。**
+
+DEV：2019–2021 月初＋月中窗口；固定 production 組合（投入 95%），與 mom20 逐窗配對。
 
 ## DEV
 
@@ -24,13 +25,9 @@
 
 選擇規則（事先固定）：中位數 Δ ≥ 0、周轉 ≤ 1.5 倍、失格不增加、平均 Δ > 0，取平均 Δ 最高的一個。
 
-**DEV 選出**：mom30
-
 ## Validation 2022–2024（只跑一次）
 
-**FAIL**：mom30 vs mom20
-
-- 平均 Δ +0.37%，中位數 Δ +0.21%，勝率 56%，95% CI -0.29% ~ +1.02%
+mom30 vs mom20：- 平均 Δ +0.37%，中位數 Δ +0.21%，勝率 56%，95% CI -0.29% ~ +1.02%
 
 - ✗ mean_delta > +0.5%
 - ✓ median_delta >= -0.5%
@@ -41,4 +38,4 @@
 - ✓ turnover <= 1.5x
 - ✓ no extra disqualification
 
-通過 → candidate 取代 Mom20；未通過 → Mom20 維持，停止策略搜尋。
+預定：通過才以 candidate 取代 Mom20，否則維持並停止策略搜尋。

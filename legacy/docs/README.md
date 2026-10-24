@@ -1,6 +1,6 @@
 # 文件導覽
 
-專案保留固定 v2、v3 的 24 交易日研究，以及進行中的 V5 研究。操作看[專案 README](../README.md)；兩套研究的資料、成交假設與期間不同，不能直接互換報酬數字。
+保留固定 v2、v3 24 日研究與進行中的 V5。操作見[專案 README](../README.md)；資料、成交假設、期間不同，報酬不可互換。
 
 | 內容 | 文件 |
 |---|---|
@@ -21,22 +21,22 @@
 
 ## 整理與恢復
 
-2026-09-24 起 `outputs/` 不再追蹤；V1–V4 完整輸出、帳本與官方原始快取保留在提交 [`2769f876`](https://github.com/chrisPixelCraft/fintech_ETF/tree/2769f876ec4b9795ce5d8cc4e64b8274da58099c)。`reports/` 內指向 `outputs/` 的連結請在該版本查看。
+2026-09-24 起不追蹤 `outputs/`；V1–V4 輸出、帳本、官方快取見 [`2769f876`](https://github.com/chrisPixelCraft/fintech_ETF/tree/2769f876ec4b9795ce5d8cc4e64b8274da58099c)。`reports/` 的 `outputs/` 連結須在該版開啟。
 
-整理前版本為 [`d613b75`](https://github.com/chrisPixelCraft/fintech_ETF/tree/d613b75)。舊入口、研究設計與歷次報告可從該版本取得。Git 不包含當時被忽略的全部實驗明細。
+整理前： [`d613b75`](https://github.com/chrisPixelCraft/fintech_ETF/tree/d613b75)。含舊入口、設計、報告；Git 不含全部被忽略明細。
 
-本機舊輸出、未完成月度搜尋及 Yahoo 日線研究另封存在專案同層 `fintech_ETF_archive_best_v2_20260923/`，其中 `cleanup_manifest.json` 記錄原路徑、檔案數與位元組。封存不屬於目前可執行版本，也不會推送至 Git。
+本機舊輸出、未完月度搜尋、Yahoo 研究封存於同層 `fintech_ETF_archive_best_v2_20260923/`，`cleanup_manifest.json` 記原路徑、檔數、位元組；非現行可執行版，不推送 Git。
 
-更早的歷史研究仍可由版本 `dfd5f84` 與既有同層 `fintech_ETF_research_archive_20260923/cleanup_manifest.json` 追溯。這些封存都不是新的績效證據。
+更早研究見 `dfd5f84` 及同層 `fintech_ETF_research_archive_20260923/cleanup_manifest.json` ；封存非新績效證據。
 
 ## v2 驗證範圍
 
-保留兩池 `x0352` 全期完整帳本，以及 `x0352`、`x0454`、`mx0010` 共 132 個月度比較帳本，包含未合格窗口。v1 與 0050 留存設定、淨值與指標供年度比較，未聲稱重建其全部交易。
+保留兩池 `x0352` 全期帳本及 `x0352`、`x0454`、`mx0010` 共 132 月度帳本（含未合格窗）。v1／0050 僅留設定、淨值、年度比較指標，未重建全部交易。
 
-新驗證器重算保留帳本與比較數字；舊搜尋的完整性及排名只屬歷史紀錄。發行清單保存整理前來源路徑及雜湊，不改寫舊實驗成新的驗證結果。
+新驗證器重算保留帳本／比較值；舊搜尋完整性與排名仍屬歷史。發行清單留原路徑／雜湊，不將舊實驗改稱新驗證。
 
-`src/` 中部分名稱源自舊研究，但仍是固定策略的共用依賴。原搜尋 runner 需要的四個共用函式已抽至 `src/replay_context.py`，函式內容保持一致。v2 入口為 `best_v2.py`；v3 原研究入口為 `scripts/run_24d.py`；分階段調參入口為 `scripts/tune_24d.py`；第二輪入口為 `scripts/expand_24d.py`；第三輪入口為 `scripts/expand_24d_round3.py`；最新可行性搜尋入口為 `scripts/expand_24d_round4.py`。
+`src/` 舊名稱仍有共用依賴；runner 四個共用函式原樣抽至 `src/replay_context.py`。入口：v2 `best_v2.py`、v3 `scripts/run_24d.py`、分階段調參 `scripts/tune_24d.py`、第二輪 `scripts/expand_24d.py`、第三輪 `scripts/expand_24d_round3.py`、最新搜尋 `scripts/expand_24d_round4.py`。
 
 ## v3 驗證範圍
 
-v3 使用 Yahoo 日線、獨立重設的 24 日帳本及凍結後評估；失敗窗口保留在分母。原始資料、日曆修訂、設定與帳本均有雜湊。每個窗口的帳務重算不能代替官方 Active Share、結算、公司行動或平台收件證據；正式使用仍須通過這些阻斷項。
+v3：Yahoo 日線、獨立重設 24 日帳本、凍結後評估；失敗留分母，原資料／日曆修訂／設定／帳本均有雜湊。帳務重算不能取代官方 Active Share、結算、公司行動、收件證據；正式使用須解除阻斷。

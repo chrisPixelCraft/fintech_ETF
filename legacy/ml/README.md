@@ -1,40 +1,25 @@
 # ML 與動能改良研究封存
 
-這裡放 2026-09 試過的機器學習選股方法，以及之後的動能改良研究（`momv2/`）。每一輪都和 20 日動能（Mom20）逐窗口配對比較，沒有一個穩定贏過它，所以正式提交仍用 Mom20。
+2026-09 機器學習選股與後續動能改良（`momv2/`）封存。各輪與 20 日動能 Mom20 逐窗配對，無方法穩定勝出，正式提交仍用 Mom20。
 
-程式只搬了位置、沒改 import，要回到舊提交才能跑（見「[怎麼重跑](#怎麼重跑)」）：
+僅搬位置、未改 import；須回舊提交[重跑](#怎麼重跑)：
 
 - ML 各輪：`05745bf`
 - 動能改良（`momv2/`）：`6d2a7c4`
 
 ## 先看這裡
 
-- 所有方法都輸 Mom20
-  - 2025–2026 最終測試
-  - LightGBM 最佳 −1.17%
-  - AutoTS −1.75%
-- 最後兩輪也 STOP
-  - Hybrid、每日 LightGBM-v2
-  - 都沒達 +0.5% 門檻
-- 動能改良也都沒換掉 Mom20
-  - 8 項研究
-  - 見 [動能改良](#動能改良momv2)
-- 總覽
-  - [main_table.md](results/main_table.md)：各方法對 Mom20
-  - [all_experiments.md](results/all_experiments.md)：全部設定
-  - [main_figure.png](docs/figures/main_figure.png)
-- 資料已被重複使用
-  - 2025–2026 用過多次
-  - 2015–2024 用過兩次
-  - 再依它調整會高估
-- Mom20 的主要證據在根目錄
-  - [final_test](../../research/results/final_test/summary.md)
-  - [momentum_sweep](../../research/results/momentum_sweep/summary.md)
-  - [production_replay](../../research/results/production_replay/)
+**維持 Mom20。** 2025–2026 最終測試 LightGBM 最佳 −1.17%、AutoTS −1.75%；Hybrid／每日 LightGBM-v2 未達 +0.5%，均 STOP。8 項動能改良見[下表](#動能改良momv2)。
+
+- [main_table.md](results/main_table.md)：方法比較。
+- [all_experiments.md](results/all_experiments.md)：全部設定。
+- [main_figure.png](docs/figures/main_figure.png)：主圖。
+
+2025–2026 已多次使用，2015–2024 已用兩次；再調整可能高估。Mom20 主證據：[final_test](../../research/results/final_test/summary.md)、[momentum_sweep](../../research/results/momentum_sweep/summary.md)、[production_replay](../../research/results/production_replay/)。
 
 ## 各輪研究
 
-「Δ」是對 Mom20 的配對平均差。每一輪只改一件事。
+Δ = 對 Mom20 配對平均差；每輪只改一件事。
 
 ### AutoTS
 
@@ -43,9 +28,7 @@
 | AutoTS 基準 | • 預測相對強弱<br>• 每窗口重選模型 | • dev 70 窗口 Δ −0.41%<br>• 最終測試 Δ −1.75% | [spec](docs/autots_first_etf_spec.md)、[內部說明](docs/autots_internals.md) |
 | 調參 `quick` | • 小規模參數搜尋<br>  ↳ 7 組設定 | • 2010–2024 超額 −0.01%<br>• 2025–2026 超額 +0.65%<br>  ↳ 只有 4 窗口 | [tune_quick](results/tune_quick/summary.md) |
 
-- `normal`、`crazy` 規模沒跑完
-- 調參程式是 `studies/tune.py`
-  - 啟動腳本 `studies/finetune.sh`
+`normal`、`crazy` 未跑完。程式 `studies/tune.py`，入口 `studies/finetune.sh`。
 
 ### LightGBM：dev 階段
 
@@ -58,39 +41,23 @@
 | [資料使用](results/data_usage/summary.md) | • 資料從 2019 起<br>• 最近 20% 也訓練（C） | • C 對對照組 +0.90%<br>  ↳ 95% 區間 +0.13% ~ +1.68% | • 採用 C |
 | [樹數校準](results/tree_calibration/trees.json) | • 替 D 固定樹數<br>  ↳ 只用 2025 年前 | • 0.005 → 246 棵<br>• 0.01 → 116 棵 | • 供最終測試用 |
 
-- 前三輪用 dev 70 窗口
-  - 2019–2021，月初＋月中
-- 資料使用用 dev 46 窗口
-  - 2020–2021
-- 這些都沒跑 validation
-  - dev 門檻就沒過
+前三輪：2019–2021 月初＋月中 70 dev 窗；資料使用：2020–2021，46 dev 窗。均未過 dev 門檻，未跑 validation。
 
 ### 最終測試：2025-01 ～ 2026-09
 
-設定在 [final_test_plan.md](docs/final_test_plan.md)，程式是 `studies/final_test.py`。結果留在根目錄的 [final_test](../../research/results/final_test/summary.md)。
+設定：[final_test_plan.md](docs/final_test_plan.md)；程式：`studies/final_test.py`；結果：[final_test](../../research/results/final_test/summary.md)。
 
-- 40 個 24 日窗口
-- 5 種方法，共 21 組
-- Mom20 平均 +8.79%
-- LightGBM 最佳 −1.17%
-  - D，學習率 0.01
-  - 95% 區間 −2.80% ~ +0.56%
-- AutoTS Δ −1.75%
+40 個 24 日窗口，5 種方法、21 組；Mom20 +8.79%。LightGBM 最佳 D（學習率 0.01）：Δ −1.17%，95% 區間 −2.80% ~ +0.56%；AutoTS Δ −1.75%。
 
 ### 動能變體（momentum sweep）
 
-程式是 `studies/momentum_sweep.py`，結果在根目錄 [momentum_sweep](../../research/results/momentum_sweep/summary.md)。
+程式 `studies/momentum_sweep.py`；結果 [momentum_sweep](../../research/results/momentum_sweep/summary.md)。
 
-- dev 選出 mom30
-  - 2019–2021，Δ +0.73%
-- validation 沒過
-  - 2022–2024，Δ +0.37%
-  - 門檻要 > +0.5%
-- Mom20 維持不變
+Dev 2019–2021 選 mom30（Δ +0.73%）；validation 2022–2024 +0.37%，未達 > +0.5%，維持 Mom20。
 
 ### v2 特徵：Hybrid 與每日 LightGBM-v2
 
-v2 特徵加入月營收與法人買賣超，定義在 [hybrid_spec.md](docs/hybrid_spec.md) 第 5 節。兩輪都用 2015–2024 的 236 個窗口，規則事先凍結、只跑一次。
+v2 新增月營收／法人買賣超（[hybrid_spec.md](docs/hybrid_spec.md) 第 5 節）。兩輪各跑一次：2015–2024，236 窗，事前凍結規則。
 
 | 研究 | 問題 | 結果 | 連結 |
 |---|---|---|---|
@@ -98,15 +65,11 @@ v2 特徵加入月營收與法人買賣超，定義在 [hybrid_spec.md](docs/hyb
 | 每日 LightGBM-v2 | • 每天都用 v2A 排名 | • Δ +0.23%<br>• 未達 +0.5% | [summary](results/lgbm_v2_daily/summary.md)、[spec](docs/lgbm_v2_daily_spec.md) |
 | 每日 v2：2025–2026 | • STOP 後使用者要求加跑<br>  ↳ 只報告 | • Δ −1.69%<br>• 勝率 32% | [pure_test](results/lgbm_v2_daily/pure_test.md) |
 
-- 恐慌日定義
-  - 0050 近 20 日下跌
-  - 且波動高於歷史中位數
-- 2025–2026 加跑不改結論
-  - 記在 spec 第 7 節
+恐慌日 = 0050 近 20 日跌且波動高於歷史中位數。2025–2026 加跑不改判定（spec 第 7 節）。
 
 ### 動能改良（momv2）
 
-2015–2026 共 276 個 24 日窗口，逐窗口和 Mom20 配對。每項的 spec 事先寫死 gate，只跑一次。Δ 取自 [main_table.md](results/main_table.md)。
+2015–2026，276 個 24 日窗，與 Mom20 配對；各 spec gate 事前固定、只跑一次。Δ：[main_table.md](results/main_table.md)。
 
 | 研究 | 問題 | 結果 | 連結 |
 |---|---|---|---|
@@ -119,21 +82,18 @@ v2 特徵加入月營收與法人買賣超，定義在 [hybrid_spec.md](docs/hyb
 | 多尺度 MACD | • 三尺度 MACD 重排前 40 | • 全期 Δ −0.24%<br>• 2025–2026 −1.06%<br>• STOP | [summary](results/macd_momentum/summary.md)、[spec](docs/macd_momentum_spec.md) |
 | 台積電核心 | • 2330 固定 22.5%<br>• 其餘分數加權 | • 全期 Δ −0.08%<br>• 2025–2026 −1.52%<br>• STOP | [summary](results/tsmc_core/summary.md)、[spec](docs/tsmc_core_spec.md)、[analysis](results/tsmc_core/analysis.md) |
 
-- 門檻都是平均 Δ > +0.5%
-  - 另有 CI、中位數等條件
-- 所有期間都已看過
-  - 結果只當歷史證據
+門檻平均 Δ > +0.5%，另查 CI／中位數等；期間全已見，僅歷史證據。
 
 ## 怎麼重跑
 
-程式裡的 import 仍是搬移前的路徑（例如 `research.lgbm_jpx2`、`autots_strategy`、`momv2`），要回到舊提交執行：
+Import 沿用舊路徑（`research.lgbm_jpx2`、`autots_strategy`、`momv2`），須回舊提交：
 
 | 提交 | 能跑什麼 | 缺什麼 |
 |---|---|---|
 | `05745bf` | • AutoTS、LightGBM<br>• Hybrid、每日 LightGBM-v2 | • 沒有 `momv2/` |
 | `6d2a7c4` | • `momv2/` 動能改良 | • 沒有每日 LightGBM-v2 |
 
-以 `05745bf` 為例（`6d2a7c4` 同樣步驟，換提交即可）：
+`05745bf` 範例（`6d2a7c4` 換提交即可）：
 
 ```bash
 # main 沒有舊歷史；舊提交都在 tag archive/pre-cleanup
@@ -180,18 +140,9 @@ echo "$PWD/third_party/autots" > .venv/lib/python3.12/site-packages/fintech_etf_
 | 主圖與 main_table | `python -m momv2.main_figure` |
 | all_experiments | `python -m momv2.all_experiments` |
 
-- Mom25 報告沒有入口
-  - 由未 commit 的暫存腳本產生
-  - 提交 `9097068` 只有結果
-- 評估類指令可加 `--workers 8`
+Mom25 無入口，由未 commit 暫存腳本產生；`9097068` 僅結果。評估指令可加 `--workers 8`；輸出至該提交的 `research/results/`。中斷後同指令可續跑。
 
-- 結果會寫到 `research/results/`
-  - 該提交的路徑，不是這裡
-- 中斷後重跑同一指令
-  - 從完成的窗口接續
-- 已凍結的評估別重跑
-  - Hybrid、每日 v2 都只准一次
-  - momv2 各 stage 會拒絕改寫結果
+凍結評估勿重跑：Hybrid／每日 v2 限一次，momv2 各 stage 拒絕覆寫。
 
 ## 目錄
 
@@ -210,10 +161,4 @@ legacy/ml/
 └── requirements-autots.txt   ← 這個時期的套件版本
 ```
 
-- AutoTS 直接改 repo 內原始碼
-  - 紀錄在 [UPSTREAM.md](third_party/autots/UPSTREAM.md)
-- 修補 P1 修正一個靜默錯誤
-  - 股票數非 100 倍數時
-  - 原版丟掉第 101–150 檔
-- 組合層 `portfolio.py` 仍在用
-  - 已移到根目錄 `competition/`
+AutoTS 修改 repo 原始碼，見 [UPSTREAM.md](third_party/autots/UPSTREAM.md)。P1 修正非 100 倍數股票池會靜默丟掉第 101–150 檔的錯誤。共用組合層 `portfolio.py` 已移至根目錄 `competition/`，仍在使用。
