@@ -41,7 +41,7 @@ def replay_window(market, start, end, forced_switch=False):
         prev = market.calendar[market.position(day) - 1]
         inp = engine.DayInput(day, prev, market, book, CONFIG, RULES, i, len(days) - i,
                               official_holdings=dict(book.holdings), aux=aux, tournament_state=state,
-                              rank=1 if forced_switch and i >= 12 else None)
+                              rank=1 if forced_switch and i >= 11 else None)
         result = engine.run_day(inp)
         plan = dplan.build(inp, result, IDENTITY, datetime.now(dplan.TAIPEI))
         errors = validate(plan, holdings=book.holdings, close=result.prev_close, nav=result.nav, cash=book.cash,
@@ -69,7 +69,10 @@ def replay_window(market, start, end, forced_switch=False):
 
 class SwitchTest(unittest.TestCase):
     def decide(self, index=12, rank=6, remaining=12, state=None):
-        return tournament.switch_state(state or {}, '2026-10-01', index, remaining, rank)
+        if state is None:
+            state = {'ranks': {'2026-09-30': 6}}
+        return tournament.switch_state(state, '2026-10-01', index, remaining, rank,
+                                       prev_date='2026-09-30')
 
     def test_frozen_switch_boundaries(self):
         for index, rank, remaining, mode in [(11, 6, 13, 'K2'), (12, 6, 12, 'T2'),
@@ -81,12 +84,41 @@ class SwitchTest(unittest.TestCase):
         state, changed, reasons = self.decide(rank=None)
         self.assertEqual((state['mode'], changed, reasons), ('K2', False, ['RANK_MISSING']))
         locked, _, _ = self.decide(rank=6)
-        after, changed, reasons = self.decide(rank=20, state=locked)
+        after, changed, reasons = tournament.switch_state(locked, '2026-10-02', 13, 11, 20,
+                                                          prev_date='2026-10-01')
         self.assertEqual((after['mode'], after['switched_on'], changed, reasons),
                          ('T2', '2026-10-01', False, []))
-        self.assertEqual(after['ranks']['2026-10-01'], 20)
+        self.assertEqual(after['ranks']['2026-10-02'], 20)
+        self.assertEqual(self.decide(rank=None, state={})[2], ['RANK_MISSING'])
         self.assertEqual(self.decide(index=11, rank=None)[2], [])
         self.assertEqual(self.decide(rank=None, state=locked)[2], [])
+
+    def test_previous_rank_required(self):
+        for previous, reason in [(7, 'RANK_NOT_CONSECUTIVE'), (None, 'RANK_HISTORY_MISSING')]:
+            with self.subTest(previous=previous):
+                ranks = {'2026-09-29': 6, '2026-10-02': 6}
+                if previous is not None:
+                    ranks['2026-09-30'] = previous
+                state, changed, reasons = self.decide(state={'ranks': ranks})
+                self.assertEqual((state['mode'], changed, reasons), ('K2', False, [reason]))
+                self.assertEqual(state['ranks']['2026-10-01'], 6)
+
+    def test_day_11_rank_counts_across_market_calendar_gap(self):
+        original = {}
+        state, changed, _ = tournament.switch_state(original, '2026-10-02', 11, 13, 6,
+                                                     prev_date='2026-10-01')
+        self.assertFalse(changed)
+        self.assertEqual(original, {})
+        after, changed, reasons = tournament.switch_state(state, '2026-10-05', 12, 12, 6,
+                                                          prev_date='2026-10-02')
+        self.assertEqual((after['mode'], changed, reasons), ('T2', True, []))
+        self.assertEqual(state['mode'], 'K2')
+
+    def test_consecutive_days_read_from_config(self):
+        switch = dict(CONFIG['params']['switch'], consecutive_days=1)
+        state, changed, reasons = tournament.switch_state({}, '2026-10-01', 12, 12, 6,
+                                                          prev_date='2026-09-30', switch=switch)
+        self.assertEqual((state['mode'], changed, reasons), ('T2', True, []))
 
     def test_invalid_rank(self):
         for rank in (0, -1, True, 1.5):
@@ -219,7 +251,7 @@ class TournamentTest(unittest.TestCase):
         self.assertEqual(retry.target, result.target)
 
     def switch_input(self):
-        inp = self.inp()
+        inp = self.inp(rank=1)
         first = engine.run_day(inp)
         book, _, _, _ = settle_day(inp.book, self.day, first.plan.orders, self.market, RULES,
                                     ExecutionConfig(**CONFIG['execution']), engine.policy_of(CONFIG))
@@ -300,6 +332,7 @@ class TournamentTest(unittest.TestCase):
             saved = json.loads((Path(tmp) / '2026-10-26/state/tournament.json').read_text())
             self.assertEqual(saved, result.tournament['state'])
             self.assertTrue(saved['t2_target'])
+            self.assertEqual(saved['ranks']['2026-09-17'], 1)
 
     def test_offline_state_isolated_and_written_only_with_dplan(self):
         for invalid in (False, True):

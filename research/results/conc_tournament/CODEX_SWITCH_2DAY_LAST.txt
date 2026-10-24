@@ -1,0 +1,6 @@
+已完成，詳見[執行報告](research/results/conc_tournament/CODEX_SWITCH_2DAY_REPORT.md)。
+
+- 114 項測試通過；W4／W5 報酬完全一致。
+- 強制切換於 index 12，兩日完成換倉；驗證全過、零結算警告。
+- 離線試跑有效，rank 5 已保存。
+- 僅修改允許路徑，未做 Git 寫入；離線輸出改用暫存目錄，已記錄於報告。

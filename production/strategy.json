@@ -23,6 +23,7 @@
   "switch": {
    "min_day_index": 12,
    "max_rank": 6,
+   "consecutive_days": 2,
    "min_sessions_remaining_exclusive": 3
   },
   "freeze_last_days": 3,

@@ -35,11 +35,18 @@
 
 `--rank N`：T−1 19:00 組內排名，限正整數；audit 記排名、模式、切換、動作。
 
-- 切換條件：`day_index >= 12` 且 `sessions_remaining > 3` 且 `rank <= 6`。
+切換條件：`day_index >= 12` 且 `sessions_remaining > 3` 且連續2交易日 `rank <= 6`。
+
+前一交易日採 `inp.prev_date`；day_index 11 的已存排名可供 day_index 12 判斷。`params.switch.consecutive_days` 設為 `2`，請每日傳入 `--rank`。
+
 - 僅 K2 可切換；T2 鎖定至賽末。
 - 可切換日缺排名維持模式
 	- 記錄 `RANK_MISSING`
 	- 仍可產出計畫
+- 當日前6、前日缺排名
+	- 記錄 `RANK_HISTORY_MISSING`
+- 當日前6、前日 >6
+	- 記錄 `RANK_NOT_CONSECUTIVE`
 - Live：`<runs_dir>/state/tournament.json`。
 - Offline：`<runs_dir>/<T>/state/tournament.json`；不寫 live 狀態。
 

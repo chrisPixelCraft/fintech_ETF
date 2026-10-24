@@ -22,7 +22,7 @@ def expected_month(day) -> pd.Period:
     return day.to_period('M') - (1 if day.day >= 11 else 2)
 
 
-def switch_state(state, trade_date, day_index, sessions_remaining, rank=None):
+def switch_state(state, trade_date, day_index, sessions_remaining, rank=None, prev_date=None, switch=None):
     """Return a proposed state; the caller persists it only with a produced D-Plan."""
     state = deepcopy(state)
     state.setdefault('mode', 'K2')
@@ -34,14 +34,27 @@ def switch_state(state, trade_date, day_index, sessions_remaining, rank=None):
         if isinstance(rank, bool) or not isinstance(rank, int) or rank < 1:
             raise ValueError('rank must be a positive integer')
         state['ranks'][str(pd.Timestamp(trade_date).date())] = rank
-    eligible = day_index >= 12 and sessions_remaining > 3 and state['mode'] == 'K2'
+    if switch is None:
+        switch = json.loads((ROOT / 'production/strategy.json').read_text())['params']['switch']
+    if switch['consecutive_days'] not in (1, 2):      # only today and the previous trade date are checked
+        raise ValueError('consecutive_days must be 1 or 2')
+    eligible = (day_index >= switch['min_day_index']
+                and sessions_remaining > switch['min_sessions_remaining_exclusive']
+                and state['mode'] == 'K2')
     reasons, switched = [], False
     if eligible:
         if rank is None:
             reasons.append('RANK_MISSING')
-        elif rank <= 6:
-            state.update(mode='T2', switched_on=str(pd.Timestamp(trade_date).date()))
-            switched = True
+        elif rank <= switch['max_rank']:
+            previous = state['ranks'].get(str(pd.Timestamp(prev_date).date())) if prev_date is not None else None
+            consecutive = 1 + int(previous is not None and previous <= switch['max_rank'])
+            if consecutive >= switch['consecutive_days']:
+                state.update(mode='T2', switched_on=str(pd.Timestamp(trade_date).date()))
+                switched = True
+            elif previous is None:
+                reasons.append('RANK_HISTORY_MISSING')
+            else:
+                reasons.append('RANK_NOT_CONSECUTIVE')
     return state, switched, reasons
 
 

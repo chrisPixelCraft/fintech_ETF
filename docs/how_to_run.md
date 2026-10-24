@@ -50,12 +50,15 @@ tournament 設定：`production/strategy.json`；回滾：`production/strategy_m
 - T2：2330 佔 23.5%
 	- 另 24 檔共 71.5%
 - 切換：day_index ≥ 12
-	- 剩餘 > 3 日且 rank ≤ 6
+	- 剩餘 > 3 日
+	- 連續2交易日 rank ≤ 6
 	- 切換後鎖定 T2
 - 缺排名維持模式
-	- 記錄 `RANK_MISSING`
+	- 當日缺：`RANK_MISSING`
+	- 前日缺：`RANK_HISTORY_MISSING`
+	- 前日 >6：`RANK_NOT_CONSECUTIVE`
 
-`--rank N` 輸入 T−1 19:00 組內排名。合法 D-Plan 才保存狀態，含 HOLD。
+`--rank N` 每日輸入 T−1 19:00 組內排名。前日依交易日曆，day_index 11 的排名可供 day_index 12 判斷。合法 D-Plan 才保存狀態，含 HOLD。
 
 - Live：`production_runs/state/tournament.json`
 - Offline：`production_runs/<T>/state/tournament.json`

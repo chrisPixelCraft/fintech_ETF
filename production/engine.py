@@ -152,7 +152,8 @@ def normal_path(inp: DayInput, book: SettledBook, nav: float, close: pd.Series) 
                            nav=nav, weights=_weights(book, nav), episode_id=str(inp.trade_date.date()))
     view = inp.market.asof(inp.prev_date)
     proposed, switched, switch_reasons = tournament.switch_state(
-        inp.tournament_state or {}, inp.trade_date, inp.day_index, inp.sessions_remaining, inp.rank) if is_tournament else ({}, False, [])
+        inp.tournament_state or {}, inp.trade_date, inp.day_index, inp.sessions_remaining, inp.rank,
+        prev_date=inp.prev_date, switch=inp.strategy['params']['switch']) if is_tournament else ({}, False, [])
     details = {}
     if is_tournament:
         target, scores, details = tournament.TournamentStrategy(inp.rules, inp.aux).decide(
@@ -308,7 +309,8 @@ def run_day(inp: DayInput) -> DayResult:
         result.tournament = decision
     if inp.strategy.get('strategy') == 'tournament' and not result.tournament:
         prior = inp.tournament_state or {}
-        state, _, notes = tournament.switch_state(prior, inp.trade_date, inp.day_index, inp.sessions_remaining, inp.rank)
+        state, _, notes = tournament.switch_state(prior, inp.trade_date, inp.day_index, inp.sessions_remaining, inp.rank,
+                                                 prev_date=inp.prev_date, switch=inp.strategy['params']['switch'])
         state.update(mode=prior.get('mode', 'K2'), switched_on=prior.get('switched_on'))
         result.tournament = dict(mode=state['mode'], state=state, switched=False, rank=inp.rank, action='fallback')
         result.reasons.extend(notes)
