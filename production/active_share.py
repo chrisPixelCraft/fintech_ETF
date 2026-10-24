@@ -1,13 +1,13 @@
-"""Active Share against every active ETF's top 10 (rules p8 六(十三); docs/production_spec.md section 7).
+"""Active Share against every active ETF's top 15 (rules p8 六(十三); docs/production_spec.md section 7).
 
-    AS = 1/2 * sum_i |w_i(portfolio top 10) - w_i(ETF top 10)|   over the union of names
+    AS = 1/2 * sum_i |w_i(portfolio top 15) - w_i(ETF top 15)|   over the union of names
 
 The official method has open points (docs/task.md U4), so this module is
 conservative on each and says so in its output:
-- Normalisation: AS is computed with raw NAV weights and with each top 10
+- Normalisation: AS is computed with raw NAV weights and with each top 15
   rescaled to sum to 1; the lower value is used.
-- Near-equal weights: the portfolio's top 10 by value depends on price drift,
-  so every holding within TIE_BAND of the 10th weight may enter it; the worst
+- Near-equal weights: the portfolio's top 15 by value depends on price drift,
+  so every holding within TIE_BAND of the 15th weight may enter it; the worst
   case (overlap with the ETF first) is used.
 - Missing ETF data never counts as a pass: the status is ACTIVE_SHARE_UNVERIFIED.
 
@@ -18,14 +18,15 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from pathlib import Path
+import math
 
 import pandas as pd
 
-OFFICIAL_MIN = .20          # rules: Active Share must not be below 20%
-INTERNAL_MIN = .25          # internal safety margin (not a rule)
-TIE_BAND = .8               # holdings with weight >= 0.8 x the 10th weight may enter the top 10
-TOP = 10
-MAX_AGE_DAYS = 7            # ETF top-10 data older than this is stale
+OFFICIAL_MIN = .15          # rules: Active Share must not be below 15%
+INTERNAL_MIN = .20          # internal safety margin (not a rule)
+TIE_BAND = .8               # holdings with weight >= 0.8 x the 15th weight may enter the top 15
+TOP = 15
+MAX_AGE_DAYS = 7            # ETF top-15 data older than this is stale
 PASS, CAUTION, INVALID, UNVERIFIED = 'PASS', 'CAUTION', 'INVALID', 'ACTIVE_SHARE_UNVERIFIED'
 
 
@@ -37,7 +38,7 @@ class EtfTop10:
 
 
 def load_etf_holdings(path: Path | str) -> dict[str, EtfTop10]:
-    """Latest top 10 per ETF from the holdings CSV."""
+    """Latest top 15 per ETF from the holdings CSV."""
     frame = pd.read_csv(path, dtype={'etf': str, 'ticker': str})
     missing = {'etf', 'as_of', 'ticker', 'weight'} - set(frame.columns)
     if missing:
@@ -64,7 +65,7 @@ def _normalised(weights: dict) -> dict:
 
 
 def worst_case_top10(weights: dict, against: dict) -> dict:
-    """The portfolio top 10 by weight, with near-ties resolved toward overlap with ``against``."""
+    """The portfolio top 15 by weight, with near-ties resolved toward overlap with ``against``."""
     ranked = sorted(weights.items(), key=lambda kv: (-kv[1], kv[0]))
     if len(ranked) <= TOP:
         return dict(ranked)
@@ -76,7 +77,7 @@ def worst_case_top10(weights: dict, against: dict) -> dict:
 
 
 def active_share(weights: dict, etf: EtfTop10) -> float:
-    """Conservative Active Share of a {ticker: weight} portfolio against one ETF top 10."""
+    """Conservative Active Share of a {ticker: weight} portfolio against one ETF top 15."""
     top = worst_case_top10(weights, etf.weights)
     return min(_as(top, etf.weights), _as(_normalised(top), _normalised(etf.weights)))
 
@@ -89,34 +90,61 @@ class ActiveShareReport:
     by_etf: dict = field(default_factory=dict)
     stale: list = field(default_factory=list)
     missing: list = field(default_factory=list)
+    incomplete: list = field(default_factory=list)
+    invalid_data: list = field(default_factory=list)
     assumptions: tuple = ('min(raw, normalised)', f'near-tie band {TIE_BAND}', 'missing ETF -> unverified')
 
     def as_dict(self) -> dict:
         return dict(status=self.status, minimum=self.minimum, closest_etf=self.closest_etf,
                     distance_to_official=None if self.minimum is None else self.minimum - OFFICIAL_MIN,
-                    by_etf=self.by_etf, stale=self.stale, missing=self.missing, assumptions=list(self.assumptions))
+                    by_etf=self.by_etf, stale=self.stale, missing=self.missing,
+                    incomplete=self.incomplete, invalid_data=self.invalid_data,
+                    top_n=TOP, official_minimum=OFFICIAL_MIN,
+                    method='heuristic_min_raw_normalised', official_method_confirmed=False,
+                    assumptions=list(self.assumptions))
 
 
 def check(weights: dict, etfs: dict[str, EtfTop10] | None, required: list[str], trade_date: str) -> ActiveShareReport:
     """Status of a {ticker: weight} portfolio against every required ETF."""
-    if not weights:
-        return ActiveShareReport(PASS)                      # no holdings: nothing overlaps
     etfs = etfs or {}
+    required = sorted(set(required))
     missing = sorted(e for e in required if e not in etfs)
     day = pd.Timestamp(trade_date)
-    stale = sorted(e for e, x in etfs.items() if (day - pd.Timestamp(x.as_of)).days > MAX_AGE_DAYS)
-    by_etf = {e: active_share(weights, x) for e, x in sorted(etfs.items())}
-    if not by_etf:
-        return ActiveShareReport(UNVERIFIED, missing=missing)
-    closest = min(by_etf, key=by_etf.get)
-    minimum = by_etf[closest]
-    if minimum < OFFICIAL_MIN:
-        status = INVALID
-    elif missing or stale:
+    stale, incomplete, invalid = [], [], []
+    usable = {}
+    for e in required:
+        if e not in etfs:
+            continue
+        x = etfs[e]
+        try:
+            age = (day - pd.Timestamp(x.as_of)).days
+            if pd.isna(age) or age < 0:
+                invalid.append(e)
+            elif age > MAX_AGE_DAYS:
+                stale.append(e)
+            if (not x.weights or any(not math.isfinite(w) or w <= 0 or w > 1
+                                    for w in x.weights.values()) or sum(x.weights.values()) > 1 + 1e-6):
+                invalid.append(e)
+            if len(x.weights) < TOP:
+                incomplete.append(e)
+            if e not in invalid:
+                usable[e] = x
+        except (ValueError, TypeError):
+            invalid.append(e)
+    if not weights or any(not math.isfinite(w) or w < 0 for w in weights.values()):
+        invalid.append('PORTFOLIO')
+    by_etf = {e: active_share(weights, x) for e, x in usable.items()}
+    closest = min(by_etf, key=by_etf.get) if by_etf else None
+    minimum = by_etf[closest] if closest else None
+    # An incomplete top-10 snapshot cannot establish either verdict for the top-15 rule.
+    if not required or missing or stale or incomplete or invalid or minimum is None:
         status = UNVERIFIED
+    elif minimum < OFFICIAL_MIN:
+        status = INVALID
     else:
         status = CAUTION if minimum < INTERNAL_MIN else PASS
-    return ActiveShareReport(status, minimum, closest, by_etf, stale, missing)
+    return ActiveShareReport(status, minimum, closest, by_etf, sorted(stale), missing,
+                             sorted(incomplete), sorted(set(invalid)))
 
 
 def repair(scores: pd.Series, build, etfs: dict[str, EtfTop10], to_ticker, max_steps: int = 25):

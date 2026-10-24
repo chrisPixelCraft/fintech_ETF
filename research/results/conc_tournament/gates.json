@@ -1,0 +1,155 @@
+{
+  "candidates": {
+    "K1": {
+      "G0": {
+        "passed": false,
+        "disqualifications": 0,
+        "maximum_disqualifications": 0,
+        "max_warning_days": 2,
+        "maximum_warning_days": 1,
+        "total_warning_days": 8,
+        "maximum_total_warning_days": 0
+      },
+      "G1": {
+        "passed": true,
+        "tail_edge": 0.04347826086956519,
+        "mean_delta_vs_0050": 0.012190525995639263,
+        "threshold_exclusive": 0
+      },
+      "G2": {
+        "passed": true,
+        "p_gain_5pp": 0.2572463768115942,
+        "threshold": 0.2456521739130435,
+        "controls": {
+          "T2": 0.08333333333333333,
+          "Mom20": 0.1956521739130435
+        },
+        "margin": 0.05
+      },
+      "G3": {
+        "passed": true,
+        "positive_blocks": 3,
+        "required_positive_blocks": 3,
+        "blocks": [
+          {
+            "strategy": "K1",
+            "block": "2015\u20132018",
+            "count": 96,
+            "tail_edge": 0.03125,
+            "mean_delta_vs_0050": 0.006517937014880608
+          },
+          {
+            "strategy": "K1",
+            "block": "2019\u20132021",
+            "count": 70,
+            "tail_edge": 0.057142857142857134,
+            "mean_delta_vs_0050": 0.011275781160655928
+          },
+          {
+            "strategy": "K1",
+            "block": "2022\u20132024",
+            "count": 70,
+            "tail_edge": -0.0714285714285714,
+            "mean_delta_vs_0050": 0.00520107295257241
+          },
+          {
+            "strategy": "K1",
+            "block": "2025\u20132026",
+            "count": 40,
+            "tail_edge": 0.25,
+            "mean_delta_vs_0050": 0.03963708583604785
+          }
+        ]
+      },
+      "G4": {
+        "passed": false,
+        "recent_mean_delta_vs_0050": -0.04401647129550188,
+        "minimum": -0.02
+      },
+      "failing_gates": [
+        "G0",
+        "G4"
+      ],
+      "all_passed": false
+    },
+    "K2": {
+      "G0": {
+        "passed": true,
+        "disqualifications": 0,
+        "maximum_disqualifications": 0,
+        "max_warning_days": 0,
+        "maximum_warning_days": 1,
+        "total_warning_days": 0,
+        "maximum_total_warning_days": 0
+      },
+      "G1": {
+        "passed": true,
+        "tail_edge": 0.11956521739130435,
+        "mean_delta_vs_0050": 0.01509131658551053,
+        "threshold_exclusive": 0
+      },
+      "G2": {
+        "passed": false,
+        "p_gain_5pp": 0.2210144927536232,
+        "threshold": 0.2456521739130435,
+        "controls": {
+          "T2": 0.08333333333333333,
+          "Mom20": 0.1956521739130435
+        },
+        "margin": 0.05
+      },
+      "G3": {
+        "passed": true,
+        "positive_blocks": 4,
+        "required_positive_blocks": 3,
+        "blocks": [
+          {
+            "strategy": "K2",
+            "block": "2015\u20132018",
+            "count": 96,
+            "tail_edge": 0.020833333333333315,
+            "mean_delta_vs_0050": 0.005221249624822537
+          },
+          {
+            "strategy": "K2",
+            "block": "2019\u20132021",
+            "count": 70,
+            "tail_edge": 0.2,
+            "mean_delta_vs_0050": 0.021114756887775622
+          },
+          {
+            "strategy": "K2",
+            "block": "2022\u20132024",
+            "count": 70,
+            "tail_edge": 0.02857142857142858,
+            "mean_delta_vs_0050": 0.005989953154490159
+          },
+          {
+            "strategy": "K2",
+            "block": "2025\u20132026",
+            "count": 40,
+            "tail_edge": 0.375,
+            "mean_delta_vs_0050": 0.04416584276648344
+          }
+        ]
+      },
+      "G4": {
+        "passed": true,
+        "recent_mean_delta_vs_0050": -0.0011914315773938534,
+        "minimum": -0.02
+      },
+      "failing_gates": [
+        "G2"
+      ],
+      "all_passed": false
+    }
+  },
+  "passing_candidates": [],
+  "selected_candidates": [],
+  "closest_candidates_if_none_pass": [
+    "K2"
+  ],
+  "closest_definition": "Fewest failed gates, retaining ties; descriptive only.",
+  "verdict": "\u4e0d\u5efa\u8b70\u96c6\u4e2d\u7248",
+  "automatic_strategy_change": false
+}

@@ -1,0 +1,918 @@
+{
+  "period": [
+    "2026-09-16",
+    "2026-10-22"
+  ],
+  "sessions": 24,
+  "methods": 13,
+  "day_observations": 312,
+  "initial_capital": 1000000000.0,
+  "benchmark_0050_return": 0.006117661420036669,
+  "outperform_0050": 2,
+  "positive_methods": 2,
+  "checks": [
+    {
+      "method": "mom20",
+      "days": 24,
+      "csv_ledger_verification_problems": [],
+      "independent_verification_tolerance_twd": 0.01,
+      "source_sha256_verified": true
+    },
+    {
+      "method": "mom25",
+      "days": 24,
+      "csv_ledger_verification_problems": [],
+      "independent_verification_tolerance_twd": 0.01,
+      "source_sha256_verified": true
+    },
+    {
+      "method": "mom10",
+      "days": 24,
+      "csv_ledger_verification_problems": [],
+      "independent_verification_tolerance_twd": 0.01,
+      "source_sha256_verified": true
+    },
+    {
+      "method": "mom60",
+      "days": 24,
+      "csv_ledger_verification_problems": [],
+      "independent_verification_tolerance_twd": 0.01,
+      "source_sha256_verified": true
+    },
+    {
+      "method": "residual20_0050",
+      "days": 24,
+      "csv_ledger_verification_problems": [],
+      "independent_verification_tolerance_twd": 0.01,
+      "source_sha256_verified": true
+    },
+    {
+      "method": "residual20_ew",
+      "days": 24,
+      "csv_ledger_verification_problems": [],
+      "independent_verification_tolerance_twd": 0.01,
+      "source_sha256_verified": true
+    },
+    {
+      "method": "residual120_h1",
+      "days": 24,
+      "csv_ledger_verification_problems": [],
+      "independent_verification_tolerance_twd": 0.01,
+      "source_sha256_verified": true
+    },
+    {
+      "method": "tech_composite",
+      "days": 24,
+      "csv_ledger_verification_problems": [],
+      "independent_verification_tolerance_twd": 0.01,
+      "source_sha256_verified": true
+    },
+    {
+      "method": "macd_combined",
+      "days": 24,
+      "csv_ledger_verification_problems": [],
+      "independent_verification_tolerance_twd": 0.01,
+      "source_sha256_verified": true
+    },
+    {
+      "method": "tsmc_core_equal",
+      "days": 24,
+      "csv_ledger_verification_problems": [],
+      "independent_verification_tolerance_twd": 0.01,
+      "source_sha256_verified": true
+    },
+    {
+      "method": "tsmc_formal",
+      "days": 24,
+      "csv_ledger_verification_problems": [],
+      "independent_verification_tolerance_twd": 0.01,
+      "source_sha256_verified": true
+    },
+    {
+      "method": "autots_h5",
+      "days": 24,
+      "csv_ledger_verification_problems": [],
+      "independent_verification_tolerance_twd": 0.01,
+      "source_sha256_verified": true
+    },
+    {
+      "method": "lgbm_D_lr0.01",
+      "days": 24,
+      "csv_ledger_verification_problems": [],
+      "independent_verification_tolerance_twd": 0.01,
+      "source_sha256_verified": true
+    }
+  ],
+  "contract": {
+    "task": "Retest exact 13 README main-table methods on one fixed recent 24-session episode; no tuning",
+    "requested_methods": [
+      "mom20",
+      "mom25",
+      "mom10",
+      "mom60",
+      "residual20_0050",
+      "residual20_equal_weight",
+      "residual120_h1",
+      "technical_composite",
+      "macd_combined",
+      "tsmc_core_equal",
+      "tsmc_formal",
+      "autots_h5",
+      "lgbm_D_lr0.01"
+    ],
+    "expected_count": 13,
+    "start": "2026-09-16",
+    "end": "2026-10-22",
+    "prior_session": "2026-09-15",
+    "sessions": 24,
+    "initial_cash": 1000000000,
+    "baseline_required_return": -0.10124596758199833,
+    "price_policy": "Current canonical MarketData nominal-share price conversion and auto official VWAP, same as prior Mom20",
+    "fees": "Buy/sell commission .001425; sell tax .003; costs paid from cash",
+    "rules": "Updated root rules; daily positions/cash/caps/order lots checked by canonical ledger; historical Active Share UNVERIFIED for all",
+    "selection": "Original main_figure.METHODS mappings, no tuning or new method promotion based on this window",
+    "unavailable_date": "2026-10-23: 151 vendor bars zero volume, excluded",
+    "input_sha256": {
+      "production_runs/preflight_20261026/nominal_daily.parquet": "9589b96fc4b01ddc8f7c67cb92b91169d331f4c2b8d6c071f4eb34dd6cc96d54",
+      "production_runs/preflight_20261026/official_combined.csv": "28e5fd9d66106ee773382c1603ab213f9e9ffb974a03376c4554b9773114ccf5",
+      "production_runs/preflight_20261026/calendar_v2.json": "3953b366a8d0aa4a0c3d4ff4e59ad144f707d98b7596167405c2f07874769503",
+      "data/reference/competition_rules.json": "4caf65d30b0d85bf1e57bb401acfa3d0d23a2ed685e2fd548b59fcb9ba59b13f",
+      "production/strategy.json": "74577d263f2cde1f77a71c6a72928a0f85f25da37c3420c983a6426c85e7da57",
+      "production_runs/preflight_20261026/strategy_retest/corrected_nominal_daily.parquet": "fe3f91fa6e96aad89fff6bd8de9b768d31ff7897ac7b37b16a4494fec13de15d"
+    },
+    "supersedes_original_snapshot_for_all_methods": {
+      "issue": "Incremental nominal_daily conversion began 2026-07-01 without predecessor close, leaving first returns NaN despite valid_price=True",
+      "repair": "Compute ONLY previously missing 2026-07-01 returns from same-symbol 2026-06-30 nominal close and 2026-07-01 close/split/dividend",
+      "date": "2026-07-01",
+      "rows_repaired": 150,
+      "symbols": [
+        "0050.TW",
+        "1101.TW",
+        "1216.TW",
+        "1301.TW",
+        "1303.TW",
+        "1326.TW",
+        "1402.TW",
+        "1504.TW",
+        "1519.TW",
+        "1590.TW",
+        "1605.TW",
+        "1785.TWO",
+        "1802.TW",
+        "1815.TWO",
+        "2002.TW",
+        "2059.TW",
+        "2207.TW",
+        "2301.TW",
+        "2303.TW",
+        "2308.TW",
+        "2313.TW",
+        "2317.TW",
+        "2324.TW",
+        "2327.TW",
+        "2330.TW",
+        "2337.TW",
+        "2344.TW",
+        "2345.TW",
+        "2347.TW",
+        "2356.TW",
+        "2357.TW",
+        "2360.TW",
+        "2368.TW",
+        "2376.TW",
+        "2377.TW",
+        "2379.TW",
+        "2382.TW",
+        "2383.TW",
+        "2395.TW",
+        "2404.TW",
+        "2408.TW",
+        "2409.TW",
+        "2412.TW",
+        "2449.TW",
+        "2451.TW",
+        "2454.TW",
+        "2603.TW",
+        "2609.TW",
+        "2610.TW",
+        "2615.TW",
+        "2618.TW",
+        "2801.TW",
+        "2812.TW",
+        "2834.TW",
+        "2880.TW",
+        "2881.TW",
+        "2882.TW",
+        "2883.TW",
+        "2884.TW",
+        "2885.TW",
+        "2886.TW",
+        "2887.TW",
+        "2890.TW",
+        "2891.TW",
+        "2892.TW",
+        "2912.TW",
+        "3008.TW",
+        "3017.TW",
+        "3034.TW",
+        "3036.TW",
+        "3037.TW",
+        "3044.TW",
+        "3045.TW",
+        "3081.TWO",
+        "3105.TWO",
+        "3131.TWO",
+        "3163.TWO",
+        "3189.TW",
+        "3211.TWO",
+        "3227.TWO",
+        "3231.TW",
+        "3260.TWO",
+        "3264.TWO",
+        "3293.TWO",
+        "3324.TWO",
+        "3363.TWO",
+        "3374.TWO",
+        "3443.TW",
+        "3481.TW",
+        "3491.TWO",
+        "3529.TWO",
+        "3533.TW",
+        "3653.TW",
+        "3661.TW",
+        "3665.TW",
+        "3680.TWO",
+        "3702.TW",
+        "3711.TW",
+        "4123.TWO",
+        "4749.TWO",
+        "4772.TWO",
+        "4904.TW",
+        "4938.TW",
+        "4958.TW",
+        "4966.TWO",
+        "4979.TWO",
+        "4991.TWO",
+        "5274.TWO",
+        "5289.TWO",
+        "5347.TWO",
+        "5483.TWO",
+        "5536.TWO",
+        "5871.TW",
+        "5876.TW",
+        "5880.TW",
+        "5903.TWO",
+        "6023.TWO",
+        "6121.TWO",
+        "6139.TW",
+        "6147.TWO",
+        "6182.TWO",
+        "6187.TWO",
+        "6223.TWO",
+        "6239.TW",
+        "6274.TWO",
+        "6290.TWO",
+        "6415.TW",
+        "6446.TW",
+        "6488.TWO",
+        "6505.TW",
+        "6510.TWO",
+        "6515.TW",
+        "6548.TWO",
+        "6584.TWO",
+        "6669.TW",
+        "6770.TW",
+        "6789.TW",
+        "6919.TW",
+        "7734.TWO",
+        "7750.TW",
+        "7751.TWO",
+        "7769.TW",
+        "7828.TWO",
+        "8046.TW",
+        "8069.TWO",
+        "8210.TW",
+        "8299.TWO",
+        "8358.TWO",
+        "8415.TWO",
+        "8932.TWO"
+      ],
+      "range": [
+        -0.08433734939759041,
+        0.10000000000000009
+      ],
+      "original_source_sha256": "9589b96fc4b01ddc8f7c67cb92b91169d331f4c2b8d6c071f4eb34dd6cc96d54",
+      "corrected_source_sha256": "fe3f91fa6e96aad89fff6bd8de9b768d31ff7897ac7b37b16a4494fec13de15d",
+      "unchanged": "Original source caches, prices, volume, actions, calendar, fee rates and all strategy parameters",
+      "applies_to": "All 13 strategies, no model-specific repaired dataset",
+      "check": "Agent independently cross-checked 6/30 and 7/1 nominal closes against exchanges; max relative gap 6.53e-8"
+    },
+    "common_nominal_path": "production_runs/preflight_20261026/strategy_retest/corrected_nominal_daily.parquet"
+  },
+  "configs": {
+    "mom20": {
+      "name": "mom20",
+      "params": {
+        "window": 20,
+        "portfolio": {
+          "n_holdings": 25,
+          "keep_rank": 35,
+          "weighting": "equal",
+          "invested": 0.95,
+          "cap_scale": 0.9,
+          "rebalance_threshold": 0.1,
+          "freeze_last_days": 3
+        }
+      },
+      "execution": {
+        "mode": "auto",
+        "proxy": "hlc3"
+      },
+      "planner": {
+        "rebalance_band": 0.005
+      },
+      "source": "production/strategy.json"
+    },
+    "mom25": {
+      "name": "mom25",
+      "params": {
+        "window": 25,
+        "portfolio": {
+          "n_holdings": 25,
+          "keep_rank": 35,
+          "weighting": "equal",
+          "invested": 0.95,
+          "cap_scale": 0.9,
+          "rebalance_threshold": 0.1,
+          "freeze_last_days": 3
+        }
+      },
+      "execution": {
+        "mode": "auto",
+        "proxy": "hlc3"
+      },
+      "planner": {
+        "rebalance_band": 0.005
+      },
+      "source": "research/runs/momentum_sweep/mom25__dev/config.json"
+    },
+    "mom10": {
+      "name": "mom10",
+      "params": {
+        "window": 10,
+        "portfolio": {
+          "n_holdings": 25,
+          "keep_rank": 35,
+          "weighting": "equal",
+          "invested": 0.95,
+          "cap_scale": 0.9,
+          "rebalance_threshold": 0.1,
+          "freeze_last_days": 3
+        }
+      },
+      "execution": {
+        "mode": "auto",
+        "proxy": "hlc3"
+      },
+      "planner": {
+        "rebalance_band": 0.005
+      },
+      "source": "research/runs/final_test/configs/momentum_10.json"
+    },
+    "mom60": {
+      "name": "mom60",
+      "params": {
+        "window": 60,
+        "portfolio": {
+          "n_holdings": 25,
+          "keep_rank": 35,
+          "weighting": "equal",
+          "invested": 0.95,
+          "cap_scale": 0.9,
+          "rebalance_threshold": 0.1,
+          "freeze_last_days": 3
+        }
+      },
+      "execution": {
+        "mode": "auto",
+        "proxy": "hlc3"
+      },
+      "planner": {
+        "rebalance_band": 0.005
+      },
+      "source": "research/runs/final_test/configs/momentum_60.json"
+    },
+    "residual20_0050": {
+      "name": "residual20_0050",
+      "params": {
+        "kind": "h1",
+        "resid_window": 20,
+        "beta_window": 60,
+        "benchmark": "0050",
+        "portfolio": {
+          "n_holdings": 25,
+          "keep_rank": 35,
+          "weighting": "equal",
+          "invested": 0.95,
+          "cap_scale": 0.9,
+          "rebalance_threshold": 0.1,
+          "freeze_last_days": 3
+        }
+      },
+      "execution": {
+        "mode": "auto",
+        "proxy": "hlc3"
+      },
+      "planner": {
+        "rebalance_band": 0.005
+      },
+      "source": "legacy/ml/momv2/evaluate.py DEFAULTS.h1; main_figure.py h1_resid20_beta60"
+    },
+    "residual20_ew": {
+      "name": "residual20_ew",
+      "params": {
+        "kind": "h1",
+        "resid_window": 20,
+        "beta_window": 60,
+        "benchmark": "ew",
+        "portfolio": {
+          "n_holdings": 25,
+          "keep_rank": 35,
+          "weighting": "equal",
+          "invested": 0.95,
+          "cap_scale": 0.9,
+          "rebalance_threshold": 0.1,
+          "freeze_last_days": 3
+        }
+      },
+      "execution": {
+        "mode": "auto",
+        "proxy": "hlc3"
+      },
+      "planner": {
+        "rebalance_band": 0.005
+      },
+      "source": "legacy/ml/momv2/fixes_report.py FIXES/ run_fixes; main_figure.py fix_ew20"
+    },
+    "residual120_h1": {
+      "name": "residual120_h1",
+      "params": {
+        "kind": "h1",
+        "resid_window": 120,
+        "beta_window": 250,
+        "benchmark": "0050",
+        "portfolio": {
+          "n_holdings": 25,
+          "keep_rank": 35,
+          "weighting": "equal",
+          "invested": 0.95,
+          "cap_scale": 0.9,
+          "rebalance_threshold": 0.1,
+          "freeze_last_days": 3
+        }
+      },
+      "execution": {
+        "mode": "auto",
+        "proxy": "hlc3"
+      },
+      "planner": {
+        "rebalance_band": 0.005
+      },
+      "source": "legacy/ml/results/h1_residual/freeze.json chosen; main_figure.py h1study"
+    },
+    "tech_composite": {
+      "main_table_run": "tech_composite",
+      "variant": "composite",
+      "portfolio": {
+        "n_holdings": 25,
+        "keep_rank": 35,
+        "weighting": "equal",
+        "invested": 0.95,
+        "cap_scale": 0.9,
+        "rebalance_threshold": 0.1,
+        "freeze_last_days": 3
+      },
+      "execution": {
+        "mode": "auto",
+        "proxy": "hlc3"
+      },
+      "planner": {
+        "rebalance_band": 0.005
+      },
+      "data_start": "2014-01-01",
+      "panel_boundary_repair": "strategy_retest/boundary_repair.json",
+      "fixed_window": {
+        "start": "2026-09-16",
+        "end": "2026-10-22",
+        "prior": "2026-09-15",
+        "sessions": 24
+      },
+      "initial_capital": 1000000000.0
+    },
+    "macd_combined": {
+      "main_table_run": "macd_combined",
+      "variant": "combined",
+      "portfolio": {
+        "n_holdings": 25,
+        "keep_rank": 35,
+        "weighting": "equal",
+        "invested": 0.95,
+        "cap_scale": 0.9,
+        "rebalance_threshold": 0.1,
+        "freeze_last_days": 3
+      },
+      "execution": {
+        "mode": "auto",
+        "proxy": "hlc3"
+      },
+      "planner": {
+        "rebalance_band": 0.005
+      },
+      "data_start": "2013-01-01",
+      "panel_boundary_repair": "strategy_retest/boundary_repair.json",
+      "fixed_window": {
+        "start": "2026-09-16",
+        "end": "2026-10-22",
+        "prior": "2026-09-15",
+        "sessions": 24
+      },
+      "initial_capital": 1000000000.0
+    },
+    "tsmc_core_equal": {
+      "main_table_run": "tsmc_core_equal",
+      "variant": "core_equal",
+      "portfolio": {
+        "n_holdings": 25,
+        "keep_rank": 35,
+        "weighting": "equal",
+        "invested": 0.95,
+        "cap_scale": 0.9,
+        "rebalance_threshold": 0.1,
+        "freeze_last_days": 3
+      },
+      "execution": {
+        "mode": "auto",
+        "proxy": "hlc3"
+      },
+      "planner": {
+        "rebalance_band": 0.005
+      },
+      "data_start": "2014-01-01",
+      "panel_boundary_repair": "strategy_retest/boundary_repair.json",
+      "fixed_window": {
+        "start": "2026-09-16",
+        "end": "2026-10-22",
+        "prior": "2026-09-15",
+        "sessions": 24
+      },
+      "initial_capital": 1000000000.0
+    },
+    "tsmc_formal": {
+      "main_table_run": "tsmc_formal",
+      "variant": "formal",
+      "portfolio": {
+        "n_holdings": 25,
+        "keep_rank": 35,
+        "weighting": "equal",
+        "invested": 0.95,
+        "cap_scale": 0.9,
+        "rebalance_threshold": 0.1,
+        "freeze_last_days": 3
+      },
+      "execution": {
+        "mode": "auto",
+        "proxy": "hlc3"
+      },
+      "planner": {
+        "rebalance_band": 0.005
+      },
+      "data_start": "2014-01-01",
+      "panel_boundary_repair": "strategy_retest/boundary_repair.json",
+      "fixed_window": {
+        "start": "2026-09-16",
+        "end": "2026-10-22",
+        "prior": "2026-09-15",
+        "sessions": 24
+      },
+      "initial_capital": 1000000000.0
+    },
+    "autots_h5": {
+      "name": "autots_h5",
+      "description": "Curated 7-model AutoTS template (default pool), model chosen per episode by rank IC on 4 x 24-row windows; h=5 excess-vs-equal-weight log-price target; z-score; top-25 equal weight with hold buffer and turnover gate.",
+      "strategy": "autots",
+      "params": {
+        "target": {
+          "series": "relative_log_price",
+          "market": "ew"
+        },
+        "forecaster": {
+          "mode": "fixed_template",
+          "horizon": 5,
+          "lookback": 240,
+          "validation_windows": 4,
+          "validation_step": 24,
+          "metric": "rank_ic",
+          "n_jobs": 1,
+          "random_seed": 2026
+        },
+        "score": "z",
+        "portfolio": {
+          "n_holdings": 25,
+          "keep_rank": 35,
+          "weighting": "equal",
+          "invested": 0.95,
+          "cap_scale": 0.9,
+          "rebalance_threshold": 0.1,
+          "freeze_last_days": 3
+        },
+        "refit_every": 24,
+        "predict_every": 5
+      },
+      "execution": {
+        "mode": "auto",
+        "proxy": "hlc3"
+      },
+      "planner": {
+        "rebalance_band": 0.005
+      },
+      "episodes": {
+        "offsets": [
+          "month_start",
+          "mid_month"
+        ]
+      },
+      "data": {
+        "start": "2019-01-01"
+      }
+    },
+    "lgbm_D_lr0.01": {
+      "name": "lgbm_D_lr0.01",
+      "description": "Target-alignment control (= baseline_lgbm_jpx2): JPX #2 clean transfer: OHLCV + 20/40/60 return, volatility, MA gap; one global LightGBM regression on the 10-session action-neutral forward return, 750 matured dates, refit every 5 sessions; predicted return as score; same portfolio layer as momentum_20d.",
+      "strategy": "lgbm",
+      "params": {
+        "horizon": 10,
+        "lookback": 100000,
+        "refit_every": 5,
+        "target_mode": "raw_return",
+        "portfolio": {
+          "n_holdings": 25,
+          "keep_rank": 35,
+          "weighting": "equal",
+          "invested": 0.95,
+          "cap_scale": 0.9,
+          "rebalance_threshold": 0.1,
+          "freeze_last_days": 3
+        },
+        "learning_rate": 0.01,
+        "fixed_trees": 116
+      },
+      "execution": {
+        "mode": "auto",
+        "proxy": "hlc3"
+      },
+      "planner": {
+        "rebalance_band": 0.005
+      },
+      "episodes": {
+        "offsets": [
+          "month_start",
+          "mid_month"
+        ]
+      },
+      "data": {
+        "start": "2019-01-01"
+      }
+    }
+  },
+  "results": [
+    {
+      "method": "residual120_h1",
+      "strategy": "Residual 120日（H1）",
+      "net_return": 0.03576930158429614,
+      "max_drawdown": 0.060589314824367024,
+      "cost_pct_initial_nav": 0.003169559691763702,
+      "warning_days": 0,
+      "fills": 49,
+      "official_fills": 49,
+      "proxy_fills": 0,
+      "turnover": 1.5194554626549193,
+      "runtime_seconds": 0.1697083749995727,
+      "delta_vs_mom20": 0.13701526916629447,
+      "delta_vs_0050": 0.029651640164259474,
+      "source_directory": "production_runs/preflight_20261026/strategy_retest/momentum/residual120_h1",
+      "active_share": "UNVERIFIED"
+    },
+    {
+      "method": "autots_h5",
+      "strategy": "AutoTS h5",
+      "net_return": 0.007290724225008427,
+      "max_drawdown": 0.05600352897271277,
+      "cost_pct_initial_nav": 0.01617540085181301,
+      "warning_days": 0,
+      "fills": 170,
+      "official_fills": 170,
+      "proxy_fills": 0,
+      "turnover": 5.794427154108417,
+      "runtime_seconds": 32.10064466699987,
+      "delta_vs_mom20": 0.10853669180700676,
+      "delta_vs_0050": 0.0011730628049717584,
+      "source_directory": "production_runs/preflight_20261026/strategy_retest/models/autots_h5",
+      "active_share": "UNVERIFIED"
+    },
+    {
+      "method": "mom10",
+      "strategy": "Mom10",
+      "net_return": -0.042218951137949934,
+      "max_drawdown": 0.1147826721420131,
+      "cost_pct_initial_nav": 0.018933396750016592,
+      "warning_days": 0,
+      "fills": 202,
+      "official_fills": 202,
+      "proxy_fills": 0,
+      "turnover": 6.761312869390665,
+      "runtime_seconds": 0.18280620899986388,
+      "delta_vs_mom20": 0.0590270164440484,
+      "delta_vs_0050": -0.0483366125579866,
+      "source_directory": "production_runs/preflight_20261026/strategy_retest/momentum/mom10",
+      "active_share": "UNVERIFIED"
+    },
+    {
+      "method": "mom60",
+      "strategy": "Mom60",
+      "net_return": -0.04735695357465164,
+      "max_drawdown": 0.09633370453644052,
+      "cost_pct_initial_nav": 0.005776753111705582,
+      "warning_days": 0,
+      "fills": 78,
+      "official_fills": 78,
+      "proxy_fills": 0,
+      "turnover": 2.397491454959124,
+      "runtime_seconds": 0.18337870799950906,
+      "delta_vs_mom20": 0.05388901400734669,
+      "delta_vs_0050": -0.05347461499468831,
+      "source_directory": "production_runs/preflight_20261026/strategy_retest/momentum/mom60",
+      "active_share": "UNVERIFIED"
+    },
+    {
+      "method": "tech_composite",
+      "strategy": "技術指標Composite",
+      "net_return": -0.05188646023536836,
+      "max_drawdown": 0.09059991689455393,
+      "cost_pct_initial_nav": 0.01810612445855162,
+      "warning_days": 0,
+      "fills": 191,
+      "official_fills": 191,
+      "proxy_fills": 0,
+      "turnover": 6.560336346722621,
+      "runtime_seconds": 0.28001379199940857,
+      "delta_vs_mom20": 0.04935950734662997,
+      "delta_vs_0050": -0.05800412165540503,
+      "source_directory": "production_runs/preflight_20261026/strategy_retest/technical/tech_composite",
+      "active_share": "UNVERIFIED"
+    },
+    {
+      "method": "macd_combined",
+      "strategy": "多尺度MACD",
+      "net_return": -0.06330328666480478,
+      "max_drawdown": 0.11118916128662659,
+      "cost_pct_initial_nav": 0.0156892626283599,
+      "warning_days": 0,
+      "fills": 168,
+      "official_fills": 168,
+      "proxy_fills": 0,
+      "turnover": 5.717156130795406,
+      "runtime_seconds": 0.186888541999906,
+      "delta_vs_mom20": 0.03794268091719355,
+      "delta_vs_0050": -0.06942094808484145,
+      "source_directory": "production_runs/preflight_20261026/strategy_retest/technical/macd_combined",
+      "active_share": "UNVERIFIED"
+    },
+    {
+      "method": "mom25",
+      "strategy": "Mom25",
+      "net_return": -0.07248033705507262,
+      "max_drawdown": 0.12813179619810622,
+      "cost_pct_initial_nav": 0.011803574915758279,
+      "warning_days": 0,
+      "fills": 136,
+      "official_fills": 136,
+      "proxy_fills": 0,
+      "turnover": 4.450413453828091,
+      "runtime_seconds": 0.18491466600062267,
+      "delta_vs_mom20": 0.028765630526925712,
+      "delta_vs_0050": -0.07859799847510929,
+      "source_directory": "production_runs/preflight_20261026/strategy_retest/momentum/mom25",
+      "active_share": "UNVERIFIED"
+    },
+    {
+      "method": "lgbm_D_lr0.01",
+      "strategy": "LightGBM D lr0.01",
+      "net_return": -0.07556349914939642,
+      "max_drawdown": 0.14302729295449756,
+      "cost_pct_initial_nav": 0.0173946179273758,
+      "warning_days": 0,
+      "fills": 182,
+      "official_fills": 182,
+      "proxy_fills": 0,
+      "turnover": 6.224199961494402,
+      "runtime_seconds": 18.152692290999767,
+      "delta_vs_mom20": 0.025682468432601913,
+      "delta_vs_0050": -0.08168116056943309,
+      "source_directory": "production_runs/preflight_20261026/strategy_retest/models/lgbm_D_lr0.01",
+      "active_share": "UNVERIFIED"
+    },
+    {
+      "method": "tsmc_core_equal",
+      "strategy": "台積電22.5%＋等權",
+      "net_return": -0.07820869160625843,
+      "max_drawdown": 0.12058718116774492,
+      "cost_pct_initial_nav": 0.006864627441600767,
+      "warning_days": 0,
+      "fills": 94,
+      "official_fills": 94,
+      "proxy_fills": 0,
+      "turnover": 2.779204836847412,
+      "runtime_seconds": 0.14210095900034503,
+      "delta_vs_mom20": 0.0230372759757399,
+      "delta_vs_0050": -0.0843263530262951,
+      "source_directory": "production_runs/preflight_20261026/strategy_retest/technical/tsmc_core_equal",
+      "active_share": "UNVERIFIED"
+    },
+    {
+      "method": "residual20_ew",
+      "strategy": "Residual 20日（扣等權）",
+      "net_return": -0.07927421319700534,
+      "max_drawdown": 0.1237298893219323,
+      "cost_pct_initial_nav": 0.010902214364782274,
+      "warning_days": 0,
+      "fills": 122,
+      "official_fills": 122,
+      "proxy_fills": 0,
+      "turnover": 4.156396660786856,
+      "runtime_seconds": 0.18760550000024523,
+      "delta_vs_mom20": 0.021971754384992992,
+      "delta_vs_0050": -0.08539187461704201,
+      "source_directory": "production_runs/preflight_20261026/strategy_retest/momentum/residual20_ew",
+      "active_share": "UNVERIFIED"
+    },
+    {
+      "method": "tsmc_formal",
+      "strategy": "台積電22.5%＋混合權重",
+      "net_return": -0.08649852998416963,
+      "max_drawdown": 0.13188455190529214,
+      "cost_pct_initial_nav": 0.013510896328615159,
+      "warning_days": 0,
+      "fills": 310,
+      "official_fills": 310,
+      "proxy_fills": 0,
+      "turnover": 5.00120463769478,
+      "runtime_seconds": 0.16719620799995027,
+      "delta_vs_mom20": 0.014747437597828705,
+      "delta_vs_0050": -0.0926161914042063,
+      "source_directory": "production_runs/preflight_20261026/strategy_retest/technical/tsmc_formal",
+      "active_share": "UNVERIFIED"
+    },
+    {
+      "method": "mom20",
+      "strategy": "Mom20",
+      "net_return": -0.10124596758199833,
+      "max_drawdown": 0.13789331533162263,
+      "cost_pct_initial_nav": 0.010162131207086476,
+      "warning_days": 0,
+      "fills": 114,
+      "official_fills": 114,
+      "proxy_fills": 0,
+      "turnover": 3.9342784163033726,
+      "runtime_seconds": 0.19132216700018034,
+      "delta_vs_mom20": 0.0,
+      "delta_vs_0050": -0.107363629002035,
+      "source_directory": "production_runs/preflight_20261026/strategy_retest/momentum/mom20",
+      "active_share": "UNVERIFIED"
+    },
+    {
+      "method": "residual20_0050",
+      "strategy": "Residual 20日（扣0050）",
+      "net_return": -0.11261209290411844,
+      "max_drawdown": 0.14863166109898307,
+      "cost_pct_initial_nav": 0.011080355981972854,
+      "warning_days": 0,
+      "fills": 125,
+      "official_fills": 125,
+      "proxy_fills": 0,
+      "turnover": 4.2599962604318655,
+      "runtime_seconds": 0.16246062499976688,
+      "delta_vs_mom20": -0.011366125322120113,
+      "delta_vs_0050": -0.11872975432415511,
+      "source_directory": "production_runs/preflight_20261026/strategy_retest/momentum/residual20_0050",
+      "active_share": "UNVERIFIED"
+    }
+  ],
+  "boundary_repair": "fe3f91fa6e96aad89fff6bd8de9b768d31ff7897ac7b37b16a4494fec13de15d",
+  "limitations": [
+    "One previously observed window; no new tuning or automatic promotion.",
+    "Historical ETF holdings unavailable; no Active Share certification.",
+    "Original 7/1 stitching seam repaired causally for all methods; prior result artifacts preserved.",
+    "Retrospective vendor data and existing nominal-share official-price conversion retained.",
+    "0050 is market-reference close-to-close return without strategy transaction costs."
+  ]
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "date": "2026-08-13",
+    "action": "build",
+    "passed_filter": 55,
+    "core_from_filter": 10
+  },
+  {
+    "date": "2026-08-18",
+    "action": "repair"
+  },
+  {
+    "date": "2026-08-21",
+    "action": "repair"
+  },
+  {
+    "date": "2026-08-28",
+    "action": "repair"
+  },
+  {
+    "date": "2026-08-31",
+    "action": "repair"
+  },
+  {
+    "date": "2026-09-03",
+    "action": "repair"
+  },
+  {
+    "date": "2026-09-09",
+    "action": "repair"
+  }
+]

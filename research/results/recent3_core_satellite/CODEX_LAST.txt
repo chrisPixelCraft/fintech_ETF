@@ -1,0 +1,6 @@
+已完成並保存[報告](/Users/chrishsieh/Documents/dev/fintech_ETF/research/results/recent3_core_satellite/CODEX_REPORT.md)。
+
+- 15/15 回測完成，驗帳 0 問題；兩項一致性斷言通過。
+- AS 共 360 筆，日期相容處理已記錄，仍為 UNVERIFIED。
+- C1、C3、C4 通過；凍結決策選出 C3。
+- 僅寫入允許目錄；未分支、提交、推送或合併。

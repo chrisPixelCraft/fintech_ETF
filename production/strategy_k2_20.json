@@ -1,0 +1,49 @@
+{
+ "name": "production_tournament",
+ "description": "Frozen K2 TrustRevConc with locked leaderboard switch to T2 LargeTrust.",
+ "strategy": "tournament",
+ "params": {
+  "K2": {
+   "core_n": 10,
+   "core_weight": 0.085,
+   "filler_n": 10,
+   "filler_weight": 0.01,
+   "trust_window": 10,
+   "volume_window": 20,
+   "revenue_yoy_min": 0.2,
+   "rebalance_threshold": 0.1
+  },
+  "T2": {
+   "tsmc_weight": 0.235,
+   "others_weight": 0.715,
+   "n_others": 24,
+   "pool": 40,
+   "trust_window": 20
+  },
+  "switch": {
+   "min_day_index": 12,
+   "max_rank": 6,
+   "min_sessions_remaining_exclusive": 3
+  },
+  "freeze_last_days": 3,
+  "large_window": 60,
+  "breach_buffer": 0.005
+ },
+ "execution": {
+  "mode": "auto",
+  "proxy": "hlc3"
+ },
+ "planner": {
+  "rebalance_band": 0.005
+ },
+ "episodes": {
+  "offsets": [
+   "month_start",
+   "mid_month"
+  ]
+ },
+ "portfolio": {
+  "invested": 0.95,
+  "cap_scale": 0.9
+ }
+}

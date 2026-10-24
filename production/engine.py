@@ -22,7 +22,7 @@ from competition import ledger, planner, portfolio
 from competition.backtest import PortfolioState
 from competition.data import MarketData
 from competition.rules import CompetitionRules
-from production import active_share
+from production import active_share, tournament
 from production.state import SettledBook, reconcile, symbol_to_ticker
 from research.baselines import MomentumConfig, momentum_score
 
@@ -47,6 +47,9 @@ class DayInput:
     etfs: dict | None = None                # active_share.load_etf_holdings
     required_etfs: tuple = ()
     cold_start: tuple = ()                  # frozen cold-start symbols
+    tournament_state: dict | None = None
+    rank: int | None = None
+    aux: tournament.AuxData | None = None
     degraded: tuple = ()                    # upstream data problems that forbid the normal path
 
 
@@ -63,6 +66,7 @@ class DayResult:
     active_share: dict = field(default_factory=dict)
     data_gate: list = field(default_factory=list)
     reconciliation: str = 'NOT_CHECKED'
+    tournament: dict = field(default_factory=dict)
 
     @property
     def submittable(self) -> bool:
@@ -75,8 +79,13 @@ def policy_of(strategy: dict) -> planner.PlannerPolicy:
 
 def momentum_of(strategy: dict) -> MomentumConfig:
     if strategy.get('strategy') != 'momentum':
-        raise ValueError('Production runs the frozen momentum strategy only')
+        raise ValueError('Not a momentum strategy')
     return MomentumConfig.from_dict(strategy['params'])
+
+
+def portfolio_of(strategy: dict) -> portfolio.PortfolioConfig:
+    return (momentum_of(strategy).portfolio if strategy.get('strategy') == 'momentum' else
+            portfolio.PortfolioConfig.from_dict(strategy['portfolio']))
 
 
 def sizing_close(market: MarketData, prev: pd.Timestamp, book: SettledBook) -> pd.Series:
@@ -119,33 +128,97 @@ def _check_active_share(target: dict, inp: DayInput) -> dict:
                               str(inp.trade_date.date())).as_dict()
 
 
+def _check_planned_active_share(plan, book, close, inp):
+    """Screen the actual lot-rounded book after fees, not the ideal strategy target."""
+    cash = book.cash
+    for symbol, quantity in plan.orders.items():
+        notional = abs(quantity) * float(close[symbol])
+        cash -= quantity * float(close[symbol])
+        cash -= notional * (inp.rules.commission_buy if quantity > 0 else
+                            inp.rules.commission_sell + inp.rules.tax_sell)
+    value = sum(quantity * float(close[symbol]) for symbol, quantity in plan.target_shares.items())
+    nav = cash + value
+    weights = {symbol: quantity * float(close[symbol]) / nav
+               for symbol, quantity in plan.target_shares.items()} if nav > 0 else {}
+    report = _check_active_share(weights, inp)
+    report['evaluation_basis'] = 'lot_rounded_book_at_previous_close_after_costs'
+    return report
+
+
 def normal_path(inp: DayInput, book: SettledBook, nav: float, close: pd.Series) -> DayResult:
-    cfg = momentum_of(inp.strategy)
+    is_tournament = inp.strategy.get('strategy') == 'tournament'
     state = PortfolioState(date=inp.trade_date, asof=inp.prev_date, day_index=inp.day_index,
                            sessions_remaining=inp.sessions_remaining, holdings=dict(book.holdings), cash=book.cash,
                            nav=nav, weights=_weights(book, nav), episode_id=str(inp.trade_date.date()))
     view = inp.market.asof(inp.prev_date)
-    scores = momentum_score(view, cfg)
+    proposed, switched, switch_reasons = tournament.switch_state(
+        inp.tournament_state or {}, inp.trade_date, inp.day_index, inp.sessions_remaining, inp.rank) if is_tournament else ({}, False, [])
+    details = {}
+    if is_tournament:
+        target, scores, details = tournament.TournamentStrategy(inp.rules, inp.aux).decide(
+            view, state, proposed['mode'], switched, proposed)
+        details.update(state=proposed, switched=switched, rank=inp.rank)
+    else:
+        cfg = momentum_of(inp.strategy)
+        scores = momentum_score(view, cfg)
 
-    def build(sc):
-        return portfolio.target_weights(sc, state.weights, state.sessions_remaining, inp.rules, cfg.portfolio)
+        def build(sc):
+            return portfolio.target_weights(sc, state.weights, state.sessions_remaining, inp.rules, cfg.portfolio)
 
-    target = build(scores)
-    report = _check_active_share(target, inp)
-    reasons = []
-    if report['status'] in (active_share.INVALID, active_share.CAUTION) and inp.etfs:
-        target, dropped = active_share.repair(scores, build, inp.etfs, symbol_to_ticker)
-        reasons.append('ACTIVE_SHARE_REPAIR_DROPPED:' + ';'.join(dropped))
+        target = build(scores)
+    try:
+        if is_tournament and details['action'] == 'switch_step':
+            accepted = None
+            attempts = []
+            for k, total, candidate in tournament.TournamentStrategy(inp.rules, inp.aux).switch_candidates(
+                    state.weights, target, scores):
+                target_report = _check_active_share(candidate, inp)
+                if target_report['status'] == active_share.INVALID:
+                    attempts.append(dict(k=k, status='ACTIVE_SHARE_INVALID'))
+                    continue
+                step_plan = planner.plan(candidate, close, nav, book.holdings, book.cash,
+                                         inp.rules, policy_of(inp.strategy))
+                step_report = _check_planned_active_share(step_plan, book, close, inp)
+                attempts.append(dict(k=k, status=step_plan.status, reason=step_plan.reason,
+                                     active_share=step_report['status'], names=len(candidate)))
+                if step_plan.status in ('OK', 'REPAIRED') and step_report['status'] != active_share.INVALID:
+                    accepted = (k, total, candidate, step_plan, step_report)
+                    break
+            details['step_attempts'] = attempts
+            if accepted is None:
+                plan = _hold_plan(book)
+                report = _check_planned_active_share(plan, book, close, inp)
+                if report['status'] == active_share.INVALID:
+                    raise RuntimeError('ACTIVE_SHARE_INVALID_AFTER_LOT_ROUNDING')
+                return DayResult(HOLD, switch_reasons + ['SWITCH_STEP_INFEASIBLE'], dict(state.weights),
+                                 plan, dict(book.holdings), nav, close, scores, report, tournament=details)
+            k, total, target, plan, report = accepted
+            details.update(step_k=k, step_total=total)
+            plan.audit.update(switch_step_k=k, switch_step_total=total, switch_step_attempts=attempts)
+            return DayResult(NORMAL, switch_reasons + [f'SWITCH_STEP:{k}/{total}'], target, plan,
+                             dict(book.holdings), nav, close, scores, report, tournament=details)
         report = _check_active_share(target, inp)
-    if report['status'] == active_share.INVALID:
-        raise RuntimeError('ACTIVE_SHARE_INVALID_AFTER_REPAIR')
-    plan = planner.plan(target, close, nav, book.holdings, book.cash, inp.rules, policy_of(inp.strategy))
-    if plan.status == 'INFEASIBLE':
-        raise RuntimeError('PLAN_INFEASIBLE:' + plan.reason)
-    mode = HOLD if plan.status == 'HOLD_FALLBACK' else NORMAL
-    if mode == HOLD:
-        reasons.append(plan.reason)
-    return DayResult(mode, reasons, target, plan, dict(book.holdings), nav, close, scores, report)
+        reasons = switch_reasons
+        if not is_tournament and report['status'] in (active_share.INVALID, active_share.CAUTION) and inp.etfs:
+            target, dropped = active_share.repair(scores, build, inp.etfs, symbol_to_ticker)
+            reasons.append('ACTIVE_SHARE_REPAIR_DROPPED:' + ';'.join(dropped))
+            report = _check_active_share(target, inp)
+        if report['status'] == active_share.INVALID:
+            raise RuntimeError('ACTIVE_SHARE_INVALID' if is_tournament else 'ACTIVE_SHARE_INVALID_AFTER_REPAIR')
+        plan = planner.plan(target, close, nav, book.holdings, book.cash, inp.rules, policy_of(inp.strategy))
+        if plan.status == 'INFEASIBLE':
+            raise RuntimeError('PLAN_INFEASIBLE:' + plan.reason)
+        report = _check_planned_active_share(plan, book, close, inp)
+        if report['status'] == active_share.INVALID:
+            raise RuntimeError('ACTIVE_SHARE_INVALID_AFTER_LOT_ROUNDING')
+        mode = HOLD if plan.status == 'HOLD_FALLBACK' else NORMAL
+        if mode == HOLD:
+            reasons.append(plan.reason)
+        return DayResult(mode, reasons, target, plan, dict(book.holdings), nav, close, scores, report, tournament=details)
+    except Exception as error:
+        if is_tournament:
+            error.tournament = details
+        raise
 
 
 def _hold_plan(book: SettledBook) -> planner.Plan:
@@ -154,7 +227,7 @@ def _hold_plan(book: SettledBook) -> planner.Plan:
 
 def _repair_target(book: SettledBook, nav: float, inp: DayInput) -> dict:
     """Minimum-change legal target: caps respected, 20-30 names, invested inside the cash band."""
-    pcfg = momentum_of(inp.strategy).portfolio
+    pcfg = portfolio_of(inp.strategy)
     weights = {s: min(w, inp.rules.cap(s) * pcfg.cap_scale) for s, w in _weights(book, nav).items() if w > 0}
     if len(weights) > inp.rules.max_positions:
         weights = dict(sorted(weights.items(), key=lambda kv: -kv[1])[:inp.rules.max_positions])
@@ -170,7 +243,7 @@ def _repair_target(book: SettledBook, nav: float, inp: DayInput) -> dict:
 
 
 def fallback_path(inp: DayInput, book: SettledBook, nav: float, close: pd.Series, reasons: list) -> DayResult:
-    policy, pcfg = policy_of(inp.strategy), momentum_of(inp.strategy).portfolio
+    policy, pcfg = policy_of(inp.strategy), portfolio_of(inp.strategy)
     if not book.holdings:
         if len(inp.cold_start) < inp.rules.min_positions:
             return DayResult(EMERGENCY, reasons + ['NO_COLD_START_LIST'], {}, _hold_plan(book), {}, nav, close)
@@ -178,8 +251,9 @@ def fallback_path(inp: DayInput, book: SettledBook, nav: float, close: pd.Series
         target = portfolio.cap_fill(pd.Series(1., index=names), pcfg.invested,
                                     pd.Series({s: inp.rules.cap(s) * pcfg.cap_scale for s in names})).to_dict()
         plan = planner.plan(target, close, nav, {}, book.cash, inp.rules, policy)
-        mode = COLD_START if plan.status in ('OK', 'REPAIRED') else EMERGENCY
-        return DayResult(mode, reasons, target, plan, {}, nav, close, active_share=_check_active_share(target, inp))
+        report = _check_planned_active_share(plan, book, close, inp)
+        mode = COLD_START if plan.status in ('OK', 'REPAIRED') and report['status'] != active_share.INVALID else EMERGENCY
+        return DayResult(mode, reasons, target, plan, {}, nav, close, active_share=report)
     current = _weights(book, nav)
     checks = ledger.rule_check(book.holdings, book.cash, book.marks, inp.rules, set(inp.market.symbols))
     report = _check_active_share(current, inp)
@@ -187,9 +261,10 @@ def fallback_path(inp: DayInput, book: SettledBook, nav: float, close: pd.Series
         return DayResult(HOLD, reasons, current, _hold_plan(book), dict(book.holdings), nav, close, active_share=report)
     target = _repair_target(book, nav, inp)
     plan = planner.plan(target, close, nav, book.holdings, book.cash, inp.rules, policy)
-    mode = REPAIR if plan.status in ('OK', 'REPAIRED') else EMERGENCY
+    report = _check_planned_active_share(plan, book, close, inp)
+    mode = REPAIR if plan.status in ('OK', 'REPAIRED') and report['status'] != active_share.INVALID else EMERGENCY
     return DayResult(mode, reasons + ['BOOK_VIOLATIONS:' + ';'.join(checks['violations'])], target, plan,
-                     dict(book.holdings), nav, close, active_share=_check_active_share(target, inp))
+                     dict(book.holdings), nav, close, active_share=report)
 
 
 def run_day(inp: DayInput) -> DayResult:
@@ -212,11 +287,12 @@ def run_day(inp: DayInput) -> DayResult:
     gate = data_gate(inp.market, inp.prev_date, book)
     if gate:
         reasons.append('DATA_GATE:' + ','.join(gate))
-    result = None
+    result, decision = None, {}
     if not reasons:
         try:
             result = normal_path(inp, book, nav, close)
         except Exception as error:                          # recorded; the fallback still submits
+            decision = getattr(error, 'tournament', {})
             reasons.append(f'NORMAL_PATH_FAILED:{error!r}')
             reasons.append(traceback.format_exc(limit=3))
     if result is None:
@@ -228,5 +304,13 @@ def run_day(inp: DayInput) -> DayResult:
         if inp.prev_date not in inp.market.close.index and result.plan.orders:
             result = DayResult(EMERGENCY, result.reasons + ['STALE_SIZING_CLOSE_WITH_ORDERS'], {}, _hold_plan(book),
                                dict(book.holdings), nav, close)
+    if decision and not result.tournament:
+        result.tournament = decision
+    if inp.strategy.get('strategy') == 'tournament' and not result.tournament:
+        prior = inp.tournament_state or {}
+        state, _, notes = tournament.switch_state(prior, inp.trade_date, inp.day_index, inp.sessions_remaining, inp.rank)
+        state.update(mode=prior.get('mode', 'K2'), switched_on=prior.get('switched_on'))
+        result.tournament = dict(mode=state['mode'], state=state, switched=False, rank=inp.rank, action='fallback')
+        result.reasons.extend(notes)
     result.data_gate, result.reconciliation = gate, rec
     return result

@@ -1,0 +1,7 @@
+已完成，validation 判定 **ADOPT**。
+
+- 權重：動能 25%、投信 0%、營收 75%。
+- 3,167 個 episode 完成，驗證問題 0；凍結雜湊與路徑檢查通過。
+- 未變更實際策略，未執行 Git 寫入。
+
+[完整報告](research/results/k3_weights/CODEX_REPORT.md)

@@ -1,0 +1,39 @@
+[
+  {
+    "date": "2026-04-30",
+    "action": "build",
+    "passed_filter": 25,
+    "core_from_filter": 10
+  },
+  {
+    "date": "2026-05-11",
+    "action": "repair"
+  },
+  {
+    "date": "2026-05-12",
+    "action": "rescreen",
+    "turnover": 0.6990197839154003,
+    "passed_filter": 25,
+    "core_from_filter": 10
+  },
+  {
+    "date": "2026-05-14",
+    "action": "repair"
+  },
+  {
+    "date": "2026-05-18",
+    "action": "repair"
+  },
+  {
+    "date": "2026-05-20",
+    "action": "repair"
+  },
+  {
+    "date": "2026-05-25",
+    "action": "repair"
+  },
+  {
+    "date": "2026-05-29",
+    "action": "repair"
+  }
+]

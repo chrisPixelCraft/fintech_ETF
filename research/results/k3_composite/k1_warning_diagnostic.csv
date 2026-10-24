@@ -1,0 +1,8 @@
+window_id,set,stored_return,rerun_return,abs_diff,tolerance,warning_days,verify_problem_count,matched,warning_reasons
+dev_2017_05m,historical,-0.02687787422330168,-0.02687787422330168,0.0,1e-12,1,0,True,"[{""date"": ""2017-06-02"", ""warning_reasons"": ""NEGATIVE_CASH""}]"
+dev_2017_06,historical,-0.031596663593231766,-0.031596663593231766,0.0,1e-12,1,0,True,"[{""date"": ""2017-06-02"", ""warning_reasons"": ""NEGATIVE_CASH""}]"
+dev_2017_07m,historical,0.036416243603279996,0.036416243603279996,0.0,1e-12,1,0,True,"[{""date"": ""2017-08-07"", ""warning_reasons"": ""ACTIVE_CAP:2327.TW""}]"
+dev_2017_08,historical,0.06193784221305587,0.06193784221305587,0.0,1e-12,2,0,True,"[{""date"": ""2017-08-07"", ""warning_reasons"": ""ACTIVE_CAP:2327.TW""}, {""date"": ""2017-08-15"", ""warning_reasons"": ""ACTIVE_CAP:2337.TW;NEGATIVE_CASH""}]"
+dev_2017_08m,historical,0.02551813128541003,0.02551813128541003,0.0,1e-12,1,0,True,"[{""date"": ""2017-08-15"", ""warning_reasons"": ""ACTIVE_CAP:2337.TW;NEGATIVE_CASH""}]"
+dev_2019_08m,historical,0.04590952829563166,0.04590952829563166,0.0,1e-12,1,0,True,"[{""date"": ""2019-08-30"", ""warning_reasons"": ""NEGATIVE_CASH""}]"
+dev_2021_08,historical,-0.053213636900082184,-0.053213636900082184,0.0,1e-12,1,0,True,"[{""date"": ""2021-09-02"", ""warning_reasons"": ""OVERDUE_CAP:5871.TW""}]"

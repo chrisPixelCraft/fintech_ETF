@@ -1,0 +1,43 @@
+[
+  {
+    "date": "2026-08-13",
+    "action": "build",
+    "confirmed": 84,
+    "filled_by_score": 0
+  },
+  {
+    "date": "2026-08-20",
+    "action": "rerank",
+    "turnover": 0.2562903848251374,
+    "confirmed": 61,
+    "filled_by_score": 0
+  },
+  {
+    "date": "2026-08-24",
+    "action": "trim",
+    "names": [
+      "2615.TW"
+    ]
+  },
+  {
+    "date": "2026-08-27",
+    "action": "rerank",
+    "turnover": 0.24633787808456037,
+    "confirmed": 65,
+    "filled_by_score": 0
+  },
+  {
+    "date": "2026-09-03",
+    "action": "rerank",
+    "turnover": 0.2529780756097718,
+    "confirmed": 71,
+    "filled_by_score": 0
+  },
+  {
+    "date": "2026-09-10",
+    "action": "rerank",
+    "turnover": 0.5682621286863389,
+    "confirmed": 70,
+    "filled_by_score": 0
+  }
+]

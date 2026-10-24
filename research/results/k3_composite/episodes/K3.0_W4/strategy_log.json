@@ -1,0 +1,31 @@
+[
+  {
+    "date": "2026-08-13",
+    "action": "build",
+    "scored": 149
+  },
+  {
+    "date": "2026-08-20",
+    "action": "rerank",
+    "turnover": 0.16108429215020015,
+    "scored": 149
+  },
+  {
+    "date": "2026-08-27",
+    "action": "rerank",
+    "turnover": 0.13816330999059342,
+    "scored": 149
+  },
+  {
+    "date": "2026-09-03",
+    "action": "rerank",
+    "turnover": 0.21522486469796268,
+    "scored": 149
+  },
+  {
+    "date": "2026-09-10",
+    "action": "rerank",
+    "turnover": 0.3676219170691451,
+    "scored": 149
+  }
+]

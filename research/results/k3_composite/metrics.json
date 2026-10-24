@@ -1,0 +1,5435 @@
+{
+  "status": "COMPLETE",
+  "metrics": {
+    "historical": {
+      "K3.0": {
+        "count": 276,
+        "mean_delta_vs_0050": 0.017625214857596983,
+        "median_delta_vs_0050": 0.007833085611229307,
+        "win_rate": 0.5507246376811594,
+        "p_gain_5pp": 0.25,
+        "p_gain_10pp": 0.09420289855072464,
+        "p_gain_15pp": 0.025362318840579712,
+        "p_loss_5pp": 0.09420289855072464,
+        "tail_edge": 0.15579710144927536,
+        "p90_max_drawdown": 0.10759594825168428,
+        "total_warning_days": 5,
+        "max_warning_days": 2,
+        "disqualifications": 0,
+        "mean_turnover": 3.2377157594594594,
+        "mean_costs": 8157845.257288038
+      },
+      "K3.1": {
+        "count": 276,
+        "mean_delta_vs_0050": 0.01063117820363185,
+        "median_delta_vs_0050": 0.006477408347952407,
+        "win_rate": 0.5398550724637681,
+        "p_gain_5pp": 0.21739130434782608,
+        "p_gain_10pp": 0.06884057971014493,
+        "p_gain_15pp": 0.025362318840579712,
+        "p_loss_5pp": 0.14492753623188406,
+        "tail_edge": 0.07246376811594202,
+        "p90_max_drawdown": 0.10701238077071379,
+        "total_warning_days": 2,
+        "max_warning_days": 1,
+        "disqualifications": 0,
+        "mean_turnover": 3.478209021295501,
+        "mean_costs": 8858057.05822411
+      },
+      "K2": {
+        "count": 276,
+        "mean_delta_vs_0050": 0.01509131658551053,
+        "median_delta_vs_0050": 0.012953737107043506,
+        "win_rate": 0.6159420289855072,
+        "p_gain_5pp": 0.2210144927536232,
+        "p_gain_10pp": 0.057971014492753624,
+        "p_gain_15pp": 0.018115942028985508,
+        "p_loss_5pp": 0.10144927536231885,
+        "tail_edge": 0.11956521739130435,
+        "p90_max_drawdown": 0.11032849540181439,
+        "total_warning_days": 0,
+        "max_warning_days": 0,
+        "disqualifications": 0,
+        "mean_turnover": 1.7986567860196152,
+        "mean_costs": 3956581.1986540477
+      },
+      "K1": {
+        "count": 276,
+        "mean_delta_vs_0050": 0.012190525995639263,
+        "median_delta_vs_0050": 0.0003751938507789432,
+        "win_rate": 0.5036231884057971,
+        "p_gain_5pp": 0.2572463768115942,
+        "p_gain_10pp": 0.11594202898550725,
+        "p_gain_15pp": 0.06159420289855073,
+        "p_loss_5pp": 0.213768115942029,
+        "tail_edge": 0.04347826086956519,
+        "p90_max_drawdown": 0.13481433735994225,
+        "total_warning_days": 8,
+        "max_warning_days": 2,
+        "disqualifications": 0,
+        "mean_turnover": 5.2362726755348294,
+        "mean_costs": 13915987.695659673
+      },
+      "T2": {
+        "count": 276,
+        "mean_delta_vs_0050": 0.006019845719787206,
+        "median_delta_vs_0050": 0.00194462917249566,
+        "win_rate": 0.5434782608695652,
+        "p_gain_5pp": 0.08333333333333333,
+        "p_gain_10pp": 0.010869565217391304,
+        "p_gain_15pp": 0.0036231884057971015,
+        "p_loss_5pp": 0.03260869565217391,
+        "tail_edge": 0.05072463768115942,
+        "p90_max_drawdown": 0.10155583566934934,
+        "total_warning_days": 0,
+        "max_warning_days": 0,
+        "disqualifications": 0,
+        "mean_turnover": 0.9140604880122517,
+        "mean_costs": 1307686.239387717
+      },
+      "Mom20": {
+        "count": 276,
+        "mean_delta_vs_0050": 0.009402646561816472,
+        "median_delta_vs_0050": 0.0016027976091248508,
+        "win_rate": 0.5144927536231884,
+        "p_gain_5pp": 0.1956521739130435,
+        "p_gain_10pp": 0.07608695652173914,
+        "p_gain_15pp": 0.014492753623188406,
+        "p_loss_5pp": 0.11231884057971014,
+        "tail_edge": 0.08333333333333334,
+        "p90_max_drawdown": 0.11180765166045364,
+        "total_warning_days": 0,
+        "max_warning_days": 0,
+        "disqualifications": 0,
+        "mean_turnover": 3.6845949871338215,
+        "mean_costs": 9361746.72356439
+      },
+      "0050": {
+        "count": 276,
+        "mean_delta_vs_0050": 0.0,
+        "median_delta_vs_0050": 0.0,
+        "win_rate": 0.0,
+        "p_gain_5pp": 0.0,
+        "p_gain_10pp": 0.0,
+        "p_gain_15pp": 0.0,
+        "p_loss_5pp": 0.0,
+        "tail_edge": 0.0,
+        "p90_max_drawdown": 0.09271260303404466,
+        "total_warning_days": 0,
+        "max_warning_days": 0,
+        "disqualifications": 0,
+        "mean_turnover": 0.0,
+        "mean_costs": 0.0
+      }
+    },
+    "recent": {
+      "K3.0": {
+        "count": 5,
+        "mean_delta_vs_0050": -0.023443075910342427,
+        "median_delta_vs_0050": -0.006281596184122051,
+        "win_rate": 0.4,
+        "p_gain_5pp": 0.0,
+        "p_gain_10pp": 0.0,
+        "p_gain_15pp": 0.0,
+        "p_loss_5pp": 0.4,
+        "tail_edge": -0.4,
+        "p90_max_drawdown": 0.15353456407106128,
+        "total_warning_days": 0,
+        "max_warning_days": 0,
+        "disqualifications": 0,
+        "mean_turnover": 2.9944574121598366,
+        "mean_costs": 7516636.656898743
+      },
+      "K3.1": {
+        "count": 5,
+        "mean_delta_vs_0050": 0.007299160103664515,
+        "median_delta_vs_0050": -0.03993243480637265,
+        "win_rate": 0.4,
+        "p_gain_5pp": 0.4,
+        "p_gain_10pp": 0.2,
+        "p_gain_15pp": 0.0,
+        "p_loss_5pp": 0.2,
+        "tail_edge": 0.2,
+        "p90_max_drawdown": 0.17517852859096072,
+        "total_warning_days": 0,
+        "max_warning_days": 0,
+        "disqualifications": 0,
+        "mean_turnover": 3.2897609184045478,
+        "mean_costs": 8531717.607506674
+      },
+      "K2": {
+        "count": 5,
+        "mean_delta_vs_0050": -0.0011914315773938534,
+        "median_delta_vs_0050": 0.016518027202691465,
+        "win_rate": 0.6,
+        "p_gain_5pp": 0.0,
+        "p_gain_10pp": 0.0,
+        "p_gain_15pp": 0.0,
+        "p_loss_5pp": 0.2,
+        "tail_edge": -0.2,
+        "p90_max_drawdown": 0.08323694842039815,
+        "total_warning_days": 0,
+        "max_warning_days": 0,
+        "disqualifications": 0,
+        "mean_turnover": 1.6712711721749471,
+        "mean_costs": 3511338.213922549
+      },
+      "K1": {
+        "count": 5,
+        "mean_delta_vs_0050": -0.04401647129550188,
+        "median_delta_vs_0050": -0.07040736133733572,
+        "win_rate": 0.4,
+        "p_gain_5pp": 0.2,
+        "p_gain_10pp": 0.2,
+        "p_gain_15pp": 0.0,
+        "p_loss_5pp": 0.6,
+        "tail_edge": -0.39999999999999997,
+        "p90_max_drawdown": 0.2284933444918601,
+        "total_warning_days": 0,
+        "max_warning_days": 0,
+        "disqualifications": 0,
+        "mean_turnover": 5.976728219219432,
+        "mean_costs": 16054238.226489883
+      },
+      "T2": {
+        "count": 5,
+        "mean_delta_vs_0050": 0.004917590668356708,
+        "median_delta_vs_0050": 0.009823565455101768,
+        "win_rate": 0.8,
+        "p_gain_5pp": 0.0,
+        "p_gain_10pp": 0.0,
+        "p_gain_15pp": 0.0,
+        "p_loss_5pp": 0.0,
+        "tail_edge": 0.0,
+        "p90_max_drawdown": 0.15563237980149433,
+        "total_warning_days": 0,
+        "max_warning_days": 0,
+        "disqualifications": 0,
+        "mean_turnover": 0.930318064082677,
+        "mean_costs": 1340193.0037319702
+      },
+      "Mom20": {
+        "count": 5,
+        "mean_delta_vs_0050": -0.04191048807233435,
+        "median_delta_vs_0050": -0.07756109616196893,
+        "win_rate": 0.4,
+        "p_gain_5pp": 0.0,
+        "p_gain_10pp": 0.0,
+        "p_gain_15pp": 0.0,
+        "p_loss_5pp": 0.6,
+        "tail_edge": -0.6,
+        "p90_max_drawdown": 0.16467223096574207,
+        "total_warning_days": 0,
+        "max_warning_days": 0,
+        "disqualifications": 0,
+        "mean_turnover": 3.981339056525563,
+        "mean_costs": 10192336.722238233
+      },
+      "0050": {
+        "count": 5,
+        "mean_delta_vs_0050": 0.0,
+        "median_delta_vs_0050": 0.0,
+        "win_rate": 0.0,
+        "p_gain_5pp": 0.0,
+        "p_gain_10pp": 0.0,
+        "p_gain_15pp": 0.0,
+        "p_loss_5pp": 0.0,
+        "tail_edge": 0.0,
+        "p90_max_drawdown": 0.10261936218659429,
+        "total_warning_days": 0,
+        "max_warning_days": 0,
+        "disqualifications": 0,
+        "mean_turnover": 0.0,
+        "mean_costs": 0.0
+      }
+    }
+  },
+  "checks": {
+    "episodes_expected": 562,
+    "episodes_processed": 562,
+    "episodes_failed": 0,
+    "episodes_complete": 562,
+    "pilot_episodes": 6,
+    "verification_calls": 562,
+    "verification_problem_count": 0,
+    "verification_problem_counts": {
+      "K3.0_dev_2015_01": 0,
+      "K3.1_dev_2015_01": 0,
+      "K3.0_dev_2015_01m": 0,
+      "K3.1_dev_2015_01m": 0,
+      "K3.0_dev_2015_02": 0,
+      "K3.1_dev_2015_02": 0,
+      "K3.0_dev_2015_02m": 0,
+      "K3.1_dev_2015_02m": 0,
+      "K3.0_dev_2015_03": 0,
+      "K3.1_dev_2015_03": 0,
+      "K3.0_dev_2015_03m": 0,
+      "K3.1_dev_2015_03m": 0,
+      "K3.0_dev_2015_04": 0,
+      "K3.1_dev_2015_04": 0,
+      "K3.0_dev_2015_04m": 0,
+      "K3.1_dev_2015_04m": 0,
+      "K3.0_dev_2015_05": 0,
+      "K3.1_dev_2015_05": 0,
+      "K3.0_dev_2015_05m": 0,
+      "K3.1_dev_2015_05m": 0,
+      "K3.0_dev_2015_06": 0,
+      "K3.1_dev_2015_06": 0,
+      "K3.0_dev_2015_06m": 0,
+      "K3.1_dev_2015_06m": 0,
+      "K3.0_dev_2015_07": 0,
+      "K3.1_dev_2015_07": 0,
+      "K3.0_dev_2015_07m": 0,
+      "K3.1_dev_2015_07m": 0,
+      "K3.0_dev_2015_08": 0,
+      "K3.1_dev_2015_08": 0,
+      "K3.0_dev_2015_08m": 0,
+      "K3.1_dev_2015_08m": 0,
+      "K3.0_dev_2015_09": 0,
+      "K3.1_dev_2015_09": 0,
+      "K3.0_dev_2015_09m": 0,
+      "K3.1_dev_2015_09m": 0,
+      "K3.0_dev_2015_10": 0,
+      "K3.1_dev_2015_10": 0,
+      "K3.0_dev_2015_10m": 0,
+      "K3.1_dev_2015_10m": 0,
+      "K3.0_dev_2015_11": 0,
+      "K3.1_dev_2015_11": 0,
+      "K3.0_dev_2015_11m": 0,
+      "K3.1_dev_2015_11m": 0,
+      "K3.0_dev_2015_12": 0,
+      "K3.1_dev_2015_12": 0,
+      "K3.0_dev_2015_12m": 0,
+      "K3.1_dev_2015_12m": 0,
+      "K3.0_dev_2016_01": 0,
+      "K3.1_dev_2016_01": 0,
+      "K3.0_dev_2016_01m": 0,
+      "K3.1_dev_2016_01m": 0,
+      "K3.0_dev_2016_02": 0,
+      "K3.1_dev_2016_02": 0,
+      "K3.0_dev_2016_02m": 0,
+      "K3.1_dev_2016_02m": 0,
+      "K3.0_dev_2016_03": 0,
+      "K3.1_dev_2016_03": 0,
+      "K3.0_dev_2016_03m": 0,
+      "K3.1_dev_2016_03m": 0,
+      "K3.0_dev_2016_04": 0,
+      "K3.1_dev_2016_04": 0,
+      "K3.0_dev_2016_04m": 0,
+      "K3.1_dev_2016_04m": 0,
+      "K3.0_dev_2016_05": 0,
+      "K3.1_dev_2016_05": 0,
+      "K3.0_dev_2016_05m": 0,
+      "K3.1_dev_2016_05m": 0,
+      "K3.0_dev_2016_06": 0,
+      "K3.1_dev_2016_06": 0,
+      "K3.0_dev_2016_06m": 0,
+      "K3.1_dev_2016_06m": 0,
+      "K3.0_dev_2016_07": 0,
+      "K3.1_dev_2016_07": 0,
+      "K3.0_dev_2016_07m": 0,
+      "K3.1_dev_2016_07m": 0,
+      "K3.0_dev_2016_08": 0,
+      "K3.1_dev_2016_08": 0,
+      "K3.0_dev_2016_08m": 0,
+      "K3.1_dev_2016_08m": 0,
+      "K3.0_dev_2016_09": 0,
+      "K3.1_dev_2016_09": 0,
+      "K3.0_dev_2016_09m": 0,
+      "K3.1_dev_2016_09m": 0,
+      "K3.0_dev_2016_10": 0,
+      "K3.1_dev_2016_10": 0,
+      "K3.0_dev_2016_10m": 0,
+      "K3.1_dev_2016_10m": 0,
+      "K3.0_dev_2016_11": 0,
+      "K3.1_dev_2016_11": 0,
+      "K3.0_dev_2016_11m": 0,
+      "K3.1_dev_2016_11m": 0,
+      "K3.0_dev_2016_12": 0,
+      "K3.1_dev_2016_12": 0,
+      "K3.0_dev_2016_12m": 0,
+      "K3.1_dev_2016_12m": 0,
+      "K3.0_dev_2017_01": 0,
+      "K3.1_dev_2017_01": 0,
+      "K3.0_dev_2017_01m": 0,
+      "K3.1_dev_2017_01m": 0,
+      "K3.0_dev_2017_02": 0,
+      "K3.1_dev_2017_02": 0,
+      "K3.0_dev_2017_02m": 0,
+      "K3.1_dev_2017_02m": 0,
+      "K3.0_dev_2017_03": 0,
+      "K3.1_dev_2017_03": 0,
+      "K3.0_dev_2017_03m": 0,
+      "K3.1_dev_2017_03m": 0,
+      "K3.0_dev_2017_04": 0,
+      "K3.1_dev_2017_04": 0,
+      "K3.0_dev_2017_04m": 0,
+      "K3.1_dev_2017_04m": 0,
+      "K3.0_dev_2017_05": 0,
+      "K3.1_dev_2017_05": 0,
+      "K3.0_dev_2017_05m": 0,
+      "K3.1_dev_2017_05m": 0,
+      "K3.0_dev_2017_06": 0,
+      "K3.1_dev_2017_06": 0,
+      "K3.0_dev_2017_06m": 0,
+      "K3.1_dev_2017_06m": 0,
+      "K3.0_dev_2017_07": 0,
+      "K3.1_dev_2017_07": 0,
+      "K3.0_dev_2017_07m": 0,
+      "K3.1_dev_2017_07m": 0,
+      "K3.0_dev_2017_08": 0,
+      "K3.1_dev_2017_08": 0,
+      "K3.0_dev_2017_08m": 0,
+      "K3.1_dev_2017_08m": 0,
+      "K3.0_dev_2017_09": 0,
+      "K3.1_dev_2017_09": 0,
+      "K3.0_dev_2017_09m": 0,
+      "K3.1_dev_2017_09m": 0,
+      "K3.0_dev_2017_10": 0,
+      "K3.1_dev_2017_10": 0,
+      "K3.0_dev_2017_10m": 0,
+      "K3.1_dev_2017_10m": 0,
+      "K3.0_dev_2017_11": 0,
+      "K3.1_dev_2017_11": 0,
+      "K3.0_dev_2017_11m": 0,
+      "K3.1_dev_2017_11m": 0,
+      "K3.0_dev_2017_12": 0,
+      "K3.1_dev_2017_12": 0,
+      "K3.0_dev_2017_12m": 0,
+      "K3.1_dev_2017_12m": 0,
+      "K3.0_dev_2018_01": 0,
+      "K3.1_dev_2018_01": 0,
+      "K3.0_dev_2018_01m": 0,
+      "K3.1_dev_2018_01m": 0,
+      "K3.0_dev_2018_02": 0,
+      "K3.1_dev_2018_02": 0,
+      "K3.0_dev_2018_02m": 0,
+      "K3.1_dev_2018_02m": 0,
+      "K3.0_dev_2018_03": 0,
+      "K3.1_dev_2018_03": 0,
+      "K3.0_dev_2018_03m": 0,
+      "K3.1_dev_2018_03m": 0,
+      "K3.0_dev_2018_04": 0,
+      "K3.1_dev_2018_04": 0,
+      "K3.0_dev_2018_04m": 0,
+      "K3.1_dev_2018_04m": 0,
+      "K3.0_dev_2018_05": 0,
+      "K3.1_dev_2018_05": 0,
+      "K3.0_dev_2018_05m": 0,
+      "K3.1_dev_2018_05m": 0,
+      "K3.0_dev_2018_06": 0,
+      "K3.1_dev_2018_06": 0,
+      "K3.0_dev_2018_06m": 0,
+      "K3.1_dev_2018_06m": 0,
+      "K3.0_dev_2018_07": 0,
+      "K3.1_dev_2018_07": 0,
+      "K3.0_dev_2018_07m": 0,
+      "K3.1_dev_2018_07m": 0,
+      "K3.0_dev_2018_08": 0,
+      "K3.1_dev_2018_08": 0,
+      "K3.0_dev_2018_08m": 0,
+      "K3.1_dev_2018_08m": 0,
+      "K3.0_dev_2018_09": 0,
+      "K3.1_dev_2018_09": 0,
+      "K3.0_dev_2018_09m": 0,
+      "K3.1_dev_2018_09m": 0,
+      "K3.0_dev_2018_10": 0,
+      "K3.1_dev_2018_10": 0,
+      "K3.0_dev_2018_10m": 0,
+      "K3.1_dev_2018_10m": 0,
+      "K3.0_dev_2018_11": 0,
+      "K3.1_dev_2018_11": 0,
+      "K3.0_dev_2018_11m": 0,
+      "K3.1_dev_2018_11m": 0,
+      "K3.0_dev_2018_12": 0,
+      "K3.1_dev_2018_12": 0,
+      "K3.0_dev_2018_12m": 0,
+      "K3.1_dev_2018_12m": 0,
+      "K3.0_dev_2019_01": 0,
+      "K3.1_dev_2019_01": 0,
+      "K3.0_dev_2019_01m": 0,
+      "K3.1_dev_2019_01m": 0,
+      "K3.0_dev_2019_02": 0,
+      "K3.1_dev_2019_02": 0,
+      "K3.0_dev_2019_02m": 0,
+      "K3.1_dev_2019_02m": 0,
+      "K3.0_dev_2019_03": 0,
+      "K3.1_dev_2019_03": 0,
+      "K3.0_dev_2019_03m": 0,
+      "K3.1_dev_2019_03m": 0,
+      "K3.0_dev_2019_04": 0,
+      "K3.1_dev_2019_04": 0,
+      "K3.0_dev_2019_04m": 0,
+      "K3.1_dev_2019_04m": 0,
+      "K3.0_dev_2019_05": 0,
+      "K3.1_dev_2019_05": 0,
+      "K3.0_dev_2019_05m": 0,
+      "K3.1_dev_2019_05m": 0,
+      "K3.0_dev_2019_06": 0,
+      "K3.1_dev_2019_06": 0,
+      "K3.0_dev_2019_06m": 0,
+      "K3.1_dev_2019_06m": 0,
+      "K3.0_dev_2019_07": 0,
+      "K3.1_dev_2019_07": 0,
+      "K3.0_dev_2019_07m": 0,
+      "K3.1_dev_2019_07m": 0,
+      "K3.0_dev_2019_08": 0,
+      "K3.1_dev_2019_08": 0,
+      "K3.0_dev_2019_08m": 0,
+      "K3.1_dev_2019_08m": 0,
+      "K3.0_dev_2019_09": 0,
+      "K3.1_dev_2019_09": 0,
+      "K3.0_dev_2019_09m": 0,
+      "K3.1_dev_2019_09m": 0,
+      "K3.0_dev_2019_10": 0,
+      "K3.1_dev_2019_10": 0,
+      "K3.0_dev_2019_10m": 0,
+      "K3.1_dev_2019_10m": 0,
+      "K3.0_dev_2019_11": 0,
+      "K3.1_dev_2019_11": 0,
+      "K3.0_dev_2019_11m": 0,
+      "K3.1_dev_2019_11m": 0,
+      "K3.0_dev_2019_12": 0,
+      "K3.1_dev_2019_12": 0,
+      "K3.0_dev_2019_12m": 0,
+      "K3.1_dev_2019_12m": 0,
+      "K3.0_dev_2020_01": 0,
+      "K3.1_dev_2020_01": 0,
+      "K3.0_dev_2020_01m": 0,
+      "K3.1_dev_2020_01m": 0,
+      "K3.0_dev_2020_02": 0,
+      "K3.1_dev_2020_02": 0,
+      "K3.0_dev_2020_02m": 0,
+      "K3.1_dev_2020_02m": 0,
+      "K3.0_dev_2020_03": 0,
+      "K3.1_dev_2020_03": 0,
+      "K3.0_dev_2020_03m": 0,
+      "K3.1_dev_2020_03m": 0,
+      "K3.0_dev_2020_04": 0,
+      "K3.1_dev_2020_04": 0,
+      "K3.0_dev_2020_04m": 0,
+      "K3.1_dev_2020_04m": 0,
+      "K3.0_dev_2020_05": 0,
+      "K3.1_dev_2020_05": 0,
+      "K3.0_dev_2020_05m": 0,
+      "K3.1_dev_2020_05m": 0,
+      "K3.0_dev_2020_06": 0,
+      "K3.1_dev_2020_06": 0,
+      "K3.0_dev_2020_06m": 0,
+      "K3.1_dev_2020_06m": 0,
+      "K3.0_dev_2020_07": 0,
+      "K3.1_dev_2020_07": 0,
+      "K3.0_dev_2020_07m": 0,
+      "K3.1_dev_2020_07m": 0,
+      "K3.0_dev_2020_08": 0,
+      "K3.1_dev_2020_08": 0,
+      "K3.0_dev_2020_08m": 0,
+      "K3.1_dev_2020_08m": 0,
+      "K3.0_dev_2020_09": 0,
+      "K3.1_dev_2020_09": 0,
+      "K3.0_dev_2020_09m": 0,
+      "K3.1_dev_2020_09m": 0,
+      "K3.0_dev_2020_10": 0,
+      "K3.1_dev_2020_10": 0,
+      "K3.0_dev_2020_10m": 0,
+      "K3.1_dev_2020_10m": 0,
+      "K3.0_dev_2020_11": 0,
+      "K3.1_dev_2020_11": 0,
+      "K3.0_dev_2020_11m": 0,
+      "K3.1_dev_2020_11m": 0,
+      "K3.0_dev_2020_12": 0,
+      "K3.1_dev_2020_12": 0,
+      "K3.0_dev_2020_12m": 0,
+      "K3.1_dev_2020_12m": 0,
+      "K3.0_dev_2021_01": 0,
+      "K3.1_dev_2021_01": 0,
+      "K3.0_dev_2021_01m": 0,
+      "K3.1_dev_2021_01m": 0,
+      "K3.0_dev_2021_02": 0,
+      "K3.1_dev_2021_02": 0,
+      "K3.0_dev_2021_02m": 0,
+      "K3.1_dev_2021_02m": 0,
+      "K3.0_dev_2021_03": 0,
+      "K3.1_dev_2021_03": 0,
+      "K3.0_dev_2021_03m": 0,
+      "K3.1_dev_2021_03m": 0,
+      "K3.0_dev_2021_04": 0,
+      "K3.1_dev_2021_04": 0,
+      "K3.0_dev_2021_04m": 0,
+      "K3.1_dev_2021_04m": 0,
+      "K3.0_dev_2021_05": 0,
+      "K3.1_dev_2021_05": 0,
+      "K3.0_dev_2021_05m": 0,
+      "K3.1_dev_2021_05m": 0,
+      "K3.0_dev_2021_06": 0,
+      "K3.1_dev_2021_06": 0,
+      "K3.0_dev_2021_06m": 0,
+      "K3.1_dev_2021_06m": 0,
+      "K3.0_dev_2021_07": 0,
+      "K3.1_dev_2021_07": 0,
+      "K3.0_dev_2021_07m": 0,
+      "K3.1_dev_2021_07m": 0,
+      "K3.0_dev_2021_08": 0,
+      "K3.1_dev_2021_08": 0,
+      "K3.0_dev_2021_08m": 0,
+      "K3.1_dev_2021_08m": 0,
+      "K3.0_dev_2021_09": 0,
+      "K3.1_dev_2021_09": 0,
+      "K3.0_dev_2021_09m": 0,
+      "K3.1_dev_2021_09m": 0,
+      "K3.0_dev_2021_10": 0,
+      "K3.1_dev_2021_10": 0,
+      "K3.0_dev_2021_10m": 0,
+      "K3.1_dev_2021_10m": 0,
+      "K3.0_dev_2021_11": 0,
+      "K3.1_dev_2021_11": 0,
+      "K3.0_dev_2021_11m": 0,
+      "K3.1_dev_2021_11m": 0,
+      "K3.0_validation_2022_01": 0,
+      "K3.1_validation_2022_01": 0,
+      "K3.0_validation_2022_01m": 0,
+      "K3.1_validation_2022_01m": 0,
+      "K3.0_validation_2022_02": 0,
+      "K3.1_validation_2022_02": 0,
+      "K3.0_validation_2022_02m": 0,
+      "K3.1_validation_2022_02m": 0,
+      "K3.0_validation_2022_03": 0,
+      "K3.1_validation_2022_03": 0,
+      "K3.0_validation_2022_03m": 0,
+      "K3.1_validation_2022_03m": 0,
+      "K3.0_validation_2022_04": 0,
+      "K3.1_validation_2022_04": 0,
+      "K3.0_validation_2022_04m": 0,
+      "K3.1_validation_2022_04m": 0,
+      "K3.0_validation_2022_05": 0,
+      "K3.1_validation_2022_05": 0,
+      "K3.0_validation_2022_05m": 0,
+      "K3.1_validation_2022_05m": 0,
+      "K3.0_validation_2022_06": 0,
+      "K3.1_validation_2022_06": 0,
+      "K3.0_validation_2022_06m": 0,
+      "K3.1_validation_2022_06m": 0,
+      "K3.0_validation_2022_07": 0,
+      "K3.1_validation_2022_07": 0,
+      "K3.0_validation_2022_07m": 0,
+      "K3.1_validation_2022_07m": 0,
+      "K3.0_validation_2022_08": 0,
+      "K3.1_validation_2022_08": 0,
+      "K3.0_validation_2022_08m": 0,
+      "K3.1_validation_2022_08m": 0,
+      "K3.0_validation_2022_09": 0,
+      "K3.1_validation_2022_09": 0,
+      "K3.0_validation_2022_09m": 0,
+      "K3.1_validation_2022_09m": 0,
+      "K3.0_validation_2022_10": 0,
+      "K3.1_validation_2022_10": 0,
+      "K3.0_validation_2022_10m": 0,
+      "K3.1_validation_2022_10m": 0,
+      "K3.0_validation_2022_11": 0,
+      "K3.1_validation_2022_11": 0,
+      "K3.0_validation_2022_11m": 0,
+      "K3.1_validation_2022_11m": 0,
+      "K3.0_validation_2022_12": 0,
+      "K3.1_validation_2022_12": 0,
+      "K3.0_validation_2022_12m": 0,
+      "K3.1_validation_2022_12m": 0,
+      "K3.0_validation_2023_01": 0,
+      "K3.1_validation_2023_01": 0,
+      "K3.0_validation_2023_01m": 0,
+      "K3.1_validation_2023_01m": 0,
+      "K3.0_validation_2023_02": 0,
+      "K3.1_validation_2023_02": 0,
+      "K3.0_validation_2023_02m": 0,
+      "K3.1_validation_2023_02m": 0,
+      "K3.0_validation_2023_03": 0,
+      "K3.1_validation_2023_03": 0,
+      "K3.0_validation_2023_03m": 0,
+      "K3.1_validation_2023_03m": 0,
+      "K3.0_validation_2023_04": 0,
+      "K3.1_validation_2023_04": 0,
+      "K3.0_validation_2023_04m": 0,
+      "K3.1_validation_2023_04m": 0,
+      "K3.0_validation_2023_05": 0,
+      "K3.1_validation_2023_05": 0,
+      "K3.0_validation_2023_05m": 0,
+      "K3.1_validation_2023_05m": 0,
+      "K3.0_validation_2023_06": 0,
+      "K3.1_validation_2023_06": 0,
+      "K3.0_validation_2023_06m": 0,
+      "K3.1_validation_2023_06m": 0,
+      "K3.0_validation_2023_07": 0,
+      "K3.1_validation_2023_07": 0,
+      "K3.0_validation_2023_07m": 0,
+      "K3.1_validation_2023_07m": 0,
+      "K3.0_validation_2023_08": 0,
+      "K3.1_validation_2023_08": 0,
+      "K3.0_validation_2023_08m": 0,
+      "K3.1_validation_2023_08m": 0,
+      "K3.0_validation_2023_09": 0,
+      "K3.1_validation_2023_09": 0,
+      "K3.0_validation_2023_09m": 0,
+      "K3.1_validation_2023_09m": 0,
+      "K3.0_validation_2023_10": 0,
+      "K3.1_validation_2023_10": 0,
+      "K3.0_validation_2023_10m": 0,
+      "K3.1_validation_2023_10m": 0,
+      "K3.0_validation_2023_11": 0,
+      "K3.1_validation_2023_11": 0,
+      "K3.0_validation_2023_11m": 0,
+      "K3.1_validation_2023_11m": 0,
+      "K3.0_validation_2023_12": 0,
+      "K3.1_validation_2023_12": 0,
+      "K3.0_validation_2023_12m": 0,
+      "K3.1_validation_2023_12m": 0,
+      "K3.0_validation_2024_01": 0,
+      "K3.1_validation_2024_01": 0,
+      "K3.0_validation_2024_01m": 0,
+      "K3.1_validation_2024_01m": 0,
+      "K3.0_validation_2024_02": 0,
+      "K3.1_validation_2024_02": 0,
+      "K3.0_validation_2024_02m": 0,
+      "K3.1_validation_2024_02m": 0,
+      "K3.0_validation_2024_03": 0,
+      "K3.1_validation_2024_03": 0,
+      "K3.0_validation_2024_03m": 0,
+      "K3.1_validation_2024_03m": 0,
+      "K3.0_validation_2024_04": 0,
+      "K3.1_validation_2024_04": 0,
+      "K3.0_validation_2024_04m": 0,
+      "K3.1_validation_2024_04m": 0,
+      "K3.0_validation_2024_05": 0,
+      "K3.1_validation_2024_05": 0,
+      "K3.0_validation_2024_05m": 0,
+      "K3.1_validation_2024_05m": 0,
+      "K3.0_validation_2024_06": 0,
+      "K3.1_validation_2024_06": 0,
+      "K3.0_validation_2024_06m": 0,
+      "K3.1_validation_2024_06m": 0,
+      "K3.0_validation_2024_07": 0,
+      "K3.1_validation_2024_07": 0,
+      "K3.0_validation_2024_07m": 0,
+      "K3.1_validation_2024_07m": 0,
+      "K3.0_validation_2024_08": 0,
+      "K3.1_validation_2024_08": 0,
+      "K3.0_validation_2024_08m": 0,
+      "K3.1_validation_2024_08m": 0,
+      "K3.0_validation_2024_09": 0,
+      "K3.1_validation_2024_09": 0,
+      "K3.0_validation_2024_09m": 0,
+      "K3.1_validation_2024_09m": 0,
+      "K3.0_validation_2024_10": 0,
+      "K3.1_validation_2024_10": 0,
+      "K3.0_validation_2024_10m": 0,
+      "K3.1_validation_2024_10m": 0,
+      "K3.0_validation_2024_11": 0,
+      "K3.1_validation_2024_11": 0,
+      "K3.0_validation_2024_11m": 0,
+      "K3.1_validation_2024_11m": 0,
+      "K3.0_holdout_2025_01": 0,
+      "K3.1_holdout_2025_01": 0,
+      "K3.0_holdout_2025_01m": 0,
+      "K3.1_holdout_2025_01m": 0,
+      "K3.0_holdout_2025_02": 0,
+      "K3.1_holdout_2025_02": 0,
+      "K3.0_holdout_2025_02m": 0,
+      "K3.1_holdout_2025_02m": 0,
+      "K3.0_holdout_2025_03": 0,
+      "K3.1_holdout_2025_03": 0,
+      "K3.0_holdout_2025_03m": 0,
+      "K3.1_holdout_2025_03m": 0,
+      "K3.0_holdout_2025_04": 0,
+      "K3.1_holdout_2025_04": 0,
+      "K3.0_holdout_2025_04m": 0,
+      "K3.1_holdout_2025_04m": 0,
+      "K3.0_holdout_2025_05": 0,
+      "K3.1_holdout_2025_05": 0,
+      "K3.0_holdout_2025_05m": 0,
+      "K3.1_holdout_2025_05m": 0,
+      "K3.0_holdout_2025_06": 0,
+      "K3.1_holdout_2025_06": 0,
+      "K3.0_holdout_2025_06m": 0,
+      "K3.1_holdout_2025_06m": 0,
+      "K3.0_holdout_2025_07": 0,
+      "K3.1_holdout_2025_07": 0,
+      "K3.0_holdout_2025_07m": 0,
+      "K3.1_holdout_2025_07m": 0,
+      "K3.0_holdout_2025_08": 0,
+      "K3.1_holdout_2025_08": 0,
+      "K3.0_holdout_2025_08m": 0,
+      "K3.1_holdout_2025_08m": 0,
+      "K3.0_holdout_2025_09": 0,
+      "K3.1_holdout_2025_09": 0,
+      "K3.0_holdout_2025_09m": 0,
+      "K3.1_holdout_2025_09m": 0,
+      "K3.0_holdout_2025_10": 0,
+      "K3.1_holdout_2025_10": 0,
+      "K3.0_holdout_2025_10m": 0,
+      "K3.1_holdout_2025_10m": 0,
+      "K3.0_holdout_2025_11": 0,
+      "K3.1_holdout_2025_11": 0,
+      "K3.0_holdout_2025_11m": 0,
+      "K3.1_holdout_2025_11m": 0,
+      "K3.0_holdout_2025_12": 0,
+      "K3.1_holdout_2025_12": 0,
+      "K3.0_holdout_2025_12m": 0,
+      "K3.1_holdout_2025_12m": 0,
+      "K3.0_holdout_2026_01": 0,
+      "K3.1_holdout_2026_01": 0,
+      "K3.0_holdout_2026_01m": 0,
+      "K3.1_holdout_2026_01m": 0,
+      "K3.0_holdout_2026_02": 0,
+      "K3.1_holdout_2026_02": 0,
+      "K3.0_holdout_2026_02m": 0,
+      "K3.1_holdout_2026_02m": 0,
+      "K3.0_holdout_2026_03": 0,
+      "K3.1_holdout_2026_03": 0,
+      "K3.0_holdout_2026_03m": 0,
+      "K3.1_holdout_2026_03m": 0,
+      "K3.0_holdout_2026_04": 0,
+      "K3.1_holdout_2026_04": 0,
+      "K3.0_holdout_2026_04m": 0,
+      "K3.1_holdout_2026_04m": 0,
+      "K3.0_holdout_2026_05": 0,
+      "K3.1_holdout_2026_05": 0,
+      "K3.0_holdout_2026_05m": 0,
+      "K3.1_holdout_2026_05m": 0,
+      "K3.0_holdout_2026_06": 0,
+      "K3.1_holdout_2026_06": 0,
+      "K3.0_holdout_2026_06m": 0,
+      "K3.1_holdout_2026_06m": 0,
+      "K3.0_holdout_2026_07": 0,
+      "K3.1_holdout_2026_07": 0,
+      "K3.0_holdout_2026_07m": 0,
+      "K3.1_holdout_2026_07m": 0,
+      "K3.0_holdout_2026_08": 0,
+      "K3.1_holdout_2026_08": 0,
+      "K3.0_holdout_2026_08m": 0,
+      "K3.1_holdout_2026_08m": 0,
+      "K3.0_W1": 0,
+      "K3.1_W1": 0,
+      "K3.0_W2": 0,
+      "K3.1_W2": 0,
+      "K3.0_W3": 0,
+      "K3.1_W3": 0,
+      "K3.0_W4": 0,
+      "K3.1_W4": 0,
+      "K3.0_W5": 0,
+      "K3.1_W5": 0
+    },
+    "k1_diagnostic_expected": 7,
+    "k1_diagnostic_matched": 7,
+    "k1_diagnostic_verification_problems": 0,
+    "frozen_hashes_unchanged": true,
+    "protected_inputs_unchanged": true,
+    "input_provenance_unchanged": true,
+    "baseline_git_status_lines": 46,
+    "git_status_unchanged": true,
+    "holdout_prior_lines": 94,
+    "holdout_added_lines": 2,
+    "holdout_prior_bytes_sha256": "cce194f85e32b0d333ff24ee1219c1b6daee754d922094c2cbb4ba6dbbb4f610",
+    "holdout_prior_bytes_unchanged": true,
+    "finite_nonmissing_results": true,
+    "benchmark_matches_controls": true,
+    "recent_ledger_directories": 10
+  },
+  "command": "PYTHONHASHSEED=0 PYTHONPATH=. .venv/bin/python research/results/k3_composite/run.py",
+  "elapsed_seconds": 23.622129207999023,
+  "workers": 4,
+  "parallelism": "fork ordered imap; independent strategies; pilot and K1 diagnostic serial",
+  "frozen_sha256": {
+    "research/results/k3_composite/PREREGISTRATION.md": "f22f894156ff740754bffbcf712b08dd5aabf8d6cfdad6bfb1429b3b600a06ab",
+    "research/results/k3_composite/strategies.py": "ff357195946691a22691dd604e2086d2d228c9d60faf2e30d5182182a0a0d85d",
+    "research/results/conc_tournament/strategies.py": "c05cb770ff1eaec3ffec8f61d10cfc8e18dc693b7aecb5373402e0c6f6c31121",
+    "research/results/conc_tournament/results.csv": "de312da76203b2b6e82bcc590bb593814d701a66af1a393caa11cea26444303a"
+  },
+  "k31_build_confirmed_distribution": {
+    "historical": {
+      "count": 276,
+      "min": 11,
+      "median": 38.0,
+      "mean": 40.86594202898551,
+      "max": 90,
+      "distribution": {
+        "11": 1,
+        "13": 1,
+        "14": 1,
+        "15": 2,
+        "16": 2,
+        "18": 1,
+        "19": 6,
+        "20": 1,
+        "21": 3,
+        "22": 6,
+        "23": 3,
+        "24": 6,
+        "25": 6,
+        "26": 8,
+        "27": 9,
+        "28": 5,
+        "29": 7,
+        "30": 6,
+        "31": 5,
+        "32": 7,
+        "33": 8,
+        "34": 10,
+        "35": 8,
+        "36": 14,
+        "37": 8,
+        "38": 6,
+        "39": 8,
+        "40": 6,
+        "41": 9,
+        "42": 6,
+        "43": 7,
+        "44": 5,
+        "45": 6,
+        "46": 3,
+        "47": 3,
+        "48": 5,
+        "49": 8,
+        "50": 5,
+        "51": 4,
+        "52": 2,
+        "53": 6,
+        "54": 1,
+        "55": 4,
+        "56": 2,
+        "57": 6,
+        "58": 2,
+        "59": 1,
+        "60": 4,
+        "61": 1,
+        "62": 3,
+        "63": 3,
+        "64": 3,
+        "65": 1,
+        "66": 3,
+        "69": 5,
+        "71": 1,
+        "72": 5,
+        "74": 1,
+        "77": 1,
+        "78": 1,
+        "79": 1,
+        "80": 2,
+        "85": 1,
+        "90": 1
+      }
+    },
+    "recent": {
+      "count": 5,
+      "min": 55,
+      "median": 68.0,
+      "mean": 68.6,
+      "max": 84,
+      "distribution": {
+        "55": 1,
+        "63": 1,
+        "68": 1,
+        "73": 1,
+        "84": 1
+      }
+    }
+  },
+  "k31_build_records": [
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2015_01",
+      "set": "historical",
+      "date": "2015-01-05",
+      "action": "build",
+      "confirmed": 34,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2015_01m",
+      "set": "historical",
+      "date": "2015-01-15",
+      "action": "build",
+      "confirmed": 36,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2015_02",
+      "set": "historical",
+      "date": "2015-02-02",
+      "action": "build",
+      "confirmed": 35,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2015_02m",
+      "set": "historical",
+      "date": "2015-02-24",
+      "action": "build",
+      "confirmed": 31,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2015_03",
+      "set": "historical",
+      "date": "2015-03-02",
+      "action": "build",
+      "confirmed": 35,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2015_03m",
+      "set": "historical",
+      "date": "2015-03-16",
+      "action": "build",
+      "confirmed": 27,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2015_04",
+      "set": "historical",
+      "date": "2015-04-01",
+      "action": "build",
+      "confirmed": 16,
+      "filled_by_score": 4
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2015_04m",
+      "set": "historical",
+      "date": "2015-04-15",
+      "action": "build",
+      "confirmed": 19,
+      "filled_by_score": 1
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2015_05",
+      "set": "historical",
+      "date": "2015-05-04",
+      "action": "build",
+      "confirmed": 23,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2015_05m",
+      "set": "historical",
+      "date": "2015-05-15",
+      "action": "build",
+      "confirmed": 24,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2015_06",
+      "set": "historical",
+      "date": "2015-06-01",
+      "action": "build",
+      "confirmed": 24,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2015_06m",
+      "set": "historical",
+      "date": "2015-06-15",
+      "action": "build",
+      "confirmed": 19,
+      "filled_by_score": 1
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2015_07",
+      "set": "historical",
+      "date": "2015-07-01",
+      "action": "build",
+      "confirmed": 26,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2015_07m",
+      "set": "historical",
+      "date": "2015-07-15",
+      "action": "build",
+      "confirmed": 32,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2015_08",
+      "set": "historical",
+      "date": "2015-08-03",
+      "action": "build",
+      "confirmed": 37,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2015_08m",
+      "set": "historical",
+      "date": "2015-08-17",
+      "action": "build",
+      "confirmed": 26,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2015_09",
+      "set": "historical",
+      "date": "2015-09-01",
+      "action": "build",
+      "confirmed": 22,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2015_09m",
+      "set": "historical",
+      "date": "2015-09-15",
+      "action": "build",
+      "confirmed": 29,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2015_10",
+      "set": "historical",
+      "date": "2015-10-01",
+      "action": "build",
+      "confirmed": 25,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2015_10m",
+      "set": "historical",
+      "date": "2015-10-15",
+      "action": "build",
+      "confirmed": 27,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2015_11",
+      "set": "historical",
+      "date": "2015-11-02",
+      "action": "build",
+      "confirmed": 21,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2015_11m",
+      "set": "historical",
+      "date": "2015-11-16",
+      "action": "build",
+      "confirmed": 46,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2015_12",
+      "set": "historical",
+      "date": "2015-12-01",
+      "action": "build",
+      "confirmed": 19,
+      "filled_by_score": 1
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2015_12m",
+      "set": "historical",
+      "date": "2015-12-15",
+      "action": "build",
+      "confirmed": 26,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2016_01",
+      "set": "historical",
+      "date": "2016-01-04",
+      "action": "build",
+      "confirmed": 32,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2016_01m",
+      "set": "historical",
+      "date": "2016-01-15",
+      "action": "build",
+      "confirmed": 24,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2016_02",
+      "set": "historical",
+      "date": "2016-02-01",
+      "action": "build",
+      "confirmed": 23,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2016_02m",
+      "set": "historical",
+      "date": "2016-02-15",
+      "action": "build",
+      "confirmed": 22,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2016_03",
+      "set": "historical",
+      "date": "2016-03-01",
+      "action": "build",
+      "confirmed": 26,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2016_03m",
+      "set": "historical",
+      "date": "2016-03-15",
+      "action": "build",
+      "confirmed": 27,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2016_04",
+      "set": "historical",
+      "date": "2016-04-01",
+      "action": "build",
+      "confirmed": 24,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2016_04m",
+      "set": "historical",
+      "date": "2016-04-15",
+      "action": "build",
+      "confirmed": 29,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2016_05",
+      "set": "historical",
+      "date": "2016-05-03",
+      "action": "build",
+      "confirmed": 26,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2016_05m",
+      "set": "historical",
+      "date": "2016-05-16",
+      "action": "build",
+      "confirmed": 30,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2016_06",
+      "set": "historical",
+      "date": "2016-06-01",
+      "action": "build",
+      "confirmed": 30,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2016_06m",
+      "set": "historical",
+      "date": "2016-06-15",
+      "action": "build",
+      "confirmed": 24,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2016_07",
+      "set": "historical",
+      "date": "2016-07-01",
+      "action": "build",
+      "confirmed": 27,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2016_07m",
+      "set": "historical",
+      "date": "2016-07-15",
+      "action": "build",
+      "confirmed": 36,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2016_08",
+      "set": "historical",
+      "date": "2016-08-01",
+      "action": "build",
+      "confirmed": 38,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2016_08m",
+      "set": "historical",
+      "date": "2016-08-15",
+      "action": "build",
+      "confirmed": 29,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2016_09",
+      "set": "historical",
+      "date": "2016-09-01",
+      "action": "build",
+      "confirmed": 20,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2016_09m",
+      "set": "historical",
+      "date": "2016-09-19",
+      "action": "build",
+      "confirmed": 38,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2016_10",
+      "set": "historical",
+      "date": "2016-10-03",
+      "action": "build",
+      "confirmed": 44,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2016_10m",
+      "set": "historical",
+      "date": "2016-10-17",
+      "action": "build",
+      "confirmed": 31,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2016_11",
+      "set": "historical",
+      "date": "2016-11-01",
+      "action": "build",
+      "confirmed": 34,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2016_11m",
+      "set": "historical",
+      "date": "2016-11-15",
+      "action": "build",
+      "confirmed": 27,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2016_12",
+      "set": "historical",
+      "date": "2016-12-01",
+      "action": "build",
+      "confirmed": 26,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2016_12m",
+      "set": "historical",
+      "date": "2016-12-15",
+      "action": "build",
+      "confirmed": 42,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2017_01",
+      "set": "historical",
+      "date": "2017-01-03",
+      "action": "build",
+      "confirmed": 41,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2017_01m",
+      "set": "historical",
+      "date": "2017-01-16",
+      "action": "build",
+      "confirmed": 49,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2017_02",
+      "set": "historical",
+      "date": "2017-02-02",
+      "action": "build",
+      "confirmed": 54,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2017_02m",
+      "set": "historical",
+      "date": "2017-02-15",
+      "action": "build",
+      "confirmed": 32,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2017_03",
+      "set": "historical",
+      "date": "2017-03-01",
+      "action": "build",
+      "confirmed": 27,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2017_03m",
+      "set": "historical",
+      "date": "2017-03-15",
+      "action": "build",
+      "confirmed": 45,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2017_04",
+      "set": "historical",
+      "date": "2017-04-05",
+      "action": "build",
+      "confirmed": 39,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2017_04m",
+      "set": "historical",
+      "date": "2017-04-17",
+      "action": "build",
+      "confirmed": 31,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2017_05",
+      "set": "historical",
+      "date": "2017-05-02",
+      "action": "build",
+      "confirmed": 25,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2017_05m",
+      "set": "historical",
+      "date": "2017-05-15",
+      "action": "build",
+      "confirmed": 28,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2017_06",
+      "set": "historical",
+      "date": "2017-06-01",
+      "action": "build",
+      "confirmed": 34,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2017_06m",
+      "set": "historical",
+      "date": "2017-06-15",
+      "action": "build",
+      "confirmed": 22,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2017_07",
+      "set": "historical",
+      "date": "2017-07-03",
+      "action": "build",
+      "confirmed": 29,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2017_07m",
+      "set": "historical",
+      "date": "2017-07-17",
+      "action": "build",
+      "confirmed": 33,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2017_08",
+      "set": "historical",
+      "date": "2017-08-01",
+      "action": "build",
+      "confirmed": 30,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2017_08m",
+      "set": "historical",
+      "date": "2017-08-15",
+      "action": "build",
+      "confirmed": 35,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2017_09",
+      "set": "historical",
+      "date": "2017-09-01",
+      "action": "build",
+      "confirmed": 49,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2017_09m",
+      "set": "historical",
+      "date": "2017-09-15",
+      "action": "build",
+      "confirmed": 48,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2017_10",
+      "set": "historical",
+      "date": "2017-10-02",
+      "action": "build",
+      "confirmed": 41,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2017_10m",
+      "set": "historical",
+      "date": "2017-10-16",
+      "action": "build",
+      "confirmed": 53,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2017_11",
+      "set": "historical",
+      "date": "2017-11-01",
+      "action": "build",
+      "confirmed": 43,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2017_11m",
+      "set": "historical",
+      "date": "2017-11-15",
+      "action": "build",
+      "confirmed": 36,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2017_12",
+      "set": "historical",
+      "date": "2017-12-01",
+      "action": "build",
+      "confirmed": 32,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2017_12m",
+      "set": "historical",
+      "date": "2017-12-15",
+      "action": "build",
+      "confirmed": 47,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2018_01",
+      "set": "historical",
+      "date": "2018-01-02",
+      "action": "build",
+      "confirmed": 48,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2018_01m",
+      "set": "historical",
+      "date": "2018-01-15",
+      "action": "build",
+      "confirmed": 43,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2018_02",
+      "set": "historical",
+      "date": "2018-02-01",
+      "action": "build",
+      "confirmed": 26,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2018_02m",
+      "set": "historical",
+      "date": "2018-02-21",
+      "action": "build",
+      "confirmed": 36,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2018_03",
+      "set": "historical",
+      "date": "2018-03-01",
+      "action": "build",
+      "confirmed": 35,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2018_03m",
+      "set": "historical",
+      "date": "2018-03-15",
+      "action": "build",
+      "confirmed": 15,
+      "filled_by_score": 5
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2018_04",
+      "set": "historical",
+      "date": "2018-04-02",
+      "action": "build",
+      "confirmed": 19,
+      "filled_by_score": 1
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2018_04m",
+      "set": "historical",
+      "date": "2018-04-16",
+      "action": "build",
+      "confirmed": 33,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2018_05",
+      "set": "historical",
+      "date": "2018-05-02",
+      "action": "build",
+      "confirmed": 39,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2018_05m",
+      "set": "historical",
+      "date": "2018-05-15",
+      "action": "build",
+      "confirmed": 49,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2018_06",
+      "set": "historical",
+      "date": "2018-06-01",
+      "action": "build",
+      "confirmed": 32,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2018_06m",
+      "set": "historical",
+      "date": "2018-06-15",
+      "action": "build",
+      "confirmed": 36,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2018_07",
+      "set": "historical",
+      "date": "2018-07-02",
+      "action": "build",
+      "confirmed": 39,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2018_07m",
+      "set": "historical",
+      "date": "2018-07-16",
+      "action": "build",
+      "confirmed": 31,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2018_08",
+      "set": "historical",
+      "date": "2018-08-01",
+      "action": "build",
+      "confirmed": 41,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2018_08m",
+      "set": "historical",
+      "date": "2018-08-15",
+      "action": "build",
+      "confirmed": 53,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2018_09",
+      "set": "historical",
+      "date": "2018-09-03",
+      "action": "build",
+      "confirmed": 43,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2018_09m",
+      "set": "historical",
+      "date": "2018-09-17",
+      "action": "build",
+      "confirmed": 55,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2018_10",
+      "set": "historical",
+      "date": "2018-10-01",
+      "action": "build",
+      "confirmed": 58,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2018_10m",
+      "set": "historical",
+      "date": "2018-10-15",
+      "action": "build",
+      "confirmed": 33,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2018_11",
+      "set": "historical",
+      "date": "2018-11-01",
+      "action": "build",
+      "confirmed": 36,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2018_11m",
+      "set": "historical",
+      "date": "2018-11-15",
+      "action": "build",
+      "confirmed": 49,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2018_12",
+      "set": "historical",
+      "date": "2018-12-03",
+      "action": "build",
+      "confirmed": 44,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2018_12m",
+      "set": "historical",
+      "date": "2018-12-17",
+      "action": "build",
+      "confirmed": 34,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2019_01",
+      "set": "historical",
+      "date": "2019-01-02",
+      "action": "build",
+      "confirmed": 36,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2019_01m",
+      "set": "historical",
+      "date": "2019-01-15",
+      "action": "build",
+      "confirmed": 34,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2019_02",
+      "set": "historical",
+      "date": "2019-02-11",
+      "action": "build",
+      "confirmed": 27,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2019_02m",
+      "set": "historical",
+      "date": "2019-02-15",
+      "action": "build",
+      "confirmed": 37,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2019_03",
+      "set": "historical",
+      "date": "2019-03-04",
+      "action": "build",
+      "confirmed": 24,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2019_03m",
+      "set": "historical",
+      "date": "2019-03-15",
+      "action": "build",
+      "confirmed": 21,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2019_04",
+      "set": "historical",
+      "date": "2019-04-01",
+      "action": "build",
+      "confirmed": 25,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2019_04m",
+      "set": "historical",
+      "date": "2019-04-15",
+      "action": "build",
+      "confirmed": 18,
+      "filled_by_score": 2
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2019_05",
+      "set": "historical",
+      "date": "2019-05-02",
+      "action": "build",
+      "confirmed": 25,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2019_05m",
+      "set": "historical",
+      "date": "2019-05-15",
+      "action": "build",
+      "confirmed": 28,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2019_06",
+      "set": "historical",
+      "date": "2019-06-03",
+      "action": "build",
+      "confirmed": 38,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2019_06m",
+      "set": "historical",
+      "date": "2019-06-17",
+      "action": "build",
+      "confirmed": 37,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2019_07",
+      "set": "historical",
+      "date": "2019-07-01",
+      "action": "build",
+      "confirmed": 29,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2019_07m",
+      "set": "historical",
+      "date": "2019-07-15",
+      "action": "build",
+      "confirmed": 34,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2019_08",
+      "set": "historical",
+      "date": "2019-08-01",
+      "action": "build",
+      "confirmed": 25,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2019_08m",
+      "set": "historical",
+      "date": "2019-08-15",
+      "action": "build",
+      "confirmed": 41,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2019_09",
+      "set": "historical",
+      "date": "2019-09-02",
+      "action": "build",
+      "confirmed": 35,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2019_09m",
+      "set": "historical",
+      "date": "2019-09-16",
+      "action": "build",
+      "confirmed": 42,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2019_10",
+      "set": "historical",
+      "date": "2019-10-01",
+      "action": "build",
+      "confirmed": 38,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2019_10m",
+      "set": "historical",
+      "date": "2019-10-15",
+      "action": "build",
+      "confirmed": 34,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2019_11",
+      "set": "historical",
+      "date": "2019-11-01",
+      "action": "build",
+      "confirmed": 30,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2019_11m",
+      "set": "historical",
+      "date": "2019-11-15",
+      "action": "build",
+      "confirmed": 36,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2019_12",
+      "set": "historical",
+      "date": "2019-12-02",
+      "action": "build",
+      "confirmed": 40,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2019_12m",
+      "set": "historical",
+      "date": "2019-12-16",
+      "action": "build",
+      "confirmed": 42,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2020_01",
+      "set": "historical",
+      "date": "2020-01-02",
+      "action": "build",
+      "confirmed": 29,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2020_01m",
+      "set": "historical",
+      "date": "2020-01-15",
+      "action": "build",
+      "confirmed": 41,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2020_02",
+      "set": "historical",
+      "date": "2020-02-03",
+      "action": "build",
+      "confirmed": 40,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2020_02m",
+      "set": "historical",
+      "date": "2020-02-17",
+      "action": "build",
+      "confirmed": 19,
+      "filled_by_score": 1
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2020_03",
+      "set": "historical",
+      "date": "2020-03-02",
+      "action": "build",
+      "confirmed": 15,
+      "filled_by_score": 5
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2020_03m",
+      "set": "historical",
+      "date": "2020-03-16",
+      "action": "build",
+      "confirmed": 37,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2020_04",
+      "set": "historical",
+      "date": "2020-04-01",
+      "action": "build",
+      "confirmed": 36,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2020_04m",
+      "set": "historical",
+      "date": "2020-04-15",
+      "action": "build",
+      "confirmed": 33,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2020_05",
+      "set": "historical",
+      "date": "2020-05-04",
+      "action": "build",
+      "confirmed": 37,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2020_05m",
+      "set": "historical",
+      "date": "2020-05-15",
+      "action": "build",
+      "confirmed": 45,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2020_06",
+      "set": "historical",
+      "date": "2020-06-01",
+      "action": "build",
+      "confirmed": 42,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2020_06m",
+      "set": "historical",
+      "date": "2020-06-15",
+      "action": "build",
+      "confirmed": 34,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2020_07",
+      "set": "historical",
+      "date": "2020-07-01",
+      "action": "build",
+      "confirmed": 40,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2020_07m",
+      "set": "historical",
+      "date": "2020-07-15",
+      "action": "build",
+      "confirmed": 46,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2020_08",
+      "set": "historical",
+      "date": "2020-08-03",
+      "action": "build",
+      "confirmed": 50,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2020_08m",
+      "set": "historical",
+      "date": "2020-08-17",
+      "action": "build",
+      "confirmed": 41,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2020_09",
+      "set": "historical",
+      "date": "2020-09-01",
+      "action": "build",
+      "confirmed": 39,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2020_09m",
+      "set": "historical",
+      "date": "2020-09-15",
+      "action": "build",
+      "confirmed": 35,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2020_10",
+      "set": "historical",
+      "date": "2020-10-05",
+      "action": "build",
+      "confirmed": 43,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2020_10m",
+      "set": "historical",
+      "date": "2020-10-15",
+      "action": "build",
+      "confirmed": 36,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2020_11",
+      "set": "historical",
+      "date": "2020-11-02",
+      "action": "build",
+      "confirmed": 34,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2020_11m",
+      "set": "historical",
+      "date": "2020-11-16",
+      "action": "build",
+      "confirmed": 29,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2020_12",
+      "set": "historical",
+      "date": "2020-12-01",
+      "action": "build",
+      "confirmed": 33,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2020_12m",
+      "set": "historical",
+      "date": "2020-12-15",
+      "action": "build",
+      "confirmed": 39,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2021_01",
+      "set": "historical",
+      "date": "2021-01-04",
+      "action": "build",
+      "confirmed": 39,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2021_01m",
+      "set": "historical",
+      "date": "2021-01-15",
+      "action": "build",
+      "confirmed": 51,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2021_02",
+      "set": "historical",
+      "date": "2021-02-01",
+      "action": "build",
+      "confirmed": 50,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2021_02m",
+      "set": "historical",
+      "date": "2021-02-17",
+      "action": "build",
+      "confirmed": 44,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2021_03",
+      "set": "historical",
+      "date": "2021-03-02",
+      "action": "build",
+      "confirmed": 62,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2021_03m",
+      "set": "historical",
+      "date": "2021-03-15",
+      "action": "build",
+      "confirmed": 60,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2021_04",
+      "set": "historical",
+      "date": "2021-04-01",
+      "action": "build",
+      "confirmed": 53,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2021_04m",
+      "set": "historical",
+      "date": "2021-04-15",
+      "action": "build",
+      "confirmed": 41,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2021_05",
+      "set": "historical",
+      "date": "2021-05-03",
+      "action": "build",
+      "confirmed": 45,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2021_05m",
+      "set": "historical",
+      "date": "2021-05-17",
+      "action": "build",
+      "confirmed": 57,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2021_06",
+      "set": "historical",
+      "date": "2021-06-01",
+      "action": "build",
+      "confirmed": 57,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2021_06m",
+      "set": "historical",
+      "date": "2021-06-15",
+      "action": "build",
+      "confirmed": 51,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2021_07",
+      "set": "historical",
+      "date": "2021-07-01",
+      "action": "build",
+      "confirmed": 47,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2021_07m",
+      "set": "historical",
+      "date": "2021-07-15",
+      "action": "build",
+      "confirmed": 41,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2021_08",
+      "set": "historical",
+      "date": "2021-08-02",
+      "action": "build",
+      "confirmed": 50,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2021_08m",
+      "set": "historical",
+      "date": "2021-08-16",
+      "action": "build",
+      "confirmed": 48,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2021_09",
+      "set": "historical",
+      "date": "2021-09-01",
+      "action": "build",
+      "confirmed": 11,
+      "filled_by_score": 9
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2021_09m",
+      "set": "historical",
+      "date": "2021-09-15",
+      "action": "build",
+      "confirmed": 50,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2021_10",
+      "set": "historical",
+      "date": "2021-10-01",
+      "action": "build",
+      "confirmed": 72,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2021_10m",
+      "set": "historical",
+      "date": "2021-10-15",
+      "action": "build",
+      "confirmed": 80,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2021_11",
+      "set": "historical",
+      "date": "2021-11-01",
+      "action": "build",
+      "confirmed": 50,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "dev_2021_11m",
+      "set": "historical",
+      "date": "2021-11-15",
+      "action": "build",
+      "confirmed": 63,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2022_01",
+      "set": "historical",
+      "date": "2022-01-03",
+      "action": "build",
+      "confirmed": 44,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2022_01m",
+      "set": "historical",
+      "date": "2022-01-17",
+      "action": "build",
+      "confirmed": 63,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2022_02",
+      "set": "historical",
+      "date": "2022-02-07",
+      "action": "build",
+      "confirmed": 78,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2022_02m",
+      "set": "historical",
+      "date": "2022-02-15",
+      "action": "build",
+      "confirmed": 80,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2022_03",
+      "set": "historical",
+      "date": "2022-03-01",
+      "action": "build",
+      "confirmed": 69,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2022_03m",
+      "set": "historical",
+      "date": "2022-03-15",
+      "action": "build",
+      "confirmed": 77,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2022_04",
+      "set": "historical",
+      "date": "2022-04-01",
+      "action": "build",
+      "confirmed": 61,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2022_04m",
+      "set": "historical",
+      "date": "2022-04-15",
+      "action": "build",
+      "confirmed": 71,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2022_05",
+      "set": "historical",
+      "date": "2022-05-03",
+      "action": "build",
+      "confirmed": 69,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2022_05m",
+      "set": "historical",
+      "date": "2022-05-16",
+      "action": "build",
+      "confirmed": 56,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2022_06",
+      "set": "historical",
+      "date": "2022-06-01",
+      "action": "build",
+      "confirmed": 43,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2022_06m",
+      "set": "historical",
+      "date": "2022-06-15",
+      "action": "build",
+      "confirmed": 49,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2022_07",
+      "set": "historical",
+      "date": "2022-07-01",
+      "action": "build",
+      "confirmed": 48,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2022_07m",
+      "set": "historical",
+      "date": "2022-07-15",
+      "action": "build",
+      "confirmed": 59,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2022_08",
+      "set": "historical",
+      "date": "2022-08-01",
+      "action": "build",
+      "confirmed": 72,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2022_08m",
+      "set": "historical",
+      "date": "2022-08-15",
+      "action": "build",
+      "confirmed": 72,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2022_09",
+      "set": "historical",
+      "date": "2022-09-01",
+      "action": "build",
+      "confirmed": 62,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2022_09m",
+      "set": "historical",
+      "date": "2022-09-15",
+      "action": "build",
+      "confirmed": 57,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2022_10",
+      "set": "historical",
+      "date": "2022-10-03",
+      "action": "build",
+      "confirmed": 53,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2022_10m",
+      "set": "historical",
+      "date": "2022-10-17",
+      "action": "build",
+      "confirmed": 57,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2022_11",
+      "set": "historical",
+      "date": "2022-11-01",
+      "action": "build",
+      "confirmed": 37,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2022_11m",
+      "set": "historical",
+      "date": "2022-11-15",
+      "action": "build",
+      "confirmed": 37,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2022_12",
+      "set": "historical",
+      "date": "2022-12-01",
+      "action": "build",
+      "confirmed": 28,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2022_12m",
+      "set": "historical",
+      "date": "2022-12-15",
+      "action": "build",
+      "confirmed": 22,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2023_01",
+      "set": "historical",
+      "date": "2023-01-03",
+      "action": "build",
+      "confirmed": 36,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2023_01m",
+      "set": "historical",
+      "date": "2023-01-16",
+      "action": "build",
+      "confirmed": 36,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2023_02",
+      "set": "historical",
+      "date": "2023-02-01",
+      "action": "build",
+      "confirmed": 27,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2023_02m",
+      "set": "historical",
+      "date": "2023-02-15",
+      "action": "build",
+      "confirmed": 19,
+      "filled_by_score": 1
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2023_03",
+      "set": "historical",
+      "date": "2023-03-01",
+      "action": "build",
+      "confirmed": 23,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2023_03m",
+      "set": "historical",
+      "date": "2023-03-15",
+      "action": "build",
+      "confirmed": 36,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2023_04",
+      "set": "historical",
+      "date": "2023-04-06",
+      "action": "build",
+      "confirmed": 37,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2023_04m",
+      "set": "historical",
+      "date": "2023-04-17",
+      "action": "build",
+      "confirmed": 27,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2023_05",
+      "set": "historical",
+      "date": "2023-05-02",
+      "action": "build",
+      "confirmed": 32,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2023_05m",
+      "set": "historical",
+      "date": "2023-05-15",
+      "action": "build",
+      "confirmed": 34,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2023_06",
+      "set": "historical",
+      "date": "2023-06-01",
+      "action": "build",
+      "confirmed": 22,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2023_06m",
+      "set": "historical",
+      "date": "2023-06-15",
+      "action": "build",
+      "confirmed": 13,
+      "filled_by_score": 7
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2023_07",
+      "set": "historical",
+      "date": "2023-07-03",
+      "action": "build",
+      "confirmed": 14,
+      "filled_by_score": 6
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2023_07m",
+      "set": "historical",
+      "date": "2023-07-17",
+      "action": "build",
+      "confirmed": 16,
+      "filled_by_score": 4
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2023_08",
+      "set": "historical",
+      "date": "2023-08-01",
+      "action": "build",
+      "confirmed": 21,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2023_08m",
+      "set": "historical",
+      "date": "2023-08-15",
+      "action": "build",
+      "confirmed": 33,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2023_09",
+      "set": "historical",
+      "date": "2023-09-01",
+      "action": "build",
+      "confirmed": 30,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2023_09m",
+      "set": "historical",
+      "date": "2023-09-15",
+      "action": "build",
+      "confirmed": 30,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2023_10",
+      "set": "historical",
+      "date": "2023-10-02",
+      "action": "build",
+      "confirmed": 22,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2023_10m",
+      "set": "historical",
+      "date": "2023-10-16",
+      "action": "build",
+      "confirmed": 47,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2023_11",
+      "set": "historical",
+      "date": "2023-11-01",
+      "action": "build",
+      "confirmed": 42,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2023_11m",
+      "set": "historical",
+      "date": "2023-11-15",
+      "action": "build",
+      "confirmed": 38,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2023_12",
+      "set": "historical",
+      "date": "2023-12-01",
+      "action": "build",
+      "confirmed": 28,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2023_12m",
+      "set": "historical",
+      "date": "2023-12-15",
+      "action": "build",
+      "confirmed": 35,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2024_01",
+      "set": "historical",
+      "date": "2024-01-02",
+      "action": "build",
+      "confirmed": 33,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2024_01m",
+      "set": "historical",
+      "date": "2024-01-15",
+      "action": "build",
+      "confirmed": 31,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2024_02",
+      "set": "historical",
+      "date": "2024-02-01",
+      "action": "build",
+      "confirmed": 35,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2024_02m",
+      "set": "historical",
+      "date": "2024-02-15",
+      "action": "build",
+      "confirmed": 32,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2024_03",
+      "set": "historical",
+      "date": "2024-03-01",
+      "action": "build",
+      "confirmed": 45,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2024_03m",
+      "set": "historical",
+      "date": "2024-03-15",
+      "action": "build",
+      "confirmed": 26,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2024_04",
+      "set": "historical",
+      "date": "2024-04-01",
+      "action": "build",
+      "confirmed": 25,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2024_04m",
+      "set": "historical",
+      "date": "2024-04-15",
+      "action": "build",
+      "confirmed": 28,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2024_05",
+      "set": "historical",
+      "date": "2024-05-02",
+      "action": "build",
+      "confirmed": 53,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2024_05m",
+      "set": "historical",
+      "date": "2024-05-15",
+      "action": "build",
+      "confirmed": 66,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2024_06",
+      "set": "historical",
+      "date": "2024-06-03",
+      "action": "build",
+      "confirmed": 49,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2024_06m",
+      "set": "historical",
+      "date": "2024-06-17",
+      "action": "build",
+      "confirmed": 64,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2024_07",
+      "set": "historical",
+      "date": "2024-07-01",
+      "action": "build",
+      "confirmed": 66,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2024_07m",
+      "set": "historical",
+      "date": "2024-07-15",
+      "action": "build",
+      "confirmed": 60,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2024_08",
+      "set": "historical",
+      "date": "2024-08-01",
+      "action": "build",
+      "confirmed": 69,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2024_08m",
+      "set": "historical",
+      "date": "2024-08-15",
+      "action": "build",
+      "confirmed": 90,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2024_09",
+      "set": "historical",
+      "date": "2024-09-02",
+      "action": "build",
+      "confirmed": 85,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2024_09m",
+      "set": "historical",
+      "date": "2024-09-16",
+      "action": "build",
+      "confirmed": 72,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2024_10",
+      "set": "historical",
+      "date": "2024-10-01",
+      "action": "build",
+      "confirmed": 52,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2024_10m",
+      "set": "historical",
+      "date": "2024-10-15",
+      "action": "build",
+      "confirmed": 55,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2024_11",
+      "set": "historical",
+      "date": "2024-11-01",
+      "action": "build",
+      "confirmed": 51,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "validation_2024_11m",
+      "set": "historical",
+      "date": "2024-11-15",
+      "action": "build",
+      "confirmed": 66,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2025_01",
+      "set": "historical",
+      "date": "2025-01-02",
+      "action": "build",
+      "confirmed": 43,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2025_01m",
+      "set": "historical",
+      "date": "2025-01-15",
+      "action": "build",
+      "confirmed": 49,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2025_02",
+      "set": "historical",
+      "date": "2025-02-03",
+      "action": "build",
+      "confirmed": 53,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2025_02m",
+      "set": "historical",
+      "date": "2025-02-17",
+      "action": "build",
+      "confirmed": 49,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2025_03",
+      "set": "historical",
+      "date": "2025-03-03",
+      "action": "build",
+      "confirmed": 33,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2025_03m",
+      "set": "historical",
+      "date": "2025-03-17",
+      "action": "build",
+      "confirmed": 69,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2025_04",
+      "set": "historical",
+      "date": "2025-04-01",
+      "action": "build",
+      "confirmed": 65,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2025_04m",
+      "set": "historical",
+      "date": "2025-04-15",
+      "action": "build",
+      "confirmed": 51,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2025_05",
+      "set": "historical",
+      "date": "2025-05-02",
+      "action": "build",
+      "confirmed": 57,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2025_05m",
+      "set": "historical",
+      "date": "2025-05-15",
+      "action": "build",
+      "confirmed": 41,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2025_06",
+      "set": "historical",
+      "date": "2025-06-02",
+      "action": "build",
+      "confirmed": 46,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2025_06m",
+      "set": "historical",
+      "date": "2025-06-16",
+      "action": "build",
+      "confirmed": 36,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2025_07",
+      "set": "historical",
+      "date": "2025-07-01",
+      "action": "build",
+      "confirmed": 39,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2025_07m",
+      "set": "historical",
+      "date": "2025-07-15",
+      "action": "build",
+      "confirmed": 44,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2025_08",
+      "set": "historical",
+      "date": "2025-08-01",
+      "action": "build",
+      "confirmed": 45,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2025_08m",
+      "set": "historical",
+      "date": "2025-08-15",
+      "action": "build",
+      "confirmed": 45,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2025_09",
+      "set": "historical",
+      "date": "2025-09-01",
+      "action": "build",
+      "confirmed": 39,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2025_09m",
+      "set": "historical",
+      "date": "2025-09-15",
+      "action": "build",
+      "confirmed": 40,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2025_10",
+      "set": "historical",
+      "date": "2025-10-01",
+      "action": "build",
+      "confirmed": 38,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2025_10m",
+      "set": "historical",
+      "date": "2025-10-15",
+      "action": "build",
+      "confirmed": 40,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2025_11",
+      "set": "historical",
+      "date": "2025-11-03",
+      "action": "build",
+      "confirmed": 40,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2025_11m",
+      "set": "historical",
+      "date": "2025-11-17",
+      "action": "build",
+      "confirmed": 43,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2025_12",
+      "set": "historical",
+      "date": "2025-12-01",
+      "action": "build",
+      "confirmed": 56,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2025_12m",
+      "set": "historical",
+      "date": "2025-12-15",
+      "action": "build",
+      "confirmed": 48,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2026_01",
+      "set": "historical",
+      "date": "2026-01-02",
+      "action": "build",
+      "confirmed": 58,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2026_01m",
+      "set": "historical",
+      "date": "2026-01-15",
+      "action": "build",
+      "confirmed": 55,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2026_02",
+      "set": "historical",
+      "date": "2026-02-02",
+      "action": "build",
+      "confirmed": 42,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2026_02m",
+      "set": "historical",
+      "date": "2026-02-23",
+      "action": "build",
+      "confirmed": 60,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2026_03",
+      "set": "historical",
+      "date": "2026-03-02",
+      "action": "build",
+      "confirmed": 60,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2026_03m",
+      "set": "historical",
+      "date": "2026-03-16",
+      "action": "build",
+      "confirmed": 64,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2026_04",
+      "set": "historical",
+      "date": "2026-04-01",
+      "action": "build",
+      "confirmed": 57,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2026_04m",
+      "set": "historical",
+      "date": "2026-04-15",
+      "action": "build",
+      "confirmed": 64,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2026_05",
+      "set": "historical",
+      "date": "2026-05-04",
+      "action": "build",
+      "confirmed": 55,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2026_05m",
+      "set": "historical",
+      "date": "2026-05-15",
+      "action": "build",
+      "confirmed": 52,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2026_06",
+      "set": "historical",
+      "date": "2026-06-01",
+      "action": "build",
+      "confirmed": 62,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2026_06m",
+      "set": "historical",
+      "date": "2026-06-15",
+      "action": "build",
+      "confirmed": 69,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2026_07",
+      "set": "historical",
+      "date": "2026-07-01",
+      "action": "build",
+      "confirmed": 63,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2026_07m",
+      "set": "historical",
+      "date": "2026-07-15",
+      "action": "build",
+      "confirmed": 72,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2026_08",
+      "set": "historical",
+      "date": "2026-08-03",
+      "action": "build",
+      "confirmed": 74,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "holdout_2026_08m",
+      "set": "historical",
+      "date": "2026-08-17",
+      "action": "build",
+      "confirmed": 79,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "W1",
+      "set": "recent",
+      "date": "2026-04-30",
+      "action": "build",
+      "confirmed": 55,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "W2",
+      "set": "recent",
+      "date": "2026-06-04",
+      "action": "build",
+      "confirmed": 63,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "W3",
+      "set": "recent",
+      "date": "2026-07-09",
+      "action": "build",
+      "confirmed": 73,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "W4",
+      "set": "recent",
+      "date": "2026-08-13",
+      "action": "build",
+      "confirmed": 84,
+      "filled_by_score": 0
+    },
+    {
+      "strategy": "K3.1",
+      "window_id": "W5",
+      "set": "recent",
+      "date": "2026-09-16",
+      "action": "build",
+      "confirmed": 68,
+      "filled_by_score": 0
+    }
+  ],
+  "benchmark_definition": "0050 action-neutral daily compounded returns; zero trading costs/turnover and rule warnings; drawdown includes initial NAV.",
+  "windows": [
+    {
+      "window_id": "dev_2015_01",
+      "set": "historical",
+      "split": "dev",
+      "start": "2015-01-05",
+      "end": "2015-02-05"
+    },
+    {
+      "window_id": "dev_2015_01m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2015-01-15",
+      "end": "2015-02-25"
+    },
+    {
+      "window_id": "dev_2015_02",
+      "set": "historical",
+      "split": "dev",
+      "start": "2015-02-02",
+      "end": "2015-03-16"
+    },
+    {
+      "window_id": "dev_2015_02m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2015-02-24",
+      "end": "2015-03-30"
+    },
+    {
+      "window_id": "dev_2015_03",
+      "set": "historical",
+      "split": "dev",
+      "start": "2015-03-02",
+      "end": "2015-04-02"
+    },
+    {
+      "window_id": "dev_2015_03m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2015-03-16",
+      "end": "2015-04-20"
+    },
+    {
+      "window_id": "dev_2015_04",
+      "set": "historical",
+      "split": "dev",
+      "start": "2015-04-01",
+      "end": "2015-05-07"
+    },
+    {
+      "window_id": "dev_2015_04m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2015-04-15",
+      "end": "2015-05-19"
+    },
+    {
+      "window_id": "dev_2015_05",
+      "set": "historical",
+      "split": "dev",
+      "start": "2015-05-04",
+      "end": "2015-06-04"
+    },
+    {
+      "window_id": "dev_2015_05m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2015-05-15",
+      "end": "2015-06-17"
+    },
+    {
+      "window_id": "dev_2015_06",
+      "set": "historical",
+      "split": "dev",
+      "start": "2015-06-01",
+      "end": "2015-07-03"
+    },
+    {
+      "window_id": "dev_2015_06m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2015-06-15",
+      "end": "2015-07-20"
+    },
+    {
+      "window_id": "dev_2015_07",
+      "set": "historical",
+      "split": "dev",
+      "start": "2015-07-01",
+      "end": "2015-08-04"
+    },
+    {
+      "window_id": "dev_2015_07m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2015-07-15",
+      "end": "2015-08-17"
+    },
+    {
+      "window_id": "dev_2015_08",
+      "set": "historical",
+      "split": "dev",
+      "start": "2015-08-03",
+      "end": "2015-09-03"
+    },
+    {
+      "window_id": "dev_2015_08m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2015-08-17",
+      "end": "2015-09-17"
+    },
+    {
+      "window_id": "dev_2015_09",
+      "set": "historical",
+      "split": "dev",
+      "start": "2015-09-01",
+      "end": "2015-10-06"
+    },
+    {
+      "window_id": "dev_2015_09m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2015-09-15",
+      "end": "2015-10-21"
+    },
+    {
+      "window_id": "dev_2015_10",
+      "set": "historical",
+      "split": "dev",
+      "start": "2015-10-01",
+      "end": "2015-11-04"
+    },
+    {
+      "window_id": "dev_2015_10m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2015-10-15",
+      "end": "2015-11-17"
+    },
+    {
+      "window_id": "dev_2015_11",
+      "set": "historical",
+      "split": "dev",
+      "start": "2015-11-02",
+      "end": "2015-12-03"
+    },
+    {
+      "window_id": "dev_2015_11m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2015-11-16",
+      "end": "2015-12-17"
+    },
+    {
+      "window_id": "dev_2015_12",
+      "set": "historical",
+      "split": "dev",
+      "start": "2015-12-01",
+      "end": "2016-01-04"
+    },
+    {
+      "window_id": "dev_2015_12m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2015-12-15",
+      "end": "2016-01-18"
+    },
+    {
+      "window_id": "dev_2016_01",
+      "set": "historical",
+      "split": "dev",
+      "start": "2016-01-04",
+      "end": "2016-02-15"
+    },
+    {
+      "window_id": "dev_2016_01m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2016-01-15",
+      "end": "2016-02-26"
+    },
+    {
+      "window_id": "dev_2016_02",
+      "set": "historical",
+      "split": "dev",
+      "start": "2016-02-01",
+      "end": "2016-03-15"
+    },
+    {
+      "window_id": "dev_2016_02m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2016-02-15",
+      "end": "2016-03-18"
+    },
+    {
+      "window_id": "dev_2016_03",
+      "set": "historical",
+      "split": "dev",
+      "start": "2016-03-01",
+      "end": "2016-04-01"
+    },
+    {
+      "window_id": "dev_2016_03m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2016-03-15",
+      "end": "2016-04-19"
+    },
+    {
+      "window_id": "dev_2016_04",
+      "set": "historical",
+      "split": "dev",
+      "start": "2016-04-01",
+      "end": "2016-05-09"
+    },
+    {
+      "window_id": "dev_2016_04m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2016-04-15",
+      "end": "2016-05-19"
+    },
+    {
+      "window_id": "dev_2016_05",
+      "set": "historical",
+      "split": "dev",
+      "start": "2016-05-03",
+      "end": "2016-06-03"
+    },
+    {
+      "window_id": "dev_2016_05m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2016-05-16",
+      "end": "2016-06-20"
+    },
+    {
+      "window_id": "dev_2016_06",
+      "set": "historical",
+      "split": "dev",
+      "start": "2016-06-01",
+      "end": "2016-07-06"
+    },
+    {
+      "window_id": "dev_2016_06m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2016-06-15",
+      "end": "2016-07-19"
+    },
+    {
+      "window_id": "dev_2016_07",
+      "set": "historical",
+      "split": "dev",
+      "start": "2016-07-01",
+      "end": "2016-08-04"
+    },
+    {
+      "window_id": "dev_2016_07m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2016-07-15",
+      "end": "2016-08-17"
+    },
+    {
+      "window_id": "dev_2016_08",
+      "set": "historical",
+      "split": "dev",
+      "start": "2016-08-01",
+      "end": "2016-09-01"
+    },
+    {
+      "window_id": "dev_2016_08m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2016-08-15",
+      "end": "2016-09-19"
+    },
+    {
+      "window_id": "dev_2016_09",
+      "set": "historical",
+      "split": "dev",
+      "start": "2016-09-01",
+      "end": "2016-10-11"
+    },
+    {
+      "window_id": "dev_2016_09m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2016-09-19",
+      "end": "2016-10-25"
+    },
+    {
+      "window_id": "dev_2016_10",
+      "set": "historical",
+      "split": "dev",
+      "start": "2016-10-03",
+      "end": "2016-11-04"
+    },
+    {
+      "window_id": "dev_2016_10m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2016-10-17",
+      "end": "2016-11-17"
+    },
+    {
+      "window_id": "dev_2016_11",
+      "set": "historical",
+      "split": "dev",
+      "start": "2016-11-01",
+      "end": "2016-12-02"
+    },
+    {
+      "window_id": "dev_2016_11m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2016-11-15",
+      "end": "2016-12-16"
+    },
+    {
+      "window_id": "dev_2016_12",
+      "set": "historical",
+      "split": "dev",
+      "start": "2016-12-01",
+      "end": "2017-01-04"
+    },
+    {
+      "window_id": "dev_2016_12m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2016-12-15",
+      "end": "2017-01-18"
+    },
+    {
+      "window_id": "dev_2017_01",
+      "set": "historical",
+      "split": "dev",
+      "start": "2017-01-03",
+      "end": "2017-02-13"
+    },
+    {
+      "window_id": "dev_2017_01m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2017-01-16",
+      "end": "2017-02-24"
+    },
+    {
+      "window_id": "dev_2017_02",
+      "set": "historical",
+      "split": "dev",
+      "start": "2017-02-02",
+      "end": "2017-03-09"
+    },
+    {
+      "window_id": "dev_2017_02m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2017-02-15",
+      "end": "2017-03-22"
+    },
+    {
+      "window_id": "dev_2017_03",
+      "set": "historical",
+      "split": "dev",
+      "start": "2017-03-01",
+      "end": "2017-04-05"
+    },
+    {
+      "window_id": "dev_2017_03m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2017-03-15",
+      "end": "2017-04-19"
+    },
+    {
+      "window_id": "dev_2017_04",
+      "set": "historical",
+      "split": "dev",
+      "start": "2017-04-05",
+      "end": "2017-05-09"
+    },
+    {
+      "window_id": "dev_2017_04m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2017-04-17",
+      "end": "2017-05-19"
+    },
+    {
+      "window_id": "dev_2017_05",
+      "set": "historical",
+      "split": "dev",
+      "start": "2017-05-02",
+      "end": "2017-06-06"
+    },
+    {
+      "window_id": "dev_2017_05m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2017-05-15",
+      "end": "2017-06-19"
+    },
+    {
+      "window_id": "dev_2017_06",
+      "set": "historical",
+      "split": "dev",
+      "start": "2017-06-01",
+      "end": "2017-07-04"
+    },
+    {
+      "window_id": "dev_2017_06m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2017-06-15",
+      "end": "2017-07-18"
+    },
+    {
+      "window_id": "dev_2017_07",
+      "set": "historical",
+      "split": "dev",
+      "start": "2017-07-03",
+      "end": "2017-08-03"
+    },
+    {
+      "window_id": "dev_2017_07m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2017-07-17",
+      "end": "2017-08-17"
+    },
+    {
+      "window_id": "dev_2017_08",
+      "set": "historical",
+      "split": "dev",
+      "start": "2017-08-01",
+      "end": "2017-09-01"
+    },
+    {
+      "window_id": "dev_2017_08m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2017-08-15",
+      "end": "2017-09-15"
+    },
+    {
+      "window_id": "dev_2017_09",
+      "set": "historical",
+      "split": "dev",
+      "start": "2017-09-01",
+      "end": "2017-10-05"
+    },
+    {
+      "window_id": "dev_2017_09m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2017-09-15",
+      "end": "2017-10-23"
+    },
+    {
+      "window_id": "dev_2017_10",
+      "set": "historical",
+      "split": "dev",
+      "start": "2017-10-02",
+      "end": "2017-11-07"
+    },
+    {
+      "window_id": "dev_2017_10m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2017-10-16",
+      "end": "2017-11-16"
+    },
+    {
+      "window_id": "dev_2017_11",
+      "set": "historical",
+      "split": "dev",
+      "start": "2017-11-01",
+      "end": "2017-12-04"
+    },
+    {
+      "window_id": "dev_2017_11m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2017-11-15",
+      "end": "2017-12-18"
+    },
+    {
+      "window_id": "dev_2017_12",
+      "set": "historical",
+      "split": "dev",
+      "start": "2017-12-01",
+      "end": "2018-01-04"
+    },
+    {
+      "window_id": "dev_2017_12m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2017-12-15",
+      "end": "2018-01-18"
+    },
+    {
+      "window_id": "dev_2018_01",
+      "set": "historical",
+      "split": "dev",
+      "start": "2018-01-02",
+      "end": "2018-02-02"
+    },
+    {
+      "window_id": "dev_2018_01m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2018-01-15",
+      "end": "2018-02-23"
+    },
+    {
+      "window_id": "dev_2018_02",
+      "set": "historical",
+      "split": "dev",
+      "start": "2018-02-01",
+      "end": "2018-03-15"
+    },
+    {
+      "window_id": "dev_2018_02m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2018-02-21",
+      "end": "2018-03-27"
+    },
+    {
+      "window_id": "dev_2018_03",
+      "set": "historical",
+      "split": "dev",
+      "start": "2018-03-01",
+      "end": "2018-04-03"
+    },
+    {
+      "window_id": "dev_2018_03m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2018-03-15",
+      "end": "2018-04-20"
+    },
+    {
+      "window_id": "dev_2018_04",
+      "set": "historical",
+      "split": "dev",
+      "start": "2018-04-02",
+      "end": "2018-05-09"
+    },
+    {
+      "window_id": "dev_2018_04m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2018-04-16",
+      "end": "2018-05-18"
+    },
+    {
+      "window_id": "dev_2018_05",
+      "set": "historical",
+      "split": "dev",
+      "start": "2018-05-02",
+      "end": "2018-06-04"
+    },
+    {
+      "window_id": "dev_2018_05m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2018-05-15",
+      "end": "2018-06-15"
+    },
+    {
+      "window_id": "dev_2018_06",
+      "set": "historical",
+      "split": "dev",
+      "start": "2018-06-01",
+      "end": "2018-07-05"
+    },
+    {
+      "window_id": "dev_2018_06m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2018-06-15",
+      "end": "2018-07-19"
+    },
+    {
+      "window_id": "dev_2018_07",
+      "set": "historical",
+      "split": "dev",
+      "start": "2018-07-02",
+      "end": "2018-08-02"
+    },
+    {
+      "window_id": "dev_2018_07m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2018-07-16",
+      "end": "2018-08-16"
+    },
+    {
+      "window_id": "dev_2018_08",
+      "set": "historical",
+      "split": "dev",
+      "start": "2018-08-01",
+      "end": "2018-09-03"
+    },
+    {
+      "window_id": "dev_2018_08m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2018-08-15",
+      "end": "2018-09-17"
+    },
+    {
+      "window_id": "dev_2018_09",
+      "set": "historical",
+      "split": "dev",
+      "start": "2018-09-03",
+      "end": "2018-10-05"
+    },
+    {
+      "window_id": "dev_2018_09m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2018-09-17",
+      "end": "2018-10-22"
+    },
+    {
+      "window_id": "dev_2018_10",
+      "set": "historical",
+      "split": "dev",
+      "start": "2018-10-01",
+      "end": "2018-11-02"
+    },
+    {
+      "window_id": "dev_2018_10m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2018-10-15",
+      "end": "2018-11-15"
+    },
+    {
+      "window_id": "dev_2018_11",
+      "set": "historical",
+      "split": "dev",
+      "start": "2018-11-01",
+      "end": "2018-12-04"
+    },
+    {
+      "window_id": "dev_2018_11m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2018-11-15",
+      "end": "2018-12-18"
+    },
+    {
+      "window_id": "dev_2018_12",
+      "set": "historical",
+      "split": "dev",
+      "start": "2018-12-03",
+      "end": "2019-01-07"
+    },
+    {
+      "window_id": "dev_2018_12m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2018-12-17",
+      "end": "2019-01-21"
+    },
+    {
+      "window_id": "dev_2019_01",
+      "set": "historical",
+      "split": "dev",
+      "start": "2019-01-02",
+      "end": "2019-02-13"
+    },
+    {
+      "window_id": "dev_2019_01m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2019-01-15",
+      "end": "2019-02-26"
+    },
+    {
+      "window_id": "dev_2019_02",
+      "set": "historical",
+      "split": "dev",
+      "start": "2019-02-11",
+      "end": "2019-03-18"
+    },
+    {
+      "window_id": "dev_2019_02m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2019-02-15",
+      "end": "2019-03-22"
+    },
+    {
+      "window_id": "dev_2019_03",
+      "set": "historical",
+      "split": "dev",
+      "start": "2019-03-04",
+      "end": "2019-04-08"
+    },
+    {
+      "window_id": "dev_2019_03m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2019-03-15",
+      "end": "2019-04-19"
+    },
+    {
+      "window_id": "dev_2019_04",
+      "set": "historical",
+      "split": "dev",
+      "start": "2019-04-01",
+      "end": "2019-05-07"
+    },
+    {
+      "window_id": "dev_2019_04m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2019-04-15",
+      "end": "2019-05-17"
+    },
+    {
+      "window_id": "dev_2019_05",
+      "set": "historical",
+      "split": "dev",
+      "start": "2019-05-02",
+      "end": "2019-06-04"
+    },
+    {
+      "window_id": "dev_2019_05m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2019-05-15",
+      "end": "2019-06-18"
+    },
+    {
+      "window_id": "dev_2019_06",
+      "set": "historical",
+      "split": "dev",
+      "start": "2019-06-03",
+      "end": "2019-07-05"
+    },
+    {
+      "window_id": "dev_2019_06m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2019-06-17",
+      "end": "2019-07-18"
+    },
+    {
+      "window_id": "dev_2019_07",
+      "set": "historical",
+      "split": "dev",
+      "start": "2019-07-01",
+      "end": "2019-08-01"
+    },
+    {
+      "window_id": "dev_2019_07m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2019-07-15",
+      "end": "2019-08-16"
+    },
+    {
+      "window_id": "dev_2019_08",
+      "set": "historical",
+      "split": "dev",
+      "start": "2019-08-01",
+      "end": "2019-09-04"
+    },
+    {
+      "window_id": "dev_2019_08m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2019-08-15",
+      "end": "2019-09-19"
+    },
+    {
+      "window_id": "dev_2019_09",
+      "set": "historical",
+      "split": "dev",
+      "start": "2019-09-02",
+      "end": "2019-10-08"
+    },
+    {
+      "window_id": "dev_2019_09m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2019-09-16",
+      "end": "2019-10-22"
+    },
+    {
+      "window_id": "dev_2019_10",
+      "set": "historical",
+      "split": "dev",
+      "start": "2019-10-01",
+      "end": "2019-11-05"
+    },
+    {
+      "window_id": "dev_2019_10m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2019-10-15",
+      "end": "2019-11-15"
+    },
+    {
+      "window_id": "dev_2019_11",
+      "set": "historical",
+      "split": "dev",
+      "start": "2019-11-01",
+      "end": "2019-12-04"
+    },
+    {
+      "window_id": "dev_2019_11m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2019-11-15",
+      "end": "2019-12-18"
+    },
+    {
+      "window_id": "dev_2019_12",
+      "set": "historical",
+      "split": "dev",
+      "start": "2019-12-02",
+      "end": "2020-01-03"
+    },
+    {
+      "window_id": "dev_2019_12m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2019-12-16",
+      "end": "2020-01-17"
+    },
+    {
+      "window_id": "dev_2020_01",
+      "set": "historical",
+      "split": "dev",
+      "start": "2020-01-02",
+      "end": "2020-02-13"
+    },
+    {
+      "window_id": "dev_2020_01m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2020-01-15",
+      "end": "2020-02-26"
+    },
+    {
+      "window_id": "dev_2020_02",
+      "set": "historical",
+      "split": "dev",
+      "start": "2020-02-03",
+      "end": "2020-03-06"
+    },
+    {
+      "window_id": "dev_2020_02m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2020-02-17",
+      "end": "2020-03-20"
+    },
+    {
+      "window_id": "dev_2020_03",
+      "set": "historical",
+      "split": "dev",
+      "start": "2020-03-02",
+      "end": "2020-04-06"
+    },
+    {
+      "window_id": "dev_2020_03m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2020-03-16",
+      "end": "2020-04-20"
+    },
+    {
+      "window_id": "dev_2020_04",
+      "set": "historical",
+      "split": "dev",
+      "start": "2020-04-01",
+      "end": "2020-05-07"
+    },
+    {
+      "window_id": "dev_2020_04m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2020-04-15",
+      "end": "2020-05-19"
+    },
+    {
+      "window_id": "dev_2020_05",
+      "set": "historical",
+      "split": "dev",
+      "start": "2020-05-04",
+      "end": "2020-06-04"
+    },
+    {
+      "window_id": "dev_2020_05m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2020-05-15",
+      "end": "2020-06-17"
+    },
+    {
+      "window_id": "dev_2020_06",
+      "set": "historical",
+      "split": "dev",
+      "start": "2020-06-01",
+      "end": "2020-07-06"
+    },
+    {
+      "window_id": "dev_2020_06m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2020-06-15",
+      "end": "2020-07-20"
+    },
+    {
+      "window_id": "dev_2020_07",
+      "set": "historical",
+      "split": "dev",
+      "start": "2020-07-01",
+      "end": "2020-08-03"
+    },
+    {
+      "window_id": "dev_2020_07m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2020-07-15",
+      "end": "2020-08-17"
+    },
+    {
+      "window_id": "dev_2020_08",
+      "set": "historical",
+      "split": "dev",
+      "start": "2020-08-03",
+      "end": "2020-09-03"
+    },
+    {
+      "window_id": "dev_2020_08m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2020-08-17",
+      "end": "2020-09-17"
+    },
+    {
+      "window_id": "dev_2020_09",
+      "set": "historical",
+      "split": "dev",
+      "start": "2020-09-01",
+      "end": "2020-10-06"
+    },
+    {
+      "window_id": "dev_2020_09m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2020-09-15",
+      "end": "2020-10-21"
+    },
+    {
+      "window_id": "dev_2020_10",
+      "set": "historical",
+      "split": "dev",
+      "start": "2020-10-05",
+      "end": "2020-11-06"
+    },
+    {
+      "window_id": "dev_2020_10m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2020-10-15",
+      "end": "2020-11-17"
+    },
+    {
+      "window_id": "dev_2020_11",
+      "set": "historical",
+      "split": "dev",
+      "start": "2020-11-02",
+      "end": "2020-12-03"
+    },
+    {
+      "window_id": "dev_2020_11m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2020-11-16",
+      "end": "2020-12-17"
+    },
+    {
+      "window_id": "dev_2020_12",
+      "set": "historical",
+      "split": "dev",
+      "start": "2020-12-01",
+      "end": "2021-01-04"
+    },
+    {
+      "window_id": "dev_2020_12m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2020-12-15",
+      "end": "2021-01-18"
+    },
+    {
+      "window_id": "dev_2021_01",
+      "set": "historical",
+      "split": "dev",
+      "start": "2021-01-04",
+      "end": "2021-02-04"
+    },
+    {
+      "window_id": "dev_2021_01m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2021-01-15",
+      "end": "2021-02-26"
+    },
+    {
+      "window_id": "dev_2021_02",
+      "set": "historical",
+      "split": "dev",
+      "start": "2021-02-01",
+      "end": "2021-03-16"
+    },
+    {
+      "window_id": "dev_2021_02m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2021-02-17",
+      "end": "2021-03-23"
+    },
+    {
+      "window_id": "dev_2021_03",
+      "set": "historical",
+      "split": "dev",
+      "start": "2021-03-02",
+      "end": "2021-04-07"
+    },
+    {
+      "window_id": "dev_2021_03m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2021-03-15",
+      "end": "2021-04-20"
+    },
+    {
+      "window_id": "dev_2021_04",
+      "set": "historical",
+      "split": "dev",
+      "start": "2021-04-01",
+      "end": "2021-05-10"
+    },
+    {
+      "window_id": "dev_2021_04m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2021-04-15",
+      "end": "2021-05-19"
+    },
+    {
+      "window_id": "dev_2021_05",
+      "set": "historical",
+      "split": "dev",
+      "start": "2021-05-03",
+      "end": "2021-06-03"
+    },
+    {
+      "window_id": "dev_2021_05m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2021-05-17",
+      "end": "2021-06-18"
+    },
+    {
+      "window_id": "dev_2021_06",
+      "set": "historical",
+      "split": "dev",
+      "start": "2021-06-01",
+      "end": "2021-07-05"
+    },
+    {
+      "window_id": "dev_2021_06m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2021-06-15",
+      "end": "2021-07-16"
+    },
+    {
+      "window_id": "dev_2021_07",
+      "set": "historical",
+      "split": "dev",
+      "start": "2021-07-01",
+      "end": "2021-08-03"
+    },
+    {
+      "window_id": "dev_2021_07m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2021-07-15",
+      "end": "2021-08-17"
+    },
+    {
+      "window_id": "dev_2021_08",
+      "set": "historical",
+      "split": "dev",
+      "start": "2021-08-02",
+      "end": "2021-09-02"
+    },
+    {
+      "window_id": "dev_2021_08m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2021-08-16",
+      "end": "2021-09-16"
+    },
+    {
+      "window_id": "dev_2021_09",
+      "set": "historical",
+      "split": "dev",
+      "start": "2021-09-01",
+      "end": "2021-10-06"
+    },
+    {
+      "window_id": "dev_2021_09m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2021-09-15",
+      "end": "2021-10-21"
+    },
+    {
+      "window_id": "dev_2021_10",
+      "set": "historical",
+      "split": "dev",
+      "start": "2021-10-01",
+      "end": "2021-11-04"
+    },
+    {
+      "window_id": "dev_2021_10m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2021-10-15",
+      "end": "2021-11-17"
+    },
+    {
+      "window_id": "dev_2021_11",
+      "set": "historical",
+      "split": "dev",
+      "start": "2021-11-01",
+      "end": "2021-12-02"
+    },
+    {
+      "window_id": "dev_2021_11m",
+      "set": "historical",
+      "split": "dev",
+      "start": "2021-11-15",
+      "end": "2021-12-16"
+    },
+    {
+      "window_id": "validation_2022_01",
+      "set": "historical",
+      "split": "validation",
+      "start": "2022-01-03",
+      "end": "2022-02-14"
+    },
+    {
+      "window_id": "validation_2022_01m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2022-01-17",
+      "end": "2022-03-01"
+    },
+    {
+      "window_id": "validation_2022_02",
+      "set": "historical",
+      "split": "validation",
+      "start": "2022-02-07",
+      "end": "2022-03-11"
+    },
+    {
+      "window_id": "validation_2022_02m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2022-02-15",
+      "end": "2022-03-21"
+    },
+    {
+      "window_id": "validation_2022_03",
+      "set": "historical",
+      "split": "validation",
+      "start": "2022-03-01",
+      "end": "2022-04-01"
+    },
+    {
+      "window_id": "validation_2022_03m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2022-03-15",
+      "end": "2022-04-19"
+    },
+    {
+      "window_id": "validation_2022_04",
+      "set": "historical",
+      "split": "validation",
+      "start": "2022-04-01",
+      "end": "2022-05-09"
+    },
+    {
+      "window_id": "validation_2022_04m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2022-04-15",
+      "end": "2022-05-19"
+    },
+    {
+      "window_id": "validation_2022_05",
+      "set": "historical",
+      "split": "validation",
+      "start": "2022-05-03",
+      "end": "2022-06-06"
+    },
+    {
+      "window_id": "validation_2022_05m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2022-05-16",
+      "end": "2022-06-17"
+    },
+    {
+      "window_id": "validation_2022_06",
+      "set": "historical",
+      "split": "validation",
+      "start": "2022-06-01",
+      "end": "2022-07-05"
+    },
+    {
+      "window_id": "validation_2022_06m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2022-06-15",
+      "end": "2022-07-18"
+    },
+    {
+      "window_id": "validation_2022_07",
+      "set": "historical",
+      "split": "validation",
+      "start": "2022-07-01",
+      "end": "2022-08-03"
+    },
+    {
+      "window_id": "validation_2022_07m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2022-07-15",
+      "end": "2022-08-17"
+    },
+    {
+      "window_id": "validation_2022_08",
+      "set": "historical",
+      "split": "validation",
+      "start": "2022-08-01",
+      "end": "2022-09-01"
+    },
+    {
+      "window_id": "validation_2022_08m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2022-08-15",
+      "end": "2022-09-16"
+    },
+    {
+      "window_id": "validation_2022_09",
+      "set": "historical",
+      "split": "validation",
+      "start": "2022-09-01",
+      "end": "2022-10-05"
+    },
+    {
+      "window_id": "validation_2022_09m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2022-09-15",
+      "end": "2022-10-19"
+    },
+    {
+      "window_id": "validation_2022_10",
+      "set": "historical",
+      "split": "validation",
+      "start": "2022-10-03",
+      "end": "2022-11-04"
+    },
+    {
+      "window_id": "validation_2022_10m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2022-10-17",
+      "end": "2022-11-17"
+    },
+    {
+      "window_id": "validation_2022_11",
+      "set": "historical",
+      "split": "validation",
+      "start": "2022-11-01",
+      "end": "2022-12-02"
+    },
+    {
+      "window_id": "validation_2022_11m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2022-11-15",
+      "end": "2022-12-16"
+    },
+    {
+      "window_id": "validation_2022_12",
+      "set": "historical",
+      "split": "validation",
+      "start": "2022-12-01",
+      "end": "2023-01-04"
+    },
+    {
+      "window_id": "validation_2022_12m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2022-12-15",
+      "end": "2023-01-30"
+    },
+    {
+      "window_id": "validation_2023_01",
+      "set": "historical",
+      "split": "validation",
+      "start": "2023-01-03",
+      "end": "2023-02-15"
+    },
+    {
+      "window_id": "validation_2023_01m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2023-01-16",
+      "end": "2023-03-02"
+    },
+    {
+      "window_id": "validation_2023_02",
+      "set": "historical",
+      "split": "validation",
+      "start": "2023-02-01",
+      "end": "2023-03-08"
+    },
+    {
+      "window_id": "validation_2023_02m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2023-02-15",
+      "end": "2023-03-22"
+    },
+    {
+      "window_id": "validation_2023_03",
+      "set": "historical",
+      "split": "validation",
+      "start": "2023-03-01",
+      "end": "2023-04-06"
+    },
+    {
+      "window_id": "validation_2023_03m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2023-03-15",
+      "end": "2023-04-20"
+    },
+    {
+      "window_id": "validation_2023_04",
+      "set": "historical",
+      "split": "validation",
+      "start": "2023-04-06",
+      "end": "2023-05-10"
+    },
+    {
+      "window_id": "validation_2023_04m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2023-04-17",
+      "end": "2023-05-19"
+    },
+    {
+      "window_id": "validation_2023_05",
+      "set": "historical",
+      "split": "validation",
+      "start": "2023-05-02",
+      "end": "2023-06-02"
+    },
+    {
+      "window_id": "validation_2023_05m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2023-05-15",
+      "end": "2023-06-15"
+    },
+    {
+      "window_id": "validation_2023_06",
+      "set": "historical",
+      "split": "validation",
+      "start": "2023-06-01",
+      "end": "2023-07-06"
+    },
+    {
+      "window_id": "validation_2023_06m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2023-06-15",
+      "end": "2023-07-20"
+    },
+    {
+      "window_id": "validation_2023_07",
+      "set": "historical",
+      "split": "validation",
+      "start": "2023-07-03",
+      "end": "2023-08-04"
+    },
+    {
+      "window_id": "validation_2023_07m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2023-07-17",
+      "end": "2023-08-18"
+    },
+    {
+      "window_id": "validation_2023_08",
+      "set": "historical",
+      "split": "validation",
+      "start": "2023-08-01",
+      "end": "2023-09-04"
+    },
+    {
+      "window_id": "validation_2023_08m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2023-08-15",
+      "end": "2023-09-15"
+    },
+    {
+      "window_id": "validation_2023_09",
+      "set": "historical",
+      "split": "validation",
+      "start": "2023-09-01",
+      "end": "2023-10-05"
+    },
+    {
+      "window_id": "validation_2023_09m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2023-09-15",
+      "end": "2023-10-23"
+    },
+    {
+      "window_id": "validation_2023_10",
+      "set": "historical",
+      "split": "validation",
+      "start": "2023-10-02",
+      "end": "2023-11-06"
+    },
+    {
+      "window_id": "validation_2023_10m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2023-10-16",
+      "end": "2023-11-16"
+    },
+    {
+      "window_id": "validation_2023_11",
+      "set": "historical",
+      "split": "validation",
+      "start": "2023-11-01",
+      "end": "2023-12-04"
+    },
+    {
+      "window_id": "validation_2023_11m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2023-11-15",
+      "end": "2023-12-18"
+    },
+    {
+      "window_id": "validation_2023_12",
+      "set": "historical",
+      "split": "validation",
+      "start": "2023-12-01",
+      "end": "2024-01-04"
+    },
+    {
+      "window_id": "validation_2023_12m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2023-12-15",
+      "end": "2024-01-18"
+    },
+    {
+      "window_id": "validation_2024_01",
+      "set": "historical",
+      "split": "validation",
+      "start": "2024-01-02",
+      "end": "2024-02-02"
+    },
+    {
+      "window_id": "validation_2024_01m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2024-01-15",
+      "end": "2024-02-26"
+    },
+    {
+      "window_id": "validation_2024_02",
+      "set": "historical",
+      "split": "validation",
+      "start": "2024-02-01",
+      "end": "2024-03-15"
+    },
+    {
+      "window_id": "validation_2024_02m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2024-02-15",
+      "end": "2024-03-20"
+    },
+    {
+      "window_id": "validation_2024_03",
+      "set": "historical",
+      "split": "validation",
+      "start": "2024-03-01",
+      "end": "2024-04-03"
+    },
+    {
+      "window_id": "validation_2024_03m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2024-03-15",
+      "end": "2024-04-19"
+    },
+    {
+      "window_id": "validation_2024_04",
+      "set": "historical",
+      "split": "validation",
+      "start": "2024-04-01",
+      "end": "2024-05-07"
+    },
+    {
+      "window_id": "validation_2024_04m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2024-04-15",
+      "end": "2024-05-17"
+    },
+    {
+      "window_id": "validation_2024_05",
+      "set": "historical",
+      "split": "validation",
+      "start": "2024-05-02",
+      "end": "2024-06-04"
+    },
+    {
+      "window_id": "validation_2024_05m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2024-05-15",
+      "end": "2024-06-18"
+    },
+    {
+      "window_id": "validation_2024_06",
+      "set": "historical",
+      "split": "validation",
+      "start": "2024-06-03",
+      "end": "2024-07-05"
+    },
+    {
+      "window_id": "validation_2024_06m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2024-06-17",
+      "end": "2024-07-18"
+    },
+    {
+      "window_id": "validation_2024_07",
+      "set": "historical",
+      "split": "validation",
+      "start": "2024-07-01",
+      "end": "2024-08-05"
+    },
+    {
+      "window_id": "validation_2024_07m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2024-07-15",
+      "end": "2024-08-19"
+    },
+    {
+      "window_id": "validation_2024_08",
+      "set": "historical",
+      "split": "validation",
+      "start": "2024-08-01",
+      "end": "2024-09-03"
+    },
+    {
+      "window_id": "validation_2024_08m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2024-08-15",
+      "end": "2024-09-18"
+    },
+    {
+      "window_id": "validation_2024_09",
+      "set": "historical",
+      "split": "validation",
+      "start": "2024-09-02",
+      "end": "2024-10-08"
+    },
+    {
+      "window_id": "validation_2024_09m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2024-09-16",
+      "end": "2024-10-23"
+    },
+    {
+      "window_id": "validation_2024_10",
+      "set": "historical",
+      "split": "validation",
+      "start": "2024-10-01",
+      "end": "2024-11-07"
+    },
+    {
+      "window_id": "validation_2024_10m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2024-10-15",
+      "end": "2024-11-18"
+    },
+    {
+      "window_id": "validation_2024_11",
+      "set": "historical",
+      "split": "validation",
+      "start": "2024-11-01",
+      "end": "2024-12-04"
+    },
+    {
+      "window_id": "validation_2024_11m",
+      "set": "historical",
+      "split": "validation",
+      "start": "2024-11-15",
+      "end": "2024-12-18"
+    },
+    {
+      "window_id": "holdout_2025_01",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2025-01-02",
+      "end": "2025-02-13"
+    },
+    {
+      "window_id": "holdout_2025_01m",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2025-01-15",
+      "end": "2025-02-26"
+    },
+    {
+      "window_id": "holdout_2025_02",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2025-02-03",
+      "end": "2025-03-07"
+    },
+    {
+      "window_id": "holdout_2025_02m",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2025-02-17",
+      "end": "2025-03-21"
+    },
+    {
+      "window_id": "holdout_2025_03",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2025-03-03",
+      "end": "2025-04-07"
+    },
+    {
+      "window_id": "holdout_2025_03m",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2025-03-17",
+      "end": "2025-04-21"
+    },
+    {
+      "window_id": "holdout_2025_04",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2025-04-01",
+      "end": "2025-05-07"
+    },
+    {
+      "window_id": "holdout_2025_04m",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2025-04-15",
+      "end": "2025-05-19"
+    },
+    {
+      "window_id": "holdout_2025_05",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2025-05-02",
+      "end": "2025-06-05"
+    },
+    {
+      "window_id": "holdout_2025_05m",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2025-05-15",
+      "end": "2025-06-18"
+    },
+    {
+      "window_id": "holdout_2025_06",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2025-06-02",
+      "end": "2025-07-03"
+    },
+    {
+      "window_id": "holdout_2025_06m",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2025-06-16",
+      "end": "2025-07-17"
+    },
+    {
+      "window_id": "holdout_2025_07",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2025-07-01",
+      "end": "2025-08-01"
+    },
+    {
+      "window_id": "holdout_2025_07m",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2025-07-15",
+      "end": "2025-08-15"
+    },
+    {
+      "window_id": "holdout_2025_08",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2025-08-01",
+      "end": "2025-09-03"
+    },
+    {
+      "window_id": "holdout_2025_08m",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2025-08-15",
+      "end": "2025-09-17"
+    },
+    {
+      "window_id": "holdout_2025_09",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2025-09-01",
+      "end": "2025-10-03"
+    },
+    {
+      "window_id": "holdout_2025_09m",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2025-09-15",
+      "end": "2025-10-21"
+    },
+    {
+      "window_id": "holdout_2025_10",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2025-10-01",
+      "end": "2025-11-06"
+    },
+    {
+      "window_id": "holdout_2025_10m",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2025-10-15",
+      "end": "2025-11-18"
+    },
+    {
+      "window_id": "holdout_2025_11",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2025-11-03",
+      "end": "2025-12-04"
+    },
+    {
+      "window_id": "holdout_2025_11m",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2025-11-17",
+      "end": "2025-12-18"
+    },
+    {
+      "window_id": "holdout_2025_12",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2025-12-01",
+      "end": "2026-01-05"
+    },
+    {
+      "window_id": "holdout_2025_12m",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2025-12-15",
+      "end": "2026-01-19"
+    },
+    {
+      "window_id": "holdout_2026_01",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2026-01-02",
+      "end": "2026-02-04"
+    },
+    {
+      "window_id": "holdout_2026_01m",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2026-01-15",
+      "end": "2026-02-26"
+    },
+    {
+      "window_id": "holdout_2026_02",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2026-02-02",
+      "end": "2026-03-17"
+    },
+    {
+      "window_id": "holdout_2026_02m",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2026-02-23",
+      "end": "2026-03-27"
+    },
+    {
+      "window_id": "holdout_2026_03",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2026-03-02",
+      "end": "2026-04-02"
+    },
+    {
+      "window_id": "holdout_2026_03m",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2026-03-16",
+      "end": "2026-04-20"
+    },
+    {
+      "window_id": "holdout_2026_04",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2026-04-01",
+      "end": "2026-05-07"
+    },
+    {
+      "window_id": "holdout_2026_04m",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2026-04-15",
+      "end": "2026-05-19"
+    },
+    {
+      "window_id": "holdout_2026_05",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2026-05-04",
+      "end": "2026-06-04"
+    },
+    {
+      "window_id": "holdout_2026_05m",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2026-05-15",
+      "end": "2026-06-17"
+    },
+    {
+      "window_id": "holdout_2026_06",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2026-06-01",
+      "end": "2026-07-03"
+    },
+    {
+      "window_id": "holdout_2026_06m",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2026-06-15",
+      "end": "2026-07-20"
+    },
+    {
+      "window_id": "holdout_2026_07",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2026-07-01",
+      "end": "2026-08-04"
+    },
+    {
+      "window_id": "holdout_2026_07m",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2026-07-15",
+      "end": "2026-08-17"
+    },
+    {
+      "window_id": "holdout_2026_08",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2026-08-03",
+      "end": "2026-09-03"
+    },
+    {
+      "window_id": "holdout_2026_08m",
+      "set": "historical",
+      "split": "holdout",
+      "start": "2026-08-17",
+      "end": "2026-09-17"
+    },
+    {
+      "window_id": "W1",
+      "set": "recent",
+      "split": "recent_diagnostic",
+      "start": "2026-04-30",
+      "end": "2026-06-03"
+    },
+    {
+      "window_id": "W2",
+      "set": "recent",
+      "split": "recent_diagnostic",
+      "start": "2026-06-04",
+      "end": "2026-07-08"
+    },
+    {
+      "window_id": "W3",
+      "set": "recent",
+      "split": "recent_diagnostic",
+      "start": "2026-07-09",
+      "end": "2026-08-12"
+    },
+    {
+      "window_id": "W4",
+      "set": "recent",
+      "split": "recent_diagnostic",
+      "start": "2026-08-13",
+      "end": "2026-09-15"
+    },
+    {
+      "window_id": "W5",
+      "set": "recent",
+      "split": "recent_diagnostic",
+      "start": "2026-09-16",
+      "end": "2026-10-22"
+    }
+  ]
+}

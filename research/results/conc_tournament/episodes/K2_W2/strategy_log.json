@@ -1,0 +1,19 @@
+[
+  {
+    "date": "2026-06-04",
+    "action": "build",
+    "passed_filter": 25,
+    "core_from_filter": 10
+  },
+  {
+    "date": "2026-06-12",
+    "action": "rescreen",
+    "turnover": 0.5224559432157214,
+    "passed_filter": 38,
+    "core_from_filter": 10
+  },
+  {
+    "date": "2026-06-23",
+    "action": "repair"
+  }
+]

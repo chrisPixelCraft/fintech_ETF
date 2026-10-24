@@ -1,0 +1,2143 @@
+{
+  "status": "COMPLETE",
+  "results": [
+    {
+      "strategy": "C1",
+      "window": "W1",
+      "episode_id": "W1",
+      "split": "recent_diagnostic",
+      "start": "2026-04-30",
+      "end": "2026-06-03",
+      "sessions": 24,
+      "complete": true,
+      "terminal_nav": 1287647378.515352,
+      "terminal_return": 0.28764737851535194,
+      "max_drawdown": 0.0561757301672855,
+      "dividend_credit": 350768.376,
+      "turnover": 0.9181183722056452,
+      "costs": 1308318.6803930444,
+      "fees": 1308318.6803930444,
+      "taxes": 0.0,
+      "warning_days": 0,
+      "disqualified": false,
+      "unfilled_orders": 0,
+      "envelope_breaches": 0,
+      "fill_sources": {
+        "official_vwap": 25
+      },
+      "plan_status": {
+        "REPAIRED": 1,
+        "OK": 23
+      },
+      "quality_flag_days": 0,
+      "mean_holdings": 25.0,
+      "mean_cash_ratio": 0.07210076948884742,
+      "decide_seconds": 0.005538417002753704,
+      "benchmark_0050_return": 0.1856749143153833,
+      "equal_weight_universe_return": 0.22123225988925563,
+      "verification_problem_count": 0,
+      "verification_problems": [],
+      "min_as": 0.21989710284016162,
+      "closest_etf": "00401A",
+      "min_as_date": "2026-05-06",
+      "as_days_below_15pct": 0,
+      "as_rows": 24,
+      "active_share_status": "ACTIVE_SHARE_UNVERIFIED",
+      "as_use": "descriptive",
+      "delta_vs_c1": 0.0,
+      "delta_vs_mom20": 0.07566430574527283,
+      "delta_vs_0050": 0.10197246419996864,
+      "crash_w5_compounded_return": -0.1273840563156683,
+      "crash_w5_dates": [
+        "2026-10-15",
+        "2026-10-22",
+        "2026-10-20",
+        "2026-10-13",
+        "2026-10-12"
+      ],
+      "crash_w5_daily_returns": {
+        "2026-10-15": -0.055924518311414095,
+        "2026-10-22": -0.02647585049015122,
+        "2026-10-20": -0.015060796259823928,
+        "2026-10-13": -0.03108950837218405,
+        "2026-10-12": -0.005106455224143325
+      }
+    },
+    {
+      "strategy": "Mom20",
+      "window": "W1",
+      "episode_id": "W1",
+      "split": "recent_diagnostic",
+      "start": "2026-04-30",
+      "end": "2026-06-03",
+      "sessions": 24,
+      "complete": true,
+      "terminal_nav": 1211983072.7700791,
+      "terminal_return": 0.2119830727700791,
+      "max_drawdown": 0.10771002018329334,
+      "dividend_credit": 0.0,
+      "turnover": 3.288738731176496,
+      "costs": 8816729.210309772,
+      "fees": 4971449.58560191,
+      "taxes": 3845279.6247078623,
+      "warning_days": 0,
+      "disqualified": false,
+      "unfilled_orders": 0,
+      "envelope_breaches": 0,
+      "fill_sources": {
+        "official_vwap": 113
+      },
+      "plan_status": {
+        "REPAIRED": 1,
+        "OK": 23
+      },
+      "quality_flag_days": 0,
+      "mean_holdings": 25.0,
+      "mean_cash_ratio": 0.0642244637144681,
+      "decide_seconds": 0.11220179200608982,
+      "benchmark_0050_return": 0.1856749143153833,
+      "equal_weight_universe_return": 0.22123225988925563,
+      "verification_problem_count": 0,
+      "verification_problems": [],
+      "min_as": 0.26945315605247605,
+      "closest_etf": "00408A",
+      "min_as_date": "2026-05-07",
+      "as_days_below_15pct": 0,
+      "as_rows": 24,
+      "active_share_status": "ACTIVE_SHARE_UNVERIFIED",
+      "as_use": "descriptive",
+      "delta_vs_c1": -0.07566430574527283,
+      "delta_vs_mom20": 0.0,
+      "delta_vs_0050": 0.026308158454695807,
+      "crash_w5_compounded_return": -0.15914500233969742,
+      "crash_w5_dates": [
+        "2026-10-15",
+        "2026-10-22",
+        "2026-10-20",
+        "2026-10-13",
+        "2026-10-12"
+      ],
+      "crash_w5_daily_returns": {
+        "2026-10-15": -0.06115596406021051,
+        "2026-10-22": -0.039346110747578766,
+        "2026-10-20": -0.026731499517219093,
+        "2026-10-13": -0.024035226711122126,
+        "2026-10-12": -0.018491867348844226
+      }
+    },
+    {
+      "strategy": "T1",
+      "window": "W1",
+      "episode_id": "W1",
+      "split": "recent_diagnostic",
+      "start": "2026-04-30",
+      "end": "2026-06-03",
+      "sessions": 24,
+      "complete": true,
+      "terminal_nav": 1176454314.2204196,
+      "terminal_return": 0.17645431422041957,
+      "max_drawdown": 0.06740302510963192,
+      "dividend_credit": 0.0,
+      "turnover": 1.7441672233252987,
+      "costs": 3914338.2969530113,
+      "fees": 2567038.8555729524,
+      "taxes": 1347299.4413800589,
+      "warning_days": 0,
+      "disqualified": false,
+      "unfilled_orders": 0,
+      "envelope_breaches": 0,
+      "fill_sources": {
+        "official_vwap": 58
+      },
+      "plan_status": {
+        "REPAIRED": 2,
+        "OK": 22
+      },
+      "quality_flag_days": 0,
+      "mean_holdings": 25.0,
+      "mean_cash_ratio": 0.08773282138756082,
+      "decide_seconds": 0.020772583002326428,
+      "benchmark_0050_return": 0.1856749143153833,
+      "equal_weight_universe_return": 0.22123225988925563,
+      "verification_problem_count": 0,
+      "verification_problems": [],
+      "min_as": 0.3302260534033303,
+      "closest_etf": "00401A",
+      "min_as_date": "2026-05-12",
+      "as_days_below_15pct": 0,
+      "as_rows": 24,
+      "active_share_status": "ACTIVE_SHARE_UNVERIFIED",
+      "as_use": "descriptive",
+      "delta_vs_c1": -0.11119306429493236,
+      "delta_vs_mom20": -0.035528758549659534,
+      "delta_vs_0050": -0.009220600094963727,
+      "crash_w5_compounded_return": -0.09100879343288648,
+      "crash_w5_dates": [
+        "2026-10-15",
+        "2026-10-22",
+        "2026-10-20",
+        "2026-10-13",
+        "2026-10-12"
+      ],
+      "crash_w5_daily_returns": {
+        "2026-10-15": -0.03901227561934639,
+        "2026-10-22": -0.02681399489715619,
+        "2026-10-20": -0.01760898993530513,
+        "2026-10-13": -0.017246769621002245,
+        "2026-10-12": 0.006739543183522656
+      }
+    },
+    {
+      "strategy": "T2",
+      "window": "W1",
+      "episode_id": "W1",
+      "split": "recent_diagnostic",
+      "start": "2026-04-30",
+      "end": "2026-06-03",
+      "sessions": 24,
+      "complete": true,
+      "terminal_nav": 1209223728.4055247,
+      "terminal_return": 0.20922372840552472,
+      "max_drawdown": 0.07022718019859586,
+      "dividend_credit": 0.0,
+      "turnover": 0.923967618648928,
+      "costs": 1316653.8565747226,
+      "fees": 1316653.8565747226,
+      "taxes": 0.0,
+      "warning_days": 0,
+      "disqualified": false,
+      "unfilled_orders": 0,
+      "envelope_breaches": 0,
+      "fill_sources": {
+        "official_vwap": 25
+      },
+      "plan_status": {
+        "REPAIRED": 1,
+        "OK": 23
+      },
+      "quality_flag_days": 0,
+      "mean_holdings": 25.0,
+      "mean_cash_ratio": 0.06833114843536951,
+      "decide_seconds": 0.012275248005607864,
+      "benchmark_0050_return": 0.1856749143153833,
+      "equal_weight_universe_return": 0.22123225988925563,
+      "verification_problem_count": 0,
+      "verification_problems": [],
+      "min_as": 0.22066247498612804,
+      "closest_etf": "00407A",
+      "min_as_date": "2026-04-30",
+      "as_days_below_15pct": 0,
+      "as_rows": 24,
+      "active_share_status": "ACTIVE_SHARE_UNVERIFIED",
+      "as_use": "descriptive",
+      "delta_vs_c1": -0.07842365010982721,
+      "delta_vs_mom20": -0.0027593443645543836,
+      "delta_vs_0050": 0.023548814090141423,
+      "crash_w5_compounded_return": -0.12231866148538073,
+      "crash_w5_dates": [
+        "2026-10-15",
+        "2026-10-22",
+        "2026-10-20",
+        "2026-10-13",
+        "2026-10-12"
+      ],
+      "crash_w5_daily_returns": {
+        "2026-10-15": -0.051603091394950895,
+        "2026-10-22": -0.03384030952953776,
+        "2026-10-20": -0.011896064672454298,
+        "2026-10-13": -0.02521718433031217,
+        "2026-10-12": -0.005539982004755362
+      }
+    },
+    {
+      "strategy": "T3",
+      "window": "W1",
+      "episode_id": "W1",
+      "split": "recent_diagnostic",
+      "start": "2026-04-30",
+      "end": "2026-06-03",
+      "sessions": 24,
+      "complete": true,
+      "terminal_nav": 1241409941.3897967,
+      "terminal_return": 0.24140994138979677,
+      "max_drawdown": 0.0691049226332352,
+      "dividend_credit": 0.0,
+      "turnover": 1.219314783893825,
+      "costs": 2255442.8553890423,
+      "fees": 1772617.265669768,
+      "taxes": 482825.58971927443,
+      "warning_days": 0,
+      "disqualified": false,
+      "unfilled_orders": 0,
+      "envelope_breaches": 0,
+      "fill_sources": {
+        "official_vwap": 37
+      },
+      "plan_status": {
+        "REPAIRED": 2,
+        "OK": 22
+      },
+      "quality_flag_days": 0,
+      "mean_holdings": 25.0,
+      "mean_cash_ratio": 0.07076529762589039,
+      "decide_seconds": 0.01396225099961157,
+      "benchmark_0050_return": 0.1856749143153833,
+      "equal_weight_universe_return": 0.22123225988925563,
+      "verification_problem_count": 0,
+      "verification_problems": [],
+      "min_as": 0.2813994358960944,
+      "closest_etf": "00401A",
+      "min_as_date": "2026-04-30",
+      "as_days_below_15pct": 0,
+      "as_rows": 24,
+      "active_share_status": "ACTIVE_SHARE_UNVERIFIED",
+      "as_use": "descriptive",
+      "delta_vs_c1": -0.04623743712555517,
+      "delta_vs_mom20": 0.02942686861971766,
+      "delta_vs_0050": 0.05573502707441347,
+      "crash_w5_compounded_return": -0.131544768520521,
+      "crash_w5_dates": [
+        "2026-10-15",
+        "2026-10-22",
+        "2026-10-20",
+        "2026-10-13",
+        "2026-10-12"
+      ],
+      "crash_w5_daily_returns": {
+        "2026-10-15": -0.05523480888708321,
+        "2026-10-22": -0.030421040077357575,
+        "2026-10-20": -0.01563106665518843,
+        "2026-10-13": -0.033807739956346894,
+        "2026-10-12": -0.0031750119490043804
+      }
+    },
+    {
+      "strategy": "C1",
+      "window": "W2",
+      "episode_id": "W2",
+      "split": "recent_diagnostic",
+      "start": "2026-06-04",
+      "end": "2026-07-08",
+      "sessions": 24,
+      "complete": true,
+      "terminal_nav": 989297863.6264939,
+      "terminal_return": -0.010702136373506033,
+      "max_drawdown": 0.07915569549676948,
+      "dividend_credit": 3833893.2249999996,
+      "turnover": 0.8891565800284839,
+      "costs": 1267048.1265405896,
+      "fees": 1267048.1265405896,
+      "taxes": 0.0,
+      "warning_days": 0,
+      "disqualified": false,
+      "unfilled_orders": 0,
+      "envelope_breaches": 0,
+      "fill_sources": {
+        "official_vwap": 25
+      },
+      "plan_status": {
+        "REPAIRED": 1,
+        "OK": 23
+      },
+      "quality_flag_days": 0,
+      "mean_holdings": 25.0,
+      "mean_cash_ratio": 0.10988978933384212,
+      "decide_seconds": 0.005384789999880013,
+      "benchmark_0050_return": -0.014405162122154369,
+      "equal_weight_universe_return": -0.01891459854676056,
+      "verification_problem_count": 0,
+      "verification_problems": [],
+      "min_as": 0.192151460987145,
+      "closest_etf": "00401A",
+      "min_as_date": "2026-06-04",
+      "as_days_below_15pct": 0,
+      "as_rows": 24,
+      "active_share_status": "ACTIVE_SHARE_UNVERIFIED",
+      "as_use": "descriptive",
+      "delta_vs_c1": 0.0,
+      "delta_vs_mom20": -0.043159209210543725,
+      "delta_vs_0050": 0.0037030257486483364,
+      "crash_w5_compounded_return": -0.1273840563156683,
+      "crash_w5_dates": [
+        "2026-10-15",
+        "2026-10-22",
+        "2026-10-20",
+        "2026-10-13",
+        "2026-10-12"
+      ],
+      "crash_w5_daily_returns": {
+        "2026-10-15": -0.055924518311414095,
+        "2026-10-22": -0.02647585049015122,
+        "2026-10-20": -0.015060796259823928,
+        "2026-10-13": -0.03108950837218405,
+        "2026-10-12": -0.005106455224143325
+      }
+    },
+    {
+      "strategy": "Mom20",
+      "window": "W2",
+      "episode_id": "W2",
+      "split": "recent_diagnostic",
+      "start": "2026-06-04",
+      "end": "2026-07-08",
+      "sessions": 24,
+      "complete": true,
+      "terminal_nav": 1032457072.8370378,
+      "terminal_return": 0.03245707283703769,
+      "max_drawdown": 0.09595739291997718,
+      "dividend_credit": 9232019.214000002,
+      "turnover": 3.5553709951488166,
+      "costs": 9134476.435558174,
+      "fees": 5122457.417778805,
+      "taxes": 4012019.017779369,
+      "warning_days": 0,
+      "disqualified": false,
+      "unfilled_orders": 0,
+      "envelope_breaches": 1,
+      "fill_sources": {
+        "official_vwap": 119
+      },
+      "plan_status": {
+        "REPAIRED": 2,
+        "OK": 22
+      },
+      "quality_flag_days": 0,
+      "mean_holdings": 25.0,
+      "mean_cash_ratio": 0.07145439688113928,
+      "decide_seconds": 0.11104041900398443,
+      "benchmark_0050_return": -0.014405162122154369,
+      "equal_weight_universe_return": -0.01891459854676056,
+      "verification_problem_count": 0,
+      "verification_problems": [],
+      "min_as": 0.32411410281318137,
+      "closest_etf": "00984A",
+      "min_as_date": "2026-06-26",
+      "as_days_below_15pct": 0,
+      "as_rows": 24,
+      "active_share_status": "ACTIVE_SHARE_UNVERIFIED",
+      "as_use": "descriptive",
+      "delta_vs_c1": 0.043159209210543725,
+      "delta_vs_mom20": 0.0,
+      "delta_vs_0050": 0.04686223495919206,
+      "crash_w5_compounded_return": -0.15914500233969742,
+      "crash_w5_dates": [
+        "2026-10-15",
+        "2026-10-22",
+        "2026-10-20",
+        "2026-10-13",
+        "2026-10-12"
+      ],
+      "crash_w5_daily_returns": {
+        "2026-10-15": -0.06115596406021051,
+        "2026-10-22": -0.039346110747578766,
+        "2026-10-20": -0.026731499517219093,
+        "2026-10-13": -0.024035226711122126,
+        "2026-10-12": -0.018491867348844226
+      }
+    },
+    {
+      "strategy": "T1",
+      "window": "W2",
+      "episode_id": "W2",
+      "split": "recent_diagnostic",
+      "start": "2026-06-04",
+      "end": "2026-07-08",
+      "sessions": 24,
+      "complete": true,
+      "terminal_nav": 1028715154.4054825,
+      "terminal_return": 0.028715154405482446,
+      "max_drawdown": 0.06613333228358986,
+      "dividend_credit": 5310820.85,
+      "turnover": 1.5500111602156843,
+      "costs": 3014086.256004407,
+      "fees": 2146617.964136949,
+      "taxes": 867468.2918674583,
+      "warning_days": 0,
+      "disqualified": false,
+      "unfilled_orders": 0,
+      "envelope_breaches": 0,
+      "fill_sources": {
+        "official_vwap": 51
+      },
+      "plan_status": {
+        "REPAIRED": 2,
+        "OK": 22
+      },
+      "quality_flag_days": 0,
+      "mean_holdings": 25.0,
+      "mean_cash_ratio": 0.07890197376936291,
+      "decide_seconds": 0.01882299799945031,
+      "benchmark_0050_return": -0.014405162122154369,
+      "equal_weight_universe_return": -0.01891459854676056,
+      "verification_problem_count": 0,
+      "verification_problems": [],
+      "min_as": 0.2963797523465392,
+      "closest_etf": "00401A",
+      "min_as_date": "2026-06-05",
+      "as_days_below_15pct": 0,
+      "as_rows": 24,
+      "active_share_status": "ACTIVE_SHARE_UNVERIFIED",
+      "as_use": "descriptive",
+      "delta_vs_c1": 0.03941729077898848,
+      "delta_vs_mom20": -0.0037419184315552467,
+      "delta_vs_0050": 0.043120316527636815,
+      "crash_w5_compounded_return": -0.09100879343288648,
+      "crash_w5_dates": [
+        "2026-10-15",
+        "2026-10-22",
+        "2026-10-20",
+        "2026-10-13",
+        "2026-10-12"
+      ],
+      "crash_w5_daily_returns": {
+        "2026-10-15": -0.03901227561934639,
+        "2026-10-22": -0.02681399489715619,
+        "2026-10-20": -0.01760898993530513,
+        "2026-10-13": -0.017246769621002245,
+        "2026-10-12": 0.006739543183522656
+      }
+    },
+    {
+      "strategy": "T2",
+      "window": "W2",
+      "episode_id": "W2",
+      "split": "recent_diagnostic",
+      "start": "2026-06-04",
+      "end": "2026-07-08",
+      "sessions": 24,
+      "complete": true,
+      "terminal_nav": 991981635.1246556,
+      "terminal_return": -0.008018364875344353,
+      "max_drawdown": 0.08564788147681512,
+      "dividend_credit": 4727820.520972237,
+      "turnover": 0.8883724030199726,
+      "costs": 1265930.674303461,
+      "fees": 1265930.674303461,
+      "taxes": 0.0,
+      "warning_days": 0,
+      "disqualified": false,
+      "unfilled_orders": 0,
+      "envelope_breaches": 0,
+      "fill_sources": {
+        "official_vwap": 25
+      },
+      "plan_status": {
+        "REPAIRED": 1,
+        "OK": 23
+      },
+      "quality_flag_days": 0,
+      "mean_holdings": 25.0,
+      "mean_cash_ratio": 0.1110598694697507,
+      "decide_seconds": 0.009540793000269332,
+      "benchmark_0050_return": -0.014405162122154369,
+      "equal_weight_universe_return": -0.01891459854676056,
+      "verification_problem_count": 0,
+      "verification_problems": [],
+      "min_as": 0.2699675359552923,
+      "closest_etf": "00401A",
+      "min_as_date": "2026-06-08",
+      "as_days_below_15pct": 0,
+      "as_rows": 24,
+      "active_share_status": "ACTIVE_SHARE_UNVERIFIED",
+      "as_use": "descriptive",
+      "delta_vs_c1": 0.00268377149816168,
+      "delta_vs_mom20": -0.040475437712382045,
+      "delta_vs_0050": 0.0063867972468100165,
+      "crash_w5_compounded_return": -0.12231866148538073,
+      "crash_w5_dates": [
+        "2026-10-15",
+        "2026-10-22",
+        "2026-10-20",
+        "2026-10-13",
+        "2026-10-12"
+      ],
+      "crash_w5_daily_returns": {
+        "2026-10-15": -0.051603091394950895,
+        "2026-10-22": -0.03384030952953776,
+        "2026-10-20": -0.011896064672454298,
+        "2026-10-13": -0.02521718433031217,
+        "2026-10-12": -0.005539982004755362
+      }
+    },
+    {
+      "strategy": "T3",
+      "window": "W2",
+      "episode_id": "W2",
+      "split": "recent_diagnostic",
+      "start": "2026-06-04",
+      "end": "2026-07-08",
+      "sessions": 24,
+      "complete": true,
+      "terminal_nav": 971583767.18021,
+      "terminal_return": -0.02841623281979,
+      "max_drawdown": 0.0970356790430108,
+      "dividend_credit": 2315499.9529999997,
+      "turnover": 1.086599633345676,
+      "costs": 1788770.960140218,
+      "fees": 1524331.8790889345,
+      "taxes": 264439.0810512835,
+      "warning_days": 0,
+      "disqualified": false,
+      "unfilled_orders": 0,
+      "envelope_breaches": 0,
+      "fill_sources": {
+        "official_vwap": 34
+      },
+      "plan_status": {
+        "REPAIRED": 1,
+        "OK": 23
+      },
+      "quality_flag_days": 0,
+      "mean_holdings": 25.0,
+      "mean_cash_ratio": 0.10623574044222223,
+      "decide_seconds": 0.013209252001615823,
+      "benchmark_0050_return": -0.014405162122154369,
+      "equal_weight_universe_return": -0.01891459854676056,
+      "verification_problem_count": 0,
+      "verification_problems": [],
+      "min_as": 0.2891268761574525,
+      "closest_etf": "00980A",
+      "min_as_date": "2026-06-09",
+      "as_days_below_15pct": 0,
+      "as_rows": 24,
+      "active_share_status": "ACTIVE_SHARE_UNVERIFIED",
+      "as_use": "descriptive",
+      "delta_vs_c1": -0.017714096446283967,
+      "delta_vs_mom20": -0.06087330565682769,
+      "delta_vs_0050": -0.01401107069763563,
+      "crash_w5_compounded_return": -0.131544768520521,
+      "crash_w5_dates": [
+        "2026-10-15",
+        "2026-10-22",
+        "2026-10-20",
+        "2026-10-13",
+        "2026-10-12"
+      ],
+      "crash_w5_daily_returns": {
+        "2026-10-15": -0.05523480888708321,
+        "2026-10-22": -0.030421040077357575,
+        "2026-10-20": -0.01563106665518843,
+        "2026-10-13": -0.033807739956346894,
+        "2026-10-12": -0.0031750119490043804
+      }
+    },
+    {
+      "strategy": "C1",
+      "window": "W3",
+      "episode_id": "W3",
+      "split": "recent_diagnostic",
+      "start": "2026-07-09",
+      "end": "2026-08-12",
+      "sessions": 24,
+      "complete": true,
+      "terminal_nav": 981199275.6041889,
+      "terminal_return": -0.01880072439581104,
+      "max_drawdown": 0.21749749427160614,
+      "dividend_credit": 1696950.0,
+      "turnover": 0.991662030879839,
+      "costs": 1473438.1050133326,
+      "fees": 1395660.752390623,
+      "taxes": 77777.35262270953,
+      "warning_days": 0,
+      "disqualified": false,
+      "unfilled_orders": 0,
+      "envelope_breaches": 0,
+      "fill_sources": {
+        "official_vwap": 34
+      },
+      "plan_status": {
+        "REPAIRED": 1,
+        "OK": 23
+      },
+      "quality_flag_days": 0,
+      "mean_holdings": 25.0,
+      "mean_cash_ratio": 0.07868681269545656,
+      "decide_seconds": 0.005858876000274904,
+      "benchmark_0050_return": -0.0022084039282534995,
+      "equal_weight_universe_return": 0.017607017048881998,
+      "verification_problem_count": 0,
+      "verification_problems": [],
+      "min_as": 0.200812895112767,
+      "closest_etf": "00401A",
+      "min_as_date": "2026-08-04",
+      "as_days_below_15pct": 0,
+      "as_rows": 24,
+      "active_share_status": "ACTIVE_SHARE_UNVERIFIED",
+      "as_use": "descriptive",
+      "delta_vs_c1": 0.0,
+      "delta_vs_mom20": 0.08120578814399815,
+      "delta_vs_0050": -0.016592320467557542,
+      "crash_w5_compounded_return": -0.1273840563156683,
+      "crash_w5_dates": [
+        "2026-10-15",
+        "2026-10-22",
+        "2026-10-20",
+        "2026-10-13",
+        "2026-10-12"
+      ],
+      "crash_w5_daily_returns": {
+        "2026-10-15": -0.055924518311414095,
+        "2026-10-22": -0.02647585049015122,
+        "2026-10-20": -0.015060796259823928,
+        "2026-10-13": -0.03108950837218405,
+        "2026-10-12": -0.005106455224143325
+      }
+    },
+    {
+      "strategy": "Mom20",
+      "window": "W3",
+      "episode_id": "W3",
+      "split": "recent_diagnostic",
+      "start": "2026-07-09",
+      "end": "2026-08-12",
+      "sessions": 24,
+      "complete": true,
+      "terminal_nav": 899993487.4601908,
+      "terminal_return": -0.10000651253980919,
+      "max_drawdown": 0.18252484138848835,
+      "dividend_credit": 6972954.0,
+      "turnover": 4.962754365150676,
+      "costs": 12051547.842484739,
+      "fees": 6573374.528552444,
+      "taxes": 5478173.313932298,
+      "warning_days": 0,
+      "disqualified": false,
+      "unfilled_orders": 0,
+      "envelope_breaches": 1,
+      "fill_sources": {
+        "official_vwap": 177
+      },
+      "plan_status": {
+        "REPAIRED": 5,
+        "OK": 19
+      },
+      "quality_flag_days": 0,
+      "mean_holdings": 25.583333333333332,
+      "mean_cash_ratio": 0.05338533068276063,
+      "decide_seconds": 0.1102359160031483,
+      "benchmark_0050_return": -0.0022084039282534995,
+      "equal_weight_universe_return": 0.017607017048881998,
+      "verification_problem_count": 0,
+      "verification_problems": [],
+      "min_as": 0.27801289790682815,
+      "closest_etf": "00984A",
+      "min_as_date": "2026-07-14",
+      "as_days_below_15pct": 0,
+      "as_rows": 24,
+      "active_share_status": "ACTIVE_SHARE_UNVERIFIED",
+      "as_use": "descriptive",
+      "delta_vs_c1": -0.08120578814399815,
+      "delta_vs_mom20": 0.0,
+      "delta_vs_0050": -0.09779810861155569,
+      "crash_w5_compounded_return": -0.15914500233969742,
+      "crash_w5_dates": [
+        "2026-10-15",
+        "2026-10-22",
+        "2026-10-20",
+        "2026-10-13",
+        "2026-10-12"
+      ],
+      "crash_w5_daily_returns": {
+        "2026-10-15": -0.06115596406021051,
+        "2026-10-22": -0.039346110747578766,
+        "2026-10-20": -0.026731499517219093,
+        "2026-10-13": -0.024035226711122126,
+        "2026-10-12": -0.018491867348844226
+      }
+    },
+    {
+      "strategy": "T1",
+      "window": "W3",
+      "episode_id": "W3",
+      "split": "recent_diagnostic",
+      "start": "2026-07-09",
+      "end": "2026-08-12",
+      "sessions": 24,
+      "complete": true,
+      "terminal_nav": 1039191881.0249764,
+      "terminal_return": 0.03919188102497628,
+      "max_drawdown": 0.10663184169825457,
+      "dividend_credit": 7053626.10216,
+      "turnover": 1.3105136596849456,
+      "costs": 2458182.73700238,
+      "fees": 1864856.5469789049,
+      "taxes": 593326.1900234753,
+      "warning_days": 0,
+      "disqualified": false,
+      "unfilled_orders": 0,
+      "envelope_breaches": 0,
+      "fill_sources": {
+        "official_vwap": 40
+      },
+      "plan_status": {
+        "REPAIRED": 2,
+        "OK": 22
+      },
+      "quality_flag_days": 0,
+      "mean_holdings": 25.0,
+      "mean_cash_ratio": 0.08610905831979006,
+      "decide_seconds": 0.01957704100459523,
+      "benchmark_0050_return": -0.0022084039282534995,
+      "equal_weight_universe_return": 0.017607017048881998,
+      "verification_problem_count": 0,
+      "verification_problems": [],
+      "min_as": 0.2822515510531149,
+      "closest_etf": "00401A",
+      "min_as_date": "2026-08-04",
+      "as_days_below_15pct": 0,
+      "as_rows": 24,
+      "active_share_status": "ACTIVE_SHARE_UNVERIFIED",
+      "as_use": "descriptive",
+      "delta_vs_c1": 0.057992605420787324,
+      "delta_vs_mom20": 0.13919839356478547,
+      "delta_vs_0050": 0.04140028495322978,
+      "crash_w5_compounded_return": -0.09100879343288648,
+      "crash_w5_dates": [
+        "2026-10-15",
+        "2026-10-22",
+        "2026-10-20",
+        "2026-10-13",
+        "2026-10-12"
+      ],
+      "crash_w5_daily_returns": {
+        "2026-10-15": -0.03901227561934639,
+        "2026-10-22": -0.02681399489715619,
+        "2026-10-20": -0.01760898993530513,
+        "2026-10-13": -0.017246769621002245,
+        "2026-10-12": 0.006739543183522656
+      }
+    },
+    {
+      "strategy": "T2",
+      "window": "W3",
+      "episode_id": "W3",
+      "split": "recent_diagnostic",
+      "start": "2026-07-09",
+      "end": "2026-08-12",
+      "sessions": 24,
+      "complete": true,
+      "terminal_nav": 1007615161.5268483,
+      "terminal_return": 0.007615161526848269,
+      "max_drawdown": 0.19594438698001027,
+      "dividend_credit": 1795600.0,
+      "turnover": 0.9978235213821306,
+      "costs": 1494347.3300403124,
+      "fees": 1403043.8150476376,
+      "taxes": 91303.51499267478,
+      "warning_days": 0,
+      "disqualified": false,
+      "unfilled_orders": 0,
+      "envelope_breaches": 0,
+      "fill_sources": {
+        "official_vwap": 34
+      },
+      "plan_status": {
+        "REPAIRED": 1,
+        "OK": 23
+      },
+      "quality_flag_days": 0,
+      "mean_holdings": 25.0,
+      "mean_cash_ratio": 0.07962654670484952,
+      "decide_seconds": 0.0098700410053425,
+      "benchmark_0050_return": -0.0022084039282534995,
+      "equal_weight_universe_return": 0.017607017048881998,
+      "verification_problem_count": 0,
+      "verification_problems": [],
+      "min_as": 0.2857427389709667,
+      "closest_etf": "00401A",
+      "min_as_date": "2026-07-09",
+      "as_days_below_15pct": 0,
+      "as_rows": 24,
+      "active_share_status": "ACTIVE_SHARE_UNVERIFIED",
+      "as_use": "descriptive",
+      "delta_vs_c1": 0.02641588592265931,
+      "delta_vs_mom20": 0.10762167406665746,
+      "delta_vs_0050": 0.009823565455101768,
+      "crash_w5_compounded_return": -0.12231866148538073,
+      "crash_w5_dates": [
+        "2026-10-15",
+        "2026-10-22",
+        "2026-10-20",
+        "2026-10-13",
+        "2026-10-12"
+      ],
+      "crash_w5_daily_returns": {
+        "2026-10-15": -0.051603091394950895,
+        "2026-10-22": -0.03384030952953776,
+        "2026-10-20": -0.011896064672454298,
+        "2026-10-13": -0.02521718433031217,
+        "2026-10-12": -0.005539982004755362
+      }
+    },
+    {
+      "strategy": "T3",
+      "window": "W3",
+      "episode_id": "W3",
+      "split": "recent_diagnostic",
+      "start": "2026-07-09",
+      "end": "2026-08-12",
+      "sessions": 24,
+      "complete": true,
+      "terminal_nav": 999041522.5482323,
+      "terminal_return": -0.000958477451767692,
+      "max_drawdown": 0.20640467650385952,
+      "dividend_credit": 1381200.0,
+      "turnover": 1.2483942733784603,
+      "costs": 2221986.3829833036,
+      "fees": 1761710.9454089662,
+      "taxes": 460275.43757433764,
+      "warning_days": 0,
+      "disqualified": false,
+      "unfilled_orders": 0,
+      "envelope_breaches": 0,
+      "fill_sources": {
+        "official_vwap": 42
+      },
+      "plan_status": {
+        "REPAIRED": 1,
+        "OK": 23
+      },
+      "quality_flag_days": 0,
+      "mean_holdings": 25.0,
+      "mean_cash_ratio": 0.07921864685170742,
+      "decide_seconds": 0.013002249997953186,
+      "benchmark_0050_return": -0.0022084039282534995,
+      "equal_weight_universe_return": 0.017607017048881998,
+      "verification_problem_count": 0,
+      "verification_problems": [],
+      "min_as": 0.2596518305771042,
+      "closest_etf": "00401A",
+      "min_as_date": "2026-08-04",
+      "as_days_below_15pct": 0,
+      "as_rows": 24,
+      "active_share_status": "ACTIVE_SHARE_UNVERIFIED",
+      "as_use": "descriptive",
+      "delta_vs_c1": 0.01784224694404335,
+      "delta_vs_mom20": 0.0990480350880415,
+      "delta_vs_0050": 0.0012499264764858076,
+      "crash_w5_compounded_return": -0.131544768520521,
+      "crash_w5_dates": [
+        "2026-10-15",
+        "2026-10-22",
+        "2026-10-20",
+        "2026-10-13",
+        "2026-10-12"
+      ],
+      "crash_w5_daily_returns": {
+        "2026-10-15": -0.05523480888708321,
+        "2026-10-22": -0.030421040077357575,
+        "2026-10-20": -0.01563106665518843,
+        "2026-10-13": -0.033807739956346894,
+        "2026-10-12": -0.0031750119490043804
+      }
+    },
+    {
+      "strategy": "C1",
+      "window": "W4",
+      "episode_id": "W4",
+      "split": "recent_diagnostic",
+      "start": "2026-08-13",
+      "end": "2026-09-15",
+      "sessions": 24,
+      "complete": true,
+      "terminal_nav": 965476801.9632033,
+      "terminal_return": -0.03452319803679671,
+      "max_drawdown": 0.05012532280060322,
+      "dividend_credit": 376476.662,
+      "turnover": 0.9223860742827813,
+      "costs": 1314400.1558529632,
+      "fees": 1314400.1558529632,
+      "taxes": 0.0,
+      "warning_days": 0,
+      "disqualified": false,
+      "unfilled_orders": 0,
+      "envelope_breaches": 0,
+      "fill_sources": {
+        "official_vwap": 25
+      },
+      "plan_status": {
+        "REPAIRED": 1,
+        "OK": 23
+      },
+      "quality_flag_days": 0,
+      "mean_holdings": 25.0,
+      "mean_cash_ratio": 0.07744528359978183,
+      "decide_seconds": 0.006049374995200196,
+      "benchmark_0050_return": 0.009981017891800725,
+      "equal_weight_universe_return": -0.004507064131689551,
+      "verification_problem_count": 0,
+      "verification_problems": [],
+      "min_as": 0.19995710184711224,
+      "closest_etf": "00401A",
+      "min_as_date": "2026-08-13",
+      "as_days_below_15pct": 0,
+      "as_rows": 24,
+      "active_share_status": "ACTIVE_SHARE_UNVERIFIED",
+      "as_use": "descriptive",
+      "delta_vs_c1": 0.0,
+      "delta_vs_mom20": 0.0330568802333715,
+      "delta_vs_0050": -0.044504215928597435,
+      "crash_w5_compounded_return": -0.1273840563156683,
+      "crash_w5_dates": [
+        "2026-10-15",
+        "2026-10-22",
+        "2026-10-20",
+        "2026-10-13",
+        "2026-10-12"
+      ],
+      "crash_w5_daily_returns": {
+        "2026-10-15": -0.055924518311414095,
+        "2026-10-22": -0.02647585049015122,
+        "2026-10-20": -0.015060796259823928,
+        "2026-10-13": -0.03108950837218405,
+        "2026-10-12": -0.005106455224143325
+      }
+    },
+    {
+      "strategy": "Mom20",
+      "window": "W4",
+      "episode_id": "W4",
+      "split": "recent_diagnostic",
+      "start": "2026-08-13",
+      "end": "2026-09-15",
+      "sessions": 24,
+      "complete": true,
+      "terminal_nav": 932419921.7298318,
+      "terminal_return": -0.06758007827016821,
+      "max_drawdown": 0.09815092648114698,
+      "dividend_credit": 1105022.2480083809,
+      "turnover": 4.1655527748484555,
+      "costs": 10796798.915752012,
+      "fees": 5943139.533305017,
+      "taxes": 4853659.382446995,
+      "warning_days": 0,
+      "disqualified": false,
+      "unfilled_orders": 0,
+      "envelope_breaches": 0,
+      "fill_sources": {
+        "official_vwap": 132
+      },
+      "plan_status": {
+        "REPAIRED": 1,
+        "OK": 23
+      },
+      "quality_flag_days": 0,
+      "mean_holdings": 25.0,
+      "mean_cash_ratio": 0.07456376196338897,
+      "decide_seconds": 0.11240658299720963,
+      "benchmark_0050_return": 0.009981017891800725,
+      "equal_weight_universe_return": -0.004507064131689551,
+      "verification_problem_count": 0,
+      "verification_problems": [],
+      "min_as": 0.2799624905663073,
+      "closest_etf": "00407A",
+      "min_as_date": "2026-08-17",
+      "as_days_below_15pct": 0,
+      "as_rows": 24,
+      "active_share_status": "ACTIVE_SHARE_UNVERIFIED",
+      "as_use": "descriptive",
+      "delta_vs_c1": -0.0330568802333715,
+      "delta_vs_mom20": 0.0,
+      "delta_vs_0050": -0.07756109616196893,
+      "crash_w5_compounded_return": -0.15914500233969742,
+      "crash_w5_dates": [
+        "2026-10-15",
+        "2026-10-22",
+        "2026-10-20",
+        "2026-10-13",
+        "2026-10-12"
+      ],
+      "crash_w5_daily_returns": {
+        "2026-10-15": -0.06115596406021051,
+        "2026-10-22": -0.039346110747578766,
+        "2026-10-20": -0.026731499517219093,
+        "2026-10-13": -0.024035226711122126,
+        "2026-10-12": -0.018491867348844226
+      }
+    },
+    {
+      "strategy": "T1",
+      "window": "W4",
+      "episode_id": "W4",
+      "split": "recent_diagnostic",
+      "start": "2026-08-13",
+      "end": "2026-09-15",
+      "sessions": 24,
+      "complete": true,
+      "terminal_nav": 990818771.8146138,
+      "terminal_return": -0.009181228185386137,
+      "max_drawdown": 0.04185288458035685,
+      "dividend_credit": 579766.3697095659,
+      "turnover": 0.9069013772382367,
+      "costs": 1292334.4625644872,
+      "fees": 1292334.4625644872,
+      "taxes": 0.0,
+      "warning_days": 0,
+      "disqualified": false,
+      "unfilled_orders": 0,
+      "envelope_breaches": 0,
+      "fill_sources": {
+        "official_vwap": 25
+      },
+      "plan_status": {
+        "REPAIRED": 1,
+        "OK": 23
+      },
+      "quality_flag_days": 0,
+      "mean_holdings": 25.0,
+      "mean_cash_ratio": 0.09124162817985328,
+      "decide_seconds": 0.013008419002289884,
+      "benchmark_0050_return": 0.009981017891800725,
+      "equal_weight_universe_return": -0.004507064131689551,
+      "verification_problem_count": 0,
+      "verification_problems": [],
+      "min_as": 0.2442364223407802,
+      "closest_etf": "00407A",
+      "min_as_date": "2026-08-17",
+      "as_days_below_15pct": 0,
+      "as_rows": 24,
+      "active_share_status": "ACTIVE_SHARE_UNVERIFIED",
+      "as_use": "descriptive",
+      "delta_vs_c1": 0.025341969851410573,
+      "delta_vs_mom20": 0.05839885008478207,
+      "delta_vs_0050": -0.019162246077186862,
+      "crash_w5_compounded_return": -0.09100879343288648,
+      "crash_w5_dates": [
+        "2026-10-15",
+        "2026-10-22",
+        "2026-10-20",
+        "2026-10-13",
+        "2026-10-12"
+      ],
+      "crash_w5_daily_returns": {
+        "2026-10-15": -0.03901227561934639,
+        "2026-10-22": -0.02681399489715619,
+        "2026-10-20": -0.01760898993530513,
+        "2026-10-13": -0.017246769621002245,
+        "2026-10-12": 0.006739543183522656
+      }
+    },
+    {
+      "strategy": "T2",
+      "window": "W4",
+      "episode_id": "W4",
+      "split": "recent_diagnostic",
+      "start": "2026-08-13",
+      "end": "2026-09-15",
+      "sessions": 24,
+      "complete": true,
+      "terminal_nav": 976363693.6101754,
+      "terminal_return": -0.023636306389824613,
+      "max_drawdown": 0.05332041973589263,
+      "dividend_credit": 303985.18,
+      "turnover": 0.920935637208802,
+      "costs": 1312333.2830225432,
+      "fees": 1312333.2830225432,
+      "taxes": 0.0,
+      "warning_days": 0,
+      "disqualified": false,
+      "unfilled_orders": 0,
+      "envelope_breaches": 0,
+      "fill_sources": {
+        "official_vwap": 25
+      },
+      "plan_status": {
+        "REPAIRED": 1,
+        "OK": 23
+      },
+      "quality_flag_days": 0,
+      "mean_holdings": 25.0,
+      "mean_cash_ratio": 0.07816825403911085,
+      "decide_seconds": 0.009544413998810342,
+      "benchmark_0050_return": 0.009981017891800725,
+      "equal_weight_universe_return": -0.004507064131689551,
+      "verification_problem_count": 0,
+      "verification_problems": [],
+      "min_as": 0.204795051644429,
+      "closest_etf": "00401A",
+      "min_as_date": "2026-08-14",
+      "as_days_below_15pct": 0,
+      "as_rows": 24,
+      "active_share_status": "ACTIVE_SHARE_UNVERIFIED",
+      "as_use": "descriptive",
+      "delta_vs_c1": 0.010886891646972097,
+      "delta_vs_mom20": 0.043943771880343596,
+      "delta_vs_0050": -0.03361732428162534,
+      "crash_w5_compounded_return": -0.12231866148538073,
+      "crash_w5_dates": [
+        "2026-10-15",
+        "2026-10-22",
+        "2026-10-20",
+        "2026-10-13",
+        "2026-10-12"
+      ],
+      "crash_w5_daily_returns": {
+        "2026-10-15": -0.051603091394950895,
+        "2026-10-22": -0.03384030952953776,
+        "2026-10-20": -0.011896064672454298,
+        "2026-10-13": -0.02521718433031217,
+        "2026-10-12": -0.005539982004755362
+      }
+    },
+    {
+      "strategy": "T3",
+      "window": "W4",
+      "episode_id": "W4",
+      "split": "recent_diagnostic",
+      "start": "2026-08-13",
+      "end": "2026-09-15",
+      "sessions": 24,
+      "complete": true,
+      "terminal_nav": 957280375.4341081,
+      "terminal_return": -0.042719624565891845,
+      "max_drawdown": 0.055535407038390217,
+      "dividend_credit": 903535.095,
+      "turnover": 0.9262341555185772,
+      "costs": 1319883.671613973,
+      "fees": 1319883.671613973,
+      "taxes": 0.0,
+      "warning_days": 0,
+      "disqualified": false,
+      "unfilled_orders": 0,
+      "envelope_breaches": 0,
+      "fill_sources": {
+        "official_vwap": 25
+      },
+      "plan_status": {
+        "REPAIRED": 1,
+        "OK": 23
+      },
+      "quality_flag_days": 0,
+      "mean_holdings": 25.0,
+      "mean_cash_ratio": 0.07346096161214,
+      "decide_seconds": 0.010246251000353368,
+      "benchmark_0050_return": 0.009981017891800725,
+      "equal_weight_universe_return": -0.004507064131689551,
+      "verification_problem_count": 0,
+      "verification_problems": [],
+      "min_as": 0.2685396081812535,
+      "closest_etf": "00980A",
+      "min_as_date": "2026-08-17",
+      "as_days_below_15pct": 0,
+      "as_rows": 24,
+      "active_share_status": "ACTIVE_SHARE_UNVERIFIED",
+      "as_use": "descriptive",
+      "delta_vs_c1": -0.008196426529095135,
+      "delta_vs_mom20": 0.024860453704276364,
+      "delta_vs_0050": -0.05270064245769257,
+      "crash_w5_compounded_return": -0.131544768520521,
+      "crash_w5_dates": [
+        "2026-10-15",
+        "2026-10-22",
+        "2026-10-20",
+        "2026-10-13",
+        "2026-10-12"
+      ],
+      "crash_w5_daily_returns": {
+        "2026-10-15": -0.05523480888708321,
+        "2026-10-22": -0.030421040077357575,
+        "2026-10-20": -0.01563106665518843,
+        "2026-10-13": -0.033807739956346894,
+        "2026-10-12": -0.0031750119490043804
+      }
+    },
+    {
+      "strategy": "C1",
+      "window": "W5",
+      "episode_id": "W5",
+      "split": "recent_diagnostic",
+      "start": "2026-09-16",
+      "end": "2026-10-22",
+      "sessions": 24,
+      "complete": true,
+      "terminal_nav": 1010366028.4704597,
+      "terminal_return": 0.010366028470459643,
+      "max_drawdown": 0.11181448410618666,
+      "dividend_credit": 0.0,
+      "turnover": 0.9203963074643166,
+      "costs": 1311564.7381366505,
+      "fees": 1311564.7381366505,
+      "taxes": 0.0,
+      "warning_days": 0,
+      "disqualified": false,
+      "unfilled_orders": 0,
+      "envelope_breaches": 0,
+      "fill_sources": {
+        "official_vwap": 25
+      },
+      "plan_status": {
+        "REPAIRED": 1,
+        "OK": 23
+      },
+      "quality_flag_days": 0,
+      "mean_holdings": 25.0,
+      "mean_cash_ratio": 0.07356442544277753,
+      "decide_seconds": 0.00649366599827772,
+      "benchmark_0050_return": 0.006117661420036669,
+      "equal_weight_universe_return": 0.015294562235548011,
+      "verification_problem_count": 0,
+      "verification_problems": [],
+      "min_as": 0.2002567112416487,
+      "closest_etf": "00401A",
+      "min_as_date": "2026-09-16",
+      "as_days_below_15pct": 0,
+      "as_rows": 24,
+      "active_share_status": "ACTIVE_SHARE_UNVERIFIED",
+      "as_use": "gate",
+      "delta_vs_c1": 0.0,
+      "delta_vs_mom20": 0.11161199605245797,
+      "delta_vs_0050": 0.004248367050422974,
+      "crash_w5_compounded_return": -0.1273840563156683,
+      "crash_w5_dates": [
+        "2026-10-15",
+        "2026-10-22",
+        "2026-10-20",
+        "2026-10-13",
+        "2026-10-12"
+      ],
+      "crash_w5_daily_returns": {
+        "2026-10-15": -0.055924518311414095,
+        "2026-10-22": -0.02647585049015122,
+        "2026-10-20": -0.015060796259823928,
+        "2026-10-13": -0.03108950837218405,
+        "2026-10-12": -0.005106455224143325
+      }
+    },
+    {
+      "strategy": "Mom20",
+      "window": "W5",
+      "episode_id": "W5",
+      "split": "recent_diagnostic",
+      "start": "2026-09-16",
+      "end": "2026-10-22",
+      "sessions": 24,
+      "complete": true,
+      "terminal_nav": 898754032.4180017,
+      "terminal_return": -0.10124596758199833,
+      "max_drawdown": 0.13789331533162263,
+      "dividend_credit": 193953.65,
+      "turnover": 3.9342784163033726,
+      "costs": 10162131.207086476,
+      "fees": 5640590.312031999,
+      "taxes": 4521540.895054476,
+      "warning_days": 0,
+      "disqualified": false,
+      "unfilled_orders": 0,
+      "envelope_breaches": 0,
+      "fill_sources": {
+        "official_vwap": 114
+      },
+      "plan_status": {
+        "REPAIRED": 1,
+        "OK": 23
+      },
+      "quality_flag_days": 0,
+      "mean_holdings": 25.0,
+      "mean_cash_ratio": 0.0629429692445921,
+      "decide_seconds": 0.1107380870016641,
+      "benchmark_0050_return": 0.006117661420036669,
+      "equal_weight_universe_return": 0.015294562235548011,
+      "verification_problem_count": 0,
+      "verification_problems": [],
+      "min_as": 0.3346337231926197,
+      "closest_etf": "00407A",
+      "min_as_date": "2026-10-05",
+      "as_days_below_15pct": 0,
+      "as_rows": 24,
+      "active_share_status": "ACTIVE_SHARE_UNVERIFIED",
+      "as_use": "gate",
+      "delta_vs_c1": -0.11161199605245797,
+      "delta_vs_mom20": 0.0,
+      "delta_vs_0050": -0.107363629002035,
+      "crash_w5_compounded_return": -0.15914500233969742,
+      "crash_w5_dates": [
+        "2026-10-15",
+        "2026-10-22",
+        "2026-10-20",
+        "2026-10-13",
+        "2026-10-12"
+      ],
+      "crash_w5_daily_returns": {
+        "2026-10-15": -0.06115596406021051,
+        "2026-10-22": -0.039346110747578766,
+        "2026-10-20": -0.026731499517219093,
+        "2026-10-13": -0.024035226711122126,
+        "2026-10-12": -0.018491867348844226
+      }
+    },
+    {
+      "strategy": "T1",
+      "window": "W5",
+      "episode_id": "W5",
+      "split": "recent_diagnostic",
+      "start": "2026-09-16",
+      "end": "2026-10-22",
+      "sessions": 24,
+      "complete": true,
+      "terminal_nav": 979299599.4633051,
+      "terminal_return": -0.020700400536694863,
+      "max_drawdown": 0.07967527326051493,
+      "dividend_credit": 152456.59,
+      "turnover": 2.160228726866337,
+      "costs": 5264313.605481991,
+      "fees": 3191055.588825956,
+      "taxes": 2073258.0166560353,
+      "warning_days": 0,
+      "disqualified": false,
+      "unfilled_orders": 0,
+      "envelope_breaches": 0,
+      "fill_sources": {
+        "official_vwap": 72
+      },
+      "plan_status": {
+        "REPAIRED": 2,
+        "OK": 22
+      },
+      "quality_flag_days": 0,
+      "mean_holdings": 25.0,
+      "mean_cash_ratio": 0.09881452871230734,
+      "decide_seconds": 0.023511832998337923,
+      "benchmark_0050_return": 0.006117661420036669,
+      "equal_weight_universe_return": 0.015294562235548011,
+      "verification_problem_count": 0,
+      "verification_problems": [],
+      "min_as": 0.2805112167620525,
+      "closest_etf": "00401A",
+      "min_as_date": "2026-09-16",
+      "as_days_below_15pct": 0,
+      "as_rows": 24,
+      "active_share_status": "ACTIVE_SHARE_UNVERIFIED",
+      "as_use": "gate",
+      "delta_vs_c1": -0.031066429007154506,
+      "delta_vs_mom20": 0.08054556704530347,
+      "delta_vs_0050": -0.02681806195673153,
+      "crash_w5_compounded_return": -0.09100879343288648,
+      "crash_w5_dates": [
+        "2026-10-15",
+        "2026-10-22",
+        "2026-10-20",
+        "2026-10-13",
+        "2026-10-12"
+      ],
+      "crash_w5_daily_returns": {
+        "2026-10-15": -0.03901227561934639,
+        "2026-10-22": -0.02681399489715619,
+        "2026-10-20": -0.01760898993530513,
+        "2026-10-13": -0.017246769621002245,
+        "2026-10-12": 0.006739543183522656
+      }
+    },
+    {
+      "strategy": "T2",
+      "window": "W5",
+      "episode_id": "W5",
+      "split": "recent_diagnostic",
+      "start": "2026-09-16",
+      "end": "2026-10-22",
+      "sessions": 24,
+      "complete": true,
+      "terminal_nav": 1024563762.2513922,
+      "terminal_return": 0.02456376225139234,
+      "max_drawdown": 0.09516436903372039,
+      "dividend_credit": 0.0,
+      "turnover": 0.9204911401535523,
+      "costs": 1311699.8747188114,
+      "fees": 1311699.8747188114,
+      "taxes": 0.0,
+      "warning_days": 0,
+      "disqualified": false,
+      "unfilled_orders": 0,
+      "envelope_breaches": 0,
+      "fill_sources": {
+        "official_vwap": 25
+      },
+      "plan_status": {
+        "REPAIRED": 1,
+        "OK": 23
+      },
+      "quality_flag_days": 0,
+      "mean_holdings": 25.0,
+      "mean_cash_ratio": 0.07304618305401865,
+      "decide_seconds": 0.011044124999898486,
+      "benchmark_0050_return": 0.006117661420036669,
+      "equal_weight_universe_return": 0.015294562235548011,
+      "verification_problem_count": 0,
+      "verification_problems": [],
+      "min_as": 0.2822452937052592,
+      "closest_etf": "00401A",
+      "min_as_date": "2026-09-16",
+      "as_days_below_15pct": 0,
+      "as_rows": 24,
+      "active_share_status": "ACTIVE_SHARE_UNVERIFIED",
+      "as_use": "gate",
+      "delta_vs_c1": 0.014197733780932698,
+      "delta_vs_mom20": 0.12580972983339067,
+      "delta_vs_0050": 0.018446100831355672,
+      "crash_w5_compounded_return": -0.12231866148538073,
+      "crash_w5_dates": [
+        "2026-10-15",
+        "2026-10-22",
+        "2026-10-20",
+        "2026-10-13",
+        "2026-10-12"
+      ],
+      "crash_w5_daily_returns": {
+        "2026-10-15": -0.051603091394950895,
+        "2026-10-22": -0.03384030952953776,
+        "2026-10-20": -0.011896064672454298,
+        "2026-10-13": -0.02521718433031217,
+        "2026-10-12": -0.005539982004755362
+      }
+    },
+    {
+      "strategy": "T3",
+      "window": "W5",
+      "episode_id": "W5",
+      "split": "recent_diagnostic",
+      "start": "2026-09-16",
+      "end": "2026-10-22",
+      "sessions": 24,
+      "complete": true,
+      "terminal_nav": 1001277495.2508284,
+      "terminal_return": 0.00127749525082832,
+      "max_drawdown": 0.10668612746822947,
+      "dividend_credit": 0.0,
+      "turnover": 1.3309761284493287,
+      "costs": 2645487.2310794387,
+      "fees": 1962410.2297178581,
+      "taxes": 683077.0013615806,
+      "warning_days": 0,
+      "disqualified": false,
+      "unfilled_orders": 0,
+      "envelope_breaches": 0,
+      "fill_sources": {
+        "official_vwap": 41
+      },
+      "plan_status": {
+        "REPAIRED": 2,
+        "OK": 22
+      },
+      "quality_flag_days": 0,
+      "mean_holdings": 25.0,
+      "mean_cash_ratio": 0.07433980100628729,
+      "decide_seconds": 0.013896579999709502,
+      "benchmark_0050_return": 0.006117661420036669,
+      "equal_weight_universe_return": 0.015294562235548011,
+      "verification_problem_count": 0,
+      "verification_problems": [],
+      "min_as": 0.21676275727584357,
+      "closest_etf": "00407A",
+      "min_as_date": "2026-09-24",
+      "as_days_below_15pct": 0,
+      "as_rows": 24,
+      "active_share_status": "ACTIVE_SHARE_UNVERIFIED",
+      "as_use": "gate",
+      "delta_vs_c1": -0.009088533219631323,
+      "delta_vs_mom20": 0.10252346283282665,
+      "delta_vs_0050": -0.004840166169208349,
+      "crash_w5_compounded_return": -0.131544768520521,
+      "crash_w5_dates": [
+        "2026-10-15",
+        "2026-10-22",
+        "2026-10-20",
+        "2026-10-13",
+        "2026-10-12"
+      ],
+      "crash_w5_daily_returns": {
+        "2026-10-15": -0.05523480888708321,
+        "2026-10-22": -0.030421040077357575,
+        "2026-10-20": -0.01563106665518843,
+        "2026-10-13": -0.033807739956346894,
+        "2026-10-12": -0.0031750119490043804
+      }
+    }
+  ],
+  "crash_exposure": [
+    {
+      "strategy": "Mom20",
+      "dates": [
+        "2026-10-15",
+        "2026-10-22",
+        "2026-10-20",
+        "2026-10-13",
+        "2026-10-12"
+      ],
+      "compounded_return": -0.15914500233969742,
+      "daily_returns": {
+        "2026-10-15": -0.06115596406021051,
+        "2026-10-22": -0.039346110747578766,
+        "2026-10-20": -0.026731499517219093,
+        "2026-10-13": -0.024035226711122126,
+        "2026-10-12": -0.018491867348844226
+      }
+    },
+    {
+      "strategy": "C1",
+      "dates": [
+        "2026-10-15",
+        "2026-10-22",
+        "2026-10-20",
+        "2026-10-13",
+        "2026-10-12"
+      ],
+      "compounded_return": -0.1273840563156683,
+      "daily_returns": {
+        "2026-10-15": -0.055924518311414095,
+        "2026-10-22": -0.02647585049015122,
+        "2026-10-20": -0.015060796259823928,
+        "2026-10-13": -0.03108950837218405,
+        "2026-10-12": -0.005106455224143325
+      }
+    },
+    {
+      "strategy": "T1",
+      "dates": [
+        "2026-10-15",
+        "2026-10-22",
+        "2026-10-20",
+        "2026-10-13",
+        "2026-10-12"
+      ],
+      "compounded_return": -0.09100879343288648,
+      "daily_returns": {
+        "2026-10-15": -0.03901227561934639,
+        "2026-10-22": -0.02681399489715619,
+        "2026-10-20": -0.01760898993530513,
+        "2026-10-13": -0.017246769621002245,
+        "2026-10-12": 0.006739543183522656
+      }
+    },
+    {
+      "strategy": "T2",
+      "dates": [
+        "2026-10-15",
+        "2026-10-22",
+        "2026-10-20",
+        "2026-10-13",
+        "2026-10-12"
+      ],
+      "compounded_return": -0.12231866148538073,
+      "daily_returns": {
+        "2026-10-15": -0.051603091394950895,
+        "2026-10-22": -0.03384030952953776,
+        "2026-10-20": -0.011896064672454298,
+        "2026-10-13": -0.02521718433031217,
+        "2026-10-12": -0.005539982004755362
+      }
+    },
+    {
+      "strategy": "T3",
+      "dates": [
+        "2026-10-15",
+        "2026-10-22",
+        "2026-10-20",
+        "2026-10-13",
+        "2026-10-12"
+      ],
+      "compounded_return": -0.131544768520521,
+      "daily_returns": {
+        "2026-10-15": -0.05523480888708321,
+        "2026-10-22": -0.030421040077357575,
+        "2026-10-20": -0.01563106665518843,
+        "2026-10-13": -0.033807739956346894,
+        "2026-10-12": -0.0031750119490043804
+      }
+    }
+  ],
+  "descriptive": {
+    "Mom20": {
+      "mean_delta_vs_0050_excluding_w1": -0.05896514970409189,
+      "w1_w2_delta_vs_0050": {
+        "W1": 0.026308158454695807,
+        "W2": 0.04686223495919206
+      },
+      "w1_w2_mean_delta_vs_0050": 0.036585196706943934,
+      "turnover_by_window": {
+        "W1": 3.288738731176496,
+        "W2": 3.5553709951488166,
+        "W3": 4.962754365150676,
+        "W4": 4.1655527748484555,
+        "W5": 3.9342784163033726
+      },
+      "costs_by_window": {
+        "W1": {
+          "costs": 8816729.210309772,
+          "fees": 4971449.58560191,
+          "taxes": 3845279.6247078623
+        },
+        "W2": {
+          "costs": 9134476.435558174,
+          "fees": 5122457.417778805,
+          "taxes": 4012019.017779369
+        },
+        "W3": {
+          "costs": 12051547.842484739,
+          "fees": 6573374.528552444,
+          "taxes": 5478173.313932298
+        },
+        "W4": {
+          "costs": 10796798.915752012,
+          "fees": 5943139.533305017,
+          "taxes": 4853659.382446995
+        },
+        "W5": {
+          "costs": 10162131.207086476,
+          "fees": 5640590.312031999,
+          "taxes": 4521540.895054476
+        }
+      },
+      "mean_turnover": 3.981339056525563,
+      "total_costs": 50961683.61119117
+    },
+    "C1": {
+      "mean_delta_vs_0050_excluding_w1": -0.013286285899270917,
+      "w1_w2_delta_vs_0050": {
+        "W1": 0.10197246419996864,
+        "W2": 0.0037030257486483364
+      },
+      "w1_w2_mean_delta_vs_0050": 0.05283774497430849,
+      "turnover_by_window": {
+        "W1": 0.9181183722056452,
+        "W2": 0.8891565800284839,
+        "W3": 0.991662030879839,
+        "W4": 0.9223860742827813,
+        "W5": 0.9203963074643166
+      },
+      "costs_by_window": {
+        "W1": {
+          "costs": 1308318.6803930444,
+          "fees": 1308318.6803930444,
+          "taxes": 0.0
+        },
+        "W2": {
+          "costs": 1267048.1265405896,
+          "fees": 1267048.1265405896,
+          "taxes": 0.0
+        },
+        "W3": {
+          "costs": 1473438.1050133326,
+          "fees": 1395660.752390623,
+          "taxes": 77777.35262270953
+        },
+        "W4": {
+          "costs": 1314400.1558529632,
+          "fees": 1314400.1558529632,
+          "taxes": 0.0
+        },
+        "W5": {
+          "costs": 1311564.7381366505,
+          "fees": 1311564.7381366505,
+          "taxes": 0.0
+        }
+      },
+      "mean_turnover": 0.9283438729722132,
+      "total_costs": 6674769.8059365805
+    },
+    "T1": {
+      "mean_delta_vs_0050_excluding_w1": 0.009635073361737051,
+      "w1_w2_delta_vs_0050": {
+        "W1": -0.009220600094963727,
+        "W2": 0.043120316527636815
+      },
+      "w1_w2_mean_delta_vs_0050": 0.016949858216336544,
+      "turnover_by_window": {
+        "W1": 1.7441672233252987,
+        "W2": 1.5500111602156843,
+        "W3": 1.3105136596849456,
+        "W4": 0.9069013772382367,
+        "W5": 2.160228726866337
+      },
+      "costs_by_window": {
+        "W1": {
+          "costs": 3914338.2969530113,
+          "fees": 2567038.8555729524,
+          "taxes": 1347299.4413800589
+        },
+        "W2": {
+          "costs": 3014086.256004407,
+          "fees": 2146617.964136949,
+          "taxes": 867468.2918674583
+        },
+        "W3": {
+          "costs": 2458182.73700238,
+          "fees": 1864856.5469789049,
+          "taxes": 593326.1900234753
+        },
+        "W4": {
+          "costs": 1292334.4625644872,
+          "fees": 1292334.4625644872,
+          "taxes": 0.0
+        },
+        "W5": {
+          "costs": 5264313.605481991,
+          "fees": 3191055.588825956,
+          "taxes": 2073258.0166560353
+        }
+      },
+      "mean_turnover": 1.5343644294661005,
+      "total_costs": 15943255.358006276
+    },
+    "T2": {
+      "mean_delta_vs_0050_excluding_w1": 0.00025978481291052957,
+      "w1_w2_delta_vs_0050": {
+        "W1": 0.023548814090141423,
+        "W2": 0.0063867972468100165
+      },
+      "w1_w2_mean_delta_vs_0050": 0.01496780566847572,
+      "turnover_by_window": {
+        "W1": 0.923967618648928,
+        "W2": 0.8883724030199726,
+        "W3": 0.9978235213821306,
+        "W4": 0.920935637208802,
+        "W5": 0.9204911401535523
+      },
+      "costs_by_window": {
+        "W1": {
+          "costs": 1316653.8565747226,
+          "fees": 1316653.8565747226,
+          "taxes": 0.0
+        },
+        "W2": {
+          "costs": 1265930.674303461,
+          "fees": 1265930.674303461,
+          "taxes": 0.0
+        },
+        "W3": {
+          "costs": 1494347.3300403124,
+          "fees": 1403043.8150476376,
+          "taxes": 91303.51499267478
+        },
+        "W4": {
+          "costs": 1312333.2830225432,
+          "fees": 1312333.2830225432,
+          "taxes": 0.0
+        },
+        "W5": {
+          "costs": 1311699.8747188114,
+          "fees": 1311699.8747188114,
+          "taxes": 0.0
+        }
+      },
+      "mean_turnover": 0.930318064082677,
+      "total_costs": 6700965.018659851
+    },
+    "T3": {
+      "mean_delta_vs_0050_excluding_w1": -0.017575488212012685,
+      "w1_w2_delta_vs_0050": {
+        "W1": 0.05573502707441347,
+        "W2": -0.01401107069763563
+      },
+      "w1_w2_mean_delta_vs_0050": 0.02086197818838892,
+      "turnover_by_window": {
+        "W1": 1.219314783893825,
+        "W2": 1.086599633345676,
+        "W3": 1.2483942733784603,
+        "W4": 0.9262341555185772,
+        "W5": 1.3309761284493287
+      },
+      "costs_by_window": {
+        "W1": {
+          "costs": 2255442.8553890423,
+          "fees": 1772617.265669768,
+          "taxes": 482825.58971927443
+        },
+        "W2": {
+          "costs": 1788770.960140218,
+          "fees": 1524331.8790889345,
+          "taxes": 264439.0810512835
+        },
+        "W3": {
+          "costs": 2221986.3829833036,
+          "fees": 1761710.9454089662,
+          "taxes": 460275.43757433764
+        },
+        "W4": {
+          "costs": 1319883.671613973,
+          "fees": 1319883.671613973,
+          "taxes": 0.0
+        },
+        "W5": {
+          "costs": 2645487.2310794387,
+          "fees": 1962410.2297178581,
+          "taxes": 683077.0013615806
+        }
+      },
+      "mean_turnover": 1.1623037949171735,
+      "total_costs": 10231571.101205975
+    }
+  },
+  "t1_filter_counts": {
+    "W1": [
+      {
+        "date": "2026-04-30",
+        "action": "build",
+        "passed_filter": 24,
+        "from_filter": 24,
+        "filled_by_large": 0
+      },
+      {
+        "date": "2026-05-12",
+        "action": "rescreen",
+        "turnover": 0.4326178100783603,
+        "passed_filter": 25,
+        "from_filter": 24,
+        "filled_by_large": 0
+      }
+    ],
+    "W2": [
+      {
+        "date": "2026-06-04",
+        "action": "build",
+        "passed_filter": 25,
+        "from_filter": 24,
+        "filled_by_large": 0
+      },
+      {
+        "date": "2026-06-12",
+        "action": "rescreen",
+        "turnover": 0.3348522308896082,
+        "passed_filter": 37,
+        "from_filter": 24,
+        "filled_by_large": 0
+      }
+    ],
+    "W3": [
+      {
+        "date": "2026-07-09",
+        "action": "build",
+        "passed_filter": 39,
+        "from_filter": 24,
+        "filled_by_large": 0
+      },
+      {
+        "date": "2026-07-14",
+        "action": "rescreen",
+        "turnover": 0.22872455412764553,
+        "passed_filter": 34,
+        "from_filter": 24,
+        "filled_by_large": 0
+      }
+    ],
+    "W4": [
+      {
+        "date": "2026-08-13",
+        "action": "build",
+        "passed_filter": 54,
+        "from_filter": 24,
+        "filled_by_large": 0
+      }
+    ],
+    "W5": [
+      {
+        "date": "2026-09-16",
+        "action": "build",
+        "passed_filter": 42,
+        "from_filter": 24,
+        "filled_by_large": 0
+      },
+      {
+        "date": "2026-10-13",
+        "action": "rescreen",
+        "turnover": 0.6788762538144203,
+        "passed_filter": 38,
+        "from_filter": 24,
+        "filled_by_large": 0
+      }
+    ]
+  },
+  "checks": {
+    "episodes_expected": 25,
+    "episodes_processed": 25,
+    "episodes_complete": 25,
+    "verification_calls": 25,
+    "verification_problems": 0,
+    "as_expected": 600,
+    "as_processed": 600,
+    "as_formula_fallback_rows": 505,
+    "consistency": {
+      "Mom20_W1": {
+        "actual": 0.2119830727700791,
+        "expected": 0.2119830727700791,
+        "tolerance": 1e-12,
+        "passed": true
+      },
+      "C1_W1": {
+        "actual": 0.28764737851535194,
+        "expected": 0.28764737851535194,
+        "tolerance": 1e-12,
+        "passed": true
+      },
+      "Mom20_W2": {
+        "actual": 0.03245707283703769,
+        "expected": 0.03245707283703769,
+        "tolerance": 1e-12,
+        "passed": true
+      },
+      "C1_W2": {
+        "actual": -0.010702136373506033,
+        "expected": -0.010702136373506033,
+        "tolerance": 1e-12,
+        "passed": true
+      },
+      "Mom20_W3": {
+        "actual": -0.10000651253980919,
+        "expected": -0.10000651253980919,
+        "tolerance": 1e-12,
+        "passed": true
+      },
+      "C1_W3": {
+        "actual": -0.01880072439581104,
+        "expected": -0.01880072439581104,
+        "tolerance": 1e-12,
+        "passed": true
+      },
+      "Mom20_W4": {
+        "actual": -0.06758007827016821,
+        "expected": -0.06758007827016821,
+        "tolerance": 1e-12,
+        "passed": true
+      },
+      "C1_W4": {
+        "actual": -0.03452319803679671,
+        "expected": -0.03452319803679671,
+        "tolerance": 1e-12,
+        "passed": true
+      },
+      "Mom20_W5": {
+        "actual": -0.10124596758199833,
+        "expected": -0.10124596758199833,
+        "tolerance": 1e-12,
+        "passed": true
+      },
+      "C1_W5": {
+        "actual": 0.010366028470459643,
+        "expected": 0.010366028470459643,
+        "tolerance": 1e-12,
+        "passed": true
+      }
+    },
+    "finite_results": true,
+    "protected_input_hashes_unchanged": true,
+    "git_status_unchanged": true,
+    "baseline_git_status_lines": 35,
+    "verification_problem_counts": {
+      "C1_W1": 0,
+      "Mom20_W1": 0,
+      "T1_W1": 0,
+      "T2_W1": 0,
+      "T3_W1": 0,
+      "C1_W2": 0,
+      "Mom20_W2": 0,
+      "T1_W2": 0,
+      "T2_W2": 0,
+      "T3_W2": 0,
+      "C1_W3": 0,
+      "Mom20_W3": 0,
+      "T1_W3": 0,
+      "T2_W3": 0,
+      "T3_W3": 0,
+      "C1_W4": 0,
+      "Mom20_W4": 0,
+      "T1_W4": 0,
+      "T2_W4": 0,
+      "T3_W4": 0,
+      "C1_W5": 0,
+      "Mom20_W5": 0,
+      "T1_W5": 0,
+      "T2_W5": 0,
+      "T3_W5": 0
+    }
+  },
+  "windows": {
+    "W1": {
+      "start": "2026-04-30",
+      "end": "2026-06-03",
+      "prior_session": "2026-04-29"
+    },
+    "W2": {
+      "start": "2026-06-04",
+      "end": "2026-07-08",
+      "prior_session": "2026-06-03"
+    },
+    "W3": {
+      "start": "2026-07-09",
+      "end": "2026-08-12",
+      "prior_session": "2026-07-08"
+    },
+    "W4": {
+      "start": "2026-08-13",
+      "end": "2026-09-15",
+      "prior_session": "2026-08-12"
+    },
+    "W5": {
+      "start": "2026-09-16",
+      "end": "2026-10-22",
+      "prior_session": "2026-09-15"
+    }
+  },
+  "interpretations": [
+    "C1 is the reference for G0 warnings, G2 mean delta and G3 drawdown/crash; only T1/T2/T3 enter selection.",
+    "G4 requires 24 W5 daily rows with minimum across all required ETFs >= 15%; AS is heuristic/UNVERIFIED.",
+    "Same template AS fixed-snapshot fallback: when actual-date check has no by_etf, use production.active_share.active_share against the mandated 2026-09-24 top10 snapshot; retain actual-date status and invalid-data fields.",
+    "Same template crash definition: Mom20 W5 five worst sessions, stable ordering; compound each strategy on those dates with initial-capital predecessor and final dividend credit.",
+    "Tie-break is highest win count, then highest mean delta vs 0050; exact ties are listed without an added criterion.",
+    "Strategy logs are the unchanged strategies own exposed log; T1 filter counts include build and all revenue rescreens."
+  ],
+  "input_sha256": {
+    "research/results/recent5_v3/PREREGISTRATION.md": "d4da1785d3873d8824dd26757298d5164943d1efbe7a7f7acd7219a7d1bb5065",
+    "research/results/recent5_v3/strategies.py": "becd34b594fc15d07d3de1660d427bee7d997db4bf17ab83eab90705972815fe",
+    "research/results/recent5_v3/data/flows_20260924_20261022.csv": "14cd7ae3609489794d8f00ec7ee29bed35e084d81c7bea20b0f5e00694bb741f",
+    "research/results/recent5_new/strategies.py": "386900cbe56e6af8ee14ed35480805dbd81114c0ad9112e17233abfe8a631793",
+    "research/results/recent5_new/results.csv": "43f565f833fdc5745993ccdfbe50cb36ac91cbf07b9c88933fcd68db58c789b8",
+    "research/results/recent5_v3/TASK_BRIEF.md": "1c93e427ee7684af22f6e1e08739a87ea2bb629b64707739f84dbb5e78eea394",
+    "research/results/recent3_core_satellite/run.py": "05c206612d7c3e6ac0b5bfbab0b6acf2040ae368bab2ada503286d1a6a4638f0",
+    "research/results/recent3_core_satellite/results.csv": "14208fe00258ce4f36688835087618e3b45ac5bcd04641523d8f9b16a9763a1d",
+    "production/strategy.json": "74577d263f2cde1f77a71c6a72928a0f85f25da37c3420c983a6426c85e7da57",
+    "data/reference/competition_rules.json": "4caf65d30b0d85bf1e57bb401acfa3d0d23a2ed685e2fd548b59fcb9ba59b13f",
+    "data/momv2/etf_top10_20260924.csv": "a5192c5d1fca7df1521164d83da1a5d51439506b3a813a0889a82c4041c755e0",
+    "production/run_daily.py": "9365768c574567d8cceef5f54d84ec237c121af85f0e86a18a5ec8432414054a",
+    "production/dplan.py": "9240296546425e6641219b2d58726d894c43eaece1a61112db0bce9c7ce013d6",
+    "production/__init__.py": "a32dfdf7a4393aed8c2fc78130cad8b4d3eb7dbe690b000ba5d750798392545b",
+    "production/validate.py": "827a04b299b42c6a85f9050bdb433b6ab403632cec02340004c17a47485e6432",
+    "production/engine.py": "95bdd3c6f4d146fd0eb01730e73dfe8c7a2d8968c4d39d1d15d116b914f69363",
+    "production/replay.py": "839b5de9a4c00dac15b9634bf986368467aa98e3574f85affec6ea011dca42ae",
+    "production/market_data.py": "3376c4d367612902b9da2bb7d3c9c38dc93f768a14c2dffe8603deafe050d4d9",
+    "production/cold_start.py": "5a9d641212e5100ecdbca9a5bb60b1c2000dc5ccd4d333a70b68faecbb2aa2c2",
+    "production/etf_holdings.py": "77ad34cb4c659afa6897a1c3b710667dc3635b6aa4e9c29928c270fe7da5a6af",
+    "production/state.py": "80e62502ff3cb693d42fd51eb0dec4c0ac2f715e6f0f2459e23211c0938f6813",
+    "production/active_share.py": "b4a2aa5627a47926c0a5207db4d5e96265d6ffa303e020ae7f84941dc33e269c",
+    "competition/planner.py": "7664e7fbc0e05d0d3bdd0a949b647b4fe6397385be5e979ab099321715052517",
+    "competition/execution.py": "e15117c65ea3cf2027a047e4e18e5859b4f88ed174ce58972ac324014524e448",
+    "competition/ledger.py": "cb81359ca94c7678b688074f517b9b26dc8a6dedebcf0fcbe4aa09d2f739df5e",
+    "competition/__init__.py": "07a9c991e5bde7d30c28f7448d7d95386f19de7b2a8448d2525367ba91acfe7a",
+    "competition/rules.py": "00073864dbe5993a7a90861e1afeead604491bff36d3fbeb3438628fe026ad8b",
+    "competition/episodes.py": "c71b9f8539d13bbda4b55b3e10f09453ca072130b13950b9ca8c409488ee064d",
+    "competition/backtest.py": "e576087ff00280540f77041b441402984b77e33020e14fb5df2462b11bb5e7eb",
+    "competition/portfolio.py": "1fa474c8859fa5ea66a1938e9d153a69f0fbb64ac6c84152ecfa5340333ecb09",
+    "competition/data.py": "72f5de3fad76b16f77ff673f7aec1a43fc9924929c3db040c41256ff19703230",
+    "research/baselines.py": "9da99f420ea38a8c2f6a48785a318c0a09dfc6c51a24c28f335224b48ea1426e",
+    "research/registry.py": "564beddeb10f207ba97caa06f792040f92938a0499eb3a9cc23f429abca130ee",
+    "research/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "research/run_experiment.py": "cb5c314e38f15788d47bacfbcbeb352b6bcfae9b3b214df3fb151deac8706d52",
+    "research/compare.py": "88c05214fc563a52baa19dbf97f4ffc8600bf3a4294dbe2e3bbf4a33e3396032",
+    "legacy/ml/momv2/signals.py": "e2ed3c3aed76ab42c4f8ce35efdcfa50d966e9936e6b43b6ccaa6be07e14d39b",
+    "research/results/recent24_strategies/comparison.json": "5fa6960b847db6b4ffdc6d01c8c3e19dc8dcc2ee55974ab30913cafb596a4dcf",
+    "data/hybrid/flows.csv": "6d84d9281a08b2ae33c9273a5e7307dd5c27ea382462b07d05c261f82fc7b64b",
+    "data/hybrid/revenue.csv": "fa5797a6deb7ec5c55088ae5c5ed0c455c838e40454aba0602b47521abba4e86",
+    "data/reference/universe_competition_20260731.csv": "42a29a23a139ed271c03bdce9799c9eb74808b43a4041417184c4d3ffc741166",
+    "research/results/recent5_new/data/revenue_202609.csv": "06c6ca14e1159dbe8fc3d56a8dfd31b24247a178ac6526a3359f962069ab6c35",
+    "research/results/recent5_new/run.py": "053ecddfba834de71014cb78a5aa39136b15e30990c4462881fa07d077f88ffd",
+    "research/results/recent5_v3/fetch_flows_tail.py": "5341e59326841b3f5fd81bc2983b1bd0ca5fc99b01a66eef5ad45926790ca0b0",
+    "research/results/recent5_v3/CODEX_PROMPT.txt": "573aa5996c83dc10f2f39c947645597acf954635fcd61e03ed05f68376e3a5de",
+    "research/results/recent5_v3/data/flows_20260924_20261022_log.json": "59c3fc463dd5b20972e23621609068c1cbb5eab00d4e2119ad931f5089e318e9",
+    "production_runs/preflight_20261026/strategy_retest/corrected_nominal_daily.parquet": "fe3f91fa6e96aad89fff6bd8de9b768d31ff7897ac7b37b16a4494fec13de15d",
+    "production_runs/preflight_20261026/official_combined.csv": "28e5fd9d66106ee773382c1603ab213f9e9ffb974a03376c4554b9773114ccf5",
+    "production_runs/preflight_20261026/calendar_v2.json": "3953b366a8d0aa4a0c3d4ff4e59ad144f707d98b7596167405c2f07874769503"
+  },
+  "command": "PYTHONHASHSEED=0 PYTHONPATH=. .venv/bin/python research/results/recent5_v3/run.py",
+  "elapsed_seconds": 16.940749417000916,
+  "limitations": [
+    "Five windows; W3-W5 already observed; 2026 universe; revenue assumed available on day 11.",
+    "AS uses incomplete fixed-date top10 holdings, heuristic/UNVERIFIED."
+  ]
+}

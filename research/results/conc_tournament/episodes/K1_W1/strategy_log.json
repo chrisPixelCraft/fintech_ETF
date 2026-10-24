@@ -1,0 +1,107 @@
+[
+  {
+    "date": "2026-04-30",
+    "action": "trade",
+    "turnover": 0.475
+  },
+  {
+    "date": "2026-05-04",
+    "action": "hold",
+    "turnover": 0.03298291599565012
+  },
+  {
+    "date": "2026-05-05",
+    "action": "hold",
+    "turnover": 0.0331194263338579
+  },
+  {
+    "date": "2026-05-06",
+    "action": "trade",
+    "turnover": 0.1272680385900806
+  },
+  {
+    "date": "2026-05-07",
+    "action": "trade",
+    "turnover": 0.12101583422460027
+  },
+  {
+    "date": "2026-05-08",
+    "action": "hold",
+    "turnover": 0.03966136603144707
+  },
+  {
+    "date": "2026-05-11",
+    "action": "trade",
+    "turnover": 0.11941330539256494
+  },
+  {
+    "date": "2026-05-12",
+    "action": "trade",
+    "turnover": 0.10105672985366634
+  },
+  {
+    "date": "2026-05-13",
+    "action": "trade",
+    "turnover": 0.19163542350269006
+  },
+  {
+    "date": "2026-05-14",
+    "action": "trade",
+    "turnover": 0.28337625305113356
+  },
+  {
+    "date": "2026-05-15",
+    "action": "trade",
+    "turnover": 0.12207756275532886
+  },
+  {
+    "date": "2026-05-18",
+    "action": "hold",
+    "turnover": 0.024699982938377534
+  },
+  {
+    "date": "2026-05-19",
+    "action": "trade",
+    "turnover": 0.18786809529522153
+  },
+  {
+    "date": "2026-05-20",
+    "action": "trade",
+    "turnover": 0.1914222135849531
+  },
+  {
+    "date": "2026-05-21",
+    "action": "hold",
+    "turnover": 0.0438526394039806
+  },
+  {
+    "date": "2026-05-22",
+    "action": "trade",
+    "turnover": 0.12407439846226062
+  },
+  {
+    "date": "2026-05-25",
+    "action": "trade",
+    "turnover": 0.12229279133905491
+  },
+  {
+    "date": "2026-05-26",
+    "action": "hold",
+    "turnover": 0.058652555631564525
+  },
+  {
+    "date": "2026-05-27",
+    "action": "trade",
+    "turnover": 0.12279112527901564
+  },
+  {
+    "date": "2026-05-28",
+    "action": "trade",
+    "turnover": 0.12692415075922875
+  },
+  {
+    "date": "2026-05-29",
+    "action": "trade",
+    "turnover": 0.10715532455873364
+  }
+]

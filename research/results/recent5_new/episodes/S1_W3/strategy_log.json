@@ -1,0 +1,146 @@
+[
+  {
+    "date": "2026-07-08",
+    "eligible": 149,
+    "scored": 143,
+    "max_release_age_days": 27.0
+  },
+  {
+    "date": "2026-07-09",
+    "eligible": 150,
+    "scored": 144,
+    "max_release_age_days": 28.0
+  },
+  {
+    "date": "2026-07-13",
+    "eligible": 150,
+    "scored": 148,
+    "max_release_age_days": 2.0
+  },
+  {
+    "date": "2026-07-14",
+    "eligible": 150,
+    "scored": 148,
+    "max_release_age_days": 3.0
+  },
+  {
+    "date": "2026-07-15",
+    "eligible": 149,
+    "scored": 147,
+    "max_release_age_days": 4.0
+  },
+  {
+    "date": "2026-07-16",
+    "eligible": 149,
+    "scored": 147,
+    "max_release_age_days": 5.0
+  },
+  {
+    "date": "2026-07-17",
+    "eligible": 149,
+    "scored": 147,
+    "max_release_age_days": 6.0
+  },
+  {
+    "date": "2026-07-20",
+    "eligible": 149,
+    "scored": 147,
+    "max_release_age_days": 9.0
+  },
+  {
+    "date": "2026-07-21",
+    "eligible": 149,
+    "scored": 147,
+    "max_release_age_days": 10.0
+  },
+  {
+    "date": "2026-07-22",
+    "eligible": 149,
+    "scored": 147,
+    "max_release_age_days": 11.0
+  },
+  {
+    "date": "2026-07-23",
+    "eligible": 149,
+    "scored": 147,
+    "max_release_age_days": 12.0
+  },
+  {
+    "date": "2026-07-24",
+    "eligible": 149,
+    "scored": 147,
+    "max_release_age_days": 13.0
+  },
+  {
+    "date": "2026-07-27",
+    "eligible": 149,
+    "scored": 147,
+    "max_release_age_days": 16.0
+  },
+  {
+    "date": "2026-07-28",
+    "eligible": 149,
+    "scored": 147,
+    "max_release_age_days": 17.0
+  },
+  {
+    "date": "2026-07-29",
+    "eligible": 149,
+    "scored": 147,
+    "max_release_age_days": 18.0
+  },
+  {
+    "date": "2026-07-30",
+    "eligible": 149,
+    "scored": 147,
+    "max_release_age_days": 19.0
+  },
+  {
+    "date": "2026-07-31",
+    "eligible": 149,
+    "scored": 147,
+    "max_release_age_days": 20.0
+  },
+  {
+    "date": "2026-08-03",
+    "eligible": 149,
+    "scored": 147,
+    "max_release_age_days": 23.0
+  },
+  {
+    "date": "2026-08-04",
+    "eligible": 149,
+    "scored": 147,
+    "max_release_age_days": 24.0
+  },
+  {
+    "date": "2026-08-05",
+    "eligible": 149,
+    "scored": 147,
+    "max_release_age_days": 25.0
+  },
+  {
+    "date": "2026-08-06",
+    "eligible": 149,
+    "scored": 147,
+    "max_release_age_days": 26.0
+  },
+  {
+    "date": "2026-08-07",
+    "eligible": 149,
+    "scored": 147,
+    "max_release_age_days": 27.0
+  },
+  {
+    "date": "2026-08-10",
+    "eligible": 149,
+    "scored": 147,
+    "max_release_age_days": 30.0
+  },
+  {
+    "date": "2026-08-11",
+    "eligible": 149,
+    "scored": 148,
+    "max_release_age_days": 0.0
+  }
+]

@@ -1,0 +1,52 @@
+[
+  {
+    "date": "2026-06-04",
+    "action": "build",
+    "scored": 145
+  },
+  {
+    "date": "2026-06-11",
+    "action": "rerank",
+    "turnover": 0.1440266657068076,
+    "scored": 144
+  },
+  {
+    "date": "2026-06-12",
+    "action": "rerank",
+    "turnover": 0.24018556223473345,
+    "scored": 143
+  },
+  {
+    "date": "2026-06-15",
+    "action": "trim",
+    "names": [
+      "2344.TW"
+    ]
+  },
+  {
+    "date": "2026-06-22",
+    "action": "rerank",
+    "turnover": 0.21094037492493373,
+    "scored": 143
+  },
+  {
+    "date": "2026-06-25",
+    "action": "trim",
+    "names": [
+      "7828.TWO"
+    ]
+  },
+  {
+    "date": "2026-06-29",
+    "action": "rerank",
+    "turnover": 0.19091588200020582,
+    "scored": 143
+  },
+  {
+    "date": "2026-07-02",
+    "action": "trim",
+    "names": [
+      "6446.TW"
+    ]
+  }
+]

@@ -1,0 +1,37 @@
+{
+  "decision": "ADOPT",
+  "selected_strategy": "K3w_05",
+  "selected_weight": [
+    0.25,
+    0.0,
+    0.75
+  ],
+  "gates": {
+    "V1": {
+      "passed": true,
+      "selected": 0.14285714285714285,
+      "minimum": 0.02857142857142857
+    },
+    "V2": {
+      "passed": true,
+      "selected": 0.08571428571428572,
+      "maximum": 0.15857142857142856
+    },
+    "V3": {
+      "passed": true,
+      "selected": 0.01259332470954827,
+      "exclusive_minimum": 0
+    },
+    "V4": {
+      "passed": true,
+      "disqualifications": 0,
+      "warning_days": 0,
+      "maximum_each": 0
+    }
+  },
+  "reference_rows_report_only": [
+    "K3w_15",
+    "K2b"
+  ],
+  "automatic_strategy_change": false
+}

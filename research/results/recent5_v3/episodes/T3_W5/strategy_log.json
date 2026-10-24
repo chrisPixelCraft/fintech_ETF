@@ -1,0 +1,15 @@
+[
+  {
+    "date": "2026-09-16",
+    "action": "build",
+    "pool": 40,
+    "scored": 40
+  },
+  {
+    "date": "2026-10-13",
+    "action": "rescreen",
+    "turnover": 0.2354300594957344,
+    "pool": 40,
+    "scored": 40
+  }
+]

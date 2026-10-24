@@ -1,0 +1,12 @@
+[
+  {
+    "date": "2026-07-09",
+    "action": "build",
+    "pool": 40,
+    "scored": 40
+  },
+  {
+    "date": "2026-07-30",
+    "action": "repair"
+  }
+]

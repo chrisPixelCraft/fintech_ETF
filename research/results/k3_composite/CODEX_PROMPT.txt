@@ -1,0 +1,1 @@
+Execute research/results/k3_composite/TASK_BRIEF.md exactly. The working directory is the repository root. Do not change scope or architecture. Write only to its allowed paths. Run the specified command and checks. Do not commit, push, branch, or merge. Save a concise result in research/results/k3_composite/CODEX_REPORT.md.

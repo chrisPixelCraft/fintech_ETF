@@ -1,31 +1,78 @@
 # Production 計畫：每天必定安全、合規地提交
 
-先確保每天一定能產生合法 D-Plan，再用一次受控的 Momentum 小實驗決定是否替換 20D baseline。之後策略凍結，每天只滾動更新資料與持股，不再滾動調參。
+> **2026-10-24 更新：本頁保留舊版規格與歷史紀錄。現行規則以 [v4.3 核對](rules_v43.md) 為準。**
+> 前10大／20%、自行重建官方現金、僅靠 holdings 匯出、UNVERIFIED 可 READY 的舊描述均已失效。
+> 本輪已接 DataPack；官方 AS 算法與完整前15大資料未齊，live 會阻擋。
 
-## 0. 最終目標與正式策略
+現行策略為凍結 tournament。以下第 2 節起保留舊規劃；策略細節與狀態以本節為準，安全閘門以 v4.3 為準。
 
-比賽核心：固定 150 檔台股 → 每天產生 D-Plan → 維持 20–30 檔 → 跑完 24 個交易日 → 最大化期末 NAV。
+## 0. 正式策略：K2 → T2
 
-在新策略通過驗證前，正式 production strategy 是：
+設定：`production/strategy.json`。Mom20 回滾：`production/strategy_mom20.json`。
 
-| 層 | 設定 |
+| 項目 | K2 TrustRevConc | T2 LargeTrust |
+|---|---|---|
+| 配置 | 10 核心各 8.5%；12 填充各 10%/12，共 22 檔 | 2330：23.5%；24 檔共 71.5% |
+| 選股 | 投信 10 日淨買超 > 0；營收 3 月均值創 12 月高；YoY > 20% | 60 日大型股前 40（排除 2330） |
+| 排名 | 投信 10 日淨買超 / 20 日均量 | 投信 20 日淨買超 / 20 日均量，取 24 檔 |
+| 補足 | 篩選排名後接大型股排名 | 不補足不足的評分名單 |
+| 重篩 | 可用營收月異於 `k2_month`；單向換手 ≥ 10% 才更新目標 | 切換日固定目標 A；分段換倉 |
+
+- 大型股：60 日 `close × volume` 均值；全期有效。
+- 營收篩選需 12 個連續月份。
+- 權重 > cap − 0.5pp 或現金越界：重試保存目標。
+- K2 保存 `k2_target`、`k2_month`；planner HOLD 仍保留更新。
+- 最後 3 個 session：不交易。
+- Tournament 不做 Active Share 選股修補；INVALID 走既有 fallback。
+
+## 1. 切換、資料與保存
+
+```bash
+./run_daily.sh <T> --datapack <DataPack.json> --etf-holdings <top15.csv> --rank N
+./run_daily.sh 2026-10-26 --offline
+```
+
+`--rank N` 是 T−1 19:00 公布的組內排名，必須為正整數；audit 記錄排名、模式、切換與動作。
+
+- 切換條件：`day_index >= 12` 且 `sessions_remaining > 3` 且 `rank <= 6`。
+- 僅 K2 可切換；T2 鎖定至賽末。
+- 可切換日缺排名：維持模式，記錄 `RANK_MISSING`；仍可產出計畫。
+- Live：`<runs_dir>/state/tournament.json`。
+- Offline：`<runs_dir>/<T>/state/tournament.json`；不寫 live 狀態。
+- 只有產出通過驗證的 D-Plan 才保存策略狀態，包含 HOLD。
+
+狀態含 `mode`、`switched_on`、`ranks`，另保存：
+
+| 欄位 | 用途 |
 |---|---|
-| Signal | 20D Momentum |
-| 組合 | • Top 25，等權<br>• invested = 0.95<br>• keep_rank = 35<br>• rebalance_threshold = 0.10<br>• freeze_last_days = 3 |
+| `k2_target` | 最近建倉／達換手門檻的 K2 目標 |
+| `k2_month` | 最近建倉／重篩的可用營收月 |
+| `t2_target` | 切換日固定目標 A |
+| `t2_complete` | 決策時持股名稱已等於 A |
 
-依據：[research/results/final_test/summary.md](../research/results/final_test/summary.md)，2025–2026 平均 +8.79%，21 組中最好。
+T2 換倉規則：
 
-## 1. 滾動方式：Rolling decisions，Frozen strategy
+- 賣單按現重遞減；同重按代號。
+- 買單按 A 權重、T2 投信比率遞減，2330 優先。
+- 從全部賣出開始遞減 k；未賣舊股保留現重，A 內持股回到 A 權重。
+- 依買序補入 A；總重 ≤ 95%，檔數限 20–30。
+- 接受最大可行 k：planner 為 OK／REPAIRED，且原 Active Share 檢查通過。
+- Audit 記錄 `SWITCH_STEP:k/len`；皆不可行則 HOLD，記錄 `SWITCH_STEP_INFEASIBLE`。
 
-每天都會滾動：
+名稱到齊後標記完成，持有至 breach 才重試 A；最後 3 日仍凍結。
 
-1. 取得最新 T−1 資料
-2. 20D window 往前滾一天
-3. 重新算 150 檔 momentum 並排名
-4. 依目前持股與 keep_rank 決定換股
-5. 產生 target weights 與 orders
+| 資料 | 來源與時點 |
+|---|---|
+| 歷史 | `data/hybrid/flows.csv`、`revenue.csv`；唯讀 |
+| 快取 | `data/production_aux/flows.csv`、`revenue.csv`；增量追加 |
+| 初始快取 | 複製 2026-09-24..10-22 投信與 2026-09 營收 |
+| 投信刷新 | TWSE T86 + TPEx；補缺 session 至 T−1 |
+| 營收刷新 | MOPS 已公布月份；月 m 自 m+1/11 可用 |
+| Offline | 最新完整本地 vendor 快照（含 preflight）；只讀快取 |
 
-不能每天變：20D、Top25、0.95、keep_rank 35、換手門檻 10%、最後 3 天不交易。
+缺 T−1 任一交易所投信、或缺應有營收月，記錄 degraded 原因並走既有 fallback。資料刷新失敗也會降級。Offline 帳本保存在當日資料夾，不改 live 帳本。
+
+Live 仍須官方 DataPack；Active Share 官方算法未確認，持續阻擋 `READY_TO_SUBMIT`。Offline 為 `SIMULATION_ONLY`，shell 結束碼 2。
 
 ## 2. 優先級
 

@@ -1,0 +1,36 @@
+{
+  "episode_id": "holdout_2026_03",
+  "split": "holdout",
+  "start": "2026-03-02",
+  "end": "2026-04-02",
+  "sessions": 24,
+  "complete": true,
+  "terminal_nav": 994828452.4928255,
+  "terminal_return": -0.005171547507174523,
+  "max_drawdown": 0.13725155267451405,
+  "dividend_credit": 468000.0,
+  "turnover": 3.272933008722675,
+  "costs": 7962919.410230278,
+  "fees": 4554346.673881885,
+  "taxes": 3408572.7363483943,
+  "warning_days": 0,
+  "disqualified": false,
+  "unfilled_orders": 0,
+  "envelope_breaches": 1,
+  "fill_sources": {
+    "official_vwap": 109,
+    "proxy_hlc3": 4
+  },
+  "plan_status": {
+    "REPAIRED": 1,
+    "OK": 23
+  },
+  "quality_flag_days": 0,
+  "mean_holdings": 25.0,
+  "mean_cash_ratio": 0.06919905333291862,
+  "decide_seconds": 0.1676619190002384,
+  "benchmark_0050_return": -0.08872463884477744,
+  "equal_weight_universe_return": -0.014754154291289448,
+  "verification_problems": [],
+  "runtime_seconds": 0.2730539170006523
+}

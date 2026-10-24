@@ -1,0 +1,4 @@
+- 已執行指定命令：703/703 episodes，驗證問題 0；凍結檔與既有紀錄檢查通過。
+- DEV 選出 α=0.25；Validation **REJECT**，V2、V3 未通過。
+- 唯一缺口：K2b 缺逐日資料，無法計算指定五日複利；依限制未重跑。
+- 已存 [CODEX_REPORT.md](/Users/chrishsieh/Documents/dev/fintech_ETF/research/results/kt_hybrid/CODEX_REPORT.md)。未 commit、push、branch 或 merge。

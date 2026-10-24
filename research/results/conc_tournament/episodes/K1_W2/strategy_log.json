@@ -1,0 +1,107 @@
+[
+  {
+    "date": "2026-06-04",
+    "action": "trade",
+    "turnover": 0.475
+  },
+  {
+    "date": "2026-06-05",
+    "action": "hold",
+    "turnover": 0.041418547484191236
+  },
+  {
+    "date": "2026-06-08",
+    "action": "trade",
+    "turnover": 0.12035167244948616
+  },
+  {
+    "date": "2026-06-09",
+    "action": "hold",
+    "turnover": 0.032700485407922315
+  },
+  {
+    "date": "2026-06-10",
+    "action": "trade",
+    "turnover": 0.29062856032778406
+  },
+  {
+    "date": "2026-06-11",
+    "action": "hold",
+    "turnover": 0.09897738521492584
+  },
+  {
+    "date": "2026-06-12",
+    "action": "trade",
+    "turnover": 0.2590574031088093
+  },
+  {
+    "date": "2026-06-15",
+    "action": "trade",
+    "turnover": 0.10859447431331844
+  },
+  {
+    "date": "2026-06-16",
+    "action": "trade",
+    "turnover": 0.1900189678834393
+  },
+  {
+    "date": "2026-06-17",
+    "action": "trade",
+    "turnover": 0.12484733632089087
+  },
+  {
+    "date": "2026-06-18",
+    "action": "trade",
+    "turnover": 0.11370506854874175
+  },
+  {
+    "date": "2026-06-22",
+    "action": "trade",
+    "turnover": 0.20269351033204738
+  },
+  {
+    "date": "2026-06-23",
+    "action": "hold",
+    "turnover": 0.023845913780392157
+  },
+  {
+    "date": "2026-06-24",
+    "action": "trade",
+    "turnover": 0.265985775096735
+  },
+  {
+    "date": "2026-06-25",
+    "action": "trade",
+    "turnover": 0.10095777697150936
+  },
+  {
+    "date": "2026-06-26",
+    "action": "trade",
+    "turnover": 0.1026234673657932
+  },
+  {
+    "date": "2026-06-29",
+    "action": "trade",
+    "turnover": 0.1746668169093834
+  },
+  {
+    "date": "2026-06-30",
+    "action": "hold",
+    "turnover": 0.09393683984238795
+  },
+  {
+    "date": "2026-07-01",
+    "action": "trade",
+    "turnover": 0.26231548440318875
+  },
+  {
+    "date": "2026-07-02",
+    "action": "trade",
+    "turnover": 0.11302166895009755
+  },
+  {
+    "date": "2026-07-03",
+    "action": "trade",
+    "turnover": 0.2731279479513739
+  }
+]

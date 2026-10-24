@@ -1,0 +1,8 @@
+已保存[執行報告](research/results/conc_tournament/CODEX_PRODUCTION_REPORT.md)，但驗收未全過。
+
+- 測試：95 個通過。
+- 重播：W4 完全一致；W5 差 −0.1624 個百分點。
+- 強制切換：T2 交易被既有安全閘門擋下。
+- 離線：K2、20 筆委託，D-Plan 有效。
+
+未變更凍結參數或切換規則；未進行 Git 寫入操作。

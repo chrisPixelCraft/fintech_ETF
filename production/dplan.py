@@ -1,4 +1,4 @@
-"""D-Plan (schema 4.0) from one day's decision, following the guide's chain
+"""D-Plan (schema 4.3) from one day's decision, following the guide's chain
 source -> observation -> market view -> inference -> decision -> order.
 
 Declared target weights are the planner's representable weights, so the
@@ -39,7 +39,7 @@ class Identity:
     team_id: str
     code_version: str
     model_provider: str = 'other'
-    model_version: str = 'rule-based production_mom20'
+    model_version: str = 'rule-based production'
 
 
 def stamp(moment: datetime | pd.Timestamp) -> str:
@@ -91,6 +91,8 @@ def _pct(x) -> float:
 def build(inp: engine.DayInput, result: engine.DayResult, identity: Identity, started: datetime,
           etf_source_url: str | None = None) -> dict:
     """The D-Plan dict for ``result`` (validate with production.validate before writing)."""
+    tournament_mode = result.tournament.get('mode')
+    is_tournament = inp.strategy.get('strategy') == 'tournament'
     ids, info, prev = _Ids(), names(), inp.prev_date
     content = stamp(pd.Timestamp(prev.date()) + pd.Timedelta(hours=13, minutes=30))
     sources = {
@@ -101,13 +103,25 @@ def build(inp: engine.DayInput, result: engine.DayResult, identity: Identity, st
         'vendor': dict(source_id=ids.next('S'), authority='vendor', url=YAHOO_URL, content_as_of=content,
                        name='Yahoo Finance 日線（還原報酬用）'),
     }
+    if is_tournament:
+        sources['trust_twse'] = dict(source_id=ids.next('S'), authority='twse',
+                                url='https://www.twse.com.tw/rwd/zh/fund/T86',
+                                content_as_of=stamp(pd.Timestamp(prev.date()) + pd.Timedelta(hours=19)),
+                                name='TWSE 投信買賣超（截至 T-1）')
+        sources['trust_tpex'] = dict(source_id=ids.next('S'), authority='tpex',
+                                    url='https://www.tpex.org.tw/web/stock/3insti/daily_trade/3itrade_hedge_result.php',
+                                    content_as_of=stamp(pd.Timestamp(prev.date()) + pd.Timedelta(hours=19)),
+                                    name='TPEx 投信買賣超（截至 T-1）')
+        sources['revenue'] = dict(source_id=ids.next('S'), authority='other',
+                                  url='https://mopsov.twse.com.tw/nas/t21/sii/', content_as_of=content,
+                                  name='MOPS 月營收（次月 11 日起可用）')
     if inp.official_holdings is not None:
         sources['organizer'] = dict(source_id=ids.next('S'), authority='other', url=ORGANIZER_URL,
                                     content_as_of=stamp(pd.Timestamp(prev.date()) + pd.Timedelta(hours=19)),
                                     name='主辦方結算持股（庫存明細）')
     if result.active_share.get('minimum') is not None and etf_source_url:
         sources['etf'] = dict(source_id=ids.next('S'), authority='vendor', url=etf_source_url, content_as_of=content,
-                              name='MoneyDJ 主動 ETF 前十大持股')
+                              name='MoneyDJ 主動 ETF 前十五大持股')
     sid = {k: v['source_id'] for k, v in sources.items()}
 
     cal = inp.market.calendar
@@ -132,7 +146,7 @@ def build(inp: engine.DayInput, result: engine.DayResult, identity: Identity, st
     if 'etf' in sid:
         a = result.active_share
         observations.append(dict(obs_id=ids.next('O'), source_ref=[sid['etf']],
-                                 statement=f'目標組合前 10 大與主動 ETF 前 10 大之 Active Share 最低 {a["minimum"]:.2%}'
+                                 statement=f'目標組合前 15 大與主動 ETF 前 15 大之 Active Share 最低 {a["minimum"]:.2%}'
                                            f'（最接近 {a["closest_etf"]}）',
                                  values=dict(min_active_share_pct=_pct(a['minimum']))))
         market_obs.append(observations[-1]['obs_id'])
@@ -152,10 +166,20 @@ def build(inp: engine.DayInput, result: engine.DayResult, identity: Identity, st
         if np.isfinite(r):
             values['momentum_20d_pct'] = _pct(r)
             text += f'，近 20 日還原報酬 {r:+.2%}'
-        if s in rank.index:
+        if not is_tournament and s in rank.index:
             values['momentum_rank'] = int(rank[s])
             text += f'，動能排名 {int(rank[s])}/{len(rank)}'
         ref = [sid['twse'] if market == 'TWSE' else sid['tpex'], sid['vendor']]
+        if is_tournament:
+            ratio = result.tournament.get('trust_ratio', {}).get(s, np.nan)
+            passed = result.tournament.get('filter_status', {}).get(s)
+            text += f'，{tournament_mode} 投信比率 ' + (f'{ratio:.6f}' if np.isfinite(ratio) else '資料不足')
+            text += f'，K2 篩選 {passed if passed is not None else "未評估"}'
+            if np.isfinite(ratio):
+                values['trust_ratio'] = float(ratio)
+            if passed is not None:
+                values['k2_filter_passed'] = int(passed)
+            ref += [sid['trust_twse'] if market == 'TWSE' else sid['trust_tpex'], sid['revenue']]
         stock_obs[s] = dict(obs_id=ids.next('O'), source_ref=ref, statement=text, values=values)
     observations += [stock_obs[s] for s in involved]
 
@@ -163,13 +187,17 @@ def build(inp: engine.DayInput, result: engine.DayResult, identity: Identity, st
     post = posture(orders, result.prev_close, held, inp.book.cash, result.nav)
     mode_text = {engine.NORMAL: '依凍結規則執行', engine.HOLD: '今日沿用前日持股、不做 alpha 交易',
                  engine.REPAIR: '今日只做維持合規所需的最少交易', engine.COLD_START: '首日以凍結名單等權建倉'}[result.mode]
+    strategy_logic = ('K2：投信買超及營收篩選，10 檔核心各 8.5%、10 檔填充各 1%。'
+                      if tournament_mode == 'K2' else
+                      'T2：2330 配置 23.5%，大型股池按投信比率選 24 檔共 71.5%，切換後鎖定。') if is_tournament else (
+                      '本 ETF 以 20 日動能選股、等權持有前 25 檔、目標投入 95%，並以排名前 35 名為續抱區。')
     market_view = dict(
         basis_refs=market_obs,
-        logic=(f'本 ETF 以 20 日動能選股、等權持有前 25 檔、目標投入 95%，並以排名前 35 名為續抱區。'
+        logic=(strategy_logic +
                f'0050 近 20 日 {bench20:+.2%}，判定為 {regime}；{mode_text}，'
                f'委託後預估現金比 {flows(orders, result.prev_close, held, inp.book.cash, result.nav)["cash_after"]:.2%}。'),
         regime=regime, stance='neutral', posture=post,
-        counter_evidence='動能可能在短期內反轉；規則固定，不依單日訊號改變配置' if result.mode == engine.NORMAL else None)
+        counter_evidence='投信與營收訊號可能失效；配置規則固定' if is_tournament else '動能可能在短期內反轉；規則固定，不依單日訊號改變配置' if result.mode == engine.NORMAL else None)
 
     inferences, inf_of = [], {}
     notes = '；'.join(r for r in result.reasons if '\n' not in r)[:200]
@@ -178,15 +206,23 @@ def build(inp: engine.DayInput, result: engine.DayResult, identity: Identity, st
         q, have = orders.get(s, 0), held.get(s, 0.)
         r = rank.get(s)
         where = f'動能排名第 {int(r)}' if r is not None and not pd.isna(r) else '不在可排名名單（近 20 日資料不完整）'
+        if is_tournament:
+            ratio = result.tournament.get('trust_ratio', {}).get(s, np.nan)
+            where = f'{tournament_mode} 投信比率 ' + (f'{ratio:.6f}' if np.isfinite(ratio) else '資料不足')
+            where += f'，K2 篩選 {result.tournament.get("filter_status", {}).get(s, "未評估")}'
         if q:
             act = action_of(have, q)
             why = {'BUY': '進入前 25 名，依動能規則新建倉', 'ADD': '仍在續抱區，權重低於目標，依組合規則加碼',
                    'TRIM': '權重高於目標或接近上限，依組合規則減碼', 'SELL_ALL': '跌出前 35 名續抱區，依規則出清'}[act]
+            if is_tournament:
+                why = f'{tournament_mode} 凍結配置，動作 {result.tournament.get("action", "fallback")}'
             if result.mode != engine.NORMAL:
                 why = f'{mode_text}（{notes or result.mode}）'
             logic = f'{ticker} {name} {where}；{why}，目標權重 {weights.get(s, 0.):.2%}。'
         else:
             why = '仍在前 35 名續抱區或換手低於門檻，維持持股' if result.mode == engine.NORMAL else mode_text
+            if is_tournament and result.mode == engine.NORMAL:
+                why = '未達重新配置條件或處於最後三日，維持持股'
             logic = f'{ticker} {name} {where}；{why}。'
         inferences.append(dict(inf_id=ids.next('I'), premise_refs=[stock_obs[s]['obs_id']], logic=logic,
                                counter_evidence=None))
@@ -204,7 +240,7 @@ def build(inp: engine.DayInput, result: engine.DayResult, identity: Identity, st
                                shares=int(abs(orders[s])), decision_ref=did))
     no_trade = [dict(ticker=symbol_to_ticker(s), reason_refs=[inf_of[s]]) for s in sorted(held) if s not in orders]
     return {
-        'schema_version': '4.0', 'doc_type': 'D-Plan', 'team_id': identity.team_id,
+        'schema_version': '4.3', 'doc_type': 'D-Plan', 'team_id': identity.team_id,
         'trade_date': str(inp.trade_date.date()),
         'sources': referenced_sources(list(sources.values()), observations),
         'observations': observations, 'market_view': market_view, 'inferences': inferences,

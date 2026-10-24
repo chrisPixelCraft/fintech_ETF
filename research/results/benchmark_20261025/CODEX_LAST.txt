@@ -1,0 +1,5 @@
+已完成，報告：[CODEX_REPORT.md](research/results/benchmark_20261025/CODEX_REPORT.md)。
+
+- 585／585 回測完成，驗證問題 0；58 項報酬一致性檢查通過。
+- 四份 CSV 已產出，無 NaN／Inf，未使用備援。
+- 耗時 6.84 分鐘；僅寫入允許路徑，未執行 Git 寫入操作。

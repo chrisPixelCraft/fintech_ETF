@@ -1,8 +1,73 @@
-# 策略：Mom20 與結果
+# 策略：K2 錦標賽版與結果
 
-正式策略是 20 日動能（Mom20），已凍結。之後的研究都沒贏它。
+2026-10-24 起正式策略改為 K2，並在後半段依排行榜切換到 T2。Mom20 保留為回滾設定 `production/strategy_mom20.json`。
 
-## Mom20 定義
+2026-10-24 接入 DataPack／D-Plan v4.3。AS 官方算法未確認，live 會阻擋；見 [規則核對](rules_v43.md) 與 [測試報告](../research/results/rules_v43_validation/summary.md)。
+
+## 正式策略：K2＋排行榜切換
+
+設定檔：[production/strategy.json](../production/strategy.json)；程式：[production/tournament.py](../production/tournament.py)。
+
+| 層 | K2（預設） | T2（切換後） |
+|---|---|---|
+| 選股 | • 投信10日買超 >0<br>• 3月均營收創12月新高<br>• 營收 YoY >20%<br>• 依投信買超／均量排序 | • 大型股前40名<br>• 依投信20日買超排序 |
+| 權重 | • 前10檔各 8.5%<br>• 第11–22檔各約 0.83%<br>• 多留2檔緩衝 | • 台積電 23.5%<br>• 其餘24檔等權 |
+| 調整 | • 新月營收後重篩<br>• 換手 ≥10% 才換 | • 建倉後持有 |
+| 共用 | • 投入 95%<br>• 超限才修正<br>• 最後3日不交易 | 同左 |
+
+- 切換條件
+	- 第13個交易日起
+	- 前晚排名在組內前6
+	- 切換後鎖定，不再換回
+- 切換分天執行
+	- 每天做到下單模組允許的最大步
+	- 重播中2天換完
+- 排名由 `--rank` 輸入
+	- 缺排名就維持原模式
+
+### 選它的依據
+
+- 比賽取各組前6
+	- 目標是進前6的機率
+- 276 窗口（2015–2026）K2 對 0050
+	- 平均 +1.51pp，勝率 62%
+	- 大贏率 22.1%，大輸率 10.1%
+	- 尾端差 +12.0pp，四者最高
+- 事前規則未全過
+	- 大贏率差門檻 2.5pp
+	- 使用者決定採用
+- 證據：[conc_tournament](../research/results/conc_tournament/CODEX_REPORT.md)、[近5期第三批](../research/results/recent5_v3/CODEX_REPORT.md)
+
+- 22檔緩衝（2026-10-25 加入）
+	- 避免一檔買不到就少於20檔
+	- 各期尾端差幾乎不變
+	- 舊20檔設定：`production/strategy_k2_20.json`
+	- 證據：[k3_weights](../research/results/k3_weights/CODEX_REPORT.md)
+- 加權版 K3w 未採用
+	- 2022–2024 驗證通過
+	- 最近兩期各輸 0050 約10pp
+	- 使用者決定維持 K2
+
+### 驗證
+
+- 22檔版測試 101/101 通過
+	- W4、W5 重播與回測一致
+	- 見 [CODEX_K2B_REPORT.md](../research/results/k3_weights/CODEX_K2B_REPORT.md)
+- 20檔版測試 100/100 通過
+- W4、W5 production 重播與回測一致
+	- 報酬差 0，HOLD 日相同
+- 10/26 離線試跑：K2、20筆委託、D-Plan 有效
+- 見 [CODEX_PRODUCTION_REPORT.md](../research/results/conc_tournament/CODEX_PRODUCTION_REPORT.md)
+
+### 限制
+
+- 股票池為2026名單
+	- 集中版受存活偏誤最大
+- 2025–2026 為已用過的 holdout
+- 分天切換沒有歷史回測
+- 營收公布日假設11日
+
+## 舊正式策略：Mom20 定義
 
 設定檔：[production/strategy.json](../production/strategy.json)。
 
