@@ -7,7 +7,7 @@
 - K2：投信買超＋營收創新高
 	- 前 10 檔各 8.5%，其餘 12 檔各約 0.83%
 	- 新月營收公布後重篩
-- 第 13 日起排名前 6 → 換成 T2 鎖住
+- 第 13 日起連續 2 天組內前 6 → 換成 T2 鎖住
 	- T2：台積電 23.5%＋大型股投信買超
 	- 分天換倉，換完不再換回
 - 回滾設定：`production/strategy_mom20.json`、`production/strategy_k2_20.json`
@@ -34,13 +34,25 @@
 
 ## 每日提交
 
+首日 10/27（10/23、10/26 休市），隊號 `TEAM_11076`。
+
+1. T−1 19:00 後：後台下載 DataPack，放進 `production_runs/datapacks/`（不進 git）
+2. 看排行榜組內名次（每天都填，切換要用前一天名次）
+3. 19:30 到 T 日 08:55 之間執行：
+
 ```bash
-./run_daily.sh <T> --datapack <DataPack.json> --etf-holdings <etf_top15.csv> --rank <組內排名>
+./run_daily.sh <T> --datapack production_runs/datapacks/<DataPack>.json --rank <組內名次>
 ```
 
-- 05:00–08:55 上傳 D-Plan
-- 首日 10/26，隊號 `TEAM_11076`
-- **AS 官方算法未確認前，live 不會放行**
+4. 看到 `READY_TO_SUBMIT` → 上傳 `production_runs/<T>/D-Plan_TEAM_11076_<T>.json` 並送出
+
+- 程式自動抓：價格、法人買賣超、月營收、主動 ETF 前 10 大（MoneyDJ）
+- 送出前自動檢查後台每日項目
+	- 20–30 檔、150 檔標的池
+	- 現金 0–25%、交割金額不足
+	- 個股 ≤10%、台積電 ≤25%
+	- Active Share 最低值 ≥30% 才放行
+- 其他狀態：看 `production_runs/<T>/audit.md`
 - [怎麼跑](docs/how_to_run.md)、[規則與操作](docs/rules_v43.md)、[比賽規則](docs/task.md)
 
 ## 其他
