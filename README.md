@@ -47,6 +47,7 @@
 4. 看到 `READY_TO_SUBMIT` → 上傳 `production_runs/<T>/D-Plan_TEAM_11076_<T>.json` 並送出
 
 - 程式自動抓：價格、法人買賣超、月營收、主動 ETF 前 10 大（MoneyDJ）
+	- 你提供什麼、Agent 抓什麼、決策用什麼：[資料來源](docs/data_sources.md)
 - 送出前自動檢查後台每日項目
 	- 20–30 檔、150 檔標的池
 	- 現金 0–25%、交割金額不足
