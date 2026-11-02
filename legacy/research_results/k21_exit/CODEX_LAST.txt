@@ -1,0 +1,4 @@
+- **K2.1、K2.S 均為 STOP**，依規則保留 K2b。
+- 已處理 843 次；842 次完整，1 次提前失格，完整性驗收未通過。
+- K2b 281/281 完全一致；驗證問題 0，因果性檢查 42/42 通過。
+- 僅寫入允許路徑，未執行 Git 操作。詳見 [CODEX_REPORT.md](research/results/k21_exit/CODEX_REPORT.md)。

@@ -1,0 +1,1 @@
+Execute research/results/defensive/TASK_BRIEF.md exactly. The working directory is the worktree root. Do not change scope, strategy, or gates. Write only to allowed paths. Do not commit, push, branch, or merge. Save the result in research/results/defensive/CODEX_REPORT.md.

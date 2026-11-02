@@ -1,0 +1,6 @@
+已完成，報告存於 [CODEX_REPORT.md](research/results/defensive/CODEX_REPORT.md)。
+
+- 562/562 完成；K2b 281 個結果完全吻合。
+- 驗證問題 0；因果檢查 21/21 通過。
+- 決策 **STOP**：僅 G4 未通過，平均報酬差 −1.766pp。
+- Snapshot 未變；未 commit、push、branch 或 merge。

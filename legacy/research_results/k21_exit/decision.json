@@ -1,0 +1,114 @@
+{
+  "candidates": {
+    "K2.1": {
+      "gates": {
+        "G1": {
+          "passed": false,
+          "mean_paired_delta": -0.006978271002303009,
+          "minimum": 0.005
+        },
+        "G2": {
+          "passed": false,
+          "ci95": {
+            "lower": -0.011172099375998609,
+            "upper": -0.0030345143901729815,
+            "draws": 10000,
+            "seed": 0,
+            "blocks": 40,
+            "method": "calendar-quarter cluster bootstrap; pooled window mean; percentile 95%"
+          },
+          "lower_exclusive": 0
+        },
+        "G3": {
+          "passed": false,
+          "tail_edge": 0.012711864406779655,
+          "minimum": 0.06627118644067798,
+          "baseline_tail_edge": 0.07627118644067797
+        },
+        "G4": {
+          "passed": false,
+          "validation_mean_paired_delta": -0.009131707619438793,
+          "minimum_exclusive": 0
+        },
+        "G5": {
+          "passed": false,
+          "disqualifications": 1,
+          "warning_days": 3,
+          "maximum_warning_days": 0,
+          "verify_problem_count": 0
+        },
+        "G6": {
+          "passed": true,
+          "holdout_mean_paired_delta": 0.004895729429457057,
+          "minimum": -0.005
+        }
+      },
+      "failed_gates": [
+        "G1",
+        "G2",
+        "G3",
+        "G4",
+        "G5"
+      ],
+      "decision": "STOP",
+      "role": "primary"
+    },
+    "K2.S": {
+      "gates": {
+        "G1": {
+          "passed": false,
+          "mean_paired_delta": -0.0022053938560507133,
+          "minimum": 0.005
+        },
+        "G2": {
+          "passed": false,
+          "ci95": {
+            "lower": -0.0038696510960416998,
+            "upper": -0.0006054571087958293,
+            "draws": 10000,
+            "seed": 0,
+            "blocks": 40,
+            "method": "calendar-quarter cluster bootstrap; pooled window mean; percentile 95%"
+          },
+          "lower_exclusive": 0
+        },
+        "G3": {
+          "passed": false,
+          "tail_edge": 0.0423728813559322,
+          "minimum": 0.06627118644067798,
+          "baseline_tail_edge": 0.07627118644067797
+        },
+        "G4": {
+          "passed": false,
+          "validation_mean_paired_delta": -0.0037048462610111887,
+          "minimum_exclusive": 0
+        },
+        "G5": {
+          "passed": true,
+          "disqualifications": 0,
+          "warning_days": 0,
+          "maximum_warning_days": 0,
+          "verify_problem_count": 0
+        },
+        "G6": {
+          "passed": true,
+          "holdout_mean_paired_delta": -0.0007899875083026587,
+          "minimum": -0.005
+        }
+      },
+      "failed_gates": [
+        "G1",
+        "G2",
+        "G3",
+        "G4"
+      ],
+      "decision": "STOP",
+      "role": "secondary"
+    }
+  },
+  "primary_decision": "STOP",
+  "secondary_eligible_for_separate_user_decision": false,
+  "secondary_requires_multiplicity_disclosure": true,
+  "automatic_production_change": false,
+  "evidence_set": "all-236 for G1-G3/G5; validation for G4; holdout veto for G6"
+}

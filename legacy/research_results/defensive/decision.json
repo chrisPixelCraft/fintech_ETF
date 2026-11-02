@@ -1,0 +1,57 @@
+{
+  "candidate": "D",
+  "baseline": "K2b",
+  "decision": "STOP",
+  "gates": {
+    "G1": {
+      "passed": true,
+      "value": 0.06352706276999272,
+      "minimum": 0.02
+    },
+    "G2": {
+      "passed": true,
+      "ci95": {
+        "lower": 0.038401147699186934,
+        "upper": 0.08461603119788805,
+        "draws": 10000,
+        "seed": 0,
+        "blocks": 40,
+        "method": "paired calendar-quarter blocks of start; replacement; pooled windows; own worst ceil(10% of resampled count); percentile 95%"
+      },
+      "lower_exclusive": 0
+    },
+    "G3": {
+      "passed": true,
+      "value": 0.03642258315598315,
+      "minimum": 0.01
+    },
+    "G4": {
+      "passed": false,
+      "value": -0.017656260270286633,
+      "minimum": -0.01
+    },
+    "G5": {
+      "passed": true,
+      "value": 0.06265305175875391,
+      "minimum_exclusive": 0
+    },
+    "G6": {
+      "passed": true,
+      "disqualifications": 0,
+      "warning_days": 0,
+      "verify_problems": 0,
+      "maximum_each": 0
+    },
+    "G7": {
+      "passed": true,
+      "value": 0.06653051280701597,
+      "minimum": 0
+    }
+  },
+  "failed_gates": [
+    "G4"
+  ],
+  "automatic_production_change": false,
+  "evidence_sets": "G1-G4/G6: 236 dev+validation; G5: 70 validation; G7: 40 holdout",
+  "rule": "All seven pass => PASS, otherwise STOP; no parameter search"
+}

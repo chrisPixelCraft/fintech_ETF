@@ -14,6 +14,20 @@
 
 V1–V5 正式提交均為 `BLOCK_SUBMISSION`。規格／報告：[docs/README.md](docs/README.md)、[reports/](reports/)；v2 回放：[規則](docs/rules.md)、[資料](docs/data.md)。
 
+## 未採用的策略研究
+
+這些是 K2 之後測過、沒有進正式策略的研究，只留作證據。`production/` 和測試都不會讀取。
+
+| 研究 | 測什麼 | 結果 |
+|---|---|---|
+| [k21_exit](research_results/k21_exit/PREREGISTRATION.md) | • K2＋投信轉賣出場（K2.1）<br>• K2＋跌 10% 停損 | • 都 STOP<br>• K2.1 平均少 0.70pp |
+| [defensive](research_results/defensive/PREREGISTRATION.md) | • 低波動 22 檔＋約 19% 現金 | • STOP<br>• 最差 10% 改善 6.35pp<br>• 平均少 1.77pp |
+| [kt_hybrid](research_results/kt_hybrid/) | • K2 與 T2 混合 | • 未採用 |
+
+- 封存時只搬位置，未改內容
+- 重跑要先搬回 `research/results/`
+	- 程式用相對路徑讀其他研究
+
 ## V1–V5
 
 ### 目錄
