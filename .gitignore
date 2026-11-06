@@ -95,3 +95,6 @@ nohup.out
 
 # Production daily runs (inputs, raw official responses, D-Plans, audit); only reviewed summaries are committed
 /production_runs/
+
+# Portable data bundle for other devices (contains gitignored data)
+/fintech_etf_data_*.zip
